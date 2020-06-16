@@ -5,15 +5,9 @@ package com.cargoHub.neo4jGraph.model;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 
 @NodeEntity(value = "City")
@@ -25,6 +19,7 @@ public class Location implements Serializable {
     private String name;
     private double longitude;
     private double latitude;
+    //AvailableTransport availableTransport;
 
     public Location() {
     }
@@ -39,6 +34,13 @@ public class Location implements Serializable {
         this.longitude = longitude;
         this.latitude = latitude;
     }
+    /*public Location(Long id, String name, double longitude, double latitude, AvailableTransport availableTransport) {
+        this.id = id;
+        this.name = name;
+        //this.longitude = longitude;
+        //this.latitude = latitude;
+        //this.availableTransport = availableTransport;
+    }*/
 
     public Long getId() {
         return id;
@@ -72,33 +74,11 @@ public class Location implements Serializable {
         this.latitude = latitude;
     }
 
-    /*public Set<Location> getConnectedLocations() {
-        return connectedLocations;
+    /*public AvailableTransport getAvailableTransport() {
+        return availableTransport;
     }
 
-    public void setConnectedLocations(Set<Location> connectedLocations) {
-        this.connectedLocations = connectedLocations;
+    public void setAvailableTransport(AvailableTransport availableTransport) {
+        this.availableTransport = availableTransport;
     }*/
-
-    /**
-     * ToDo by MV: how to set several relationship types? As parameter -- kinda solution
-     * */
-    @Relationship(type = "AVIA", direction = Relationship.OUTGOING)
-    public Set<Location> connectedLocations;
-
-    public void connectedTo(Location connectedLocation) {
-        if (connectedLocations == null) {
-            connectedLocations = new HashSet<>();
-        }
-        connectedLocations.add(connectedLocation);
-    }
-
-    public String toString() {
-
-        return this.name + "Connected Locations => "
-                + Optional.ofNullable(this.connectedLocations).orElse(
-                Collections.emptySet()).stream()
-                .map(Location::getName)
-                .collect(Collectors.toList());
-    }
 }
