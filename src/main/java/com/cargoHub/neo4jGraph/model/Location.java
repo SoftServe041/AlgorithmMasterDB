@@ -7,8 +7,6 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 import java.io.Serializable;
-import java.util.Collection;
-
 
 @NodeEntity(value = "City")
 public class Location implements Serializable {
@@ -19,7 +17,6 @@ public class Location implements Serializable {
     private String name;
     private double longitude;
     private double latitude;
-    //AvailableTransport availableTransport;
 
     public Location() {
     }
@@ -34,13 +31,6 @@ public class Location implements Serializable {
         this.longitude = longitude;
         this.latitude = latitude;
     }
-    /*public Location(Long id, String name, double longitude, double latitude, AvailableTransport availableTransport) {
-        this.id = id;
-        this.name = name;
-        //this.longitude = longitude;
-        //this.latitude = latitude;
-        //this.availableTransport = availableTransport;
-    }*/
 
     public Long getId() {
         return id;
@@ -74,11 +64,4 @@ public class Location implements Serializable {
         this.latitude = latitude;
     }
 
-    /*public AvailableTransport getAvailableTransport() {
-        return availableTransport;
-    }
-
-    public void setAvailableTransport(AvailableTransport availableTransport) {
-        this.availableTransport = availableTransport;
-    }*/
 }

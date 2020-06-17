@@ -23,7 +23,7 @@ public class LocationService {
         return locationRepository.getAllRouts(departure, arrival);
     }
 
-    public void createNewCity(String newCity, String connectedCity) {
+    public void createNewCity(String newCity, String connectedCity) { // ToDo: check if location exists or not
         locationRepository.createNewHub(newCity, connectedCity);
         locationRepository.setGeoData(newCity);
     }
