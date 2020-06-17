@@ -1,6 +1,11 @@
 package com.cargoHub.neo4jGraph.model;
 
-public enum NodeRelation {
+import org.neo4j.ogm.annotation.RelationshipEntity;
 
-    TRUCK,
+@RelationshipEntity
+public class NodeRelation {
+
+    private String parameter;
+    private String type;
+
 }

@@ -3,6 +3,7 @@ package com.cargoHub.neo4jGraph.web;
 import com.cargoHub.neo4jGraph.ErrorHandler.HubNotFoundException;
 import com.cargoHub.neo4jGraph.model.Location;
 import com.cargoHub.neo4jGraph.model.HubRequest;
+
 import com.cargoHub.neo4jGraph.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,11 @@ public class NewHubController {
     private LocationService locationService;
     private Location locaton;
 
+    /*@GetMapping("/findroute")
+    public Stream<Location> getLocations(@RequestParam String departure, @RequestParam String arrival) {
+        return locationService.getRoutes(departure, arrival);
+    }*/
+
     @GetMapping("/{name}")
     public ResponseEntity<Location> getHubByName(@PathVariable String name) {
         try {
@@ -43,6 +49,7 @@ public class NewHubController {
     }
 
     @PostMapping("/create")
+    //@PostMapping
     public void postNewHub(@RequestBody HubRequest hubRequest) {
         locationService.createNewCity(hubRequest.getNewCity(), hubRequest.getConnectedCity());
     }

@@ -5,8 +5,11 @@ package com.cargoHub.neo4jGraph.model;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @NodeEntity(value = "City")
 public class Location implements Serializable {
@@ -17,6 +20,9 @@ public class Location implements Serializable {
     private String name;
     private double longitude;
     private double latitude;
+
+    @Relationship(type = "NEXT")
+    public List<Location> connectedLocations = new ArrayList<>();
 
     public Location() {
     }

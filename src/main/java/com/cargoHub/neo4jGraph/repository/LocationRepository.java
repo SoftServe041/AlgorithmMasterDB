@@ -1,25 +1,15 @@
 package com.cargoHub.neo4jGraph.repository;
 
 import com.cargoHub.neo4jGraph.model.Location;
+import com.cargoHub.neo4jGraph.model.Route;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
 public interface LocationRepository extends Neo4jRepository<Location, Long> {
-
-/**
- * Methods getAllRouts() returns all available routs in ascending order.
- * To avoid SOF pls limit the output. By default this limit value is set to 5.
- * */
-    @Query("MATCH (nod:City)\n" +
-            "MATCH ()-[rels:TRUCK]->()\n" +
-            "WITH collect(nod) as a, collect(rels) as b\n" +
-            "CALL apoc.export.json.data(a, b, null, {stream: true})\n" +
-            "YIELD file, nodes, relationships, properties, data\n" +
-            "RETURN file, nodes, relationships, properties, data")
-    Stream<Location> getAllRouts(String departure, String arrival);
 
 /**
  * Methods createNewHub() and setGeoData() form the query: create a hub and
@@ -36,6 +26,15 @@ public interface LocationRepository extends Neo4jRepository<Location, Long> {
             "SET a.latitude = location.latitude\n" +
             "SET a.longitude = location.longitude;")
     void setGeoData(String newCity);
+
+
+    /*ToDo by MV:
+    if a city already exists:
+    if (getHubByName(name1) != null) // what will be returned here?
+    "MATCH (a:City {name: $name1}), (b:City {name: $name2})\n" +
+    "CREATE (b) -[:NEXT]-> (a)\n" +
+    "CREATE (a) -[:NEXT]-> (b);"
+    after that >>> setGeoData();*/
 
 /**
  * This is to return list of all hubs.
