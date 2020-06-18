@@ -1,4 +1,4 @@
-package com.cargohub.entities;
+package com.cargohub.dto.jar;
 
 public enum PaymentStatus {
     PAID,

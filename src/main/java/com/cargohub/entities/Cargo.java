@@ -1,5 +1,7 @@
 package com.cargohub.entities;
 
+import com.cargohub.dto.jar.DeliveryStatus;
+import com.cargohub.dto.jar.PaymentStatus;
 import com.cargohub.entities.transports.Truck;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import javax.persistence.*;
 public class Cargo {
 
     @Id
+    @GeneratedValue
     Integer id;
 
     @Column

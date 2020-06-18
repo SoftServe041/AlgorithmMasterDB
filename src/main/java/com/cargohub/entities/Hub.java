@@ -1,14 +1,11 @@
 package com.cargohub.entities;
 
-import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.transports.Truck;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -18,6 +15,7 @@ import java.util.List;
 public class Hub {
 
     @Id
+    @GeneratedValue
     Integer id;
 
     @Column
@@ -27,7 +25,7 @@ public class Hub {
     List<Relation> relations;
 
     @OneToMany
-    List<Transporter> transporters;
+    List<Truck> transporters;
 
     @OneToMany
     List<Cargo> warehouse;

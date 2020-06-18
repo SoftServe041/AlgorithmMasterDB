@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Relation {
 
     @Id
+    @GeneratedValue
     Integer id;
 
     @Column

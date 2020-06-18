@@ -1,14 +1,10 @@
-package com.cargohub.entities;
+package com.cargohub.entities.transports;
 
-import com.cargohub.entities.transports.TransportType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -17,6 +13,7 @@ import javax.persistence.Id;
 public class TransportDetails {
 
     @Id
+    @GeneratedValue
     Integer id;
 
     @Column
