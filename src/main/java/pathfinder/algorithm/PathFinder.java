@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pathfinder.criteries.Distance;
 import pathfinder.entities.Hub;
 
 public class PathFinder {
@@ -59,6 +60,7 @@ public class PathFinder {
 	}
 
 	public static void main(String[] args) {
+		// PathFinder as abstract
 		PathFinder pathFinder = new PathFinder();
 		Hub hub1 = new Hub("Kharkiv");
 		hub1.addNeighbor("Kyiv", 987);
