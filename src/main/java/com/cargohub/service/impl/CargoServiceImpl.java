@@ -26,8 +26,10 @@ public class CargoServiceImpl implements CargoService {
 
     @Override
     public Cargo findById(Integer id) {
-        Cargo result;
-        result = repository.findById(id).orElseThrow(() -> new CargoException("Cargo not found"));
+        if (id == null) {
+            throw new CargoException("Illegal state for Cargo");
+        }
+        Cargo result = repository.findById(id).orElseThrow(() -> new CargoException("Cargo not found"));
         return result;
     }
 

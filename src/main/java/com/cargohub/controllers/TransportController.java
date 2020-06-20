@@ -1,9 +1,9 @@
 package com.cargohub.controllers;
 
-import com.cargohub.dto.TruckRequestDto;
+import com.cargohub.dto.TransporterRequestDto;
 import com.cargohub.entities.transports.TransportType;
-import com.cargohub.entities.transports.Truck;
-import com.cargohub.service.TruckService;
+import com.cargohub.entities.transports.Transporter;
+import com.cargohub.service.Transporterervice;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +19,18 @@ import java.util.Optional;
 public class TransportController {
 
     private final ModelMapper mapper;
-    private final TruckService service;
+    private final Transporterervice service;
 
-    public TransportController(ModelMapper mapper, TruckService service) {
+    public TransportController(ModelMapper mapper, Transporterervice service) {
         this.mapper = mapper;
         this.service = service;
     }
 
     @PostMapping
-    ResponseEntity<?> createTruck(@RequestBody TruckRequestDto truckRequestDto) {
+    ResponseEntity<?> createTruck(@RequestBody TransporterRequestDto transporterRequestDto) {
 
-        Truck truck = truckRequestDto.toTruck();
-        service.save(truck);
+        Transporter transporter = transporterRequestDto.toTruck();
+        service.save(transporter);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
