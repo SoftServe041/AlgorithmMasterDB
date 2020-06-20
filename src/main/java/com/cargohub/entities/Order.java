@@ -2,7 +2,6 @@ package com.cargohub.entities;
 
 
 import com.cargohub.dto.jar.DeliveryStatus;
-import com.cargohub.dto.jar.PaymentStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,10 +40,6 @@ public class Order {
 
     @OneToOne
     Cargo cargo;
-
-    @Column
-    @Enumerated
-    PaymentStatus paymentStatus;
 
     @Column
     @Enumerated

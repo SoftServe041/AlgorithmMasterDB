@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrderDto {
+public class OrderResponseDto {
     private String trackingId;
     private Double price;
     private Date estimatedDeliveryDate;
@@ -19,6 +19,5 @@ public class OrderDto {
     private Integer cargoWidth;
     private Integer cargoHeight;
     private Integer CargoLength;
-    private PaymentStatus paymentStatus;
     private DeliveryStatus deliveryStatus;
 }

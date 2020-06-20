@@ -1,5 +1,4 @@
 import com.cargohub.dto.jar.DeliveryStatus;
-import com.cargohub.dto.jar.PaymentStatus;
 import com.cargohub.entities.Cargo;
 import com.cargohub.entities.CargoPosition;
 import com.cargohub.exceptions.CargoException;
@@ -45,7 +44,6 @@ class CargoServiceImplTest {
         cargo.setCargoPosition(new CargoPosition());
         cargo.setDeliveryStatus(DeliveryStatus.PROCESSING);
         cargo.setFinalDestination("Rome");
-        cargo.setPaymentStatus(PaymentStatus.PAID);
         cargo.setWeight(1000d);
 
         page = new PageImpl(List.of(cargo));

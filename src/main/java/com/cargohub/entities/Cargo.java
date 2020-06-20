@@ -1,7 +1,6 @@
 package com.cargohub.entities;
 
 import com.cargohub.dto.jar.DeliveryStatus;
-import com.cargohub.dto.jar.PaymentStatus;
 import com.cargohub.entities.transports.Transporter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,9 +39,5 @@ public class Cargo {
     @Column
     @Enumerated
     DeliveryStatus deliveryStatus;
-
-    @Column
-    @Enumerated
-    PaymentStatus paymentStatus;
 
 }
