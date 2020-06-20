@@ -3,7 +3,7 @@ package com.cargohub.dto;
 import com.cargohub.entities.Hub;
 import com.cargohub.entities.transports.CarrierCompartment;
 import com.cargohub.entities.transports.TransportType;
-import com.cargohub.entities.transports.Truck;
+import com.cargohub.entities.transports.Transporter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,14 +15,14 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TruckRequestDto {
+public class TransporterRequestDto {
     private String hubName;
     private List<CarrierCompartmentRequestDto> compartments;
     @Enumerated
     private TransportType type;
 
-    public Truck toTruck() {
-        Truck truck = new Truck();
+    public Transporter toTruck() {
+        Transporter truck = new Transporter();
         List<CarrierCompartment> carrierCompartments = new ArrayList<>();
         for (CarrierCompartmentRequestDto dto : compartments) {
             carrierCompartments.add(dto.toCarrierCompartment());

@@ -9,11 +9,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@MappedSuperclass
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Transporter {
+public class Transporter {
 
     @Id
     @GeneratedValue
@@ -33,10 +33,9 @@ public abstract class Transporter {
     List<Hub> route;
 
     @Column
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     TransportType type;
 
     @Column
     TransporterStatus status;
-
 }
