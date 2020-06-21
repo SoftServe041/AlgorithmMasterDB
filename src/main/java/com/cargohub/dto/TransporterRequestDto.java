@@ -2,8 +2,8 @@ package com.cargohub.dto;
 
 import com.cargohub.entities.Hub;
 import com.cargohub.entities.transports.CarrierCompartment;
-import com.cargohub.entities.transports.TransportType;
 import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.transports.TransporterType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class TransporterRequestDto {
     private String hubName;
     private List<CarrierCompartmentRequestDto> compartments;
     @Enumerated
-    private TransportType type;
+    private TransporterType type;
 
     public Transporter toTruck() {
         Transporter truck = new Transporter();

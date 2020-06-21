@@ -1,5 +1,5 @@
 package com.cargohub.entities.transports;
 
-public enum TransportType {
+public enum TransporterType {
     TRUCK,
 }

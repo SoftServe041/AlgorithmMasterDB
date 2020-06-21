@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.http.HttpServletResponse;
-
 @EnableWebSecurity    // Enable security config. This annotation denotes config for spring security.
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     @Autowired

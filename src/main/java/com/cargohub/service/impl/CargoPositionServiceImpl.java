@@ -29,7 +29,6 @@ public class CargoPositionServiceImpl implements CargoPositionService {
         CargoPosition result;
         result = repository.findById(id).orElseThrow(() -> new CargoPositionException("CargoPosition not found"));
         return result;
-
     }
 
     @Override

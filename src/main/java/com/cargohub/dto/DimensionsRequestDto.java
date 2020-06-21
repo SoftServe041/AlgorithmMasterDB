@@ -19,7 +19,7 @@ public class DimensionsRequestDto {
         dimensions.setHeight(this.height);
         dimensions.setWidth(this.width);
         dimensions.setLength(this.length);
-        return  dimensions;
+        return dimensions;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.cargohub.dto;
 
-import com.cargohub.entities.transports.TransportType;
+import com.cargohub.entities.transports.TransporterType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import javax.persistence.Enumerated;
 @NoArgsConstructor
 public class TransportDetailsDto {
     @Enumerated
-    private TransportType type;
+    private TransporterType type;
     private Double averageSpeed;
     private Double prisePerKm;
 }

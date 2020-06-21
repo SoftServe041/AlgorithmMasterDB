@@ -16,7 +16,7 @@ import java.util.Date;
 @Table(name = "cargo_order")
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     //ToDo Generating rules discussing
@@ -33,15 +33,18 @@ public class Order {
     Date estimatedDeliveryDate;
 
     @OneToOne
+    @JoinColumn(name = "departure_hub_id")
     Hub departureHub;
 
     @OneToOne
+    @JoinColumn(name = "arrival_hub_id")
     Hub arrivalHub;
 
     @OneToOne
+    @JoinColumn(name = "cargo_id")
     Cargo cargo;
 
     @Column
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     DeliveryStatus deliveryStatus;
 }

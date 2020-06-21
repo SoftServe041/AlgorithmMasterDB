@@ -1,7 +1,7 @@
 package com.cargohub.entities;
 
 import com.cargohub.dto.jar.DeliveryStatus;
-import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.transports.CarrierCompartment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,20 +12,15 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "cargo")
 public class Cargo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     @Column
     Double weight;
-
-    @OneToOne
-    Dimensions dimensions;
-
-    @OneToOne
-    CargoPosition cargoPosition;
 
     @Column
     String startingDestination;
@@ -34,10 +29,21 @@ public class Cargo {
     String finalDestination;
 
     @OneToOne
-    Transporter transport;
+    @JoinColumn(name = "dimensions_id")
+    Dimensions dimensions;
+
+    @OneToOne
+    @JoinColumn(name = "cargo_position_id")
+    CargoPosition cargoPosition;
+
+    @ManyToOne
+    @JoinColumn(name = "carrier_compartment_id")
+    CarrierCompartment carrierCompartment;
+
+    @OneToOne
+    Order order;
 
     @Column
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     DeliveryStatus deliveryStatus;
-
 }

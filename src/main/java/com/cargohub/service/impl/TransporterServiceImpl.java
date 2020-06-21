@@ -4,7 +4,7 @@ import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
 import com.cargohub.entities.transports.CarrierCompartment;
 import com.cargohub.entities.transports.Transporter;
-import com.cargohub.exceptions.TruckException;
+import com.cargohub.exceptions.TransporterException;
 import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.repository.DimensionsRepository;
 import com.cargohub.repository.HubRepository;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TransportererviceImpl implements Transporterervice {
+public class TransporterServiceImpl implements Transporterervice {
 
     private final TransporterRepository repository;
     private final HubRepository hubRepository;
@@ -26,7 +26,7 @@ public class TransportererviceImpl implements Transporterervice {
     private final DimensionsRepository dimensionsRepository;
 
     @Autowired
-    public TransportererviceImpl(TransporterRepository repository, HubRepository hubRepository, CarrierCompartmentRepository carrierCompartmentRepository, DimensionsRepository dimensionsRepository) {
+    public TransporterServiceImpl(TransporterRepository repository, HubRepository hubRepository, CarrierCompartmentRepository carrierCompartmentRepository, DimensionsRepository dimensionsRepository) {
         this.repository = repository;
         this.hubRepository = hubRepository;
         this.carrierCompartmentRepository = carrierCompartmentRepository;
@@ -41,26 +41,26 @@ public class TransportererviceImpl implements Transporterervice {
     @Override
     public Transporter findById(Integer id) {
         Transporter result;
-        result = repository.findById(id).orElseThrow(() -> new TruckException("Transporter not found"));
+        result = repository.findById(id).orElseThrow(() -> new TransporterException("Transporter not found"));
         return result;
     }
 
     @Override
     public Transporter update(Transporter transporter) {
         if (transporter.getId() == null) {
-            throw new TruckException("Illegal state for Transporter");
+            throw new TransporterException("Illegal state for Transporter");
         }
         if (existsById(transporter.getId())) {
             return repository.save(transporter);
 
         }
-        throw new TruckException("Transporter not found");
+        throw new TransporterException("Transporter not found");
     }
 
     @Override
     public Transporter save(Transporter transporter) {
         if (transporter.getId() != null) {
-            throw new TruckException("Illegal state for Transporter");
+            throw new TransporterException("Illegal state for Transporter");
         }
         Dimensions dimensions = dimensionsRepository.save(transporter.getCompartments().get(0).getVolume());
         transporter.getCompartments().get(0).setVolume(dimensions);
@@ -82,6 +82,6 @@ public class TransportererviceImpl implements Transporterervice {
             repository.deleteById(id);
             return;
         }
-        throw new TruckException("Transporter not found");
+        throw new TransporterException("Transporter not found");
     }
 }

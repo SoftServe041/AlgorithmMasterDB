@@ -1,6 +1,5 @@
 package com.cargohub.entities.transports;
 
-import com.cargohub.entities.Cargo;
 import com.cargohub.entities.Hub;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,29 +12,31 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "transporter")
 public class Transporter {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "current_hub_id", referencedColumnName = "id")
     Hub currentHub;
-    //    All compartments are in rectangular coordinates.
-    //    Could be several carriages
+
     @OneToMany
     List<CarrierCompartment> compartments;
 
     @OneToMany
-    List<Cargo> cargos;
-
-    @OneToMany
+    @JoinTable(name = "transporter_route",
+            joinColumns = {@JoinColumn(name = "transporter_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "hub_id", referencedColumnName = "id")})
     List<Hub> route;
 
     @Column
     @Enumerated(EnumType.STRING)
-    TransportType type;
+    TransporterType type;
 
     @Column
+    @Enumerated(EnumType.STRING)
     TransporterStatus status;
 }
