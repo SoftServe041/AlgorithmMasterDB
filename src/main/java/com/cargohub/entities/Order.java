@@ -1,7 +1,7 @@
 package com.cargohub.entities;
 
 
-import com.cargohub.dto.jar.DeliveryStatus;
+import com.cargohub.entities.enums.DeliveryStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

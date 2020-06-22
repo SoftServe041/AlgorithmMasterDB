@@ -23,7 +23,7 @@ public class Transporter {
     @JoinColumn(name = "current_hub_id", referencedColumnName = "id")
     Hub currentHub;
 
-    @OneToMany
+    @OneToMany(mappedBy = "transporter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<CarrierCompartment> compartments;
 
     @OneToMany

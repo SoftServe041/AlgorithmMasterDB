@@ -51,7 +51,7 @@ CREATE TABLE `carrier_compartment` (
   `maximum_weight` double NOT NULL,
   `free_space` double NOT NULL DEFAULT 100.0,
   `volume_id` integer NOT NULL,
-  `transporter_id` integer NOT NULL,
+  `transporter_id` integer,
   PRIMARY KEY (`id`),
   KEY `FK_carrier_compartment_dimensions` (`volume_id`),
   KEY `FK_carrier_compartment_transporter` (`transporter_id`),

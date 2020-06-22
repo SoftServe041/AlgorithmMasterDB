@@ -1,4 +1,4 @@
-package com.cargohub.dto.jar;
+package com.cargohub.entities.enums;
 
 public enum DeliveryStatus {
     ON_THE_WAY,

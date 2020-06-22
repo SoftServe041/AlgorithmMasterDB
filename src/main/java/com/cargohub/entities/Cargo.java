@@ -1,6 +1,6 @@
 package com.cargohub.entities;
 
-import com.cargohub.dto.jar.DeliveryStatus;
+import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.entities.transports.CarrierCompartment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

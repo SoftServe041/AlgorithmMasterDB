@@ -4,6 +4,8 @@ import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
 import com.cargohub.entities.transports.CarrierCompartment;
 import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.transports.TransporterStatus;
+import com.cargohub.exceptions.HubException;
 import com.cargohub.exceptions.TransporterException;
 import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.repository.DimensionsRepository;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,6 +54,34 @@ public class TransporterServiceImpl implements Transporterervice {
             throw new TransporterException("Illegal state for Transporter");
         }
         if (existsById(transporter.getId())) {
+            Transporter existing = repository.findById(transporter.getId()).get();
+            Hub hub = hubRepository.findByName(transporter.getCurrentHub().getName()).orElseThrow(
+                    () -> new HubException("Hub not found by name: " + transporter.getCurrentHub().getName()));
+            transporter.setCurrentHub(hub);
+            int existingCompartmentsSize = existing.getCompartments().size();
+            int currentCompartmentsSize = transporter.getCompartments().size();
+            if (existingCompartmentsSize != currentCompartmentsSize) {
+                if (existingCompartmentsSize < currentCompartmentsSize) {
+                    for (int i = 0; i < existingCompartmentsSize; i++) {
+                        existing.getCompartments().set(i, transporter.getCompartments().get(i));
+                    }
+                    for (int i = 0; i < currentCompartmentsSize - existingCompartmentsSize; i++) {
+                        existing.getCompartments().add(transporter.getCompartments().get(existingCompartmentsSize + i));
+                    }
+                } else {
+                    List<CarrierCompartment> newCompartments = new ArrayList<>();
+                    for (int i = 0; i < currentCompartmentsSize; i++) {
+                        transporter.getCompartments().get(i).setId(existing.getCompartments().get(i).getId());
+                        newCompartments.add(transporter.getCompartments().get(i));
+                    }
+                    transporter.setCompartments(newCompartments);
+                }
+            }
+            transporter.setStatus(existing.getStatus());
+            transporter.setRoute(existing.getRoute());
+            for (CarrierCompartment c : transporter.getCompartments()) {
+                carrierCompartmentRepository.save(c);
+            }
             return repository.save(transporter);
 
         }
@@ -62,13 +93,22 @@ public class TransporterServiceImpl implements Transporterervice {
         if (transporter.getId() != null) {
             throw new TransporterException("Illegal state for Transporter");
         }
-        Dimensions dimensions = dimensionsRepository.save(transporter.getCompartments().get(0).getVolume());
-        transporter.getCompartments().get(0).setVolume(dimensions);
-        CarrierCompartment carrierCompartment = carrierCompartmentRepository.save(transporter.getCompartments().get(0));
-        Hub hub = hubRepository.save(transporter.getCurrentHub());
+        for (CarrierCompartment compartment : transporter.getCompartments()) {
+            Dimensions dimensions = dimensionsRepository.save(compartment.getVolume());
+            compartment.setVolume(dimensions);
+            compartment.setFreeSpace(100d);
+            compartment = carrierCompartmentRepository.save(compartment);
+        }
+        Hub hub = hubRepository.findByName(transporter.getCurrentHub().getName()).orElseThrow(
+                () -> new HubException("Hub not found by name: " + transporter.getCurrentHub().getName()));
         transporter.setCurrentHub(hub);
-        transporter.setCompartments(List.of(carrierCompartment));
-        return repository.save(transporter);
+        transporter.setStatus(TransporterStatus.WAITING);
+        Transporter result = repository.save(transporter);
+        for (CarrierCompartment compartment : transporter.getCompartments()) {
+            compartment.setTransporter(result);
+            carrierCompartmentRepository.save(compartment);
+        }
+        return result;
     }
 
     @Override

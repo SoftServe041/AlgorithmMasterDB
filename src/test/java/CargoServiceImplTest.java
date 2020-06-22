@@ -1,6 +1,7 @@
-import com.cargohub.dto.jar.DeliveryStatus;
+
 import com.cargohub.entities.Cargo;
 import com.cargohub.entities.CargoPosition;
+import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.exceptions.CargoException;
 import com.cargohub.repository.CargoRepository;
 import com.cargohub.service.impl.CargoServiceImpl;

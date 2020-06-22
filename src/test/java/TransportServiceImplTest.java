@@ -74,6 +74,7 @@ class TransportServiceImplTest {
     void create() {
         subject.setId(null);
         when(repository.save(nullable(Transporter.class))).thenReturn(subject);
+        when(hubRepository.findByName(nullable(String.class))).thenReturn(Optional.of(subject.getCurrentHub()));
         when(carrierCompartmentRepository.save(nullable(CarrierCompartment.class))).thenReturn(subject.getCompartments().get(0));
         ArgumentCaptor<Transporter> captor = ArgumentCaptor.forClass(Transporter.class);
         Transporter returned = service.save(subject);
@@ -110,7 +111,9 @@ class TransportServiceImplTest {
     @Test
     void update() {
         when(repository.save(nullable(Transporter.class))).thenReturn(subject);
+        when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         when(repository.existsById(nullable(Integer.class))).thenReturn(true);
+        when(hubRepository.findByName(nullable(String.class))).thenReturn(Optional.of(subject.getCurrentHub()));
         ArgumentCaptor<Transporter> captor = ArgumentCaptor.forClass(Transporter.class);
         Transporter returned = service.update(subject);
         verify(repository).save(captor.capture());
