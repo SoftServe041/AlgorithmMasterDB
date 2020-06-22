@@ -2,9 +2,10 @@ package cargoloader;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class Box implements Comparable<Box> {
+public class Box {
 	// id of the box
 	int id;
 
@@ -88,14 +89,15 @@ public class Box implements Comparable<Box> {
 		return destination;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "Box [id=" + id + ", width=" + width + ", depth=" + depth + ", height=" + height + ", widthInCells="
+//				+ widthInCells + ", depthInCells=" + depthInCells + ", heightInCells=" + heightInCells + ", weight="
+//				+ weight + ", volume=" + volume + ", fragility=" + fragility + ", destination=" + destination + "]";
+//	}
+
 	@Override
 	public String toString() {
-		return "Box [id=" + id + ", width=" + width + ", depth=" + depth + ", height=" + height + ", widthInCells="
-				+ widthInCells + ", depthInCells=" + depthInCells + ", heightInCells=" + heightInCells + ", weight="
-				+ weight + ", volume=" + volume + ", fragility=" + fragility + ", destination=" + destination + "]";
-	}
-
-	public int compareTo(Box box) {
-		return this.getFragility() - box.getFragility();
+		return "Fragility=" + getFragility() + " ,volume=" + getVolume();
 	}
 }
