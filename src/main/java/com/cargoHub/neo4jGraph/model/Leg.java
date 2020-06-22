@@ -1,51 +1,25 @@
 package com.cargoHub.neo4jGraph.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
+
+import java.util.Collection;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@NodeEntity
 public class Leg {
 
+    @Property
     private Location departure;
+    @Property
     private Location arrival;
-    private NodeRelation type;
+    @Relationship(type = "NEXT")
+    Collection<Leg> legs;
     private double distance;
-
-    public Leg() {
-    }
-
-    public Leg(Location departure, Location arrival, NodeRelation type, double distance) {
-        this.departure = departure;
-        this.arrival = arrival;
-        this.type = type;
-        this.distance = distance;
-    }
-
-    public Location getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(Location departure) {
-        this.departure = departure;
-    }
-
-    public Location getArrival() {
-        return arrival;
-    }
-
-    public void setArrival(Location arrival) {
-        this.arrival = arrival;
-    }
-
-    public NodeRelation getType() {
-        return type;
-    }
-
-    public void setType(NodeRelation type) {
-        this.type = type;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
 }

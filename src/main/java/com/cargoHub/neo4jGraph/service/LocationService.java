@@ -6,13 +6,7 @@ import com.cargoHub.neo4jGraph.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
-
-import static org.neo4j.ogm.session.Utils.map;
 
 @Service
 public class LocationService {
@@ -24,8 +18,8 @@ public class LocationService {
         return locationRepository.getAllLocations();
     }
 
-    public void createNewCity(String newCity, String connectedCity) { // ToDo by MV: check if location exists or not
-        locationRepository.createNewHub(newCity, connectedCity);
+    public void createNewCity(String newCity) {
+        locationRepository.createNewHub(newCity);
         locationRepository.setGeoData(newCity);
     }
 

@@ -86,6 +86,12 @@
 			<artifactId>spring-boot-starter-data-neo4j</artifactId>
 		</dependency>
 
+		<!--<dependency>
+			<groupId>org.neo4j.springframework.data</groupId>
+			<artifactId>spring-data-neo4j-rx-spring-boot-starter</artifactId>
+			<version>1.1.0</version>
+		</dependency>-->
+
 		<dependency>
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j-ogm-bolt-driver</artifactId>
@@ -107,6 +113,33 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+
+		<!--		&lt;!&ndash; https://mvnrepository.com/artifact/io.github.classgraph/classgraph &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>io.github.classgraph</groupId>-->
+<!--			<artifactId>classgraph</artifactId>-->
+<!--			<version>4.8.86</version>-->
+<!--		</dependency>-->
+<!--		-->
+<!--		&lt;!&ndash; https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>com.fasterxml.jackson.core</groupId>-->
+<!--			<artifactId>jackson-databind</artifactId>-->
+<!--			<version>2.11.0</version>-->
+<!--		</dependency>-->
+
+
+
 	</dependencies>
 
 	<build>
