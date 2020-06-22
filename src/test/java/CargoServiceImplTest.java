@@ -55,6 +55,7 @@ class CargoServiceImplTest {
     @Test
     void createCargo() {
         cargo.setId(null);
+
         when(cargoRepository.save(nullable(Cargo.class))).thenReturn(cargo);
         ArgumentCaptor<Cargo> captor = ArgumentCaptor.forClass(Cargo.class);
         Cargo returned = cargoService.save(cargo);

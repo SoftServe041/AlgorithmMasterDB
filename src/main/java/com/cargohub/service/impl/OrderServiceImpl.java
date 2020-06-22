@@ -1,5 +1,6 @@
 package com.cargohub.service.impl;
 
+import com.cargohub.dto.jar.ResponseOrderDto;
 import com.cargohub.entities.Order;
 import com.cargohub.exceptions.OrderException;
 import com.cargohub.repository.OrderRepository;
@@ -29,6 +30,16 @@ public class OrderServiceImpl implements OrderService {
         Order result;
         result = repository.findById(id).orElseThrow(() -> new OrderException("Order not found"));
         return result;
+    }
+
+    @Override
+    public Page<Order> findAllByUserId(Integer id, Pageable pageable) {
+
+        Page<Order> orderPage= repository.findAllByUserId(id, pageable);
+        if(orderPage.isEmpty()){
+            throw new OrderException("No record found");
+        }
+        return orderPage;
     }
 
     @Override

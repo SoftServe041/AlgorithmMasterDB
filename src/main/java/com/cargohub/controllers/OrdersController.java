@@ -1,11 +1,15 @@
 package com.cargohub.controllers;
 
-import com.cargohub.dto.jar.OrderDto;
+import com.cargohub.dto.jar.RequestOrderDto;
+import com.cargohub.dto.jar.ResponseOrderDto;
 import com.cargohub.entities.Order;
 import com.cargohub.models.OrderModel;
 import com.cargohub.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,22 +27,27 @@ public class OrdersController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/")
-    public ResponseEntity makeOrder(@RequestBody OrderModel ordersModel) {
-        OrderDto ordersDto = modelMapper.map(ordersModel, OrderDto.class);
+    @PostMapping("/{id}")
+    public ResponseEntity makeOrder(@RequestBody OrderModel ordersModel,
+                                    @PathVariable Integer id) {
+        RequestOrderDto ordersDto = modelMapper.map(ordersModel, RequestOrderDto.class);
         ordersDto.setTrackingId(generateTrackingId(
                 ordersDto.getDepartureHub(),
                 ordersDto.getArrivalHub(),
-                ordersDto.getUserId()));
+                id));
 
         Order orderEntity = modelMapper.map(ordersDto,Order.class);
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/PROFILE_PAGE", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getOrders(@RequestParam(value = "usedId", defaultValue = "a") int id) {
+    @GetMapping(path = "/{id}/profile", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Page<ResponseOrderDto> getOrders(@RequestParam(value = "page", defaultValue = "0") int page,
+                                            @RequestParam(value = "limit", defaultValue = "5") int limit,
+                                            @PathVariable Integer id) {
 
+        Pageable pageableRequest = PageRequest.of(page, limit);
+        return orderService.findAllByUserId(id, pageableRequest).map(ResponseOrderDto::orderToResponseOrderDto);
     }
 
     private String generateTrackingId(String firstCity, String secondCity, long id) {
