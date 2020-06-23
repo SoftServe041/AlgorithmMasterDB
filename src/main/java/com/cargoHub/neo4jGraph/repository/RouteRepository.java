@@ -1,6 +1,7 @@
 package com.cargoHub.neo4jGraph.repository;
 
 import com.cargoHub.neo4jGraph.model.Location;
+import com.cargoHub.neo4jGraph.model.NodeRelation;
 import com.cargoHub.neo4jGraph.model.Route;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,8 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface RouteRepository extends Neo4jRepository<Route, Long> {
 
@@ -24,38 +27,45 @@ public interface RouteRepository extends Neo4jRepository<Route, Long> {
             "MATCH p=(a)-[*]->(b)\n" +
             "WITH collect(p) as paths\n" +
             "CALL apoc.spatial.sortByDistance(paths) YIELD path, distance\n" +
-            "RETURN path, distance LIMIT 5")
+            "RETURN path as path, distance as distance LIMIT 5")
     List<RouteData> getAllRoutes(String departure, String arrival);
 
     //List<NodeRelation> findAllNodeRelations();
 
-
-
-
-    //Map<String, Object> getAllRoutes(String departure, String arrival);
-
-    /*@QueryResult
+    @QueryResult
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public class RouteData {
-        public Path path;
+        public Object[] path;
         public double distance;
     }
-
+    /*@QueryResult
     @Data
     @AllArgsConstructor
     public class Path{
         public Location start;
         public Location end;
-        public List<Location> segments;
-        public int length;
+        public SegmentObject segments;
     }
-
+    @QueryResult
+    @Data
+    @AllArgsConstructor
     public class SegmentObject {
-        public NodeModel start;
-        public NodeModel end;
-        public RelationshipModel relationship;
+        public Location start;
+        public Location end;
+        public NodeRelation relationship;
+    }*/
+    /*@QueryResult
+    @Data
+    @AllArgsConstructor
+    public class LocationNode {
+        public long identity;
+        public String[] labels;
+        public Location properties;
     }*/
 
-    @QueryResult
+    /*@QueryResult
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -100,5 +110,5 @@ public interface RouteRepository extends Neo4jRepository<Route, Long> {
         public int end;
         public String type;
         public Iterable<Object> properties;
-    }
+    }*/
 }

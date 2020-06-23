@@ -54,6 +54,17 @@
 		</dependency>
 
 	</dependencies>
+	<!--<dependencyManagement>
+		<dependencies>
+			&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.data/spring-data-releasetrain &ndash;&gt;
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-releasetrain</artifactId>
+				<version>Neumann-SR1</version>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>-->
 
 	<build>
 		<plugins>

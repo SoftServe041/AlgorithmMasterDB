@@ -17,7 +17,7 @@ public class Route {
 
     private Location departure;
     private Location arrival;
-    Map<String, Object> details;
-    @Relationship
-    Collection<Leg> legs;
+    //Map<String, Object> details;
+    @Relationship (type = "NEXT")
+    Collection<NodeRelation> relations;
 }

@@ -18,7 +18,7 @@ public class RouteController {
     @Autowired
     private RouteService routeService;
 
-    @GetMapping("/{departure}-{arrival}")
+    @GetMapping("/{departure}/{arrival}")
     public ResponseEntity<List<RouteRepository.RouteData>> getRoute(@PathVariable String departure, @PathVariable String arrival) {
         return ResponseEntity.ok(routeService.getRoute(departure, arrival));
     }
