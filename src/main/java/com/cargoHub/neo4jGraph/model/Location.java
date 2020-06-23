@@ -9,6 +9,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 
 @Data
@@ -23,4 +24,5 @@ public class Location implements Serializable {
     private String name;
     private double longitude;
     private double latitude;
+    private List<Location> connectedLocations;
 }

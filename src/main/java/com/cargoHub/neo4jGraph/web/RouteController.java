@@ -20,7 +20,6 @@ public class RouteController {
 
     @GetMapping("/{departure}-{arrival}")
     public ResponseEntity<List<RouteRepository.RouteData>> getRoute(@PathVariable String departure, @PathVariable String arrival) {
-        List<RouteRepository.RouteData> result = routeService.getRoute(departure, arrival);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(routeService.getRoute(departure, arrival));
     }
 }

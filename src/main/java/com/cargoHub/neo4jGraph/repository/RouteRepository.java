@@ -5,6 +5,9 @@ import com.cargoHub.neo4jGraph.model.Route;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.response.model.NodeModel;
+import org.neo4j.ogm.response.model.RelationshipModel;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.annotation.QueryResult;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
@@ -37,10 +40,12 @@ public interface RouteRepository extends Neo4jRepository<Route, Long> {
         public double distance;
     }
 
+    @Data
+    @AllArgsConstructor
     public class Path{
-        public NodeModel start;
-        public NodeModel end;
-        public List<SegmentObject> segments;
+        public Location start;
+        public Location end;
+        public List<Location> segments;
         public int length;
     }
 
@@ -63,9 +68,9 @@ public interface RouteRepository extends Neo4jRepository<Route, Long> {
     @NoArgsConstructor
     @AllArgsConstructor
     public class Path{
-        public NodeObject start;
-        public NodeObject end;
-        public Iterable<SegmentObject> segments;
+        public NodeModel start;
+        public NodeModel end;
+        public Iterable<NodeModel> segments;
     }
 
     @Data
