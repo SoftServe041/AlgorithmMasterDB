@@ -1,26 +1,19 @@
-package com.cargoHub.neo4jGraph.web;
+package com.cargohub.neo4jGraph.web;
 
-import com.cargoHub.neo4jGraph.ErrorHandler.HubNotFoundException;
-import com.cargoHub.neo4jGraph.model.Location;
-import com.cargoHub.neo4jGraph.model.HubRequest;
-import com.cargoHub.neo4jGraph.service.LocationService;
+import com.cargohub.neo4jGraph.ErrorHandler.HubNotFoundException;
+import com.cargohub.neo4jGraph.model.HubRequest;
+import com.cargohub.neo4jGraph.model.Location;
+import com.cargohub.neo4jGraph.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/location")
+@CrossOrigin(origins = "*")
 public class NewHubController {
 
     @Autowired
@@ -48,7 +41,7 @@ public class NewHubController {
     }
 
     @PatchMapping("/{name}")
-    public void updateHub(@PathVariable String name, @RequestParam String newName){
+    public void updateHub(@PathVariable String name, @RequestParam String newName) {
         locationService.modifyCity(name, newName);
     }
 

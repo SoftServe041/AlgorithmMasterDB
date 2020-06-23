@@ -1,8 +1,8 @@
-package com.cargoHub.neo4jGraph.service;
+package com.cargohub.neo4jGraph.service;
 
-import com.cargoHub.neo4jGraph.ErrorHandler.HubNotFoundException;
-import com.cargoHub.neo4jGraph.model.Location;
-import com.cargoHub.neo4jGraph.repository.LocationRepository;
+import com.cargohub.neo4jGraph.ErrorHandler.HubNotFoundException;
+import com.cargohub.neo4jGraph.model.Location;
+import com.cargohub.neo4jGraph.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +31,14 @@ public class LocationService {
     public Location searchHubByName(String name) {
 
         Location result = locationRepository.getHubByName(name);
-        if(result == null) {
+        if (result == null) {
             throw new HubNotFoundException("There is no hub with the name: " + name);
         }
         return result;
     }
 
     public void modifyCity(String name, String newName) {
-        if(locationRepository.getHubByName(name) == null) {
+        if (locationRepository.getHubByName(name) == null) {
             throw new HubNotFoundException("There is no hub with the name: " + name);
         }
         locationRepository.updateHub(name, newName);

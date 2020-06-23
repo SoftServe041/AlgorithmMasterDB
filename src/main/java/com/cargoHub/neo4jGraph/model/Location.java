@@ -1,5 +1,4 @@
-package com.cargoHub.neo4jGraph.model;
-
+package com.cargohub.neo4jGraph.model;
 
 
 import org.neo4j.ogm.annotation.GeneratedValue;

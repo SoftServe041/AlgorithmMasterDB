@@ -1,4 +1,4 @@
-package com.cargoHub.neo4jGraph.model;
+package com.cargohub.neo4jGraph.model;
 
 import java.util.List;
 

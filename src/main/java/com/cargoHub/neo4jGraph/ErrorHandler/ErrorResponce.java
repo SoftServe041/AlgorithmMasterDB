@@ -1,4 +1,4 @@
-package com.cargoHub.neo4jGraph.ErrorHandler;
+package com.cargohub.neo4jGraph.ErrorHandler;
 
 public class ErrorResponce {
 
