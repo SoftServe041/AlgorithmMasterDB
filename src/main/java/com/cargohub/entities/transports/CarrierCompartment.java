@@ -45,8 +45,7 @@ public class CarrierCompartment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarrierCompartment that = (CarrierCompartment) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(maximumWeight, that.maximumWeight) &&
+        return Objects.equals(maximumWeight, that.maximumWeight) &&
                 Objects.equals(volume, that.volume);
     }
 }

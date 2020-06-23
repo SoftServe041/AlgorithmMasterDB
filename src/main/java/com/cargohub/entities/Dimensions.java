@@ -32,14 +32,13 @@ public class Dimensions {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dimensions that = (Dimensions) o;
-        return id.equals(that.id) &&
-                width.equals(that.width) &&
+        return  width.equals(that.width) &&
                 height.equals(that.height) &&
                 length.equals(that.length);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, width, height, length);
+        return Objects.hash(width, height, length);
     }
 }
