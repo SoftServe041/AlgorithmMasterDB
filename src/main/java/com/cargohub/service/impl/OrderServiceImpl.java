@@ -3,6 +3,8 @@ package com.cargohub.service.impl;
 import com.cargohub.dto.jar.ResponseOrderDto;
 import com.cargohub.entities.Order;
 import com.cargohub.exceptions.OrderException;
+import com.cargohub.repository.CargoRepository;
+import com.cargohub.repository.HubRepository;
 import com.cargohub.repository.OrderRepository;
 import com.cargohub.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,14 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository repository;
+    private final CargoRepository cargoRepository;
+    private final HubRepository hubRepository;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository repository) {
+    public OrderServiceImpl(OrderRepository repository, CargoRepository cargoRepository, HubRepository hubRepository) {
         this.repository = repository;
+        this.cargoRepository = cargoRepository;
+        this.hubRepository = hubRepository;
     }
 
     @Override
@@ -58,6 +64,9 @@ public class OrderServiceImpl implements OrderService {
         if (order.getId() != null) {
             throw new OrderException("Illegal state for Order");
         }
+        cargoRepository.save(order.getCargo());
+        hubRepository.save(order.getArrivalHub());
+        hubRepository.save(order.getDepartureHub());
         return repository.save(order);
     }
 

@@ -18,17 +18,13 @@ public class ResponseOrderDto {
     private String departureHub;
     private String arrivalHub;
     private Double cargoWeight;
-    //private Integer cargoWidth;
-   //private Integer cargoHeight;
-    //private Integer CargoLength;
-    //private PaymentStatus paymentStatus;
-    private DeliveryStatus deliveryStatus;
+    //private DeliveryStatus deliveryStatus;
     
     public static ResponseOrderDto orderToResponseOrderDto(Order order){
         ResponseOrderDto rod = new ResponseOrderDto();
-        rod.setArrivalHub(order.getArrivalHub().toString());
-        rod.setDepartureHub(order.getDepartureHub().toString());
-        rod.setDeliveryStatus(order.getDeliveryStatus());
+        rod.setArrivalHub(order.getArrivalHub().getName());
+        rod.setDepartureHub(order.getDepartureHub().getName());
+       // rod.setDeliveryStatus(order.getDeliveryStatus());
         rod.setEstimatedDeliveryDate(order.getEstimatedDeliveryDate());
         rod.setTrackingId(order.getTrackingId());
         rod.setPrice(order.getPrice());

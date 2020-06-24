@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -28,6 +29,9 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
@@ -63,8 +67,23 @@ public class OrderServiceIntegrationTest {
     @Test
     void createOrder() throws Exception {
         order.setId(null);
-        mvc.perform(get(""));
-        assertEquals(returned.getUserId(), order.getUserId());
+
+        mvc.perform(post("/13")
+                .param("trackingId","12332332")
+                .param("price","123232")
+                .param("estimatedDeliveryDate","2020.04.14")
+                .param("departureHub","A")
+                .param("arrivalHub","B")
+                .param("cargo","20")
+                .param("paymentStatus","PAID")
+                .param("deliveryStatus","PROCESSING")
+                .param("cargoWeight","20")
+                .param("cargoWidth","12")
+                .param("cargoHeight","13")
+                .param("CargoLength","14"))
+                .andExpect(status().is2xxSuccessful());
+
+
     }
 
 

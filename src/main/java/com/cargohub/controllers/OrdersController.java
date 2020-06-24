@@ -28,15 +28,17 @@ public class OrdersController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity makeOrder(@RequestBody OrderModel ordersModel,
+    public ResponseEntity makeOrder(@RequestBody RequestOrderDto requestOrderDto,
                                     @PathVariable Integer id) {
-        RequestOrderDto ordersDto = modelMapper.map(ordersModel, RequestOrderDto.class);
-        ordersDto.setTrackingId(generateTrackingId(
-                ordersDto.getDepartureHub(),
-                ordersDto.getArrivalHub(),
+        //RequestOrderDto ordersDto = modelMapper.map(ordersModel, RequestOrderDto.class);
+
+        requestOrderDto.setTrackingId(generateTrackingId(
+                requestOrderDto.getDepartureHub(),
+                requestOrderDto.getArrivalHub(),
                 id));
 
-        Order orderEntity = modelMapper.map(ordersDto,Order.class);
+        Order orderEntity = RequestOrderDto.reqOrderToEntity(requestOrderDto);
+        orderEntity.setUserId(id);
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
     }
