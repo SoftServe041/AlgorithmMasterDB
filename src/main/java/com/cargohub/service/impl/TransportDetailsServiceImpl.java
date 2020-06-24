@@ -1,6 +1,7 @@
 package com.cargohub.service.impl;
 
 import com.cargohub.entities.transports.TransportDetails;
+import com.cargohub.entities.transports.TransporterType;
 import com.cargohub.exceptions.TransportDetailsException;
 import com.cargohub.repository.TransportDetailsRepository;
 import com.cargohub.service.TransportDetailsService;
@@ -28,6 +29,13 @@ public class TransportDetailsServiceImpl implements TransportDetailsService {
     public TransportDetails findById(Integer id) {
         TransportDetails result;
         result = repository.findById(id).orElseThrow(() -> new TransportDetailsException("TransportDetails not found"));
+        return result;
+    }
+
+    @Override
+    public TransportDetails findByType(TransporterType type) {
+        TransportDetails result;
+        result = repository.findByType(type).orElseThrow(() -> new TransportDetailsException("TransportDetails not found"));
         return result;
     }
 

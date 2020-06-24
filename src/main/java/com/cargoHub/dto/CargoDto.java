@@ -10,6 +10,6 @@ import lombok.Setter;
 public class CargoDto {
 
     Double weight;
-    DimensionsRequestDto dimensions;
+    DimensionsDto dimensions;
 
 }

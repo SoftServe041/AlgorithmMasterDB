@@ -1,7 +1,7 @@
-import com.cargohub.dto.jar.DeliveryStatus;
-import com.cargohub.dto.jar.PaymentStatus;
+
 import com.cargohub.entities.Cargo;
 import com.cargohub.entities.CargoPosition;
+import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.exceptions.CargoException;
 import com.cargohub.repository.CargoRepository;
 import com.cargohub.service.impl.CargoServiceImpl;
@@ -33,100 +33,98 @@ class CargoServiceImplTest {
     @Mock
     CargoRepository cargoRepository;
 
-    Cargo cargo;
+    Cargo subject;
     Page<Cargo> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        cargo = new Cargo();
-        cargo.setId(9992);
-        cargo.setCargoPosition(new CargoPosition());
-        cargo.setDeliveryStatus(DeliveryStatus.PROCESSING);
-        cargo.setFinalDestination("Rome");
-        cargo.setPaymentStatus(PaymentStatus.PAID);
-        cargo.setWeight(1000d);
+        subject = new Cargo();
+        subject.setId(9992);
+        subject.setCargoPosition(new CargoPosition());
+        subject.setDeliveryStatus(DeliveryStatus.PROCESSING);
+        subject.setFinalDestination("Rome");
+        subject.setWeight(1000d);
 
-        page = new PageImpl(List.of(cargo));
+        page = new PageImpl(List.of(subject));
         pageable = PageRequest.of(0, 10);
     }
 
     @Test
-    void createCargo() {
-        cargo.setId(null);
-
-        when(cargoRepository.save(nullable(Cargo.class))).thenReturn(cargo);
+    void create() {
+        subject.setId(null);
+        when(cargoRepository.save(nullable(Cargo.class))).thenReturn(subject);
         ArgumentCaptor<Cargo> captor = ArgumentCaptor.forClass(Cargo.class);
-        Cargo returned = cargoService.save(cargo);
+        Cargo returned = cargoService.save(subject);
         verify(cargoRepository).save(captor.capture());
         Cargo used = captor.getValue();
-        assertThat(used, is(cargo));
-        assertThat(returned, is(cargo));
+        assertThat(used, is(subject));
+        assertThat(returned, is(subject));
     }
 
     @Test
-    void createCargoThrowsCargoException() {
-        assertThrows(CargoException.class, () -> cargoService.save(cargo));
+    void createThrowsCargoException() {
+        assertThrows(CargoException.class, () -> cargoService.save(subject));
     }
 
     @Test
-    void findCargoById() {
-        when(cargoRepository.findById(nullable(Integer.class))).thenReturn(Optional.of(cargo));
+    void findById() {
+        when(cargoRepository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        Cargo returned = cargoService.findById(cargo.getId());
+        Cargo returned = cargoService.findById(subject.getId());
         verify(cargoRepository).findById(captor.capture());
         Integer used = captor.getValue();
-        assertThat(used, is(cargo.getId()));
-        assertThat(returned, is(cargo));
+        assertThat(used, is(subject.getId()));
+        assertThat(returned, is(subject));
     }
 
     @Test
     void findByIdThrowsCargoException() {
         when(cargoRepository.findById(nullable(Integer.class))).thenReturn(Optional.empty());
-        assertThrows(CargoException.class, () -> cargoService.findById(cargo.getId()));
-        cargo.setId(null);
-        assertThrows(CargoException.class, () -> cargoService.findById(cargo.getId()));
+        assertThrows(CargoException.class, () -> cargoService.findById(subject.getId()));
+        subject.setId(null);
+        assertThrows(CargoException.class, () -> cargoService.findById(subject.getId()));
     }
 
     @Test
-    void updateCargo() {
-        when(cargoRepository.save(nullable(Cargo.class))).thenReturn(cargo);
+    void update() {
+        when(cargoRepository.save(nullable(Cargo.class))).thenReturn(subject);
         when(cargoRepository.existsById(nullable(Integer.class))).thenReturn(true);
         ArgumentCaptor<Cargo> captor = ArgumentCaptor.forClass(Cargo.class);
-        Cargo returned = cargoService.update(cargo);
+        Cargo returned = cargoService.update(subject);
         verify(cargoRepository).save(captor.capture());
         Cargo used = captor.getValue();
-        assertThat(used, is(cargo));
-        assertThat(returned, is(cargo));
-        assertEquals(cargo.getFinalDestination(), used.getFinalDestination());
+        assertThat(used, is(subject));
+        assertThat(returned, is(subject));
+        assertEquals(subject.getFinalDestination(), used.getFinalDestination());
     }
 
     @Test
     void updateCargoThrowsCargoException() {
-        assertThrows(CargoException.class, () -> cargoService.update(cargo));
-        cargo.setId(null);
-        assertThrows(CargoException.class, () -> cargoService.update(cargo));
+        assertThrows(CargoException.class, () -> cargoService.update(subject));
+        subject.setId(null);
+        assertThrows(CargoException.class, () -> cargoService.update(subject));
     }
 
 
     @Test
-    void deleteCargo() {
+    void delete() {
         when(cargoRepository.existsById(nullable(Integer.class))).thenReturn(true);
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        cargoService.delete(cargo.getId());
+        cargoService.delete(subject.getId());
         verify(cargoRepository).deleteById(captor.capture());
         Integer used = captor.getValue();
-        assertThat(used, is(cargo.getId()));
+        assertThat(used, is(subject.getId()));
     }
 
     @Test
-    void deleteCargoThrowsCargoException() {
-        assertThrows(CargoException.class, () -> cargoService.delete(cargo.getId()));
+    void deleteThrowsCargoException() {
+        assertThrows(CargoException.class, () -> cargoService.delete(subject.getId()));
     }
 
     @Test
-    void findAllCargos() {
+    void findAll() {
         when(cargoRepository.findAll(any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
         Page<Cargo> returned = cargoService.findAll(pageable);

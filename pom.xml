@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cargohub</groupId>
     <artifactId>AlgorithmMasterDB</artifactId>
@@ -78,6 +77,18 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Neo4j -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-neo4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-bolt-driver</artifactId>
+            <version>3.2.11</version>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -102,7 +113,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.4.2</version>
                 <configuration>
-                    <url>jdbc:mysql://localhost:3306/cargo_users?serverTimezone=UTC</url>
+                    <url>jdbc:mysql://localhost:3306/cargo_transports?serverTimezone=UTC</url>
                     <user>root</user>
                     <password>CargoUsers</password>
                 </configuration>

@@ -12,10 +12,11 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "hub")
 public class Hub {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     @Column
@@ -29,5 +30,4 @@ public class Hub {
 
     @OneToMany
     List<Cargo> warehouse;
-
 }

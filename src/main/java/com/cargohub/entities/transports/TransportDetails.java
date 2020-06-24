@@ -10,19 +10,20 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "transport_details")
 public class TransportDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-
-    @Column
-    @Enumerated
-    TransportType type;
 
     @Column
     Double averageSpeed;
 
     @Column
     Double prisePerKm;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    TransporterType type;
 }
