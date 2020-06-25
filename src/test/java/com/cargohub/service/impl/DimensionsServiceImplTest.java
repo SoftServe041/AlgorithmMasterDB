@@ -1,7 +1,8 @@
-import com.cargohub.entities.Hub;
-import com.cargohub.exceptions.HubException;
-import com.cargohub.repository.HubRepository;
-import com.cargohub.service.impl.HubServiceImpl;
+package com.cargohub.service.impl;
+
+import com.cargohub.entities.Dimensions;
+import com.cargohub.exceptions.DimensionsException;
+import com.cargohub.repository.DimensionsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -24,22 +25,22 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class HubServiceImplTest {
+class DimensionsServiceImplTest {
 
     @InjectMocks
-    HubServiceImpl service;
+    DimensionsServiceImpl service;
 
     @Mock
-    HubRepository repository;
+    DimensionsRepository repository;
 
-    Hub subject;
-    Page<Hub> page;
+    Dimensions subject;
+    Page<Dimensions> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        subject = new Hub();
+        subject = new Dimensions();
         subject.setId(9992);
 
         page = new PageImpl(List.of(subject));
@@ -49,25 +50,25 @@ class HubServiceImplTest {
     @Test
     void create() {
         subject.setId(null);
-        when(repository.save(nullable(Hub.class))).thenReturn(subject);
-        ArgumentCaptor<Hub> captor = ArgumentCaptor.forClass(Hub.class);
-        Hub returned = service.save(subject);
+        when(repository.save(nullable(Dimensions.class))).thenReturn(subject);
+        ArgumentCaptor<Dimensions> captor = ArgumentCaptor.forClass(Dimensions.class);
+        Dimensions returned = service.save(subject);
         verify(repository).save(captor.capture());
-        Hub used = captor.getValue();
+        Dimensions used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
 
     @Test
     void createThrowsCargoPositionException() {
-        assertThrows(HubException.class, () -> service.save(subject));
+        assertThrows(DimensionsException.class, () -> service.save(subject));
     }
 
     @Test
     void findById() {
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        Hub returned = service.findById(subject.getId());
+        Dimensions returned = service.findById(subject.getId());
         verify(repository).findById(captor.capture());
         Integer used = captor.getValue();
         assertThat(used, is(subject.getId()));
@@ -77,28 +78,28 @@ class HubServiceImplTest {
     @Test
     void findByIdThrowsCargoPositionException() {
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.empty());
-        assertThrows(HubException.class, () -> service.findById(subject.getId()));
+        assertThrows(DimensionsException.class, () -> service.findById(subject.getId()));
         subject.setId(null);
-        assertThrows(HubException.class, () -> service.findById(subject.getId()));
+        assertThrows(DimensionsException.class, () -> service.findById(subject.getId()));
     }
 
     @Test
     void update() {
-        when(repository.save(nullable(Hub.class))).thenReturn(subject);
+        when(repository.save(nullable(Dimensions.class))).thenReturn(subject);
         when(repository.existsById(nullable(Integer.class))).thenReturn(true);
-        ArgumentCaptor<Hub> captor = ArgumentCaptor.forClass(Hub.class);
-        Hub returned = service.update(subject);
+        ArgumentCaptor<Dimensions> captor = ArgumentCaptor.forClass(Dimensions.class);
+        Dimensions returned = service.update(subject);
         verify(repository).save(captor.capture());
-        Hub used = captor.getValue();
+        Dimensions used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
 
     @Test
     void updateThrowsCargoPositionException() {
-        assertThrows(HubException.class, () -> service.update(subject));
+        assertThrows(DimensionsException.class, () -> service.update(subject));
         subject.setId(null);
-        assertThrows(HubException.class, () -> service.update(subject));
+        assertThrows(DimensionsException.class, () -> service.update(subject));
     }
 
 
@@ -114,14 +115,14 @@ class HubServiceImplTest {
 
     @Test
     void deleteThrowsCargoPositionException() {
-        assertThrows(HubException.class, () -> service.delete(subject.getId()));
+        assertThrows(DimensionsException.class, () -> service.delete(subject.getId()));
     }
 
     @Test
     void findAll() {
         when(repository.findAll(any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        Page<Hub> returned = service.findAll(pageable);
+        Page<Dimensions> returned = service.findAll(pageable);
         verify(repository).findAll(captor.capture());
         Pageable used = captor.getValue();
         assertThat(returned, is(page));

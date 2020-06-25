@@ -7,7 +7,7 @@ import com.cargohub.entities.transports.TransportDetails;
 import com.cargohub.entities.transports.Transporter;
 import com.cargohub.entities.transports.TransporterType;
 import com.cargohub.service.TransportDetailsService;
-import com.cargohub.service.Transporterervice;
+import com.cargohub.service.TransporterService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,17 +23,17 @@ import java.util.Optional;
 @RequestMapping("/admin/transport")
 public class TransportController {
 
-    private final Transporterervice service;
+    private final TransporterService service;
     private final TransportDetailsService transportDetailsService;
 
-    public TransportController(Transporterervice service, TransportDetailsService transportDetailsService) {
+    public TransportController(TransporterService service, TransportDetailsService transportDetailsService) {
         this.service = service;
         this.transportDetailsService = transportDetailsService;
     }
 
-    @GetMapping("1")
-    ResponseEntity<TransporterDto> getTransporter(@RequestBody IdTransferDto idTransferDto) {
-        Transporter result = service.findById(idTransferDto.getId());
+    @GetMapping("{id}")
+    ResponseEntity<TransporterDto> getTransporter(@PathVariable Integer id) {
+        Transporter result = service.findById(id);
         return ResponseEntity.ok(TransporterDto.toDto(result));
     }
 
@@ -47,7 +47,7 @@ public class TransportController {
     @PutMapping
     ResponseEntity<?> updateTransporter(@RequestBody TransporterDto transporterDto) {
         Transporter transporter = transporterDto.toTransporter();
-        service.update(transporter);
+        Transporter result = service.update(transporter);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -64,9 +64,9 @@ public class TransportController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/details")
-    ResponseEntity<TransportDetailsDto> getTransportDetails(@RequestBody IdTransferDto idTransferDto) {
-        TransportDetails result = transportDetailsService.findById(idTransferDto.getId());
+    @GetMapping("/details/{id}")
+    ResponseEntity<TransportDetailsDto> getTransportDetails(@PathVariable Integer id) {
+        TransportDetails result = transportDetailsService.findById(id);
         return ResponseEntity.ok(TransportDetailsDto.toDto(result));
     }
 
@@ -92,7 +92,7 @@ public class TransportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/details/1")
+    @GetMapping("/details")
     ResponseEntity<Page<TransportDetailsDto>> getAllTransportDetails(Pageable pageable) {
         Page<TransportDetails> details = transportDetailsService.findAll(pageable);
         Page<TransportDetailsDto> result = details.map(TransportDetailsDto::toDto);

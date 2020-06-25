@@ -1,4 +1,4 @@
-package com.cargohub.dto.jar;
+package com.cargohub.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

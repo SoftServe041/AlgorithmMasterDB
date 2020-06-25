@@ -1,7 +1,8 @@
+package com.cargohub.service.impl;
+
 import com.cargohub.entities.Relation;
 import com.cargohub.exceptions.RelationException;
 import com.cargohub.repository.RelationRepository;
-import com.cargohub.service.impl.RelationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

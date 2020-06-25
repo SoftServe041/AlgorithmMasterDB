@@ -32,7 +32,7 @@ public class CarrierCompartment {
     @OneToMany(mappedBy = "carrierCompartment")
     List<Cargo> cargos;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "volume_id", referencedColumnName = "id")
     Dimensions volume;
 

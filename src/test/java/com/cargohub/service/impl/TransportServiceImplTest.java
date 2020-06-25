@@ -1,3 +1,5 @@
+package com.cargohub.service.impl;
+
 import com.cargohub.entities.Cargo;
 import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
@@ -9,7 +11,6 @@ import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.repository.DimensionsRepository;
 import com.cargohub.repository.HubRepository;
 import com.cargohub.repository.TransporterRepository;
-import com.cargohub.service.impl.TransporterServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
