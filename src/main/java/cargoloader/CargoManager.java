@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import sun.security.provider.DSAKeyPairGenerator.Current;
-
 public class CargoManager {
 	@SuppressWarnings("unused")
 	private boolean checkPlace(Box box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
