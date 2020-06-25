@@ -40,7 +40,7 @@ public class Cargo {
     @JoinColumn(name = "carrier_compartment_id")
     CarrierCompartment carrierCompartment;
 
-    @OneToOne
+    @OneToOne(mappedBy = "cargo")
     Order order;
 
     @Column

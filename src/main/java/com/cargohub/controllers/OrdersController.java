@@ -15,6 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Random;
+
 @RestController
 public class OrdersController {
 
@@ -32,13 +35,14 @@ public class OrdersController {
                                     @PathVariable Integer id) {
         //RequestOrderDto ordersDto = modelMapper.map(ordersModel, RequestOrderDto.class);
 
-        requestOrderDto.setTrackingId(generateTrackingId(
+     /*   requestOrderDto.setTrackingId(generateTrackingId(
                 requestOrderDto.getDepartureHub(),
                 requestOrderDto.getArrivalHub(),
-                id));
+                id));*/
 
         Order orderEntity = RequestOrderDto.reqOrderToEntity(requestOrderDto);
         orderEntity.setUserId(id);
+        orderEntity.setTrackingId(generateTrackingId(requestOrderDto.getDepartureHub(),requestOrderDto.getArrivalHub(),id));
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -48,11 +52,17 @@ public class OrdersController {
                                             @RequestParam(value = "limit", defaultValue = "5") int limit,
                                             @PathVariable Integer id) {
 
+     //   if(page>0){
+     //       page -= 1;
+     //   }
         Pageable pageableRequest = PageRequest.of(page, limit);
+
         return orderService.findAllByUserId(id, pageableRequest).map(ResponseOrderDto::orderToResponseOrderDto);
     }
 
     private String generateTrackingId(String firstCity, String secondCity, long id) {
+
+        final Random random = new Random();
 
         byte[] byteCity1 = firstCity.getBytes();
         byte[] byteCity2 = secondCity.getBytes();
@@ -65,6 +75,8 @@ public class OrdersController {
             returnStr.append(a);
         }
         returnStr.append(id);
+        returnStr.append(random.nextInt());
+        returnStr.append(System.currentTimeMillis()%100);
 
         return returnStr.toString();
     }

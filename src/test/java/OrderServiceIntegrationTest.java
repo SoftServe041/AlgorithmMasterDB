@@ -80,7 +80,7 @@ public class OrderServiceIntegrationTest {
                 .param("cargoWeight","20")
                 .param("cargoWidth","12")
                 .param("cargoHeight","13")
-                .param("CargoLength","14"))
+                .param("cargoLength","14"))
                 .andExpect(status().is2xxSuccessful());
 
 

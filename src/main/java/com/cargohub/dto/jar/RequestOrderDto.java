@@ -4,6 +4,7 @@ import com.cargohub.entities.Cargo;
 import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
 import com.cargohub.entities.Order;
+import com.cargohub.entities.enums.DeliveryStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class RequestOrderDto {
-    private String trackingId;
+    //private String trackingId;
     private Double price;
     private Date estimatedDeliveryDate;
     private String departureHub;
@@ -23,7 +24,7 @@ public class RequestOrderDto {
     private Double cargoWeight;
     private Integer cargoWidth;
     private Integer cargoHeight;
-    private Integer CargoLength;
+    private Integer cargoLength;
     private DeliveryStatus deliveryStatus;
 
     public static Order reqOrderToEntity(RequestOrderDto reqOrder){
@@ -36,18 +37,19 @@ public class RequestOrderDto {
         order.setDepartureHub(departure);
         order.setDeliveryStatus(reqOrder.deliveryStatus);
         order.setEstimatedDeliveryDate(reqOrder.getEstimatedDeliveryDate());
-        order.setTrackingId(reqOrder.getTrackingId());
-        order.setPrice(order.getPrice());
+        //order.setTrackingId(reqOrder.getTrackingId());
+        order.setPrice(reqOrder.getPrice());
         Cargo cargo = new Cargo();
         cargo.setDeliveryStatus(order.getDeliveryStatus());
         cargo.setStartingDestination(order.getDepartureHub().getName());
         cargo.setFinalDestination(order.getArrivalHub().getName());
-        cargo.setPaymentStatus(order.getPaymentStatus());
         cargo.setWeight(reqOrder.getCargoWeight());
         Dimensions dimensions = new Dimensions();
         dimensions.setHeight(reqOrder.getCargoHeight());
         dimensions.setLength(reqOrder.getCargoLength());
         dimensions.setWidth(reqOrder.getCargoWidth());
+        cargo.setDimensions(dimensions);
+        order.setCargo(cargo);
 
         return order;
     }
