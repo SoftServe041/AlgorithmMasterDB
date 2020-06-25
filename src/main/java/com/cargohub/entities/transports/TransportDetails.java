@@ -21,7 +21,7 @@ public class TransportDetails {
     Double averageSpeed;
 
     @Column
-    Double prisePerKm;
+    Double pricePerKm;
 
     @Column
     @Enumerated(EnumType.STRING)

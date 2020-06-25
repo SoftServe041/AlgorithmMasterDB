@@ -1,6 +1,5 @@
 package com.cargohub.controllers;
 
-import com.cargohub.dto.IdTransferDto;
 import com.cargohub.dto.TransportDetailsDto;
 import com.cargohub.dto.TransporterDto;
 import com.cargohub.entities.transports.TransportDetails;
@@ -31,7 +30,7 @@ public class TransportController {
         this.transportDetailsService = transportDetailsService;
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     ResponseEntity<TransporterDto> getTransporter(@PathVariable Integer id) {
         Transporter result = service.findById(id);
         return ResponseEntity.ok(TransporterDto.toDto(result));
@@ -51,9 +50,9 @@ public class TransportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping
-    ResponseEntity<?> deleteTransporter(@RequestBody IdTransferDto idTransferDto) {
-        service.delete(idTransferDto.getId());
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> deleteTransporter(@PathVariable Integer id) {
+        service.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -84,11 +83,9 @@ public class TransportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/details")
-    ResponseEntity<?> deleteTransportDetails(@RequestBody TransportDetailsDto requestDto) {
-        TransportDetails details = requestDto.toTransportDetails();
-        transportDetailsService.findByType(details.getType());
-        transportDetailsService.delete(details.getId());
+    @DeleteMapping("/details/{id}")
+    ResponseEntity<?> deleteTransportDetails(@PathVariable Integer id) {
+        transportDetailsService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -99,8 +96,7 @@ public class TransportController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping
-    @RequestMapping("/types")
+    @GetMapping("/types")
     ResponseEntity<List<String>> getAllTypes() {
         List<String> types = new ArrayList<>();
         for (TransporterType type : TransporterType.values()) {
@@ -108,5 +104,4 @@ public class TransportController {
         }
         return ResponseEntity.of(Optional.of(types));
     }
-
 }

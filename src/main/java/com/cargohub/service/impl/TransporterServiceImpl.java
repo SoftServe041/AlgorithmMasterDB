@@ -97,6 +97,7 @@ public class TransporterServiceImpl implements TransporterService {
             CarrierCompartment deleting = existingCompartments.get(0);
             existingCompartments.remove(deleting);
             deleting.setTransporter(null);
+            //By OrphanRemoval dimensions are also deleting
             carrierCompartmentRepository.deleteById(deleting.getId());
         }while (existingCompartments.size() != 0);
     }
@@ -120,22 +121,6 @@ public class TransporterServiceImpl implements TransporterService {
             }
         }
         return compartment;
-    }
-
-    private CarrierCompartment getAnyCompartment(List<CarrierCompartment> compartments) {
-        if (compartments.size() > 0) {
-            return compartments.remove(0);
-        }
-        return null;
-    }
-
-    private CarrierCompartment getCompartmentsWithId(List<CarrierCompartment> compartments) {
-        for (int i = 0; i < compartments.size(); i++) {
-            if (compartments.get(i).getId() != null) {
-                return compartments.remove(i);
-            }
-        }
-        return null;
     }
 
     @Override

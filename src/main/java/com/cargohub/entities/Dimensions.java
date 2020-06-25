@@ -28,7 +28,7 @@ public class Dimensions {
     @Column
     Integer length;
 
-    @OneToOne(mappedBy = "volume", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "volume", cascade = CascadeType.ALL)
     CarrierCompartment carrierCompartment;
 
     @Override
