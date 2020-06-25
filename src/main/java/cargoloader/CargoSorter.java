@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -12,10 +12,10 @@ import pathfinder.entities.Hub;
 import pathfinder.entities.Route;
 
 public class CargoSorter {
-	Map<String, List<Box>> sortedCargoMap;
+	private Map<String, List<Box>> sortedCargoMap;
 
 	public CargoSorter() {
-		sortedCargoMap = new HashMap<String, List<Box>>();
+		sortedCargoMap = new LinkedHashMap<String, List<Box>>();
 	}
 
 	public void sortCargoByDestination(List<Box> boxes, Route route) {
@@ -40,9 +40,11 @@ public class CargoSorter {
 				}
 			}
 		}
+		sortByFragilityAndVolume();
+		System.out.println(sortedCargoMap);
 	}
 
-	public void sortByFragilityAndVolume() {
+	private void sortByFragilityAndVolume() {
 		for (Map.Entry<String, List<Box>> entry : sortedCargoMap.entrySet()) {
 			List<Box> listBox = entry.getValue();
 			Collections.sort(listBox, new CargoSorter.BoxChainedComparator(new CargoSorter.FragilityComparator(),
@@ -87,5 +89,9 @@ public class CargoSorter {
 			}
 			return 0;
 		}
+	}
+
+	public Map<String, List<Box>> getSortedCargo() {
+		return sortedCargoMap;
 	}
 }

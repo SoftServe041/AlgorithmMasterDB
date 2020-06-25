@@ -14,6 +14,11 @@ public class Box {
 	private double depth;
 	private double height;
 
+	// position of box (for visualization)
+	private int widthPos;
+	private int depthPos;
+	private int heightPos;
+
 	// size in minimal cells
 	private int widthInCells;
 	private int depthInCells;
@@ -40,9 +45,9 @@ public class Box {
 		// calculate volume
 		volume = this.width * this.height * this.depth;
 		// calculate size int cells
-		widthInCells = (int) (this.width / 0.6125);
-		depthInCells = (int) (this.depth / 0.68);
-		heightInCells = (int) (this.width / 0.6675);
+		widthInCells = (int) (this.width / 0.3);// can be related to transport type
+		depthInCells = (int) (this.depth / 0.3);
+		heightInCells = (int) (this.width / 0.3);
 	}
 
 	public int getId() {
@@ -89,6 +94,30 @@ public class Box {
 		return destination;
 	}
 
+	public int getWidthPos() {
+		return widthPos;
+	}
+
+	public void setWidthPos(int widthPos) {
+		this.widthPos = widthPos;
+	}
+
+	public int getDepthPos() {
+		return depthPos;
+	}
+
+	public void setDepthPos(int depthPos) {
+		this.depthPos = depthPos;
+	}
+
+	public int getHeightPos() {
+		return heightPos;
+	}
+
+	public void setHeightPos(int heightPos) {
+		this.heightPos = heightPos;
+	}
+	
 //	@Override
 //	public String toString() {
 //		return "Box [id=" + id + ", width=" + width + ", depth=" + depth + ", height=" + height + ", widthInCells="
