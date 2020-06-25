@@ -4,7 +4,7 @@ import com.cargohub.entities.transports.Transporter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface Transporterervice {
+public interface TransporterService {
 
     boolean existsById(Integer id);
 
