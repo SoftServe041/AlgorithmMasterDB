@@ -1,0 +1,929 @@
+{
+  "path": {
+    "length": 1,
+    "rels": [
+      {
+        "id": "3",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        },
+        "end": {
+          "id": "2",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 41.8933203,
+            "name": "Rome",
+            "longitude": 12.4829321
+          }
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "type": "node",
+        "id": "0",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.841952,
+          "name": "Lviv",
+          "longitude": 24.0315921
+        }
+      },
+      {
+        "type": "node",
+        "id": "2",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 41.8933203,
+          "name": "Rome",
+          "longitude": 12.4829321
+        }
+      }
+    ]
+  },
+  "distance": 1254.5199073535027
+},
+{
+  "path": {
+    "length": 3,
+    "rels": [
+      {
+        "id": "4",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        },
+        "end": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        }
+      },
+      {
+        "id": "5",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        },
+        "end": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        }
+      },
+      {
+        "id": "3",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        },
+        "end": {
+          "id": "2",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 41.8933203,
+            "name": "Rome",
+            "longitude": 12.4829321
+          }
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "type": "node",
+        "id": "0",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.841952,
+          "name": "Lviv",
+          "longitude": 24.0315921
+        }
+      },
+      {
+        "type": "node",
+        "id": "6",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 50.4500336,
+          "name": "Kyiv",
+          "longitude": 30.5241361
+        }
+      },
+      {
+        "type": "node",
+        "id": "0",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.841952,
+          "name": "Lviv",
+          "longitude": 24.0315921
+        }
+      },
+      {
+        "type": "node",
+        "id": "2",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 41.8933203,
+          "name": "Rome",
+          "longitude": 12.4829321
+        }
+      }
+    ]
+  },
+  "distance": 2189.2773976528697
+}
+{
+  "path": {
+    "length": 5,
+    "rels": [
+      {
+        "id": "4",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        },
+        "end": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        }
+      },
+      {
+        "id": "1",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        },
+        "end": {
+          "id": "5",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.9658333,
+            "name": "Myrhorod",
+            "longitude": 33.6113889
+          }
+        }
+      },
+      {
+        "id": "0",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "5",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.9658333,
+            "name": "Myrhorod",
+            "longitude": 33.6113889
+          }
+        },
+        "end": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        }
+      },
+      {
+        "id": "5",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        },
+        "end": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        }
+      },
+      {
+        "id": "3",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        },
+        "end": {
+          "id": "2",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 41.8933203,
+            "name": "Rome",
+            "longitude": 12.4829321
+          }
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "type": "node",
+        "id": "0",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.841952,
+          "name": "Lviv",
+          "longitude": 24.0315921
+        }
+      },
+      {
+        "type": "node",
+        "id": "6",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 50.4500336,
+          "name": "Kyiv",
+          "longitude": 30.5241361
+        }
+      },
+      {
+        "type": "node",
+        "id": "5",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.9658333,
+          "name": "Myrhorod",
+          "longitude": 33.6113889
+        }
+      },
+      {
+        "type": "node",
+        "id": "6",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 50.4500336,
+          "name": "Kyiv",
+          "longitude": 30.5241361
+        }
+      },
+      {
+        "type": "node",
+        "id": "0",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.841952,
+          "name": "Lviv",
+          "longitude": 24.0315921
+        }
+      },
+      {
+        "type": "node",
+        "id": "2",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 41.8933203,
+          "name": "Rome",
+          "longitude": 12.4829321
+        }
+      }
+    ]
+  },
+  "distance": 2641.6295995350283
+}
+{
+  "path": {
+    "length": 7,
+    "rels": [
+      {
+        "id": "4",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        },
+        "end": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        }
+      },
+      {
+        "id": "1",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        },
+        "end": {
+          "id": "5",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.9658333,
+            "name": "Myrhorod",
+            "longitude": 33.6113889
+          }
+        }
+      },
+      {
+        "id": "10",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "5",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.9658333,
+            "name": "Myrhorod",
+            "longitude": 33.6113889
+          }
+        },
+        "end": {
+          "id": "7",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.5897423,
+            "name": "Poltava",
+            "longitude": 34.5507948
+          }
+        }
+      },
+      {
+        "id": "11",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "7",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.5897423,
+            "name": "Poltava",
+            "longitude": 34.5507948
+          }
+        },
+        "end": {
+          "id": "5",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.9658333,
+            "name": "Myrhorod",
+            "longitude": 33.6113889
+          }
+        }
+      },
+      {
+        "id": "0",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "5",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.9658333,
+            "name": "Myrhorod",
+            "longitude": 33.6113889
+          }
+        },
+        "end": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        }
+      },
+      {
+        "id": "5",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        },
+        "end": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        }
+      },
+      {
+        "id": "3",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        },
+        "end": {
+          "id": "2",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 41.8933203,
+            "name": "Rome",
+            "longitude": 12.4829321
+          }
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "type": "node",
+        "id": "0",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.841952,
+          "name": "Lviv",
+          "longitude": 24.0315921
+        }
+      },
+      {
+        "type": "node",
+        "id": "6",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 50.4500336,
+          "name": "Kyiv",
+          "longitude": 30.5241361
+        }
+      },
+      {
+        "type": "node",
+        "id": "5",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.9658333,
+          "name": "Myrhorod",
+          "longitude": 33.6113889
+        }
+      },
+      {
+        "type": "node",
+        "id": "7",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.5897423,
+          "name": "Poltava",
+          "longitude": 34.5507948
+        }
+      },
+      {
+        "type": "node",
+        "id": "5",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.9658333,
+          "name": "Myrhorod",
+          "longitude": 33.6113889
+        }
+      },
+      {
+        "type": "node",
+        "id": "6",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 50.4500336,
+          "name": "Kyiv",
+          "longitude": 30.5241361
+        }
+      },
+      {
+        "type": "node",
+        "id": "0",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.841952,
+          "name": "Lviv",
+          "longitude": 24.0315921
+        }
+      },
+      {
+        "type": "node",
+        "id": "2",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 41.8933203,
+          "name": "Rome",
+          "longitude": 12.4829321
+        }
+      }
+    ]
+  },
+  "distance": 2800.3507656736806
+}
+{
+  "path": {
+    "length": 5,
+    "rels": [
+      {
+        "id": "4",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        },
+        "end": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        }
+      },
+      {
+        "id": "9",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        },
+        "end": {
+          "id": "4",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.9902794,
+            "name": "Kharkiv",
+            "longitude": 36.2303893
+          }
+        }
+      },
+      {
+        "id": "8",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "4",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.9902794,
+            "name": "Kharkiv",
+            "longitude": 36.2303893
+          }
+        },
+        "end": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        }
+      },
+      {
+        "id": "5",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "6",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 50.4500336,
+            "name": "Kyiv",
+            "longitude": 30.5241361
+          }
+        },
+        "end": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        }
+      },
+      {
+        "id": "3",
+        "type": "relationship",
+        "label": "NEXT",
+        "start": {
+          "id": "0",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 49.841952,
+            "name": "Lviv",
+            "longitude": 24.0315921
+          }
+        },
+        "end": {
+          "id": "2",
+          "labels": [
+            "City"
+          ],
+          "properties": {
+            "latitude": 41.8933203,
+            "name": "Rome",
+            "longitude": 12.4829321
+          }
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "type": "node",
+        "id": "0",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.841952,
+          "name": "Lviv",
+          "longitude": 24.0315921
+        }
+      },
+      {
+        "type": "node",
+        "id": "6",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 50.4500336,
+          "name": "Kyiv",
+          "longitude": 30.5241361
+        }
+      },
+      {
+        "type": "node",
+        "id": "4",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.9902794,
+          "name": "Kharkiv",
+          "longitude": 36.2303893
+        }
+      },
+      {
+        "type": "node",
+        "id": "6",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 50.4500336,
+          "name": "Kyiv",
+          "longitude": 30.5241361
+        }
+      },
+      {
+        "type": "node",
+        "id": "0",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 49.841952,
+          "name": "Lviv",
+          "longitude": 24.0315921
+        }
+      },
+      {
+        "type": "node",
+        "id": "2",
+        "labels": [
+          "City"
+        ],
+        "properties": {
+          "latitude": 41.8933203,
+          "name": "Rome",
+          "longitude": 12.4829321
+        }
+      }
+    ]
+  },
+  "distance": 3007.4063272154517
+}

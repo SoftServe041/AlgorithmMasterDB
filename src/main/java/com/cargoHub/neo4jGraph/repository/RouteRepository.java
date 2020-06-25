@@ -1,114 +1,75 @@
 package com.cargoHub.neo4jGraph.repository;
 
 import com.cargoHub.neo4jGraph.model.Location;
-import com.cargoHub.neo4jGraph.model.NodeRelation;
-import com.cargoHub.neo4jGraph.model.Route;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.response.model.NodeModel;
-import org.neo4j.ogm.response.model.RelationshipModel;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.annotation.QueryResult;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-public interface RouteRepository extends Neo4jRepository<Route, Long> {
+public interface RouteRepository extends Neo4jRepository<Location, Long> {
 
-/**
- * Method getAllRouts() returns all available routs in ascending order.
- * To avoid SOF pls limit the output. By default this limit value is set to 5.
- */
+
+    /*@Query("CALL apoc.export.json.query(\n" +
+            "\"MATCH (a:City {name:'Kyiv'}), (b:City {name:'Lviv'}) " +
+            "MATCH p=(a)-[*]->(b) WITH collect(p) as paths " +
+            "CALL apoc.spatial.sortByDistance(paths) " +
+            "YIELD path, distance " +
+            "RETURN path, distance LIMIT 5\",\n" +
+            "\"route_data.json\", {writeNodeProperties:true})")
+    Stream getAllRoutes(String departure, String arrival);*/
+
+
+    /**
+     * Method getAllRouts() returns all available routs in ascending order.
+     * To avoid SOF pls limit the output. By default this limit value is set to 5.
+     */
     @Query("MATCH (a:City {name:$departure}), (b:City {name:$arrival})\n" +
             "MATCH p=(a)-[*]->(b)\n" +
             "WITH collect(p) as paths\n" +
             "CALL apoc.spatial.sortByDistance(paths) YIELD path, distance\n" +
-            "RETURN path as path, distance as distance LIMIT 5")
-    List<RouteData> getAllRoutes(String departure, String arrival);
+            "RETURN path, distance LIMIT 5")
 
-    //List<NodeRelation> findAllNodeRelations();
+    Iterable<RouteData> getAllRoutes(String departure, String arrival);
 
     @QueryResult
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public class RouteData {
-        public Object[] path;
-        public double distance;
-    }
-    /*@QueryResult
-    @Data
-    @AllArgsConstructor
-    public class Path{
-        public Location start;
-        public Location end;
-        public SegmentObject segments;
-    }
-    @QueryResult
-    @Data
-    @AllArgsConstructor
-    public class SegmentObject {
-        public Location start;
-        public Location end;
-        public NodeRelation relationship;
-    }*/
-    /*@QueryResult
-    @Data
-    @AllArgsConstructor
-    public class LocationNode {
-        public long identity;
-        public String[] labels;
-        public Location properties;
-    }*/
-
-    /*@QueryResult
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class RouteData {
-        public Path path;
+        public PathData path;
         public double distance;
     }
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class Path{
-        public NodeModel start;
-        public NodeModel end;
-        public Iterable<NodeModel> segments;
+    @QueryResult
+    public class PathData {
+        public int length;
+        public LocationRelation[] rels;
+        public NodeModel[] nodes;
     }
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class SegmentObject {
-        public NodeObject start;
-        public NodeObject end;
-        public RelationshipObject relationship;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class NodeObject {
-        public long identity;
+    @QueryResult
+    public class StartModel {
+        public Integer id;
         public String[] labels;
-        public Location properties;
+        public LocationProperties properties;
     }
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class RelationshipObject {
-        public long identity;
-        public int start;
-        public int end;
+    @QueryResult
+    public class LocationProperties {
+        public float latitude;
+        public String name;
+        public float longitude;
+    }
+
+    @QueryResult
+    public class LocationRelation {
+        public int id;
         public String type;
-        public Iterable<Object> properties;
-    }*/
+        public String label;
+        public StartModel start;
+        public LocationRelation properties;
+        public StartModel end;
+    }
 }
