@@ -12,7 +12,7 @@ import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.repository.DimensionsRepository;
 import com.cargohub.repository.HubRepository;
 import com.cargohub.repository.TransporterRepository;
-import com.cargohub.service.Transporterervice;
+import com.cargohub.service.TransporterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TransporterServiceImpl implements Transporterervice {
+public class TransporterServiceImpl implements TransporterService {
 
     private final TransporterRepository repository;
     private final HubRepository hubRepository;
@@ -30,7 +30,9 @@ public class TransporterServiceImpl implements Transporterervice {
     private final DimensionsRepository dimensionsRepository;
 
     @Autowired
-    public TransporterServiceImpl(TransporterRepository repository, HubRepository hubRepository, CarrierCompartmentRepository carrierCompartmentRepository, DimensionsRepository dimensionsRepository) {
+    public TransporterServiceImpl(TransporterRepository repository, HubRepository hubRepository,
+                                  CarrierCompartmentRepository carrierCompartmentRepository,
+                                  DimensionsRepository dimensionsRepository) {
         this.repository = repository;
         this.hubRepository = hubRepository;
         this.carrierCompartmentRepository = carrierCompartmentRepository;
@@ -68,7 +70,8 @@ public class TransporterServiceImpl implements Transporterervice {
         throw new TransporterException("Transporter not found");
     }
 
-    private List<CarrierCompartment> resolveCompartments(List<CarrierCompartment> existingCompartments, List<CarrierCompartment> newCompartments) {
+    private List<CarrierCompartment> resolveCompartments(List<CarrierCompartment> existingCompartments,
+                                                         List<CarrierCompartment> newCompartments) {
         Transporter transporter = existingCompartments.get(0).getTransporter();
         List<CarrierCompartment> result = new ArrayList<>();
         for (CarrierCompartment newC : newCompartments) {
@@ -90,10 +93,13 @@ public class TransporterServiceImpl implements Transporterervice {
     }
 
     private void deleteUnusedCompartments(List<CarrierCompartment> existingCompartments) {
-        for (CarrierCompartment deleting : existingCompartments) {
-            dimensionsRepository.deleteById(deleting.getVolume().getId());
+        do{
+            CarrierCompartment deleting = existingCompartments.get(0);
+            existingCompartments.remove(deleting);
+            deleting.setTransporter(null);
+            //By OrphanRemoval dimensions are also deleting
             carrierCompartmentRepository.deleteById(deleting.getId());
-        }
+        }while (existingCompartments.size() != 0);
     }
 
     private void createNewCompartment(Transporter transporter, List<CarrierCompartment> result, CarrierCompartment newC) {
@@ -115,22 +121,6 @@ public class TransporterServiceImpl implements Transporterervice {
             }
         }
         return compartment;
-    }
-
-    private CarrierCompartment getAnyCompartment(List<CarrierCompartment> compartments) {
-        if (compartments.size() > 0) {
-            return compartments.remove(0);
-        }
-        return null;
-    }
-
-    private CarrierCompartment getCompartmentsWithId(List<CarrierCompartment> compartments) {
-        for (int i = 0; i < compartments.size(); i++) {
-            if (compartments.get(i).getId() != null) {
-                return compartments.remove(i);
-            }
-        }
-        return null;
     }
 
     @Override

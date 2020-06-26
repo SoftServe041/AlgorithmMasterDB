@@ -10,19 +10,20 @@ CREATE TABLE `cargo` (
   `cargo_position_id` integer DEFAULT NULL,
   `carrier_compartment_id` integer DEFAULT NULL,
   `delivery_status` varchar(50) NOT NULL,
-  `order_id` integer DEFAULT Null,
-  #KEY `FK_cargo_order` (`order_id`),
-  #CONSTRAINT `FK_cargo_order` FOREIGN KEY (`order_id`) REFERENCES `cargo_order` (`id`),
-  #PRIMARY KEY (`id`),
+  --`order_id` integer DEFAULT Null,
+  PRIMARY KEY (`id`),
+  --KEY `FK_cargo_order` (`order_id`),
+  --CONSTRAINT `FK_cargo_order` FOREIGN KEY (`order_id`) REFERENCES `cargo_order` (`id`),
   KEY `FK_cargo_dimensions` (`dimensions_id`),
   KEY `FK_cargo_cargo_position` (`cargo_position_id`),
   KEY `FK_cargo_carrier_compartment` (`carrier_compartment_id`),
+  KEY `FK_cargo_cargo_order` (`order_id`),
   CONSTRAINT `FK_cargo_dimensions` FOREIGN KEY (`dimensions_id`) REFERENCES `dimensions` (`id`),
   CONSTRAINT `FK_cargo_cargo_position` FOREIGN KEY (`cargo_position_id`) REFERENCES `cargo_position` (`id`),
-  CONSTRAINT `FK_cargo_carrier_compartment` FOREIGN KEY (`carrier_compartment_id`) REFERENCES `carrier_compartment` (`id`)
+  CONSTRAINT `FK_cargo_carrier_compartment` FOREIGN KEY (`carrier_compartment_id`) REFERENCES `carrier_compartment` (`id`),
+  CONSTRAINT `FK_cargo_cargo_order` FOREIGN KEY (`order_id`) REFERENCES `cargo_order` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `cargo_order`;
 CREATE TABLE `cargo_order` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `tracking_id` varchar(50) NOT NULL UNIQUE,
@@ -42,13 +43,11 @@ CREATE TABLE `cargo_order` (
   CONSTRAINT `FK_cargo_order_cargo` FOREIGN KEY (`cargo_id`) REFERENCES `cargo` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `cargo_position`;
 CREATE TABLE `cargo_position` (
   `id` integer NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `carrier_compartment`;
 CREATE TABLE `carrier_compartment` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `maximum_weight` double NOT NULL,
@@ -62,7 +61,6 @@ CREATE TABLE `carrier_compartment` (
   CONSTRAINT `FK_carrier_compartment_transporter` FOREIGN KEY (`transporter_id`) REFERENCES `transporter` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `dimensions`;
 CREATE TABLE `dimensions` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `width` double NOT NULL,
@@ -71,14 +69,12 @@ CREATE TABLE `dimensions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `hub`;
 CREATE TABLE `hub` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `relation`;
 CREATE TABLE `relation` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `distance` double NOT NULL,
@@ -92,7 +88,6 @@ CREATE TABLE `relation` (
   CONSTRAINT `FK_relation_owner_hub` FOREIGN KEY (`owner_hub_id`) REFERENCES `hub` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `transport_details`;
 CREATE TABLE `transport_details` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `average_speed` double NOT NULL,
@@ -101,7 +96,6 @@ CREATE TABLE `transport_details` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `transporter`;
 CREATE TABLE `transporter` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `current_hub_id` integer NOT NULL,
@@ -112,7 +106,6 @@ CREATE TABLE `transporter` (
   CONSTRAINT `FK_transporter_current_hub` FOREIGN KEY (`current_hub_id`) REFERENCES `hub` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `transporter_route`;
 CREATE TABLE `transporter_route` (
   `transporter_id` integer NOT NULL,
   `hub_id` integer NOT NULL,
@@ -121,3 +114,14 @@ CREATE TABLE `transporter_route` (
   CONSTRAINT `FK_transporter_transporter_route` FOREIGN KEY (`transporter_id`) REFERENCES `transporter` (`id`),
   CONSTRAINT `FK_hub_transporter_route` FOREIGN KEY (`hub_id`) REFERENCES `hub` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO hub
+values
+    (default, 'Kharkiv'),
+    (default, 'Poltava'),
+    (default, 'Myrgorod'),
+    (default, 'Kyiv'),
+    (default, 'Lviv'),
+    (default, 'Odesa'),
+    (default, 'Sumy'),
+    (default, 'Pavlograd');

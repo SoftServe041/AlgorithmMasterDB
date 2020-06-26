@@ -57,13 +57,22 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connetor.version}</version>
         </dependency>
+
+        <!-- FlyWay -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>6.4.4</version>
+        </dependency>
+
         <!-- JSON Web Token lib -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>${jsonwebtoken.version}</version>
         </dependency>
-        <!-- Modelmapper -->
+
+        <!-- ModelMapper -->
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
@@ -99,6 +108,11 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.194</version>
         </dependency>
     </dependencies>
 
