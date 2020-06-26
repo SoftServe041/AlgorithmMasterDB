@@ -1,3 +1,5 @@
+package com.cargohub.controllers;
+
 import com.cargohub.dto.jar.RequestOrderDto;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.service.OrderService;
@@ -19,13 +21,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-//@WebAppConfiguration
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class OrderEntityServiceIntegrationTest {
@@ -33,6 +33,7 @@ public class OrderEntityServiceIntegrationTest {
     @Autowired
     private WebApplicationContext wac;
 
+    @Autowired
     private MockMvc mvc;
 
     @Autowired
@@ -56,32 +57,10 @@ public class OrderEntityServiceIntegrationTest {
         requestOrderDto.setCargoLength(15);
         requestOrderDto.setCargoWidth(15);
         requestOrderDto.setCargoWeight(20.0);
-        Date date = new SimpleDateFormat( "yyyyMMdd" ).parse( "20100520" );
+        Date date = new SimpleDateFormat("yyyyMMdd").parse("20100520");
         requestOrderDto.setEstimatedDeliveryDate(date);
         requestOrderDto.setPrice(400.0);
-       /* order = new OrderEntity();
 
-        order.setPrice(2.2);
-        order.setUserId(4);
-        Date date = new SimpleDateFormat( "yyyyMMdd" ).parse( "20100520" );
-        order.setEstimatedDeliveryDate(date);
-        Hub arrivalhub = new Hub();
-        Hub departureHub = new Hub();
-        arrivalhub.setName("A");
-        departureHub.setName("B");
-        order.setDepartureHub(departureHub);
-        order.setArrivalHub(arrivalhub);
-        order.setDeliveryStatus(DeliveryStatus.PROCESSING);
-        Cargo cargo = new Cargo();
-        cargo.setWeight(20.0);
-        Dimensions dimensions = new Dimensions();
-        dimensions.setWidth(20);
-        dimensions.setLength(12);
-        dimensions.setHeight(30);
-        cargo.setDimensions(dimensions);
-        order.setCargo(cargo);
-          page = new PageImpl(List.of(order));
-        pageable = PageRequest.of(0, 1);*/
 
     }
 
@@ -95,15 +74,6 @@ public class OrderEntityServiceIntegrationTest {
                 "U2NywiZXhwIjo1MTkyNTQ5NTY3fQ.BeENEITc0RQWLcjRbvorXdQ1GFrqZF5vXaSIOf8auME")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(requestOrderDto)))
-                /*.param("price","123232")
-                .param("estimatedDeliveryDate","2020.04.14")
-                .param("departureHub","A")
-                .param("arrivalHub","B")
-                .param("deliveryStatus","PROCESSING")
-                .param("cargoWeight","20")
-                .param("cargoWidth","12")
-                .param("cargoHeight","13")
-                .param("cargoLength","14"))*/
                 .andExpect(status().isCreated());
     }
 
@@ -113,17 +83,18 @@ public class OrderEntityServiceIntegrationTest {
     public void getAllOrdersByUserIdShouldLoadFromDb() throws Exception {
         Integer id = getOrderTestingValueId();
 
-        mvc.perform(get("/"+id+"/profile").header("Authorization", "Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBh" +
+        mvc.perform(get("/" + id + "/profile").header("Authorization", "Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBh" +
                 "ZG1pbi5jb20iLCJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FETUlOIl0sImlhdCI6MTU5MjU0OT" +
                 "U2NywiZXhwIjo1MTkyNTQ5NTY3fQ.BeENEITc0RQWLcjRbvorXdQ1GFrqZF5vXaSIOf8auME")
                 .contentType("application/json"))
                 .andExpect(status().isOk());
     }
+
     @Test
     @Order(3)
     public void deleteOrderShouldDeleteFromDb() throws Exception {
         Integer id = getOrderTestingValueId();
-        mvc.perform(get("/"+id+"/deleteOrder").header("Authorization", "Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBh" +
+        mvc.perform(delete("/" + id + "/deleteOrder").header("Authorization", "Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBh" +
                 "ZG1pbi5jb20iLCJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FETUlOIl0sImlhdCI6MTU5MjU0OT" +
                 "U2NywiZXhwIjo1MTkyNTQ5NTY3fQ.BeENEITc0RQWLcjRbvorXdQ1GFrqZF5vXaSIOf8auME").contentType("application/json"))
                 .andExpect(status().isOk());
@@ -137,9 +108,6 @@ public class OrderEntityServiceIntegrationTest {
         Page<OrderEntity> last = service.findAll(PageRequest.of((int) lastElement - 1, 1));
         return last.getContent().get(0).getId();
     }
-
-
-
 
 
 }

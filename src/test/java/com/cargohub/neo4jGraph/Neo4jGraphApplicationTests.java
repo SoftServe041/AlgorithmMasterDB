@@ -1,4 +1,4 @@
-package com.cargoHub.neo4jGraph;
+package com.cargohub.neo4jGraph;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

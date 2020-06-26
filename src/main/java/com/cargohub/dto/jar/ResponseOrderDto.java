@@ -20,8 +20,8 @@ public class ResponseOrderDto {
     private String arrivalHub;
     private Double cargoWeight;
     private DeliveryStatus deliveryStatus;
-    
-    public static ResponseOrderDto orderToResponseOrderDto(OrderEntity orderEntity){
+
+    public static ResponseOrderDto orderToResponseOrderDto(OrderEntity orderEntity) {
         ResponseOrderDto rod = new ResponseOrderDto();
         rod.setArrivalHub(orderEntity.getArrivalHub().getName());
         rod.setDepartureHub(orderEntity.getDepartureHub().getName());

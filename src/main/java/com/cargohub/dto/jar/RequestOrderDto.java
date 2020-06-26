@@ -26,7 +26,7 @@ public class RequestOrderDto {
     private Integer cargoLength;
 
 
-    public static OrderEntity reqOrderToEntity(RequestOrderDto reqOrder){
+    public static OrderEntity reqOrderToEntity(RequestOrderDto reqOrder) {
         OrderEntity orderEntity = new OrderEntity();
         Hub arrival = new Hub();
         Hub departure = new Hub();

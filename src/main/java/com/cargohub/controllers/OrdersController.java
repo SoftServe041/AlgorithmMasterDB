@@ -33,7 +33,7 @@ public class OrdersController {
                                     @PathVariable Integer id) {
         OrderEntity orderEntity = RequestOrderDto.reqOrderToEntity(requestOrderDto);
         orderEntity.setUserId(id);
-        orderEntity.setTrackingId(generateTrackingId(requestOrderDto.getDepartureHub(),requestOrderDto.getArrivalHub(),id));
+        orderEntity.setTrackingId(generateTrackingId(requestOrderDto.getDepartureHub(), requestOrderDto.getArrivalHub(), id));
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -48,6 +48,7 @@ public class OrdersController {
 
         return orderService.findAllByUserId(id, pageableRequest).map(ResponseOrderDto::orderToResponseOrderDto);
     }
+
     @DeleteMapping(path = "/{id}/deleteOrder")
     ResponseEntity<?> deleteTransporter(@PathVariable Integer id) {
         orderService.delete(id);
@@ -70,7 +71,7 @@ public class OrdersController {
         }
         returnStr.append(id);
         returnStr.append(random.nextInt());
-        returnStr.append(System.currentTimeMillis()%100);
+        returnStr.append(System.currentTimeMillis() % 100);
 
         return returnStr.toString();
     }

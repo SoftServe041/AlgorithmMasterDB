@@ -52,9 +52,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<OrderEntity> findAllByUserId(Integer userid, Pageable pageable) {
 
-       Page<OrderEntity> orderPage= repository.findAllByUserId(userid, pageable);
+        Page<OrderEntity> orderPage = repository.findAllByUserId(userid, pageable);
 
-        if(orderPage == null){
+        if (orderPage == null) {
             throw new OrderException("No record found");
         }
         return orderPage;
