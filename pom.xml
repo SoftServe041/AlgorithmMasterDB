@@ -138,7 +138,7 @@
                         <configuration>
                             <classifier>client</classifier>
                             <includes>
-                                <include>**/entities/order/*</include>
+                                <include>**/entities/orderEntity/*</include>
                             </includes>
                         </configuration>
                     </execution>

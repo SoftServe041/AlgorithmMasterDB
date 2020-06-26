@@ -2,8 +2,7 @@ package com.cargohub.controllers;
 
 import com.cargohub.dto.jar.RequestOrderDto;
 import com.cargohub.dto.jar.ResponseOrderDto;
-import com.cargohub.entities.Order;
-import com.cargohub.models.OrderModel;
+import com.cargohub.entities.OrderEntity;
 import com.cargohub.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -33,14 +31,7 @@ public class OrdersController {
     @PostMapping("/{id}")
     public ResponseEntity makeOrder(@RequestBody RequestOrderDto requestOrderDto,
                                     @PathVariable Integer id) {
-        //RequestOrderDto ordersDto = modelMapper.map(ordersModel, RequestOrderDto.class);
-
-     /*   requestOrderDto.setTrackingId(generateTrackingId(
-                requestOrderDto.getDepartureHub(),
-                requestOrderDto.getArrivalHub(),
-                id));*/
-
-        Order orderEntity = RequestOrderDto.reqOrderToEntity(requestOrderDto);
+        OrderEntity orderEntity = RequestOrderDto.reqOrderToEntity(requestOrderDto);
         orderEntity.setUserId(id);
         orderEntity.setTrackingId(generateTrackingId(requestOrderDto.getDepartureHub(),requestOrderDto.getArrivalHub(),id));
         orderService.save(orderEntity);
@@ -52,12 +43,15 @@ public class OrdersController {
                                             @RequestParam(value = "limit", defaultValue = "5") int limit,
                                             @PathVariable Integer id) {
 
-     //   if(page>0){
-     //       page -= 1;
-     //   }
+
         Pageable pageableRequest = PageRequest.of(page, limit);
 
         return orderService.findAllByUserId(id, pageableRequest).map(ResponseOrderDto::orderToResponseOrderDto);
+    }
+    @DeleteMapping(path = "/{id}/deleteOrder")
+    ResponseEntity<?> deleteTransporter(@PathVariable Integer id) {
+        orderService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private String generateTrackingId(String firstCity, String secondCity, long id) {

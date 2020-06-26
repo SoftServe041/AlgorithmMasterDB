@@ -1,7 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.dto.jar.ResponseOrderDto;
-import com.cargohub.entities.Order;
+import com.cargohub.entities.OrderEntity;
 import com.cargohub.exceptions.OrderException;
 import com.cargohub.repository.CargoRepository;
 import com.cargohub.repository.DimensionsRepository;
@@ -11,12 +10,10 @@ import com.cargohub.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -46,16 +43,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findById(Integer id) {
-        Order result;
+    public OrderEntity findById(Integer id) {
+        OrderEntity result;
         result = repository.findById(id).orElseThrow(() -> new OrderException("Order not found"));
         return result;
     }
 
     @Override
-    public Page<Order> findAllByUserId(Integer userid, Pageable pageable) {
+    public Page<OrderEntity> findAllByUserId(Integer userid, Pageable pageable) {
 
-       Page<Order> orderPage= repository.findAllByUserId(userid, pageable);
+       Page<OrderEntity> orderPage= repository.findAllByUserId(userid, pageable);
 
         if(orderPage == null){
             throw new OrderException("No record found");
@@ -64,30 +61,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order update(Order order) {
-        if (order.getId() == null) {
+    public OrderEntity update(OrderEntity orderEntity) {
+        if (orderEntity.getId() == null) {
             throw new OrderException("Illegal state for Order");
         }
-        if (existsById(order.getId())) {
-            return repository.save(order);
+        if (existsById(orderEntity.getId())) {
+            return repository.save(orderEntity);
         }
         throw new OrderException("Order not found");
     }
 
     @Override
-    public Order save(Order order) {
-        if (order.getId() != null) {
+    public OrderEntity save(OrderEntity orderEntity) {
+        if (orderEntity.getId() != null) {
             throw new OrderException("Illegal state for Order");
         }
-        dimensionsRepository.save(order.getCargo().getDimensions());
-        cargoRepository.save(order.getCargo());
-        hubRepository.save(order.getArrivalHub());
-        hubRepository.save(order.getDepartureHub());
-        return repository.save(order);
+        dimensionsRepository.save(orderEntity.getCargo().getDimensions());
+        cargoRepository.save(orderEntity.getCargo());
+        hubRepository.save(orderEntity.getArrivalHub());
+        hubRepository.save(orderEntity.getDepartureHub());
+        return repository.save(orderEntity);
     }
 
     @Override
-    public Page<Order> findAll(Pageable pageable) {
+    public Page<OrderEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

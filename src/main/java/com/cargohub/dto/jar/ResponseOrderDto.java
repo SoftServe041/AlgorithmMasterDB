@@ -1,6 +1,6 @@
 package com.cargohub.dto.jar;
 
-import com.cargohub.entities.Order;
+import com.cargohub.entities.OrderEntity;
 import com.cargohub.entities.enums.DeliveryStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,15 +21,15 @@ public class ResponseOrderDto {
     private Double cargoWeight;
     private DeliveryStatus deliveryStatus;
     
-    public static ResponseOrderDto orderToResponseOrderDto(Order order){
+    public static ResponseOrderDto orderToResponseOrderDto(OrderEntity orderEntity){
         ResponseOrderDto rod = new ResponseOrderDto();
-        rod.setArrivalHub(order.getArrivalHub().getName());
-        rod.setDepartureHub(order.getDepartureHub().getName());
-        rod.setDeliveryStatus(order.getDeliveryStatus());
-        rod.setEstimatedDeliveryDate(order.getEstimatedDeliveryDate());
-        rod.setTrackingId(order.getTrackingId());
-        rod.setPrice(order.getPrice());
-        rod.setCargoWeight(order.getCargo().getWeight());
+        rod.setArrivalHub(orderEntity.getArrivalHub().getName());
+        rod.setDepartureHub(orderEntity.getDepartureHub().getName());
+        rod.setDeliveryStatus(orderEntity.getDeliveryStatus());
+        rod.setEstimatedDeliveryDate(orderEntity.getEstimatedDeliveryDate());
+        rod.setTrackingId(orderEntity.getTrackingId());
+        rod.setPrice(orderEntity.getPrice());
+        rod.setCargoWeight(orderEntity.getCargo().getWeight());
         return rod;
     }
 

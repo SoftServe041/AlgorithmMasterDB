@@ -1,6 +1,6 @@
 package com.cargohub.service;
 
-import com.cargohub.entities.Order;
+import com.cargohub.entities.OrderEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,15 +8,15 @@ public interface OrderService {
 
     boolean existsById(Integer id);
 
-    Order findById(Integer id);
+    OrderEntity findById(Integer id);
 
-    Order update(Order order);
+    OrderEntity update(OrderEntity orderEntity);
 
-    Order save(Order order);
+    OrderEntity save(OrderEntity orderEntity);
 
-    Page<Order> findAll(Pageable pageable);
+    Page<OrderEntity> findAll(Pageable pageable);
 
-    Page<Order> findAllByUserId(Integer userId, Pageable pageable);
+    Page<OrderEntity> findAllByUserId(Integer userId, Pageable pageable);
 
     void delete(Integer id);
 

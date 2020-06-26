@@ -3,12 +3,11 @@ package com.cargohub.dto.jar;
 import com.cargohub.entities.Cargo;
 import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
-import com.cargohub.entities.Order;
+import com.cargohub.entities.OrderEntity;
 import com.cargohub.entities.enums.DeliveryStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.coyote.Request;
 
 import java.util.Date;
 
@@ -16,7 +15,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class RequestOrderDto {
-    //private String trackingId;
+
     private Double price;
     private Date estimatedDeliveryDate;
     private String departureHub;
@@ -25,32 +24,31 @@ public class RequestOrderDto {
     private Integer cargoWidth;
     private Integer cargoHeight;
     private Integer cargoLength;
-    private DeliveryStatus deliveryStatus;
 
-    public static Order reqOrderToEntity(RequestOrderDto reqOrder){
-        Order order = new Order();
+
+    public static OrderEntity reqOrderToEntity(RequestOrderDto reqOrder){
+        OrderEntity orderEntity = new OrderEntity();
         Hub arrival = new Hub();
         Hub departure = new Hub();
         arrival.setName(reqOrder.arrivalHub);
         departure.setName(reqOrder.departureHub);
-        order.setArrivalHub(arrival);
-        order.setDepartureHub(departure);
-        order.setDeliveryStatus(reqOrder.deliveryStatus);
-        order.setEstimatedDeliveryDate(reqOrder.getEstimatedDeliveryDate());
-        //order.setTrackingId(reqOrder.getTrackingId());
-        order.setPrice(reqOrder.getPrice());
+        orderEntity.setArrivalHub(arrival);
+        orderEntity.setDepartureHub(departure);
+        orderEntity.setDeliveryStatus(DeliveryStatus.PROCESSING);
+        orderEntity.setEstimatedDeliveryDate(reqOrder.getEstimatedDeliveryDate());
+        orderEntity.setPrice(reqOrder.getPrice());
         Cargo cargo = new Cargo();
-        cargo.setDeliveryStatus(order.getDeliveryStatus());
-        cargo.setStartingDestination(order.getDepartureHub().getName());
-        cargo.setFinalDestination(order.getArrivalHub().getName());
+        cargo.setDeliveryStatus(orderEntity.getDeliveryStatus());
+        cargo.setStartingDestination(orderEntity.getDepartureHub().getName());
+        cargo.setFinalDestination(orderEntity.getArrivalHub().getName());
         cargo.setWeight(reqOrder.getCargoWeight());
         Dimensions dimensions = new Dimensions();
         dimensions.setHeight(reqOrder.getCargoHeight());
         dimensions.setLength(reqOrder.getCargoLength());
         dimensions.setWidth(reqOrder.getCargoWidth());
         cargo.setDimensions(dimensions);
-        order.setCargo(cargo);
+        orderEntity.setCargo(cargo);
 
-        return order;
+        return orderEntity;
     }
 }

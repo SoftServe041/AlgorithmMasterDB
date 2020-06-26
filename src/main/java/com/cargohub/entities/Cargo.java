@@ -41,7 +41,7 @@ public class Cargo {
     CarrierCompartment carrierCompartment;
 
     @OneToOne(mappedBy = "cargo")
-    Order order;
+    OrderEntity orderEntity;
 
     @Column
     @Enumerated(EnumType.STRING)

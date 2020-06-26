@@ -1,11 +1,6 @@
-import com.cargohub.entities.Cargo;
-import com.cargohub.entities.Order;
-import com.cargohub.exceptions.CargoException;
+import com.cargohub.entities.OrderEntity;
 import com.cargohub.exceptions.OrderException;
-import com.cargohub.repository.CargoRepository;
 import com.cargohub.repository.OrderRepository;
-import com.cargohub.service.OrderService;
-import com.cargohub.service.impl.CargoServiceImpl;
 import com.cargohub.service.impl.OrderServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +8,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -32,82 +25,82 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class OrderServiceImplTest {
+public class OrderEntityServiceImplTest {
     @InjectMocks
     OrderServiceImpl orderService;
 
     @Mock
     OrderRepository orderRepository;
 
-    Order order;
-    Page<Order> page;
+    OrderEntity orderEntity;
+    Page<OrderEntity> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        order = new Order();
-        order.setId(1);
-        order.setPrice(2.2);
-        order.setTrackingId("123232323");
-        order.setUserId(4);
-        page = new PageImpl(List.of(order));
+        orderEntity = new OrderEntity();
+        orderEntity.setId(1);
+        orderEntity.setPrice(2.2);
+        orderEntity.setTrackingId("123232323");
+        orderEntity.setUserId(4);
+        page = new PageImpl(List.of(orderEntity));
         pageable = PageRequest.of(0, 10);
     }
 
     @Test
     void createOrder() {
-        order.setId(null);
+        orderEntity.setId(null);
 
-        when(orderRepository.save(nullable(Order.class))).thenReturn(order);
-        ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
-        Order returned = orderService.save(order);
+        when(orderRepository.save(nullable(OrderEntity.class))).thenReturn(orderEntity);
+        ArgumentCaptor<OrderEntity> captor = ArgumentCaptor.forClass(OrderEntity.class);
+        OrderEntity returned = orderService.save(orderEntity);
         verify(orderRepository).save(captor.capture());
-        Order used = captor.getValue();
-        assertThat(used, is(order));
-        assertThat(returned, is(order));
+        OrderEntity used = captor.getValue();
+        assertThat(used, is(orderEntity));
+        assertThat(returned, is(orderEntity));
 
     }
 
     @Test
     void findOrderById() {
-        when(orderRepository.findById(nullable(Integer.class))).thenReturn(Optional.of(order));
+        when(orderRepository.findById(nullable(Integer.class))).thenReturn(Optional.of(orderEntity));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        Order returned = orderService.findById(order.getId());
+        OrderEntity returned = orderService.findById(orderEntity.getId());
         verify(orderRepository).findById(captor.capture());
         Integer used = captor.getValue();
-        assertThat(used, is(order.getId()));
-        assertThat(returned, is(order));
+        assertThat(used, is(orderEntity.getId()));
+        assertThat(returned, is(orderEntity));
     }
     @Test
     void findByIdThrowsOrderException() {
         when(orderRepository.findById(nullable(Integer.class))).thenReturn(Optional.empty());
-        assertThrows(OrderException.class, () -> orderService.findById(order.getId()));
-        order.setId(null);
-        assertThrows(OrderException.class, () -> orderService.findById(order.getId()));
+        assertThrows(OrderException.class, () -> orderService.findById(orderEntity.getId()));
+        orderEntity.setId(null);
+        assertThrows(OrderException.class, () -> orderService.findById(orderEntity.getId()));
     }
     @Test
     void findAllByUserId() {
         when(orderRepository.findAllByUserId(nullable(Integer.class), any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
         ArgumentCaptor<Pageable> captor2 = ArgumentCaptor.forClass(Pageable.class);
-        Page<Order> returned = orderService.findAllByUserId(order.getUserId(),pageable);
+        Page<OrderEntity> returned = orderService.findAllByUserId(orderEntity.getUserId(),pageable);
         verify(orderRepository).findAllByUserId(captor.capture(), captor2.capture());
         Integer used = captor.getValue();
-        assertThat(used, is(order.getUserId()));
+        assertThat(used, is(orderEntity.getUserId()));
         assertThat(returned, is(page));
     }
     @Test
     void updateOrder() {
-        when(orderRepository.save(nullable(Order.class))).thenReturn(order);
+        when(orderRepository.save(nullable(OrderEntity.class))).thenReturn(orderEntity);
         when(orderRepository.existsById(nullable(Integer.class))).thenReturn(true);
-        ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
-        Order returned = orderService.update(order);
+        ArgumentCaptor<OrderEntity> captor = ArgumentCaptor.forClass(OrderEntity.class);
+        OrderEntity returned = orderService.update(orderEntity);
         verify(orderRepository).save(captor.capture());
-        Order used = captor.getValue();
-        assertThat(used, is(order));
-        assertThat(returned, is(order));
-        assertEquals(order.getUserId(), used.getUserId());
+        OrderEntity used = captor.getValue();
+        assertThat(used, is(orderEntity));
+        assertThat(returned, is(orderEntity));
+        assertEquals(orderEntity.getUserId(), used.getUserId());
     }
 
 
