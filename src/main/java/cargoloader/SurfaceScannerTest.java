@@ -100,13 +100,6 @@ public class SurfaceScannerTest {
 							continue;
 						}
 
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 1
-								& loadingMatrix[currentHeight][currentWidth + 1] == 1) {
-							currentHeight++;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
-							continue;
-						}
-
 						if (currentHeight == loadingMatrix.length - 1) {
 							if (loadingMatrix[currentHeight][currentWidth + 1] == 0) {
 								currentWidth++;
@@ -115,12 +108,23 @@ public class SurfaceScannerTest {
 							}
 
 							if (loadingMatrix[currentHeight][currentWidth + 1] == 1) {
-								while (loadingMatrix[currentHeight][currentWidth] == 1) {
-									currentWidth++;
+								while (true) {
+									if (loadingMatrix[currentHeight][currentWidth] == 0) {
+										break;
+									} else {
+										currentWidth++;
+									}
 								}
 								printMatrix(loadingMatrix, currentHeight, currentWidth);
 								continue;
 							}
+						}
+						
+						if (loadingMatrix[currentHeight - 1][currentWidth] == 1
+								& loadingMatrix[currentHeight][currentWidth + 1] == 1) {
+							currentHeight++;
+							printMatrix(loadingMatrix, currentHeight, currentWidth);
+							continue;
 						}
 
 						if (loadingMatrix[currentHeight][currentWidth + 1] == 1) {
@@ -209,7 +213,7 @@ public class SurfaceScannerTest {
 				{ 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0 },
 				{ 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 		SurfaceScannerTest scannerTest = new SurfaceScannerTest();
 		scannerTest.initializeSurfaceScanner(matrix);
 
