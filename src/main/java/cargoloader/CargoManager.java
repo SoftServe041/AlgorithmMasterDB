@@ -140,8 +140,4 @@ public class CargoManager {
 		}
 
 	}
-
-	public void launchCargoManager(List<Box> boxList, CargoLoader cargoLoader) {
-
-	}
 }

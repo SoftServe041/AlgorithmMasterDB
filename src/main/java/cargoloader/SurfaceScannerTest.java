@@ -77,7 +77,7 @@ public class SurfaceScannerTest {
 				// place box
 				break;
 			} else {
-				if (currentHeight - 1 > 0 & currentHeight < loadingMatrix.length) {
+				if (currentHeight - 1 >= 0 & currentHeight < loadingMatrix.length) {
 					if (currentWidth < loadingMatrix[0].length - 1) {
 						if (loadingMatrix[currentHeight - 1][currentWidth] == 1
 								& loadingMatrix[currentHeight][currentWidth + 1] == 0) {
@@ -122,6 +122,13 @@ public class SurfaceScannerTest {
 								continue;
 							}
 						}
+
+						if (loadingMatrix[currentHeight][currentWidth + 1] == 1) {
+							currentHeight++;
+							printMatrix(loadingMatrix, currentHeight, currentWidth);
+							continue;
+						}
+
 						if (loadingMatrix[currentHeight + 1][currentWidth] == 0
 								& loadingMatrix[currentHeight][currentWidth + 1] == 1) {
 							currentHeight++;
@@ -168,6 +175,7 @@ public class SurfaceScannerTest {
 				}
 			}
 
+			// when we are don`t have any ways
 			if (currentHeight == 0 & currentWidth == loadingMatrix[0].length - 1
 					| loadingMatrix[currentHeight - 1][currentWidth] == 1
 							& currentWidth == loadingMatrix[0].length - 1) {
@@ -180,7 +188,13 @@ public class SurfaceScannerTest {
 		matrix[h][w] = 9;
 		for (int i = matrix.length - 1; i >= 0; i--) {
 			for (int j = 0; j < matrix[0].length; j++) {
-				System.out.print(matrix[i][j] + " ");
+				if (matrix[i][j] == 1) {
+					System.out.print("| ");
+				} else if (matrix[i][j] == 0) {
+					System.out.print(". ");
+				} else if (matrix[i][j] == 9) {
+					System.out.print("O ");
+				}
 			}
 			System.out.println();
 		}
