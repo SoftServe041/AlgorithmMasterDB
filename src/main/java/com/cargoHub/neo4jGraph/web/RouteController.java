@@ -1,5 +1,6 @@
 package com.cargoHub.neo4jGraph.web;
 
+import com.cargoHub.neo4jGraph.model.RouteModel;
 import com.cargoHub.neo4jGraph.repository.RouteRepository;
 import com.cargoHub.neo4jGraph.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -22,7 +24,7 @@ public class RouteController {
     private RouteService routeService;
 
     @GetMapping("/{departure}/{arrival}")
-    public ResponseEntity<Iterable<RouteRepository.RouteData>> getRoute(@PathVariable String departure, @PathVariable String arrival) {
+    public ResponseEntity<List<RouteModel>> getRoute(@PathVariable String departure, @PathVariable String arrival) {
         return ResponseEntity.ok(routeService.getRoute(departure, arrival));
     }
 }

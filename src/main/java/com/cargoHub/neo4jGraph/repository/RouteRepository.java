@@ -1,6 +1,7 @@
 package com.cargoHub.neo4jGraph.repository;
 
 import com.cargoHub.neo4jGraph.model.Location;
+import lombok.Getter;
 import org.neo4j.ogm.response.model.NodeModel;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.annotation.QueryResult;
@@ -28,6 +29,8 @@ public interface RouteRepository extends Neo4jRepository<Location, Long> {
      * Method getAllRouts() returns all available routs in ascending order.
      * To avoid SOF pls limit the output. By default this limit value is set to 5.
      */
+
+    /*
     @Query("MATCH (a:City {name:$departure}), (b:City {name:$arrival})\n" +
             "MATCH p=(a)-[*]->(b)\n" +
             "WITH collect(p) as paths\n" +
@@ -51,7 +54,7 @@ public interface RouteRepository extends Neo4jRepository<Location, Long> {
 
     @QueryResult
     public class StartModel {
-        public Integer id;
+        public Integer identity;
         public String[] labels;
         public LocationProperties properties;
     }
@@ -72,4 +75,37 @@ public interface RouteRepository extends Neo4jRepository<Location, Long> {
         public LocationRelation properties;
         public StartModel end;
     }
+
+     */
+
+    @Query("MATCH (a:City {name: $departure}), (b:City {name: $arrival})\n" +
+            "MATCH p=(a)-[*]->(b) WITH collect(p) as paths\n" +
+            "CALL apoc.spatial.sortByDistance(paths) \n" +
+            "YIELD  distance , path\n" +
+            "WITH reduce(output = [] , n IN nodes(path) | output + n.name )  as routes\n" +
+            "RETURN  routes\n" +
+            "limit 5")
+
+    List<RouteData> getAllRoutes(String departure, String arrival);
+
+    @QueryResult
+    public class RouteData {
+        public List<String> routes;
+    }
+
+
+    @Query("MATCH (a:City {name: $departure}), (b:City {name: $arrival})\n" +
+            "MATCH p=(a)-[*]->(b) WITH collect(p) as paths\n" +
+            "CALL apoc.spatial.sortByDistance(paths) \n" +
+            "YIELD  distance\n" +
+            "RETURN  round(distance) as distance\n" +
+            "limit 5")
+
+    List<RouteDataDistance> getAllRoutesDistance(String departure, String arrival);
+
+    @QueryResult
+    public class RouteDataDistance {
+        public Double distance;
+    }
+
 }
