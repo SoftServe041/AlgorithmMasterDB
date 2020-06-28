@@ -16,9 +16,4 @@ public class RouteModel {
     Double distance;
     List<String> routes;
 
-    public RouteModel(Double distance, List<String> routes){
-        this.distance = distance;
-        this.routes = routes;
-    }
-
 }

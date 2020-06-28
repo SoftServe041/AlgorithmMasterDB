@@ -25,10 +25,13 @@ public class RouteService {
         routeData = routeRepository.getAllRoutes(departure, arrival);
 
         List<RouteRepository.RouteDataDistance> distanceData = new ArrayList<>();
-        distanceData =  routeRepository.getAllRoutesDistance(departure, arrival);
+        distanceData = routeRepository.getAllRoutesDistance(departure, arrival);
 
         for (int i = 0; i < routeData.size(); i++) {
-            routeModel.add(new RouteModel(distanceData.get(i).distance, routeData.get(i).routes));
+            RouteModel routeModelTemp = new RouteModel();
+            routeModelTemp.setRoutes(routeData.get(i).routes);
+            routeModelTemp.setDistance(distanceData.get(i).distance);
+            routeModel.add(routeModelTemp);
         }
 
         return routeModel;
