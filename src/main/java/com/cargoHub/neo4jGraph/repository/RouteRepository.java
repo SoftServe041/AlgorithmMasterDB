@@ -81,7 +81,7 @@ public interface RouteRepository extends Neo4jRepository<Location, Long> {
     @Query("MATCH (a:City {name: $departure}), (b:City {name: $arrival})\n" +
             "MATCH p=(a)-[*]->(b) WITH collect(p) as paths\n" +
             "CALL apoc.spatial.sortByDistance(paths) \n" +
-            "YIELD  distance , path\n" +
+            "YIELD  path\n" +
             "WITH reduce(output = [] , n IN nodes(path) | output + n.name )  as routes\n" +
             "RETURN  routes\n" +
             "limit 5")
