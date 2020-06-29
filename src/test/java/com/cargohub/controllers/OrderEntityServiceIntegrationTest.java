@@ -60,15 +60,11 @@ public class OrderEntityServiceIntegrationTest {
         Date date = new SimpleDateFormat("yyyyMMdd").parse("20100520");
         requestOrderDto.setEstimatedDeliveryDate(date);
         requestOrderDto.setPrice(400.0);
-
-
     }
 
     @Test
     @Order(1)
     void createOrderShouldSaveToDb() throws Exception {
-
-
         mvc.perform(post("/13").header("Authorization", "Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBh" +
                 "ZG1pbi5jb20iLCJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FETUlOIl0sImlhdCI6MTU5MjU0OT" +
                 "U2NywiZXhwIjo1MTkyNTQ5NTY3fQ.BeENEITc0RQWLcjRbvorXdQ1GFrqZF5vXaSIOf8auME")
@@ -98,8 +94,6 @@ public class OrderEntityServiceIntegrationTest {
                 "ZG1pbi5jb20iLCJyb2xlcyI6WyJST0xFX1VTRVIiLCJST0xFX0FETUlOIl0sImlhdCI6MTU5MjU0OT" +
                 "U2NywiZXhwIjo1MTkyNTQ5NTY3fQ.BeENEITc0RQWLcjRbvorXdQ1GFrqZF5vXaSIOf8auME").contentType("application/json"))
                 .andExpect(status().isOk());
-
-
     }
 
     private Integer getOrderTestingValueId() {

@@ -102,12 +102,4 @@ public class OrderEntityServiceImplTest {
         assertThat(returned, is(orderEntity));
         assertEquals(orderEntity.getUserId(), used.getUserId());
     }
-
-
-
-
-
-
-
-
 }
