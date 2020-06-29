@@ -5,199 +5,208 @@ import java.util.Map;
 import java.util.Stack;
 
 public class SurfaceScannerTest {
-//	@SuppressWarnings("unused")
-//	private boolean checkPlace(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
-//		if (checkVolume(box, loadingMatrix, currentWidthPos, currentHeightPos) == false
-//				&& checkBottom(box, loadingMatrix, currentWidthPos, currentHeightPos) == false
-//				&& checkTop(box, loadingMatrix, currentWidthPos, currentHeightPos) == false)
-//			return false;
-//		return true;
-//	}
-//
-//	private boolean checkVolume(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
-//		if (currentWidthPos + box.getWidthInCells() - 1 > loadingMatrix[0].length
-//				&& currentHeightPos + box.getHeightInCells() - 1 > loadingMatrix.length) {
-//			return false;
-//		}
-//
-//		for (int j = currentHeightPos; j < currentHeightPos + box.getHeightInCells(); j++) {
-//			for (int k = currentWidthPos; k < currentWidthPos + box.getWidthInCells(); k++) {
-//				if (loadingMatrix[j][k] == 1)
-//					return false;
-//			}
-//		}
-//
-//		return true;
-//	}
-//
-//	@SuppressWarnings("unused")
-//	private boolean checkBottom(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
-//		int availableSquare = 0;
-//		int boxSquare = box.getWidthInCells();
-//		for (int i = currentWidthPos; i < currentWidthPos + box.getWidthInCells(); i++) {
-//
-//			if (currentHeightPos - 1 > 0) {
-//				availableSquare += loadingMatrix[currentHeightPos - 1][i];
-//			} else {
-//				availableSquare = boxSquare;
-//			}
-//
-//		}
-//		if (availableSquare < boxSquare / 2) {
-//			return false;
-//		}
-//		return true;
-//	}
-//
-//	@SuppressWarnings("unused")
-//	private boolean checkTop(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
-//		for (int i = currentWidthPos; i < currentWidthPos + box.getWidthInCells(); i++) {
-//			if (loadingMatrix[currentHeightPos + box.getHeightInCells()][i] == 1) {
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
 
-	@SuppressWarnings("unused")
-	public void initializeSurfaceScanner(int[][] loadingMatrix) {
-		int heightPos = loadingMatrix.length - 1;
-		int widthPos = 0;
-		while (loadingMatrix[heightPos][widthPos] != 1 && heightPos > 0) {
-			printMatrix(loadingMatrix, heightPos, widthPos);
-			heightPos--;
-		}
-		scanSurface(widthPos, ++heightPos, loadingMatrix);
+	// Check if we can fit box
+	private boolean checkPlace(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+		if (checkVolume(box, loadingMatrix, currentWidthPos, currentHeightPos) == false
+				&& checkBottom(box, loadingMatrix, currentWidthPos, currentHeightPos) == false
+				&& checkTop(box, loadingMatrix, currentWidthPos, currentHeightPos) == false)
+			return false;
+		return true;
 	}
 
-	@SuppressWarnings("unused")
-	private void scanSurface(int currentWidth, int currentHeight, int[][] loadingMatrix) {
+	// Check free volume for box
+	private boolean checkVolume(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+		if (currentWidthPos + box.getWidthInCells() > loadingMatrix[0].length
+				&& currentHeightPos + box.getHeightInCells() > loadingMatrix.length) {
+			return false;
+		}
+
+		for (int j = currentHeightPos; j < currentHeightPos + box.getHeightInCells(); j++) {
+			for (int k = currentWidthPos; k < currentWidthPos + box.getWidthInCells(); k++) {
+				if (loadingMatrix[j][k] != 0)
+					return false;
+			}
+		}
+
+		return true;
+	}
+
+	// Check cells under box
+	private boolean checkBottom(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+		int availableSquare = 0;
+		int boxSquare = box.getWidthInCells();
+		for (int i = currentWidthPos; i < currentWidthPos + box.getWidthInCells(); i++) {
+			if (currentHeightPos - 1 >= 0) {
+				availableSquare += loadingMatrix[currentHeightPos - 1][i];
+			}
+		}
+		if (availableSquare < boxSquare) {
+			return false;
+		}
+		return true;
+	}
+
+	private boolean checkTop(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+		for (int i = currentWidthPos; i < currentWidthPos + box.getWidthInCells(); i++) {
+			if (loadingMatrix[currentHeightPos + box.getHeightInCells()][i] != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// Start surface scanner for loading matrix
+	public void initializeSurfaceScanner(Box box, int[][] loadingMatrix) {
+		int heightPos = loadingMatrix.length - 1;
+		int widthPos = 0;
+		while (loadingMatrix[heightPos][widthPos] == 0 && heightPos > 0) {
+			heightPos--;
+		}
+		scanSurface(box, widthPos, ++heightPos, loadingMatrix);
+	}
+
+	// Scan surface and place boxА
+	private void scanSurface(Box box, int currentWidth, int currentHeight, int[][] loadingMatrix) {
+		boolean canClimb = false;
 		while (currentWidth < loadingMatrix[0].length) {
-			if (false) {
-				// place box
+			if (checkPlace(box, loadingMatrix, currentWidth, currentHeight)) {
+				// Place box
 				break;
 			} else {
-				if (currentHeight - 1 >= 0 & currentHeight < loadingMatrix.length) {
+
+				// Check if height < top and height > bottom
+				if (currentHeight - 1 >= 0 & currentHeight < loadingMatrix.length - 1) {
+
+					// Check if width < end
 					if (currentWidth < loadingMatrix[0].length - 1) {
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 1
+
+						// Move forward
+						if (loadingMatrix[currentHeight - 1][currentWidth] != 0
 								& loadingMatrix[currentHeight][currentWidth + 1] == 0) {
 							currentWidth++;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
 							continue;
 						}
 
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0
-								& loadingMatrix[currentHeight - 1][currentWidth - 1] == 1) {
+						// Move down
+						if (loadingMatrix[currentHeight - 1][currentWidth] == 0) {
 							currentHeight--;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
 							continue;
 						}
 
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0
-								& loadingMatrix[currentHeight][currentWidth - 1] == 1) {
-							currentHeight--;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
+						// Start to move up
+						if (loadingMatrix[currentHeight - 1][currentWidth] != 0
+								& loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+							currentHeight++;
+							canClimb = true;
 							continue;
 						}
 
-						if (currentHeight == loadingMatrix.length - 1) {
-							if (loadingMatrix[currentHeight][currentWidth + 1] == 0) {
-								currentWidth++;
-								printMatrix(loadingMatrix, currentHeight, currentWidth);
-								continue;
-							}
-
-							if (loadingMatrix[currentHeight][currentWidth + 1] == 1) {
-								while (true) {
-									if (loadingMatrix[currentHeight][currentWidth] == 0) {
-										break;
-									} else {
-										currentWidth++;
-									}
-								}
-								printMatrix(loadingMatrix, currentHeight, currentWidth);
+						// Move up
+						if (canClimb) {
+							if (loadingMatrix[currentHeight + 1][currentWidth] == 0
+									& loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+								currentHeight++;
 								continue;
 							}
 						}
-						
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 1
-								& loadingMatrix[currentHeight][currentWidth + 1] == 1) {
-							currentHeight++;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
-							continue;
-						}
 
-						if (loadingMatrix[currentHeight][currentWidth + 1] == 1) {
-							currentHeight++;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
-							continue;
-						}
-
-						if (loadingMatrix[currentHeight + 1][currentWidth] == 0
-								& loadingMatrix[currentHeight][currentWidth + 1] == 1) {
-							currentHeight++;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
-							continue;
-						}
-
+						// Climb to the edge
 						if (loadingMatrix[currentHeight][currentWidth + 1] == 0
-								& loadingMatrix[currentHeight - 1][currentWidth + 1] == 1) {
+								& loadingMatrix[currentHeight - 1][currentWidth + 1] != 0) {
 							currentWidth++;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
+							canClimb = false;
+							continue;
+						}
+
+						// Check if width = end
+					} else if (currentWidth == loadingMatrix[0].length - 1) {
+
+						// Move down near the wall
+						if (loadingMatrix[currentHeight - 1][currentWidth] == 0
+								& loadingMatrix[currentHeight][currentWidth - 1] != 0) {
+							currentHeight--;
 							continue;
 						}
 					}
 
-					if (currentWidth == loadingMatrix[0].length - 1) {
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0
-								& loadingMatrix[currentHeight - 1][currentWidth - 1] == 1) {
-							currentHeight--;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
+					// Check if height = top
+				} else if (currentHeight == loadingMatrix.length - 1) {
+
+					// Check if width < end
+					if (currentWidth < loadingMatrix[0].length - 1) {
+
+						// Move forward
+						if (loadingMatrix[currentHeight][currentWidth + 1] == 0
+								& loadingMatrix[currentHeight - 1][currentWidth] != 0) {
+							currentWidth++;
 							continue;
 						}
 
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0
-								& loadingMatrix[currentHeight][currentWidth - 1] == 1) {
+						// Go around an obstacle
+						if (loadingMatrix[currentHeight][currentWidth + 1] != 0
+								& loadingMatrix[currentHeight - 1][currentWidth] != 0) {
+							while (true) {
+								if (loadingMatrix[currentHeight][currentWidth] == 0) {
+									break;
+								} else {
+									currentWidth++;
+								}
+							}
+							continue;
+						}
+
+						// Move down
+						if (loadingMatrix[currentHeight - 1][currentWidth] == 0) {
 							currentHeight--;
-							printMatrix(loadingMatrix, currentHeight, currentWidth);
+							continue;
+						}
+
+						// Check if width = end
+					} else if (currentWidth == loadingMatrix[0].length - 1) {
+
+						// Move down near the wall
+						if (loadingMatrix[currentHeight - 1][currentWidth] == 0
+								& loadingMatrix[currentHeight][currentWidth - 1] != 0) {
+							currentHeight--;
 							continue;
 						}
 					}
 
+					// Check if height = bottom
 				} else if (currentHeight == 0) {
+
+					// Move forward
 					if (loadingMatrix[currentHeight][currentWidth + 1] == 0) {
 						currentWidth++;
-						printMatrix(loadingMatrix, currentHeight, currentWidth);
 						continue;
 					}
 
-					if (loadingMatrix[currentHeight][currentWidth + 1] == 1) {
+					// Start to move up
+					if (loadingMatrix[currentHeight][currentWidth + 1] != 0) {
 						currentHeight++;
-						printMatrix(loadingMatrix, currentHeight, currentWidth);
+						canClimb = true;
 						continue;
 					}
 				}
 			}
 
-			// when we are don`t have any ways
+			// Check if there are no ways
 			if (currentHeight == 0 & currentWidth == loadingMatrix[0].length - 1
-					| loadingMatrix[currentHeight - 1][currentWidth] == 1
+					| loadingMatrix[currentHeight - 1][currentWidth] != 0
 							& currentWidth == loadingMatrix[0].length - 1) {
 				break;
 			}
 		}
 	}
 
-	private void printMatrix(int[][] matrix, int h, int w) {
-		matrix[h][w] = 9;
+	private void printMatrix(int[][] matrix) {
 		for (int i = matrix.length - 1; i >= 0; i--) {
 			for (int j = 0; j < matrix[0].length; j++) {
-				if (matrix[i][j] == 1) {
-					System.out.print("| ");
+				if (matrix[i][j] != 0) {
+					System.out.print("N ");
 				} else if (matrix[i][j] == 0) {
 					System.out.print(". ");
-				} else if (matrix[i][j] == 9) {
-					System.out.print("O ");
 				}
 			}
 			System.out.println();
@@ -206,16 +215,13 @@ public class SurfaceScannerTest {
 	}
 
 	public static void main(String[] args) {
-		int[][] matrix = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-				{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1 },
-				{ 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1 },
-				{ 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1 },
-				{ 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0 },
-				{ 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+		int[][] matrix = { { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 } };
 		SurfaceScannerTest scannerTest = new SurfaceScannerTest();
-		scannerTest.initializeSurfaceScanner(matrix);
+		Box box = new Box(1.2, 1.2, 1, 1, 1, "Kyiv");
+		scannerTest.initializeSurfaceScanner(box, matrix);
+		scannerTest.printMatrix(matrix);
 
 	}
 }
