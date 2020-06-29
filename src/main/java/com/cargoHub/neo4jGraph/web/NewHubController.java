@@ -39,7 +39,7 @@ public class NewHubController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Location>> slectAll() {
+    public ResponseEntity<List<Location>> selectAll() {
         return ResponseEntity.ok(locationService.getAll());
     }
 
