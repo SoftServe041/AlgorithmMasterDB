@@ -14,8 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Random;
-
 @RestController
 public class OrdersController {
 
@@ -33,7 +31,6 @@ public class OrdersController {
                                     @PathVariable Integer id) {
         OrderEntity orderEntity = RequestOrderDto.reqOrderToEntity(requestOrderDto);
         orderEntity.setUserId(id);
-        orderEntity.setTrackingId(generateTrackingId(requestOrderDto.getDepartureHub(), requestOrderDto.getArrivalHub(), id));
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -53,26 +50,5 @@ public class OrdersController {
     ResponseEntity<?> deleteTransporter(@PathVariable Integer id) {
         orderService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private String generateTrackingId(String firstCity, String secondCity, long id) {
-
-        final Random random = new Random();
-
-        byte[] byteCity1 = firstCity.getBytes();
-        byte[] byteCity2 = secondCity.getBytes();
-
-        StringBuffer returnStr = new StringBuffer();
-        for (byte a : byteCity1) {
-            returnStr.append(a);
-        }
-        for (byte a : byteCity2) {
-            returnStr.append(a);
-        }
-        returnStr.append(id);
-        returnStr.append(random.nextInt());
-        returnStr.append(System.currentTimeMillis() % 100);
-
-        return returnStr.toString();
     }
 }

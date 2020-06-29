@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Random;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -76,6 +77,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderEntity.getId() != null) {
             throw new OrderException("Illegal state for Order");
         }
+        orderEntity.setTrackingId(generateTrackingId(orderEntity.getDepartureHub().getName(), orderEntity.getArrivalHub().getName(), orderEntity.getId()));
         dimensionsRepository.save(orderEntity.getCargo().getDimensions());
         cargoRepository.save(orderEntity.getCargo());
         hubRepository.save(orderEntity.getArrivalHub());
@@ -95,5 +97,24 @@ public class OrderServiceImpl implements OrderService {
             return;
         }
         throw new OrderException("Cargo not found");
+    }
+    private String generateTrackingId(String firstCity, String secondCity, long id) {
+        final Random random = new Random();
+
+        byte[] byteCity1 = firstCity.getBytes();
+        byte[] byteCity2 = secondCity.getBytes();
+
+        StringBuffer returnStr = new StringBuffer();
+        for (byte a : byteCity1) {
+            returnStr.append(a);
+        }
+        for (byte a : byteCity2) {
+            returnStr.append(a);
+        }
+        returnStr.append(id);
+        returnStr.append(random.nextInt());
+        returnStr.append(System.currentTimeMillis() % 100);
+
+        return returnStr.toString();
     }
 }
