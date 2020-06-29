@@ -14,4 +14,8 @@ public class RouteService {
     public Iterable<RouteRepository.RouteData> getRoute(String departure, String arrival) {
         return routeRepository.getAllRoutes(departure, arrival);
     }
+
+//    public Iterable<Location> getRoute(String departure, String arrival) {
+//        return routeRepository.getAllRoutes(departure, arrival);
+//    }
 }

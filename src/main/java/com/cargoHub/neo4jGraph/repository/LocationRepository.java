@@ -1,6 +1,7 @@
 package com.cargoHub.neo4jGraph.repository;
 
 import com.cargoHub.neo4jGraph.model.Location;
+import org.springframework.data.neo4j.annotation.Depth;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
@@ -32,8 +33,14 @@ public interface LocationRepository extends Neo4jRepository<Location, Long> {
 /**
  * This method is for selecting a single existing hub from the graph.
  * */
-    @Query("MATCH (a:City{name: $name}) RETURN a;")
+//    @Query("MATCH (a:City{name: $name}) RETURN a;")
+    @Query("MATCH (a:City {name: $name})-[r]->(b)\n" +
+            "RETURN r, a, b")
     Location getHubByName(String name);
+
+
+//    @Depth(2)
+    Location findByName(String name);
 
 
 /**

@@ -15,9 +15,11 @@ public interface RelationRepository extends Neo4jRepository<Location, Long> {
 /**
  * This method permits to create a mutual connection between two locations.
  * */
-    @Query("MATCH (a:City {name:$connectedCity}), (l:City {name:$newCity})\n" +
-            "CREATE (l) -[:NEXT]-> (a)\n" +
-            "CREATE (l) <-[:NEXT]- (a);")
+//    @Query("MATCH (a:City {name:$connectedCity}), (l:City {name:$newCity})\n" +
+//            "CREATE (l) -[:NEXT]-> (a)\n" +
+//            "CREATE (l) <-[:NEXT]- (a);")
+@Query("MATCH (a:City {name:$connectedCity}), (l:City {name:$newCity})\n" +
+        "CREATE (l) -[:NEXT]-> (a);")
     void createNewRelation(String connectedCity, String newCity);
 
 /**

@@ -19,13 +19,17 @@ public class LocationService {
     }
 
     public void createNewCity(String newCity) {
-        locationRepository.createNewHub(newCity);
+//        locationRepository.createNewHub(newCity);
+        Location location = new Location();
+        location.setName(newCity);
+        locationRepository.save(location);
         locationRepository.setGeoData(newCity);
     }
 
     public Location searchHubByName(String name) {
 
-        Location result = locationRepository.getHubByName(name);
+//        Location result = locationRepository.getHubByName(name);
+        Location result = locationRepository.findByName(name);
         if(result == null) {
             throw new HubNotFoundException("There is no hub with the name: " + name);
         }
