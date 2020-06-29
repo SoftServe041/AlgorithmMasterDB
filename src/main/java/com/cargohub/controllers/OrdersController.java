@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class OrdersController {
-
     private ModelMapper modelMapper;
     private OrderService orderService;
 
@@ -39,10 +38,7 @@ public class OrdersController {
     public Page<ResponseOrderDto> getOrders(@RequestParam(value = "page", defaultValue = "0") int page,
                                             @RequestParam(value = "limit", defaultValue = "5") int limit,
                                             @PathVariable Integer id) {
-
-
         Pageable pageableRequest = PageRequest.of(page, limit);
-
         return orderService.findAllByUserId(id, pageableRequest).map(ResponseOrderDto::orderToResponseOrderDto);
     }
 

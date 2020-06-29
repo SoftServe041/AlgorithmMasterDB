@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderRepository extends PagingAndSortingRepository<OrderEntity, Integer> {
-
-
-
     @Query("select o from OrderEntity o WHERE o.userId = :userId")
     Page<OrderEntity> findAllByUserId(@Param("userId") Integer userId, Pageable pageable);
 }

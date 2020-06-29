@@ -102,6 +102,4 @@ public class OrderEntityServiceIntegrationTest {
         Page<OrderEntity> last = service.findAll(PageRequest.of((int) lastElement - 1, 1));
         return last.getContent().get(0).getId();
     }
-
-
 }
