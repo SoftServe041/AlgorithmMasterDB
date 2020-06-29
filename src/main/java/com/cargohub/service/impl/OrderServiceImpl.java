@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderEntity.getId() != null) {
             throw new OrderException("Illegal state for Order");
         }
-        orderEntity.setTrackingId(generateTrackingId(orderEntity.getDepartureHub().getName(), orderEntity.getArrivalHub().getName(), orderEntity.getId()));
+        orderEntity.setTrackingId(generateTrackingId(orderEntity.getDepartureHub().getName(), orderEntity.getArrivalHub().getName(), orderEntity.getUserId()));
         dimensionsRepository.save(orderEntity.getCargo().getDimensions());
         cargoRepository.save(orderEntity.getCargo());
         hubRepository.save(orderEntity.getArrivalHub());

@@ -1,6 +1,5 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-DROP TABLE IF EXISTS `cargo`;
 CREATE TABLE `cargo` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `weight` double NOT NULL,
@@ -10,18 +9,16 @@ CREATE TABLE `cargo` (
   `cargo_position_id` integer DEFAULT NULL,
   `carrier_compartment_id` integer DEFAULT NULL,
   `delivery_status` varchar(50) NOT NULL,
-  --`order_id` integer DEFAULT Null,
+
   PRIMARY KEY (`id`),
-  --KEY `FK_cargo_order` (`order_id`),
-  --CONSTRAINT `FK_cargo_order` FOREIGN KEY (`order_id`) REFERENCES `cargo_order` (`id`),
   KEY `FK_cargo_dimensions` (`dimensions_id`),
   KEY `FK_cargo_cargo_position` (`cargo_position_id`),
   KEY `FK_cargo_carrier_compartment` (`carrier_compartment_id`),
-  KEY `FK_cargo_cargo_order` (`order_id`),
+
   CONSTRAINT `FK_cargo_dimensions` FOREIGN KEY (`dimensions_id`) REFERENCES `dimensions` (`id`),
   CONSTRAINT `FK_cargo_cargo_position` FOREIGN KEY (`cargo_position_id`) REFERENCES `cargo_position` (`id`),
-  CONSTRAINT `FK_cargo_carrier_compartment` FOREIGN KEY (`carrier_compartment_id`) REFERENCES `carrier_compartment` (`id`),
-  CONSTRAINT `FK_cargo_cargo_order` FOREIGN KEY (`order_id`) REFERENCES `cargo_order` (`id`)
+  CONSTRAINT `FK_cargo_carrier_compartment` FOREIGN KEY (`carrier_compartment_id`) REFERENCES `carrier_compartment` (`id`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `cargo_order` (
