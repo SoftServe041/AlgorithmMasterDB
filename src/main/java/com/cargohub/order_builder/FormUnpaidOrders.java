@@ -21,7 +21,7 @@ public class FormUnpaidOrders {
         Map<String,List<UnpaidOrder>> unpaidOrdersMap = new HashMap<>();
         List<RouteModel> routes = routeService.getRoute(departure, arrival);
         List<UnpaidOrder> unpaidOrders = new ArrayList<>();
-        routes.stream().forEach((routeModel) -> {
+        routes.forEach((routeModel) -> {
             int price = (int) (routeModel.getDistance() * pricePerKm);
             double hours = routeModel.getDistance() / averageSpeed;
             int days = (int) hours / 10 + (((int) hours % 10) < 5 ? 0 : 1);
@@ -31,9 +31,9 @@ public class FormUnpaidOrders {
             unpaidOrder.setPrice(price);
             unpaidOrders.add(unpaidOrder);
         });
-        Collections.sort(unpaidOrders, new PriceComparator());
+        unpaidOrders.sort(new PriceComparator());
         unpaidOrdersMap.put("priceSorted", unpaidOrders);
-        Collections.sort(unpaidOrders, new DateComparator());
+        unpaidOrders.sort(new DateComparator());
         unpaidOrdersMap.put("dateSorted", unpaidOrders);
         return unpaidOrdersMap;
     }
