@@ -34,7 +34,7 @@ public class SurfaceScannerTest {
 	}
 
 	// Check cells under box
-	// Needs to check fragility too!
+	// Need to check fragility too!
 	private boolean checkBottom(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
 		int boxSquare = box.getWidthInCells();
 		int availableSquare = 0;
@@ -67,14 +67,21 @@ public class SurfaceScannerTest {
 	public void initializeSurfaceScanner(Box box, int[][] loadingMatrix) {
 		int heightPos = loadingMatrix.length - 1;
 		int widthPos = 0;
+
+		if (loadingMatrix[heightPos][widthPos] != 0) {
+			while (loadingMatrix[heightPos][widthPos] != 0) {
+				widthPos++;
+			}
+		}
+
 		while (heightPos > 0) {
-			if (loadingMatrix[heightPos][widthPos] != 0 | heightPos == 0) {
-				heightPos++;
+			if (loadingMatrix[heightPos - 1][widthPos] != 0) {
 				break;
 			} else {
 				heightPos--;
 			}
 		}
+		
 		scanSurface(box, widthPos, heightPos, loadingMatrix);
 	}
 
@@ -85,6 +92,7 @@ public class SurfaceScannerTest {
 			if (checkPlace(box, loadingMatrix, currentWidth, currentHeight)) {
 				placeBox(box, loadingMatrix, currentHeight, currentWidth);
 				break;
+
 			} else {
 
 				// Check if height < top and height > bottom
@@ -146,7 +154,6 @@ public class SurfaceScannerTest {
 
 					// Check if height = top
 				} else if (currentHeight == loadingMatrix.length - 1) {
-
 					// Check if width < end
 					if (currentWidth < loadingMatrix[0].length - 1) {
 
@@ -175,10 +182,10 @@ public class SurfaceScannerTest {
 							currentHeight--;
 							continue;
 						}
-
+						
 						// Check if width = end
 					} else if (currentWidth == loadingMatrix[0].length - 1) {
-
+						
 						// Move down near the wall
 						if (loadingMatrix[currentHeight - 1][currentWidth] == 0
 								& loadingMatrix[currentHeight][currentWidth - 1] != 0) {
@@ -189,7 +196,6 @@ public class SurfaceScannerTest {
 
 					// Check if height = bottom
 				} else if (currentHeight == 0) {
-
 					// Check if width < end
 					if (currentWidth < loadingMatrix[0].length - 1) {
 
@@ -210,16 +216,16 @@ public class SurfaceScannerTest {
 					}
 				}
 			}
-
 			// Check if there are no ways
 			if (currentHeight == 0 & currentWidth == loadingMatrix[0].length - 1
-					| loadingMatrix[currentHeight - 1][currentWidth] != 0
-							& currentWidth == loadingMatrix[0].length - 1) {
+					| loadingMatrix[currentHeight - 1][currentWidth] != 0 & currentWidth == loadingMatrix[0].length - 1
+					| currentHeight == loadingMatrix.length & currentWidth == loadingMatrix[0].length - 1) {
 				break;
 			}
 		}
 	}
 
+	// Place box
 	private void placeBox(Box box, int[][] loadingMatrix, int currentHeight, int currentWidth) {
 		for (int i = currentHeight; i < currentHeight + box.getHeightInCells(); i++) {
 			for (int j = currentWidth; j < currentWidth + box.getWidthInCells(); j++) {
@@ -228,6 +234,7 @@ public class SurfaceScannerTest {
 		}
 	}
 
+	// Print all matrix
 	private void printMatrix(int[][] matrix) {
 		for (int i = matrix.length - 1; i >= 0; i--) {
 			for (int j = 0; j < matrix[0].length; j++) {
@@ -252,18 +259,25 @@ public class SurfaceScannerTest {
 				{ 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 } };
 		SurfaceScannerTest scannerTest = new SurfaceScannerTest();
-		Box box = new Box(0.9, 0.9, 1, 2, 2, "Kyiv");
-		Box box2 = new Box(0.6, 0.6, 1, 5, 5, "Kyiv");
-		Box box3 = new Box(1.2, 1.2, 1, 1, 1, "Kyiv");
-		Box box4 = new Box(0.9, 0.3, 1, 2, 7, "Kyiv");
-		Box box5 = new Box(0.9, 0.9, 1, 2, 4, "Kyiv");
-		Box box6 = new Box(0.9, 0.9, 1, 2, 8, "Kyiv");
-		scannerTest.initializeSurfaceScanner(box, matrix);
+		Box box1 = new Box(1.2, 1.2, 1, 1, 1, "Kyiv");
+		Box box2 = new Box(0.9, 0.9, 1, 2, 2, "Kyiv");
+		Box box3 = new Box(0.9, 0.9, 1, 2, 3, "Kyiv");
+		Box box4 = new Box(0.6, 0.6, 1, 5, 4, "Kyiv");
+		Box box5 = new Box(0.9, 0.3, 1, 2, 5, "Kyiv");
+		Box box6 = new Box(0.6, 0.9, 1, 2, 6, "Kyiv");
+		Box box7 = new Box(0.3, 0.3, 1, 2, 7, "Kyiv");
+		Box box8 = new Box(0.9, 0.3, 1, 2, 8, "Kyiv");
+
+		scannerTest.initializeSurfaceScanner(box1, matrix);
 		scannerTest.initializeSurfaceScanner(box2, matrix);
 		scannerTest.initializeSurfaceScanner(box3, matrix);
 		scannerTest.initializeSurfaceScanner(box4, matrix);
 		scannerTest.initializeSurfaceScanner(box5, matrix);
 		scannerTest.initializeSurfaceScanner(box6, matrix);
+		scannerTest.initializeSurfaceScanner(box7, matrix);
+		scannerTest.initializeSurfaceScanner(box7, matrix);
+		//scannerTest.initializeSurfaceScanner(box1, matrix);
+		//scannerTest.initializeSurfaceScanner(box7, matrix);
 		scannerTest.printMatrix(matrix);
 
 	}
