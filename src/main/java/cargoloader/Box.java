@@ -47,7 +47,7 @@ public class Box {
 		// calculate size int cells
 		widthInCells = (int) (this.width / 0.3);// can be related to transport type
 		depthInCells = (int) (this.depth / 0.3);
-		heightInCells = (int) (this.width / 0.3);
+		heightInCells = (int) (this.height / 0.3);
 	}
 
 	public int getId() {
@@ -117,7 +117,7 @@ public class Box {
 	public void setHeightPos(int heightPos) {
 		this.heightPos = heightPos;
 	}
-	
+
 //	@Override
 //	public String toString() {
 //		return "Box [id=" + id + ", width=" + width + ", depth=" + depth + ", height=" + height + ", widthInCells="
