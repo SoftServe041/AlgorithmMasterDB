@@ -1,3 +1,4 @@
+import com.cargohub.entities.Hub;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.exceptions.OrderException;
 import com.cargohub.repository.OrderRepository;
@@ -40,9 +41,14 @@ public class OrderEntityServiceImplTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         orderEntity = new OrderEntity();
+        Hub arrh = new Hub();
+        arrh.setName("A");
+        Hub deph = new Hub();
+        deph.setName("B");
+        orderEntity.setArrivalHub(arrh);
+        orderEntity.setDepartureHub(deph);
         orderEntity.setId(1);
         orderEntity.setPrice(2.2);
-        orderEntity.setTrackingId("123232323");
         orderEntity.setUserId(4);
         page = new PageImpl(List.of(orderEntity));
         pageable = PageRequest.of(0, 10);
