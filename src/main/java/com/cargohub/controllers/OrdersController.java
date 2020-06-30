@@ -17,6 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,8 +46,7 @@ public class OrdersController {
     public Map<String, List<UnpaidOrder>> getOrderVariants(@RequestBody OrderModel reqModel) {
         FormUnpaidOrders formUnpaidOrders = new FormUnpaidOrders();
         Map<String,List<UnpaidOrder>>  map = formUnpaidOrders.formUnpaidOrders(reqModel.getDepartureHub(), reqModel.getArrivalHub());
-       return  map;
-       // return FazlidinClass(reqModel);
+        return  map;
     }
 
     @GetMapping(path = "/{id}/profile", produces = MediaType.APPLICATION_JSON_VALUE)
