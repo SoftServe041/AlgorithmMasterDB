@@ -4,6 +4,8 @@ import com.cargohub.dto.jar.RequestOrderDto;
 import com.cargohub.dto.jar.ResponseOrderDto;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.models.OrderModel;
+import com.cargohub.order_builder.FormUnpaidOrders;
+import com.cargohub.order_builder.UnpaidOrder;
 import com.cargohub.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class OrdersController {
@@ -35,8 +40,10 @@ public class OrdersController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
     @PostMapping("/requestRoutes")
-    public Collection<Object> getOrderVariants(@RequestBody OrderModel reqModel) {
-
+    public Map<String, List<UnpaidOrder>> getOrderVariants(@RequestBody OrderModel reqModel) {
+        FormUnpaidOrders formUnpaidOrders = new FormUnpaidOrders();
+        Map<String,List<UnpaidOrder>>  map = formUnpaidOrders.formUnpaidOrders(reqModel.getDepartureHub(), reqModel.getArrivalHub());
+       return  map;
        // return FazlidinClass(reqModel);
     }
 
