@@ -1,7 +1,7 @@
 package com.cargohub.neo4jGraph.web;
 
 import com.cargohub.neo4jGraph.model.Location;
-import com.cargohub.neo4jGraph.service.LocationService;
+import com.cargohub.service.impl.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

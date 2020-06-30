@@ -1,9 +1,8 @@
 import com.cargohub.neo4jGraph.model.Location;
 import com.cargohub.neo4jGraph.repository.LocationRepository;
-import com.cargohub.neo4jGraph.service.LocationService;
+import com.cargohub.service.impl.LocationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;

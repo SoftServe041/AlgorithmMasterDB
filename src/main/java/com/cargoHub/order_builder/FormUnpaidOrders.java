@@ -1,24 +1,31 @@
 package com.cargohub.order_builder;
 
 import com.cargohub.neo4jGraph.model.RouteModel;
-import com.cargohub.neo4jGraph.service.RouteService;
-import lombok.Getter;
+import com.cargohub.service.impl.RouteService;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+@Component
 public class FormUnpaidOrders {
-    @Autowired
+    final
     RouteService routeService;
     @Setter
-    Double pricePerKm;
+    Double pricePerKm = 10d;
     @Setter
-    Double averageSpeed;
+    Double averageSpeed = 10d;
+
+    public FormUnpaidOrders(RouteService routeService) {
+        this.routeService = routeService;
+    }
 
     public Map<String, List<UnpaidOrder>> formUnpaidOrders(String departure, String arrival) {
-        Map<String,List<UnpaidOrder>> unpaidOrdersMap = new HashMap<>();
+        Map<String, List<UnpaidOrder>> unpaidOrdersMap = new HashMap<>();
         List<RouteModel> routes = routeService.getRoute(departure, arrival);
         List<UnpaidOrder> unpaidOrders = new ArrayList<>();
         routes.forEach((routeModel) -> {

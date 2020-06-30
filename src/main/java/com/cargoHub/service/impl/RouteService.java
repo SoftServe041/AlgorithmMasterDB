@@ -1,8 +1,7 @@
-package com.cargohub.neo4jGraph.service;
+package com.cargohub.service.impl;
 
 import com.cargohub.neo4jGraph.model.RouteModel;
 import com.cargohub.neo4jGraph.repository.RouteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,8 +11,12 @@ import java.util.List;
 @Service
 public class RouteService {
 
-    @Autowired
+    final
     RouteRepository routeRepository;
+
+    public RouteService(RouteRepository routeRepository) {
+        this.routeRepository = routeRepository;
+    }
 
     public List<RouteModel> getRoute(String departure, String arrival) {
         List<RouteModel> routeModel = new ArrayList<>();

@@ -27,11 +27,12 @@ import java.util.Map;
 public class OrdersController {
     private ModelMapper modelMapper;
     private OrderService orderService;
-
+    private FormUnpaidOrders formUnpaidOrders;
     @Autowired
-    public OrdersController(ModelMapper modelMapper, OrderService orderService) {
+    public OrdersController(ModelMapper modelMapper, OrderService orderService, FormUnpaidOrders formUnpaidOrders) {
         this.modelMapper = modelMapper;
         this.orderService = orderService;
+        this.formUnpaidOrders = formUnpaidOrders;
     }
 
     @PostMapping("/{id}")
@@ -44,7 +45,7 @@ public class OrdersController {
     }
     @PostMapping("/requestRoutes")
     public Map<String, List<UnpaidOrder>> getOrderVariants(@RequestBody OrderModel reqModel) {
-        FormUnpaidOrders formUnpaidOrders = new FormUnpaidOrders();
+
         Map<String,List<UnpaidOrder>>  map = formUnpaidOrders.formUnpaidOrders(reqModel.getDepartureHub(), reqModel.getArrivalHub());
         return  map;
     }

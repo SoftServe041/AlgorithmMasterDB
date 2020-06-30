@@ -1,4 +1,4 @@
-package com.cargohub.neo4jGraph.service;
+package com.cargohub.service.impl;
 
 import com.cargohub.neo4jGraph.ErrorHandler.HubNotFoundException;
 import com.cargohub.neo4jGraph.model.Location;
