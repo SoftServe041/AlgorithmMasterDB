@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/location")
@@ -26,7 +25,6 @@ public class NewHubController {
 
     @Autowired
     private LocationService locationService;
-    private Location locaton;
 
     @GetMapping("/{name}")
     public ResponseEntity<Location> getHubByName(@PathVariable String name) {
@@ -38,18 +36,13 @@ public class NewHubController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<Location>> selectAll() {
-        return ResponseEntity.ok(locationService.getAll());
-    }
-
     @PostMapping("/create")
     public void postNewHub(@RequestBody HubRequest hubRequest) {
         locationService.createNewCity(hubRequest.getNewCity());
     }
 
     @PatchMapping("/{name}")
-    public void updateHub(@PathVariable String name, @RequestParam String newName){
+    public void updateHub(@PathVariable String name, @RequestParam String newName) {
         locationService.modifyCity(name, newName);
     }
 
