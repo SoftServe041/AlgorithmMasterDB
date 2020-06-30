@@ -1,6 +1,6 @@
-package com.cargoHub.neo4jGraph;
+package com.cargohub.neo4jGraph;
 
-import com.cargoHub.neo4jGraph.repository.LocationRepository;
+import com.cargohub.neo4jGraph.repository.LocationRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
@@ -9,7 +9,10 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 @EnableNeo4jRepositories(basePackageClasses = LocationRepository.class)
 public class Neo4jGraphApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Neo4jGraphApplication.class, args);
-	}
+   /* public static void main(String[] args) {
+        SpringApplication.run(Neo4jGraphApplication.class, args);
+    }
+
+    */
+
 }
