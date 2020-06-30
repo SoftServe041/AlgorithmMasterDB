@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/location")
@@ -18,7 +17,6 @@ public class NewHubController {
 
     @Autowired
     private LocationService locationService;
-    private Location locaton;
 
     @GetMapping("/{name}")
     public ResponseEntity<Location> getHubByName(@PathVariable String name) {
@@ -30,14 +28,9 @@ public class NewHubController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<Location>> slectAll() {
-        return ResponseEntity.ok(locationService.getAll());
-    }
-
     @PostMapping("/create")
     public void postNewHub(@RequestBody HubRequest hubRequest) {
-        locationService.createNewCity(hubRequest.getNewCity(), hubRequest.getConnectedCity());
+        locationService.createNewCity(hubRequest.getNewCity());
     }
 
     @PatchMapping("/{name}")
