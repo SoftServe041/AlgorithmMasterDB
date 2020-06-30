@@ -40,6 +40,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // must be an admin if trying to access admin area (authentication is also required here)
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/cities").permitAll()
                 // Any other request must be authenticated
                 .anyRequest().authenticated();
     }

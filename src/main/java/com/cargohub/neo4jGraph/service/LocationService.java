@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class LocationService {
@@ -19,12 +18,8 @@ public class LocationService {
         return locationRepository.getAllLocations();
     }
 
-    public Stream<Location> getRoutes(String departure, String arrival) {
-        return locationRepository.getAllRouts(departure, arrival);
-    }
-
-    public void createNewCity(String newCity, String connectedCity) { // ToDo: check if location exists or not
-        locationRepository.createNewHub(newCity, connectedCity);
+    public void createNewCity(String newCity) {
+        locationRepository.createNewHub(newCity);
         locationRepository.setGeoData(newCity);
     }
 
@@ -47,4 +42,5 @@ public class LocationService {
     public void deleteCityByName(String name) {
         locationRepository.deleteHub(name);
     }
+
 }

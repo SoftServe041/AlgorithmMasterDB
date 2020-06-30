@@ -22,6 +22,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +63,9 @@ class TransportServiceImplTest {
         CarrierCompartment carrierCompartment = new CarrierCompartment();
         carrierCompartment.setVolume(new Dimensions());
         carrierCompartment.setCargos(List.of(new Cargo()));
-        subject.setCompartments(List.of(carrierCompartment));
+        List<CarrierCompartment> compartments = new ArrayList<>();
+        compartments.add(carrierCompartment);
+        subject.setCompartments(compartments);
         subject.setCurrentHub(new Hub());
         subject.setType(TransporterType.TRUCK);
         subject.setRoute(List.of(new Hub()));

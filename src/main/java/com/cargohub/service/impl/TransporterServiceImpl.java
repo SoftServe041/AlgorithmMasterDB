@@ -139,7 +139,8 @@ public class TransporterServiceImpl implements TransporterService {
         transporter.setCurrentHub(hub);
         transporter.setStatus(TransporterStatus.WAITING);
         Transporter result = repository.save(transporter);
-        for (CarrierCompartment compartment : transporter.getCompartments()) {
+        for (int i = 0; i < transporter.getCompartments().size(); i++) {
+            CarrierCompartment compartment = transporter.getCompartments().get(i);
             compartment.setTransporter(result);
             carrierCompartmentRepository.save(compartment);
         }

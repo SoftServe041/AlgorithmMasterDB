@@ -6,31 +6,15 @@ import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public interface LocationRepository extends Neo4jRepository<Location, Long> {
 
-    /**
-     * Methods getAllRouts() returns all available routs in ascending order.
-     * To avoid SOF pls limit the output. By default this limit value is set to 5.
-     */
-    @Query("MATCH (nod:City)\n" +
-            "MATCH ()-[rels:TRUCK]->()\n" +
-            "WITH collect(nod) as a, collect(rels) as b\n" +
-            "CALL apoc.export.json.data(a, b, null, {stream: true})\n" +
-            "YIELD file, nodes, relationships, properties, data\n" +
-            "RETURN file, nodes, relationships, properties, data")
-    Stream<Location> getAllRouts(String departure, String arrival);
-
-    /**
-     * Methods createNewHub() and setGeoData() form the query: create a hub and
-     * set longitude and latitude.
-     */
-    @Query("MATCH (a:City {name:$connectedCity})\n" +
-            "CREATE (l:City {name:$newCity})\n" +
-            "CREATE (l) -[:NEXT]-> (a)\n" +
-            "CREATE (l) <-[:NEXT]- (a);\n")
-    void createNewHub(String newCity, String connectedCity);
+/**
+ * Methods createNewHub() and setGeoData() form the query: create a hub and
+ * set longitude and latitude.
+ * */
+    @Query("CREATE (l:City {name:$newCity})" )
+    void createNewHub(String newCity);
 
     @Query("MATCH (a:City {name: $newCity})\n" +
             "CALL apoc.spatial.geocodeOnce($newCity) YIELD location\n" +
