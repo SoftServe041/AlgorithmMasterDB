@@ -3,6 +3,7 @@ package com.cargohub.controllers;
 import com.cargohub.dto.jar.RequestOrderDto;
 import com.cargohub.dto.jar.ResponseOrderDto;
 import com.cargohub.entities.OrderEntity;
+import com.cargohub.models.OrderModel;
 import com.cargohub.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class OrdersController {
         orderEntity.setUserId(id);
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+    @PostMapping("/requestRoutes")
+    public Collection<Object> getOrderVariants(@RequestBody OrderModel reqModel) {
+
+       // return FazlidinClass(reqModel);
     }
 
     @GetMapping(path = "/{id}/profile", produces = MediaType.APPLICATION_JSON_VALUE)
