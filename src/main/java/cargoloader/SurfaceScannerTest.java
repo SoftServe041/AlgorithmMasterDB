@@ -81,7 +81,6 @@ public class SurfaceScannerTest {
 				heightPos--;
 			}
 		}
-		
 		scanSurface(box, widthPos, heightPos, loadingMatrix);
 	}
 
@@ -89,6 +88,7 @@ public class SurfaceScannerTest {
 	private void scanSurface(Box box, int currentWidth, int currentHeight, int[][] loadingMatrix) {
 		boolean canClimb = false;
 		while (currentWidth < loadingMatrix[0].length) {
+
 			if (checkPlace(box, loadingMatrix, currentWidth, currentHeight)) {
 				placeBox(box, loadingMatrix, currentHeight, currentWidth);
 				break;
@@ -126,13 +126,11 @@ public class SurfaceScannerTest {
 						}
 
 						// Climb to the edge
-						if (canClimb) {
-							if (loadingMatrix[currentHeight][currentWidth + 1] == 0
-									& loadingMatrix[currentHeight - 1][currentWidth + 1] != 0) {
-								currentWidth++;
-								canClimb = false;
-								continue;
-							}
+						if (loadingMatrix[currentHeight][currentWidth + 1] == 0
+								& loadingMatrix[currentHeight - 1][currentWidth + 1] != 0) {
+							currentWidth++;
+							canClimb = false;
+							continue;
 						}
 
 						// Move down
@@ -145,8 +143,7 @@ public class SurfaceScannerTest {
 					} else if (currentWidth == loadingMatrix[0].length - 1) {
 
 						// Move down near the wall
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0
-								& loadingMatrix[currentHeight][currentWidth - 1] != 0) {
+						if (loadingMatrix[currentHeight - 1][currentWidth] == 0) {
 							currentHeight--;
 							continue;
 						}
@@ -168,13 +165,28 @@ public class SurfaceScannerTest {
 						if (loadingMatrix[currentHeight][currentWidth + 1] != 0
 								& loadingMatrix[currentHeight - 1][currentWidth] != 0) {
 							while (true) {
-								if (loadingMatrix[currentHeight][currentWidth] == 0) {
-									break;
-								} else {
+								if (loadingMatrix[currentHeight][currentWidth + 1] != 0) {
 									currentWidth++;
+								} else {
+									canClimb = false;
+									break;
 								}
 							}
 							continue;
+						}
+
+						if (canClimb) {
+							if (loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+								while (true) {
+									if (loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+										currentWidth++;
+									} else {
+										canClimb = false;
+										break;
+									}
+								}
+								continue;
+							}
 						}
 
 						// Move down
@@ -182,13 +194,12 @@ public class SurfaceScannerTest {
 							currentHeight--;
 							continue;
 						}
-						
+
 						// Check if width = end
 					} else if (currentWidth == loadingMatrix[0].length - 1) {
-						
+
 						// Move down near the wall
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0
-								& loadingMatrix[currentHeight][currentWidth - 1] != 0) {
+						if (loadingMatrix[currentHeight - 1][currentWidth] == 0) {
 							currentHeight--;
 							continue;
 						}
@@ -276,8 +287,8 @@ public class SurfaceScannerTest {
 		scannerTest.initializeSurfaceScanner(box6, matrix);
 		scannerTest.initializeSurfaceScanner(box7, matrix);
 		scannerTest.initializeSurfaceScanner(box7, matrix);
-		//scannerTest.initializeSurfaceScanner(box1, matrix);
-		//scannerTest.initializeSurfaceScanner(box7, matrix);
+		scannerTest.initializeSurfaceScanner(box1, matrix);
+		scannerTest.initializeSurfaceScanner(box7, matrix);
 		scannerTest.printMatrix(matrix);
 
 	}
