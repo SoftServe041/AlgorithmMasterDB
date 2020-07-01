@@ -1,6 +1,6 @@
+/*
 package com.cargoHub.neo4jGraph.model;
 
-import com.cargoHub.neo4jGraph.repository.RouteRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,11 +11,8 @@ import org.neo4j.driver.internal.InternalPath;
 import org.neo4j.driver.internal.InternalRelationship;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
-import org.neo4j.ogm.response.model.NodeModel;
-import org.springframework.data.neo4j.annotation.QueryResult;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -80,3 +77,4 @@ public class RouteData implements Serializable {
         }
     }
 }
+*/

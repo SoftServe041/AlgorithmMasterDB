@@ -1,6 +1,5 @@
 package com.cargoHub.neo4jGraph.web;
 
-import com.cargoHub.neo4jGraph.model.Location;
 import com.cargoHub.neo4jGraph.repository.RouteRepository;
 import com.cargoHub.neo4jGraph.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;

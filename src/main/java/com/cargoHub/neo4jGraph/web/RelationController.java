@@ -1,8 +1,8 @@
 package com.cargoHub.neo4jGraph.web;
 
 import com.cargoHub.neo4jGraph.model.HubRequest;
-import com.cargoHub.neo4jGraph.model.Location;
 import com.cargoHub.neo4jGraph.service.RelationService;
+import com.cargoHub.neo4jGraph.model.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

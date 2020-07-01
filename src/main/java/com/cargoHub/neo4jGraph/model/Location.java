@@ -1,16 +1,10 @@
 package com.cargoHub.neo4jGraph.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -39,25 +33,10 @@ public class Location {
     private String name;
     private double longitude;
     private double latitude;
-    @Relationship(type="NEXT")
+    @Relationship
+    private String connection;
+    @Relationship
     private Set<Connection> connections;
-//    private Set<Location> connections;
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Location location = (Location) o;
-//        return Double.compare(location.longitude, longitude) == 0 &&
-//                Double.compare(location.latitude, latitude) == 0 &&
-//                Objects.equals(id, location.id) &&
-//                Objects.equals(name, location.name);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name, longitude, latitude);
-//    }
 
     public Location(
             Long id,
@@ -71,6 +50,15 @@ public class Location {
         this.longitude = longitude;
         this.latitude = latitude;
         this.connections = connections;
+    }
+
+    public Location(Long id, String name, double longitude,
+                    double latitude, String connection) {
+        this.id = id;
+        this.name = name;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.connection = connection;
     }
 
     public Location() {
@@ -108,13 +96,13 @@ public class Location {
         this.latitude = latitude;
     }
 
-//    public Set<Location> getConnections() {
-//        return connections;
-//    }
-//
-//    public void setConnections(Set<Location> connections) {
-//        this.connections = connections;
-//    }
+    public String getConnection() {
+        return connection;
+    }
+
+    public void setConnection(String connection) {
+        this.connection = connection;
+    }
 
     public Set<Connection> getConnections() {
         return connections;

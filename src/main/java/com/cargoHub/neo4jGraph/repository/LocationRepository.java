@@ -1,7 +1,6 @@
 package com.cargoHub.neo4jGraph.repository;
 
 import com.cargoHub.neo4jGraph.model.Location;
-import org.springframework.data.neo4j.annotation.Depth;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 

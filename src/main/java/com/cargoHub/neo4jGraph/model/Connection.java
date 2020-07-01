@@ -1,13 +1,7 @@
 package com.cargoHub.neo4jGraph.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.*;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 //@Data
 //@NoArgsConstructor

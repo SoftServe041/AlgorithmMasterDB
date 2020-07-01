@@ -1,8 +1,8 @@
 package com.cargoHub.neo4jGraph.web;
 
+import com.cargoHub.neo4jGraph.model.HubRequest;
 import com.cargoHub.neo4jGraph.ErrorHandler.HubNotFoundException;
 import com.cargoHub.neo4jGraph.model.Location;
-import com.cargoHub.neo4jGraph.model.HubRequest;
 
 import com.cargoHub.neo4jGraph.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
