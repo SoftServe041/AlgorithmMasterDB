@@ -10,5 +10,5 @@ public class OrderModel {
     private Double cargoWeight;
     private Integer cargoWidth;
     private Integer cargoHeight;
-    private Integer CargoLength;
+    private Integer cargoLength;
 }

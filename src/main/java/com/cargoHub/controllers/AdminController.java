@@ -30,7 +30,7 @@ public class AdminController {
     }
 
     @PostMapping("relation")
-    public void postNewRealation(@RequestBody HubRequest hubRequest) {
+    public void postNewRelation(@RequestBody HubRequest hubRequest) {
         relationService.createNewRelation(hubRequest.getConnectedCity(), hubRequest.getNewCity());
     }
 

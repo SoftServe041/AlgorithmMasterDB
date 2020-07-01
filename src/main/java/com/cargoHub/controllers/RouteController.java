@@ -1,4 +1,4 @@
-package com.cargohub.neo4jGraph.web;
+package com.cargohub.controllers;
 
 import com.cargohub.neo4jGraph.model.RouteModel;
 import com.cargohub.service.impl.RouteService;

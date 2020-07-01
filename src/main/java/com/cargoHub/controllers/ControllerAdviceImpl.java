@@ -1,4 +1,4 @@
-package com.cargohub.neo4jGraph.web;
+package com.cargohub.controllers;
 
 
 import com.cargohub.neo4jGraph.ErrorHandler.ErrorResponce;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class HubRestExceptionHandler {
+public class ControllerAdviceImpl {
 
     @ExceptionHandler
     public ResponseEntity<ErrorResponce> handleException(HubNotFoundException e) {
