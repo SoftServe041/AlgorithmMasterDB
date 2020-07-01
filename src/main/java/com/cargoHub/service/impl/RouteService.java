@@ -1,7 +1,7 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.neo4jGraph.model.RouteModel;
-import com.cargohub.neo4jGraph.repository.RouteRepository;
+import com.cargohub.models.RouteModel;
+import com.cargohub.repository.RouteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

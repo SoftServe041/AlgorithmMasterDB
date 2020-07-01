@@ -1,6 +1,6 @@
 package com.cargohub.controllers;
 
-import com.cargohub.neo4jGraph.model.Location;
+import com.cargohub.models.Location;
 import com.cargohub.service.impl.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

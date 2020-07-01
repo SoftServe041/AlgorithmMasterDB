@@ -1,6 +1,6 @@
 package com.cargohub.order_builder;
 
-import com.cargohub.neo4jGraph.model.RouteModel;
+import com.cargohub.models.RouteModel;
 import com.cargohub.service.impl.RouteService;
 import lombok.Setter;
 import org.springframework.stereotype.Component;

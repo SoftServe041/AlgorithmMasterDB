@@ -1,8 +1,8 @@
 package com.cargohub.controllers;
 
 import com.cargohub.dto.UpdateHubDto;
-import com.cargohub.neo4jGraph.model.HubRequest;
-import com.cargohub.neo4jGraph.model.Location;
+import com.cargohub.models.HubRequest;
+import com.cargohub.models.Location;
 import com.cargohub.service.impl.LocationService;
 import com.cargohub.service.impl.RelationService;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.cargohub.neo4jGraph.model;
+package com.cargohub.models;
 
 public enum NodeRelation {
 

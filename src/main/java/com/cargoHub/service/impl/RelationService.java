@@ -1,7 +1,7 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.neo4jGraph.model.Location;
-import com.cargohub.neo4jGraph.repository.RelationRepositoryNeo4j;
+import com.cargohub.models.Location;
+import com.cargohub.repository.RelationRepositoryNeo4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.cargohub.controllers;
 
-import com.cargohub.neo4jGraph.model.RouteModel;
+import com.cargohub.models.RouteModel;
 import com.cargohub.service.impl.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
