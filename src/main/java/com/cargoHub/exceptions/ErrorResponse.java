@@ -1,15 +1,15 @@
-package com.cargohub.neo4jGraph.ErrorHandler;
+package com.cargohub.exceptions;
 
-public class ErrorResponce {
+public class ErrorResponse {
 
     private int status;
     private String message;
     private long timestamp;
 
-    public ErrorResponce() {
+    public ErrorResponse() {
     }
 
-    public ErrorResponce(int status, String message, long timestamp) {
+    public ErrorResponse(int status, String message, long timestamp) {
         this.status = status;
         this.message = message;
         this.timestamp = timestamp;

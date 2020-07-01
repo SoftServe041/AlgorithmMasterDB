@@ -1,4 +1,4 @@
-package com.cargohub.neo4jGraph.ErrorHandler;
+package com.cargohub.exceptions;
 
 public class HubNotFoundException extends RuntimeException {
 
