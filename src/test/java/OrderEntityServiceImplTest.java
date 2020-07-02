@@ -62,7 +62,6 @@ public class OrderEntityServiceImplTest {
         orderEntity.setTrackingId("123232323");
         orderEntity.setUserId(4);
         hub = new Hub();
-
         hub.setName("A");
         orderEntity.setArrivalHub(hub);
         orderEntity.setDepartureHub(hub);
@@ -75,7 +74,6 @@ public class OrderEntityServiceImplTest {
         page = new PageImpl(List.of(orderEntity));
         pageable = PageRequest.of(0, 10);
     }
-
     @Test
     void createOrder() {
         orderEntity.setId(null);
@@ -90,9 +88,7 @@ public class OrderEntityServiceImplTest {
         OrderEntity used = captor.getValue();
         assertThat(used, is(orderEntity));
         assertThat(returned, is(orderEntity));
-
     }
-
     @Test
     void findOrderById() {
         when(orderRepository.findById(nullable(Integer.class))).thenReturn(Optional.of(orderEntity));
@@ -103,6 +99,7 @@ public class OrderEntityServiceImplTest {
         assertThat(used, is(orderEntity.getId()));
         assertThat(returned, is(orderEntity));
     }
+
     @Test
     void findByIdThrowsOrderException() {
         when(orderRepository.findById(nullable(Integer.class))).thenReturn(Optional.empty());
@@ -110,17 +107,19 @@ public class OrderEntityServiceImplTest {
         orderEntity.setId(null);
         assertThrows(OrderException.class, () -> orderService.findById(orderEntity.getId()));
     }
+
     @Test
     void findAllByUserId() {
         when(orderRepository.findAllByUserId(nullable(Integer.class), any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
         ArgumentCaptor<Pageable> captor2 = ArgumentCaptor.forClass(Pageable.class);
-        Page<OrderEntity> returned = orderService.findAllByUserId(orderEntity.getUserId(),pageable);
+        Page<OrderEntity> returned = orderService.findAllByUserId(orderEntity.getUserId(), pageable);
         verify(orderRepository).findAllByUserId(captor.capture(), captor2.capture());
         Integer used = captor.getValue();
         assertThat(used, is(orderEntity.getUserId()));
         assertThat(returned, is(page));
     }
+
     @Test
     void updateOrder() {
         when(orderRepository.save(nullable(OrderEntity.class))).thenReturn(orderEntity);
