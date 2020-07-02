@@ -12,10 +12,13 @@ import java.util.*;
 
 @Component
 public class FormUnpaidOrders {
+
     @Autowired
     RouteService routeService;
+
     @Setter
     Double pricePerKm = 1.4;
+
     @Setter
     Double averageSpeed = 60d;
     Double truckVolume = 80d;
