@@ -41,7 +41,6 @@ public class CargoSorter {
 			}
 		}
 		sortByFragilityAndVolume();
-		System.out.println(sortedCargoMap);
 	}
 
 	private void sortByFragilityAndVolume() {

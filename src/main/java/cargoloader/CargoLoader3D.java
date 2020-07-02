@@ -103,31 +103,35 @@ public class CargoLoader3D {
 		int heightPos = loadingMatrix[0].length - 1;
 		int widthPos = 0;
 		int depthPos = 0;
-		int unloadedBoxes = listBox.size();
-
-		for (Box box : listBox) {
-
-			// Set starting position
-			if (loadingMatrix[depthPos][heightPos][widthPos] != 0) {
-				while (loadingMatrix[depthPos][heightPos][widthPos] != 0 & widthPos + 1 < loadingMatrix[0].length) {
-					widthPos++;
+		List<Box> unloadedBoxes = new LinkedList<Box>();
+		unloadedBoxes.addAll(listBox);
+		while (unloadedBoxes.size() > 0) {
+			boolean canLoad = false;
+			for (Box box : unloadedBoxes) {
+				// Set starting position
+				if (loadingMatrix[depthPos][heightPos][widthPos] != 0) {
+					while (loadingMatrix[depthPos][heightPos][widthPos] != 0 & widthPos + 1 < loadingMatrix[0].length) {
+						widthPos++;
+					}
 				}
-			}
 
-			while (heightPos > 0) {
-				if (loadingMatrix[depthPos][heightPos - 1][widthPos] != 0) {
+				while (heightPos > 0) {
+					if (loadingMatrix[depthPos][heightPos - 1][widthPos] != 0) {
+						break;
+					} else {
+						heightPos--;
+					}
+				}
+
+				// TODO: ASK ABOUT CONCEPT
+				if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, depthPos, loadingMatrix)) {
+					heightPos = loadingMatrix[0].length - 1;
+					widthPos = 0;
+					loadedCargo.get(box.getDestination()).push(box);
+					unloadedBoxes.remove(box);
+					canLoad = true;
 					break;
-				} else {
-					heightPos--;
 				}
-			}
-
-			// TODO: ASK ABOUT CONCEPT
-			if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, depthPos, loadingMatrix)) {
-				heightPos = loadingMatrix[0].length - 1;
-				widthPos = 0;
-				loadedCargo.get(box.getDestination()).push(box);
-			}
 
 //			if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, loadingMatrix)) {
 //				widthPos += box.getWidthInCells()-1;
@@ -138,6 +142,10 @@ public class CargoLoader3D {
 //					loadedCargo.get(box.getDestination()).push(box);
 //				}
 //			}
+			}
+			if (!canLoad & depthPos < loadingMatrix.length) {
+				depthPos++;
+			}
 		}
 
 	}
@@ -147,7 +155,6 @@ public class CargoLoader3D {
 			int[][][] loadingMatrix) {
 		boolean canClimb = false;
 		while (currentWidth < loadingMatrix[0].length) {
-
 			if (checkPlace(box, loadingMatrix, currentWidth, currentHeight, currentDepth)) {
 				placeBox(box, loadingMatrix, currentHeight, currentWidth, currentDepth);
 				return true;
@@ -329,18 +336,18 @@ public class CargoLoader3D {
 
 	public static void main(String[] args) {
 		List<Box> listBox = new LinkedList<Box>();
-		Box box1 = new Box(1.2, 1.2, 1, 1, 1, "Kyiv");
-		Box box2 = new Box(0.9, 0.9, 1, 2, 2, "Kyiv");
-		Box box3 = new Box(0.9, 0.9, 1, 2, 3, "Lviv");
-		Box box4 = new Box(0.6, 0.6, 1, 5, 4, "Lviv");
-		Box box5 = new Box(0.9, 0.3, 1, 2, 5, "Lviv");
-		Box box6 = new Box(0.6, 0.9, 1, 2, 6, "Kyiv");
-		Box box7 = new Box(0.3, 0.3, 1, 2, 7, "Lviv");
-		Box box8 = new Box(0.6, 0.6, 1, 2, 8, "Kyiv");
+		Box box1 = new Box(1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
+		Box box2 = new Box(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
+		Box box3 = new Box(0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x
+		Box box4 = new Box(0.6, 0.6, 2.4, 5, 4, "Lviv");// 2x2x8
+		Box box5 = new Box(0.9, 0.3, 1.2, 2, 5, "Lviv");// 3x1x4
+		Box box6 = new Box(0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
+		Box box7 = new Box(0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
+		Box box8 = new Box(0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
 		listBox.add(box1);
-		listBox.add(box2);
-		listBox.add(box3);
-		listBox.add(box4);
+//		listBox.add(box2);
+//		listBox.add(box3);
+//		listBox.add(box4);
 //		listBox.add(box5);
 //		listBox.add(box6);
 //		listBox.add(box7);

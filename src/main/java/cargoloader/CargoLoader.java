@@ -22,13 +22,13 @@ public class CargoLoader {
 		unloadedCargo = cargoSorter.getSortedCargo();
 		for (Map.Entry<String, List<Box>> entry : unloadedCargo.entrySet()) {
 			if (cargohold.getLoadedCargo().containsKey(entry.getKey())) {
-				initializeSurfaceScanner(entry.getValue(), cargohold.getLoadingMatrix(), cargohold.getLoadedCargo());
+				//initializeSurfaceScanner(entry.getValue(), cargohold.getLoadingMatrix(), cargohold.getLoadedCargo());
 			} else {
 				cargohold.getLoadedCargo().put(entry.getKey(), new Stack<Box>());
-				initializeSurfaceScanner(entry.getValue(), cargohold.getLoadingMatrix(), cargohold.getLoadedCargo());
+				//initializeSurfaceScanner(entry.getValue(), cargohold.getLoadingMatrix(), cargohold.getLoadedCargo());
 			}
 		}
-		printMatrix(cargohold.getLoadingMatrix());
+		//printMatrix(cargohold.getLoadingMatrix());
 	}
 
 	// Check if we can fit box
