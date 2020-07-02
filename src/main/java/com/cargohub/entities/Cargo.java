@@ -40,8 +40,8 @@ public class Cargo {
     @JoinColumn(name = "carrier_compartment_id")
     CarrierCompartment carrierCompartment;
 
-    @OneToOne
-    Order order;
+    @OneToOne(mappedBy = "cargo")
+    OrderEntity orderEntity;
 
     @Column
     @Enumerated(EnumType.STRING)

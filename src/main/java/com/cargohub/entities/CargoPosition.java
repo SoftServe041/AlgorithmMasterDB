@@ -17,6 +17,6 @@ public class CargoPosition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @OneToOne
+    @OneToOne(mappedBy =  "cargoPosition")
     Cargo cargo;
 }
