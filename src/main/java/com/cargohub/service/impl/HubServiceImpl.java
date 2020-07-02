@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class HubServiceImpl implements HubService {
 
@@ -29,6 +31,12 @@ public class HubServiceImpl implements HubService {
         Hub result;
         result = repository.findById(id).orElseThrow(() -> new HubException("Hub not found"));
         return result;
+    }
+
+    @Override
+    public Hub findByName(String name) {
+        Optional<Hub> result = repository.findByName(name);
+        return result.orElseThrow(() -> new HubException("Hub not found"));
     }
 
     @Override
@@ -59,6 +67,15 @@ public class HubServiceImpl implements HubService {
     public void delete(Integer id) {
         if (existsById(id)) {
             repository.deleteById(id);
+            return;
+        }
+        throw new HubException("Hub not found");
+    }
+
+    @Override
+    public void deleteByName(String name) {
+        if(repository.findByName(name).isPresent()){
+            repository.deleteByName(name);
             return;
         }
         throw new HubException("Hub not found");

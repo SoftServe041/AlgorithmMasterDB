@@ -1,8 +1,10 @@
 package com.cargohub.controllers;
 
 import com.cargohub.dto.UpdateHubDto;
+import com.cargohub.entities.Hub;
 import com.cargohub.models.HubRequest;
 import com.cargohub.models.Location;
+import com.cargohub.service.HubService;
 import com.cargohub.service.impl.LocationService;
 import com.cargohub.service.impl.RelationService;
 import org.springframework.http.HttpStatus;
@@ -18,10 +20,12 @@ public class AdminController {
 
     private final RelationService relationService;
     private final LocationService locationService;
+    private final HubService hubService;
 
-    public AdminController(LocationService locationService, RelationService relationService) {
+    public AdminController(LocationService locationService, RelationService relationService, HubService hubService) {
         this.locationService = locationService;
         this.relationService = relationService;
+        this.hubService = hubService;
     }
 
     @GetMapping
@@ -37,17 +41,24 @@ public class AdminController {
     @PostMapping
     public ResponseEntity postNewHub(@RequestBody HubRequest hubRequest) {
         locationService.createNewCity(hubRequest.getNewCity());
+        Hub hub = new Hub();
+        hub.setName(hubRequest.getNewCity());
+        hubService.save(hub);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{name}")
     public void deleteHub(@PathVariable String name) {
         locationService.deleteCityByName(name);
+        hubService.deleteByName(name);
     }
 
     @PatchMapping("/{name}")
     public void updateHub(@PathVariable String name, @RequestBody UpdateHubDto dto) {
         locationService.modifyCity(name, dto.getNewName());
+        Hub hub = hubService.findByName(name);
+        hub.setName(dto.getNewName());
+        hubService.update(hub);
     }
 
     @DeleteMapping("relation")
