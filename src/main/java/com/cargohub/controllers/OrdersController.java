@@ -39,7 +39,7 @@ public class OrdersController {
     }
     @PostMapping("/requestRoutes")
     public Map<String, List<UnpaidOrder>> getOrderVariants(@RequestBody OrderModel reqModel) {
-        Map<String,List<UnpaidOrder>>  map = formUnpaidOrders.formUnpaidOrders(reqModel.getDepartureHub(), reqModel.getArrivalHub());
+        Map<String,List<UnpaidOrder>>  map = formUnpaidOrders.formUnpaidOrders(reqModel);
         return  map;
     }
 

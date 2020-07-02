@@ -22,12 +22,9 @@ public class Hub {
     @Column
     String name;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true, mappedBy = "ownerHub")
     List<Relation> relations;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true, mappedBy = "currentHub")
     List<Transporter> transporters;
-
-    @OneToMany
-    List<Cargo> warehouse;
 }
