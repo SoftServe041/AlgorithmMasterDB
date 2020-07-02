@@ -1,14 +1,16 @@
 package com.cargohub.order_builder;
 
-import com.cargoHub.neo4jGraph.model.RouteModel;
-import com.cargoHub.neo4jGraph.service.RouteService;
 import com.cargohub.models.OrderModel;
+import com.cargohub.models.RouteModel;
+import com.cargohub.service.impl.RouteService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.*;
 
+@Component
 public class FormUnpaidOrders {
     @Autowired
     RouteService routeService;

@@ -8,7 +8,7 @@ public class OrderModel {
     private String departureHub;
     private String arrivalHub;
     private Double cargoWeight;
-    private Integer cargoWidth;
-    private Integer cargoHeight;
-    private Integer cargoLength;
+    private Double cargoWidth;
+    private Double cargoHeight;
+    private Double cargoLength;
 }
