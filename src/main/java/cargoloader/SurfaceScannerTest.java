@@ -12,7 +12,7 @@ import javax.swing.text.Highlighter.Highlight;
 public class SurfaceScannerTest {
 
 	// Check if we can fit box
-	private boolean checkPlace(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+	private boolean checkPlace(Cargo box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
 		if (currentHeightPos + box.getHeightInCells() - 1 > loadingMatrix.length - 1
 				|| currentWidthPos + box.getWidthInCells() - 1 > loadingMatrix[0].length - 1) {
 			return false;
@@ -25,7 +25,7 @@ public class SurfaceScannerTest {
 	}
 
 	// Check free volume for box
-	private boolean checkVolume(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+	private boolean checkVolume(Cargo box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
 		for (int j = currentHeightPos; j < currentHeightPos + box.getHeightInCells(); j++) {
 			for (int k = currentWidthPos; k < currentWidthPos + box.getWidthInCells(); k++) {
 				if (loadingMatrix[j][k] != 0) {
@@ -38,7 +38,7 @@ public class SurfaceScannerTest {
 
 	// Check cells under box
 	// Need to check fragility too!
-	private boolean checkBottom(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+	private boolean checkBottom(Cargo box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
 		int boxSquare = box.getWidthInCells();
 		int availableSquare = 0;
 		boolean isInAir = true;
@@ -57,7 +57,7 @@ public class SurfaceScannerTest {
 	}
 
 	// Check for box from above
-	private boolean checkTop(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+	private boolean checkTop(Cargo box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
 		for (int i = currentWidthPos; i < currentWidthPos + box.getWidthInCells(); i++) {
 			if (loadingMatrix[currentHeightPos + box.getHeightInCells() - 1][i] != 0) {
 				return false;
@@ -67,11 +67,11 @@ public class SurfaceScannerTest {
 	}
 
 	// Start surface scanner for loading matrix
-	public void initializeSurfaceScanner(List<Box> listBox, int[][] loadingMatrix) {
+	public void initializeSurfaceScanner(List<Cargo> listBox, int[][] loadingMatrix) {
 		int heightPos = loadingMatrix.length - 1;
 		int widthPos = 0;
 
-		for (Box box : listBox) {
+		for (Cargo box : listBox) {
 
 			// Set starting position
 			if (loadingMatrix[heightPos][widthPos] != 0) {
@@ -99,7 +99,7 @@ public class SurfaceScannerTest {
 	}
 
 	// Scan surface and place box
-	private boolean scanSurfaceAndPlaceBox(Box box, int currentWidth, int currentHeight, int[][] loadingMatrix) {
+	private boolean scanSurfaceAndPlaceBox(Cargo box, int currentWidth, int currentHeight, int[][] loadingMatrix) {
 		boolean canClimb = false;
 		while (currentWidth < loadingMatrix[0].length) {
 
@@ -254,7 +254,7 @@ public class SurfaceScannerTest {
 	}
 
 	// Place box
-	private void placeBox(Box box, int[][] loadingMatrix, int currentHeight, int currentWidth) {
+	private void placeBox(Cargo box, int[][] loadingMatrix, int currentHeight, int currentWidth) {
 		for (int i = currentHeight; i < currentHeight + box.getHeightInCells(); i++) {
 			for (int j = currentWidth; j < currentWidth + box.getWidthInCells(); j++) {
 				loadingMatrix[i][j] = box.getFragility();
@@ -288,17 +288,17 @@ public class SurfaceScannerTest {
 				{ 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 } };
 
 		SurfaceScannerTest scannerTest = new SurfaceScannerTest();
-		List<Box> listBox = new LinkedList<Box>();
+		List<Cargo> listBox = new LinkedList<Cargo>();
 
-		Box box1 = new Box(1.2, 1.2, 1, 1, 1, "Kyiv");
-		Box box2 = new Box(0.9, 0.9, 1, 2, 2, "Kyiv");
-		Box box3 = new Box(0.9, 0.9, 1, 2, 3, "Kyiv");
-		Box box4 = new Box(0.6, 0.6, 1, 5, 4, "Kyiv");
-		Box box5 = new Box(0.9, 0.3, 1, 2, 5, "Kyiv");
-		Box box6 = new Box(0.6, 0.9, 1, 2, 6, "Kyiv");
-		Box box7 = new Box(0.3, 0.3, 1, 2, 7, "Kyiv");
-		Box box8 = new Box(0.3, 0.9, 1, 2, 8, "Kyiv");
-		Box box9 = new Box(1.2, 1.2, 1, 2, 9, "Kyiv");
+		Cargo box1 = new Cargo(1.2, 1.2, 1, 1, 1, "Kyiv");
+		Cargo box2 = new Cargo(0.9, 0.9, 1, 2, 2, "Kyiv");
+		Cargo box3 = new Cargo(0.9, 0.9, 1, 2, 3, "Kyiv");
+		Cargo box4 = new Cargo(0.6, 0.6, 1, 5, 4, "Kyiv");
+		Cargo box5 = new Cargo(0.9, 0.3, 1, 2, 5, "Kyiv");
+		Cargo box6 = new Cargo(0.6, 0.9, 1, 2, 6, "Kyiv");
+		Cargo box7 = new Cargo(0.3, 0.3, 1, 2, 7, "Kyiv");
+		Cargo box8 = new Cargo(0.3, 0.9, 1, 2, 8, "Kyiv");
+		Cargo box9 = new Cargo(1.2, 1.2, 1, 2, 9, "Kyiv");
 
 		listBox.add(box1);
 		listBox.add(box2);

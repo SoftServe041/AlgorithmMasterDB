@@ -12,27 +12,27 @@ import pathfinder.entities.Hub;
 import pathfinder.entities.Route;
 
 public class CargoSorter {
-	private Map<String, List<Box>> sortedCargoMap;
+	private Map<String, List<Cargo>> sortedCargoMap;
 
 	public CargoSorter() {
-		sortedCargoMap = new LinkedHashMap<String, List<Box>>();
+		sortedCargoMap = new LinkedHashMap<String, List<Cargo>>();
 	}
 
-	public void sortCargoByDestination(List<Box> boxes, Route route) {
+	public void sortCargoByDestination(List<Cargo> boxes, Route route) {
 		ListIterator<Hub> hubIterator = route.getRoute().listIterator(route.getRoute().size());
 		while (hubIterator.hasPrevious()) {
 			if (!hubIterator.previous().getName().equals(route.getRoute().get(0).getName())) {
 				hubIterator.next();
 				Hub hub = hubIterator.previous();
 				if (sortedCargoMap.containsKey(hub.getName()) == false) {
-					sortedCargoMap.put(hub.getName(), new ArrayList<Box>());
-					for (Box box : boxes) {
+					sortedCargoMap.put(hub.getName(), new ArrayList<Cargo>());
+					for (Cargo box : boxes) {
 						if (box.getDestination().equals(hub.getName())) {
 							sortedCargoMap.get(hub.getName()).add(box);
 						}
 					}
 				} else {
-					for (Box box : boxes) {
+					for (Cargo box : boxes) {
 						if (box.getDestination().equals(hub.getName())) {
 							sortedCargoMap.get(hub.getName()).add(box);
 						}
@@ -44,23 +44,23 @@ public class CargoSorter {
 	}
 
 	private void sortByFragilityAndVolume() {
-		for (Map.Entry<String, List<Box>> entry : sortedCargoMap.entrySet()) {
-			List<Box> listBox = entry.getValue();
+		for (Map.Entry<String, List<Cargo>> entry : sortedCargoMap.entrySet()) {
+			List<Cargo> listBox = entry.getValue();
 			Collections.sort(listBox, new CargoSorter.BoxChainedComparator(new CargoSorter.FragilityComparator(),
 					new CargoSorter.VolumeComparator()));
 		}
 	}
 
-	static class FragilityComparator implements Comparator<Box> {
+	static class FragilityComparator implements Comparator<Cargo> {
 		@Override
-		public int compare(Box o1, Box o2) {
+		public int compare(Cargo o1, Cargo o2) {
 			return o1.getFragility() - o2.getFragility();
 		}
 	}
 
-	static class VolumeComparator implements Comparator<Box> {
+	static class VolumeComparator implements Comparator<Cargo> {
 		@Override
-		public int compare(Box o1, Box o2) {
+		public int compare(Cargo o1, Cargo o2) {
 			if (o1.getVolume() < o2.getVolume())
 				return 1;
 			if (o1.getVolume() > o2.getVolume())
@@ -69,18 +69,18 @@ public class CargoSorter {
 		}
 	}
 
-	static class BoxChainedComparator implements Comparator<Box> {
+	static class BoxChainedComparator implements Comparator<Cargo> {
 
-		private List<Comparator<Box>> listComparators;
+		private List<Comparator<Cargo>> listComparators;
 
 		@SafeVarargs
-		public BoxChainedComparator(Comparator<Box>... comparators) {
+		public BoxChainedComparator(Comparator<Cargo>... comparators) {
 			this.listComparators = Arrays.asList(comparators);
 		}
 
 		@Override
-		public int compare(Box box1, Box box2) {
-			for (Comparator<Box> comparator : listComparators) {
+		public int compare(Cargo box1, Cargo box2) {
+			for (Comparator<Cargo> comparator : listComparators) {
 				int result = comparator.compare(box1, box2);
 				if (result != 0) {
 					return result;
@@ -90,7 +90,7 @@ public class CargoSorter {
 		}
 	}
 
-	public Map<String, List<Box>> getSortedCargo() {
+	public Map<String, List<Cargo>> getSortedCargo() {
 		return sortedCargoMap;
 	}
 }

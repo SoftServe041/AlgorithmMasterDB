@@ -12,11 +12,11 @@ public class CargoHold {
 	private double depth;
 	private double maxVolume;
 	private double maxWeight;
-	private Map<String, Stack<Box>> loadedCargo;
+	private Map<String, Stack<Cargo>> loadedCargo;
 	private int[][][] loadingMatrix;
 
 	public CargoHold() {
-		loadedCargo = new LinkedHashMap<String, Stack<Box>>();
+		loadedCargo = new LinkedHashMap<String, Stack<Cargo>>();
 		// in future can work with transport type
 		width = 2.4;// m
 		height = 2.4;// m
@@ -26,7 +26,7 @@ public class CargoHold {
 		loadingMatrix = new int[(int) (depth / 0.3)][(int) (height / 0.3)][(int) (width / 0.3)];
 	}
 
-	public Map<String, Stack<Box>> getLoadedCargo() {
+	public Map<String, Stack<Cargo>> getLoadedCargo() {
 		return loadedCargo;
 	}
 

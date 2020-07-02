@@ -10,21 +10,21 @@ import pathfinder.entities.Hub;
 import pathfinder.entities.Route;
 
 public class CargoLoader {
-	private Map<String, List<Box>> unloadedCargo;
+	private Map<String, List<Cargo>> unloadedCargo;
 	private CargoSorter cargoSorter;
 
 	public CargoLoader() {
 		cargoSorter = new CargoSorter();
 	}
 
-	public void loadCargo(List<Box> boxes, Route route, CargoHold cargohold) {
+	public void loadCargo(List<Cargo> boxes, Route route, CargoHold cargohold) {
 		cargoSorter.sortCargoByDestination(boxes, route);
 		unloadedCargo = cargoSorter.getSortedCargo();
-		for (Map.Entry<String, List<Box>> entry : unloadedCargo.entrySet()) {
+		for (Map.Entry<String, List<Cargo>> entry : unloadedCargo.entrySet()) {
 			if (cargohold.getLoadedCargo().containsKey(entry.getKey())) {
 				//initializeSurfaceScanner(entry.getValue(), cargohold.getLoadingMatrix(), cargohold.getLoadedCargo());
 			} else {
-				cargohold.getLoadedCargo().put(entry.getKey(), new Stack<Box>());
+				cargohold.getLoadedCargo().put(entry.getKey(), new Stack<Cargo>());
 				//initializeSurfaceScanner(entry.getValue(), cargohold.getLoadingMatrix(), cargohold.getLoadedCargo());
 			}
 		}
@@ -32,7 +32,7 @@ public class CargoLoader {
 	}
 
 	// Check if we can fit box
-	private boolean checkPlace(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+	private boolean checkPlace(Cargo box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
 		if (currentHeightPos + box.getHeightInCells() - 1 > loadingMatrix.length - 1
 				|| currentWidthPos + box.getWidthInCells() - 1 > loadingMatrix[0].length - 1) {
 			return false;
@@ -45,7 +45,7 @@ public class CargoLoader {
 	}
 
 	// Check free volume for box
-	private boolean checkVolume(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+	private boolean checkVolume(Cargo box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
 		for (int j = currentHeightPos; j < currentHeightPos + box.getHeightInCells(); j++) {
 			for (int k = currentWidthPos; k < currentWidthPos + box.getWidthInCells(); k++) {
 				if (loadingMatrix[j][k] != 0) {
@@ -58,7 +58,7 @@ public class CargoLoader {
 
 	// Check cells under box
 	// Need to check fragility too!
-	private boolean checkBottom(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+	private boolean checkBottom(Cargo box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
 		int boxSquare = box.getWidthInCells();
 		int availableSquare = 0;
 		boolean isInAir = true;
@@ -77,7 +77,7 @@ public class CargoLoader {
 	}
 
 	// Check for box from above
-	private boolean checkTop(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
+	private boolean checkTop(Cargo box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
 		for (int i = currentWidthPos; i < currentWidthPos + box.getWidthInCells(); i++) {
 			if (loadingMatrix[currentHeightPos + box.getHeightInCells() - 1][i] != 0) {
 				return false;
@@ -87,12 +87,12 @@ public class CargoLoader {
 	}
 
 	// Start surface scanner for loading matrix
-	public void initializeSurfaceScanner(List<Box> listBox, int[][] loadingMatrix,
-			Map<String, Stack<Box>> loadedCargo) {
+	public void initializeSurfaceScanner(List<Cargo> listBox, int[][] loadingMatrix,
+			Map<String, Stack<Cargo>> loadedCargo) {
 		int heightPos = loadingMatrix.length - 1;
 		int widthPos = 0;
 
-		for (Box box : listBox) {
+		for (Cargo box : listBox) {
 
 			// Set starting position
 			if (loadingMatrix[heightPos][widthPos] != 0) {
@@ -129,7 +129,7 @@ public class CargoLoader {
 	}
 
 	// Scan surface and place box
-	private boolean scanSurfaceAndPlaceBox(Box box, int currentWidth, int currentHeight, int[][] loadingMatrix) {
+	private boolean scanSurfaceAndPlaceBox(Cargo box, int currentWidth, int currentHeight, int[][] loadingMatrix) {
 		boolean canClimb = false;
 		while (currentWidth < loadingMatrix[0].length) {
 
@@ -284,7 +284,7 @@ public class CargoLoader {
 	}
 
 	// Place box
-	private void placeBox(Box box, int[][] loadingMatrix, int currentHeight, int currentWidth) {
+	private void placeBox(Cargo box, int[][] loadingMatrix, int currentHeight, int currentWidth) {
 		for (int i = currentHeight; i < currentHeight + box.getHeightInCells(); i++) {
 			for (int j = currentWidth; j < currentWidth + box.getWidthInCells(); j++) {
 				loadingMatrix[i][j] = box.getFragility();
@@ -313,15 +313,15 @@ public class CargoLoader {
 	}
 
 	public static void main(String[] args) {
-		List<Box> listBox = new LinkedList<Box>();
-		Box box1 = new Box(1.2, 1.2, 1, 1, 1, "Kyiv");
-		Box box2 = new Box(0.9, 0.9, 1, 2, 2, "Kyiv");
-		Box box3 = new Box(0.9, 0.9, 1, 2, 3, "Lviv");
-		Box box4 = new Box(0.6, 0.6, 1, 5, 4, "Lviv");
-		Box box5 = new Box(0.9, 0.3, 1, 2, 5, "Lviv");
-		Box box6 = new Box(0.6, 0.9, 1, 2, 6, "Kyiv");
-		Box box7 = new Box(0.3, 0.3, 1, 2, 7, "Lviv");
-		Box box8 = new Box(0.6, 0.6, 1, 2, 8, "Kyiv");
+		List<Cargo> listBox = new LinkedList<Cargo>();
+		Cargo box1 = new Cargo(1.2, 1.2, 1, 1, 1, "Kyiv");
+		Cargo box2 = new Cargo(0.9, 0.9, 1, 2, 2, "Kyiv");
+		Cargo box3 = new Cargo(0.9, 0.9, 1, 2, 3, "Lviv");
+		Cargo box4 = new Cargo(0.6, 0.6, 1, 5, 4, "Lviv");
+		Cargo box5 = new Cargo(0.9, 0.3, 1, 2, 5, "Lviv");
+		Cargo box6 = new Cargo(0.6, 0.9, 1, 2, 6, "Kyiv");
+		Cargo box7 = new Cargo(0.3, 0.3, 1, 2, 7, "Lviv");
+		Cargo box8 = new Cargo(0.6, 0.6, 1, 2, 8, "Kyiv");
 		listBox.add(box1);
 		listBox.add(box2);
 		listBox.add(box3);

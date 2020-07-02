@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class CargoManager {
 	@SuppressWarnings("unused")
-	private boolean checkPlace(Box box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
+	private boolean checkPlace(Cargo box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
 			int currentDepthPos) {
 		if (checkVolume(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepthPos) == false
 				&& checkBottom(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepthPos) == false
@@ -15,7 +15,7 @@ public class CargoManager {
 		return true;
 	}
 
-	private boolean checkVolume(Box box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
+	private boolean checkVolume(Cargo box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
 			int currentDepthPos) {
 		if (currentWidthPos + box.getWidthInCells() - 1 > loadingMatrix[0][0].length
 				&& currentHeightPos + box.getHeightInCells() - 1 > loadingMatrix[0].length
@@ -35,7 +35,7 @@ public class CargoManager {
 	}
 
 	@SuppressWarnings("unused")
-	private boolean checkBottom(Box box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
+	private boolean checkBottom(Cargo box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
 			int currentDepthPos) {
 		int availableSquare = 0;
 		int boxSquare = box.getDepthInCells() * box.getWidthInCells();
@@ -55,7 +55,7 @@ public class CargoManager {
 	}
 
 	@SuppressWarnings("unused")
-	private boolean checkTop(Box box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
+	private boolean checkTop(Cargo box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
 			int currentDepthPos) {
 		for (int i = currentWidthPos; i < currentWidthPos + box.getWidthInCells(); i++) {
 			for (int j = currentDepthPos; j < currentDepthPos + box.getDepthInCells(); j++) {
@@ -68,7 +68,7 @@ public class CargoManager {
 	}
 
 	@SuppressWarnings("unused")
-	private void initializeSurfaceScanner(Box box, int[][][] loadingMatrix, Map<String, Stack<Box>> loadedCargo) {
+	private void initializeSurfaceScanner(Cargo box, int[][][] loadingMatrix, Map<String, Stack<Cargo>> loadedCargo) {
 		for (int depth = 0; depth < loadingMatrix.length; depth++) {
 			int heightPos = loadingMatrix[0].length - 1;
 			int widthPos = 0;
@@ -80,8 +80,8 @@ public class CargoManager {
 	}
 
 	@SuppressWarnings("unused")
-	private void scanSurface(int currentWidth, int currentHeight, int currentDepth, Box box, int[][][] loadingMatrix,
-			Map<String, Stack<Box>> loadedCargo) {
+	private void scanSurface(int currentWidth, int currentHeight, int currentDepth, Cargo box, int[][][] loadingMatrix,
+			Map<String, Stack<Cargo>> loadedCargo) {
 		while (currentWidth < loadingMatrix[0][0].length) {
 			if (checkPlace(box, loadingMatrix, currentWidth, currentHeight, currentDepth) == true) {
 				// place box

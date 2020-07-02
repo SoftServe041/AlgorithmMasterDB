@@ -60,7 +60,7 @@ public class SurfaceScannerTest_2 {
 //	}
 
 	@SuppressWarnings("unused")
-	public void initializeSurfaceScanner(Box box, int[][] loadingMatrix) {
+	public void initializeSurfaceScanner(Cargo box, int[][] loadingMatrix) {
 		int heightPos = loadingMatrix.length - 1;
 		int widthPos = 0;
 		while (loadingMatrix[heightPos][widthPos] == 0 && heightPos > 0) {
@@ -71,7 +71,7 @@ public class SurfaceScannerTest_2 {
 	}
 
 	@SuppressWarnings("unused")
-	private void scanSurface(Box box, int currentWidth, int currentHeight, int[][] loadingMatrix) {
+	private void scanSurface(Cargo box, int currentWidth, int currentHeight, int[][] loadingMatrix) {
 		while (currentWidth < loadingMatrix[0].length) {
 //			if (checkPlace(box, loadingMatrix, currentWidth, currentHeight)) {
 //				System.out.println("Can place the Box");
@@ -215,7 +215,7 @@ public class SurfaceScannerTest_2 {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 		SurfaceScannerTest_2 scannerTest = new SurfaceScannerTest_2();
-		Box box = new Box(1.2, 1.2, 1, 1, 1, "Kyiv");
+		Cargo box = new Cargo(1.2, 1.2, 1, 1, 1, "Kyiv");
 		scannerTest.initializeSurfaceScanner(box, matrix);
 
 	}

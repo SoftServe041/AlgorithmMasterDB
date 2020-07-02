@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Box {
+public class Cargo {
 	// id of the box
 	int id;
 
@@ -35,7 +35,7 @@ public class Box {
 	private String destination;
 
 	// constructor
-	public Box(double width, double height, double depth, double weight, int fragility, String destination) {
+	public Cargo(double width, double height, double depth, double weight, int fragility, String destination) {
 		this.width = width;
 		this.height = height;
 		this.depth = depth;
