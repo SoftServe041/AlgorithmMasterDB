@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface HubRepository extends PagingAndSortingRepository<Hub, Integer> {
     Optional<Hub> findByName(String name);
+
+    void deleteByName(String name);
 }

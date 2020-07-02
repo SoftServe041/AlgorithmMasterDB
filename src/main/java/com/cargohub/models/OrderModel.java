@@ -10,8 +10,5 @@ public class OrderModel {
     private Double cargoWeight;
     private Integer cargoWidth;
     private Integer cargoHeight;
-    private Integer CargoLength;
-    private Double price;
-    private int userid;
-
+    private Integer cargoLength;
 }

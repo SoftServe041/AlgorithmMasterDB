@@ -3,8 +3,10 @@ package com.cargohub.controllers;
 import com.cargohub.dto.jar.RequestOrderDto;
 import com.cargohub.dto.jar.ResponseOrderDto;
 import com.cargohub.entities.OrderEntity;
+import com.cargohub.models.OrderModel;
+import com.cargohub.order_builder.FormUnpaidOrders;
+import com.cargohub.order_builder.UnpaidOrder;
 import com.cargohub.service.OrderService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,15 +16,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 public class OrdersController {
-    private ModelMapper modelMapper;
     private OrderService orderService;
-
+    private FormUnpaidOrders formUnpaidOrders;
     @Autowired
-    public OrdersController(ModelMapper modelMapper, OrderService orderService) {
-        this.modelMapper = modelMapper;
+    public OrdersController(OrderService orderService, FormUnpaidOrders formUnpaidOrders) {
         this.orderService = orderService;
+        this.formUnpaidOrders = formUnpaidOrders;
     }
 
     @PostMapping("/{id}")
@@ -32,6 +36,11 @@ public class OrdersController {
         orderEntity.setUserId(id);
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+    @PostMapping("/requestRoutes")
+    public Map<String, List<UnpaidOrder>> getOrderVariants(@RequestBody OrderModel reqModel) {
+        Map<String,List<UnpaidOrder>>  map = formUnpaidOrders.formUnpaidOrders(reqModel.getDepartureHub(), reqModel.getArrivalHub());
+        return  map;
     }
 
     @GetMapping(path = "/{id}/profile", produces = MediaType.APPLICATION_JSON_VALUE)

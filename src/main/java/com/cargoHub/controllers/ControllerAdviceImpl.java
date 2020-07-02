@@ -1,19 +1,19 @@
-package com.cargohub.neo4jGraph.web;
+package com.cargohub.controllers;
 
 
-import com.cargohub.neo4jGraph.ErrorHandler.ErrorResponce;
-import com.cargohub.neo4jGraph.ErrorHandler.HubNotFoundException;
+import com.cargohub.exceptions.ErrorResponse;
+import com.cargohub.exceptions.HubNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class HubRestExceptionHandler {
+public class ControllerAdviceImpl {
 
     @ExceptionHandler
-    public ResponseEntity<ErrorResponce> handleException(HubNotFoundException e) {
-        ErrorResponce error = new ErrorResponce(
+    public ResponseEntity<ErrorResponse> handleException(HubNotFoundException e) {
+        ErrorResponse error = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 e.getMessage(),
                 System.currentTimeMillis()
