@@ -49,20 +49,20 @@ public class CameraRotationApp extends Application {
 		cargoLoader.loadCargo(listCargo, route, cargohold);
 
 		// Initialize CargoHold
-		Box cargoHold = new Box(40, 8, 8); // (DEPTH, WIDTH, HEIGHT)
+		Box cargoHold = new Box(8, 8, 40); // (WIDTH,HEIGHT,DEPTH)
 		cargoHold.setMaterial(new PhongMaterial(Color.DARKGRAY));
 		cargoHold.setDrawMode(DrawMode.LINE);
 
 		// Initialize zero for coordinates
-		double zeroDepth = -cargoHold.getWidth() / 2;
-		double zeroWidth = -cargoHold.getHeight() / 2;
-		double zeroHeight = -cargoHold.getDepth() / 2;
+		double zeroWidth = -cargoHold.getWidth() / 2;
+		double zeroHeight = cargoHold.getHeight() / 2;
+		double zeroDepth = -cargoHold.getDepth() / 2;
 
 		// --------------------------------------------------------------------------------------------
 		// Create and position camera
 		PerspectiveCamera camera = new PerspectiveCamera(true);
-		camera.getTransforms().addAll(new Rotate(-60, Rotate.X_AXIS), new Rotate(0, Rotate.Y_AXIS),
-				new Rotate(0, Rotate.Z_AXIS), new Translate(0, 0, -60));
+		camera.getTransforms().addAll(new Rotate(60, Rotate.X_AXIS), new Rotate(-120, Rotate.Y_AXIS),
+				new Rotate(40, Rotate.Z_AXIS), new Translate(0, 0, -60));
 		// --------------------------------------------------------------------------------------------
 
 		List<Box> boxList = new LinkedList<Box>();
@@ -71,10 +71,14 @@ public class CameraRotationApp extends Application {
 			while (iterator.hasNext()) {
 				Cargo c = iterator.next();
 				Box cargobox = new Box(c.getWidthInCells(), c.getHeightInCells(), c.getDepthInCells());
+				switch (c.getFragility()) {
+				case 1:
+					break;
+				}
 				cargobox.getTransforms()
-						.addAll(new Translate(zeroDepth + (double) c.getDepthInCells() / 2 + c.getDepthPos(),
-								zeroWidth + (double) c.getWidthInCells() / 2 + c.getWidthPos(),
-								zeroHeight + (double) c.getHeightInCells() / 2 + c.getHeightPos()));
+						.addAll(new Translate(zeroWidth + c.getWidthPos() + (double) c.getWidthInCells() / 2,
+								zeroHeight - c.getHeightPos() - (double) c.getHeightInCells() / 2,
+								zeroDepth + c.getDepthPos() + (double) c.getDepthInCells() / 2));
 				boxList.add(cargobox);
 			}
 		}
