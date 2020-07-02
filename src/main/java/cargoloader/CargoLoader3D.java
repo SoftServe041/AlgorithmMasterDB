@@ -9,11 +9,11 @@ import java.util.Stack;
 import pathfinder.entities.Hub;
 import pathfinder.entities.Route;
 
-public class CargoLoader {
+public class CargoLoader3D {
 	private Map<String, List<Box>> unloadedCargo;
 	private CargoSorter cargoSorter;
 
-	public CargoLoader() {
+	public CargoLoader3D() {
 		cargoSorter = new CargoSorter();
 	}
 
@@ -32,24 +32,29 @@ public class CargoLoader {
 	}
 
 	// Check if we can fit box
-	private boolean checkPlace(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
-		if (currentHeightPos + box.getHeightInCells() - 1 > loadingMatrix.length - 1
-				|| currentWidthPos + box.getWidthInCells() - 1 > loadingMatrix[0].length - 1) {
+	private boolean checkPlace(Box box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
+			int currentDepth) {
+		if (currentHeightPos + box.getHeightInCells() - 1 > loadingMatrix[0].length - 1
+				|| currentWidthPos + box.getWidthInCells() - 1 > loadingMatrix[0][0].length - 1
+				|| currentDepth + box.getDepthInCells() - 1 > loadingMatrix.length) {
 			return false;
-		} else if (checkVolume(box, loadingMatrix, currentWidthPos, currentHeightPos) == false
-				|| checkBottom(box, loadingMatrix, currentWidthPos, currentHeightPos) == false
-				|| checkTop(box, loadingMatrix, currentWidthPos, currentHeightPos) == false) {
+		} else if (checkVolume(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepth) == false
+				|| checkBottom(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepth) == false
+				|| checkTop(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepth) == false) {
 			return false;
 		}
 		return true;
 	}
 
 	// Check free volume for box
-	private boolean checkVolume(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
-		for (int j = currentHeightPos; j < currentHeightPos + box.getHeightInCells(); j++) {
-			for (int k = currentWidthPos; k < currentWidthPos + box.getWidthInCells(); k++) {
-				if (loadingMatrix[j][k] != 0) {
-					return false;
+	private boolean checkVolume(Box box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
+			int currentDepthPos) {
+		for (int i = currentDepthPos; i < currentDepthPos + box.getDepthInCells(); i++) {
+			for (int j = currentHeightPos; j < currentHeightPos + box.getHeightInCells(); j++) {
+				for (int k = currentWidthPos; k < currentWidthPos + box.getWidthInCells(); k++) {
+					if (loadingMatrix[i][j][k] != 0) {
+						return false;
+					}
 				}
 			}
 		}
@@ -58,15 +63,18 @@ public class CargoLoader {
 
 	// Check cells under box
 	// Need to check fragility too!
-	private boolean checkBottom(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
-		int boxSquare = box.getWidthInCells();
+	private boolean checkBottom(Box box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
+			int currentDepthPos) {
+		int boxSquare = box.getWidthInCells() * box.getDepthInCells();
 		int availableSquare = 0;
 		boolean isInAir = true;
 		if (currentHeightPos - 1 >= 0) {
-			for (int i = currentWidthPos; i < currentWidthPos + box.getWidthInCells(); i++) {
-				if (loadingMatrix[currentHeightPos - 1][i] != 0) {
-					availableSquare++;
-					isInAir = false;
+			for (int i = currentDepthPos; i < currentDepthPos + box.getDepthInCells(); i++) {
+				for (int j = currentWidthPos; j < currentWidthPos + box.getWidthInCells(); j++) {
+					if (loadingMatrix[i][currentHeightPos - 1][j] != 0) {
+						availableSquare++;
+						isInAir = false;
+					}
 				}
 			}
 			if ((availableSquare < boxSquare) | isInAir == true) {
@@ -77,32 +85,37 @@ public class CargoLoader {
 	}
 
 	// Check for box from above
-	private boolean checkTop(Box box, int[][] loadingMatrix, int currentWidthPos, int currentHeightPos) {
-		for (int i = currentWidthPos; i < currentWidthPos + box.getWidthInCells(); i++) {
-			if (loadingMatrix[currentHeightPos + box.getHeightInCells() - 1][i] != 0) {
-				return false;
+	private boolean checkTop(Box box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
+			int currentDepthPos) {
+		for (int i = currentDepthPos; i < currentDepthPos + box.getDepthInCells(); i++) {
+			for (int j = currentWidthPos; j < currentWidthPos + box.getWidthInCells(); j++) {
+				if (loadingMatrix[i][currentHeightPos + box.getHeightInCells()][j] != 0) {
+					return false;
+				}
 			}
 		}
 		return true;
 	}
 
 	// Start surface scanner for loading matrix
-	public void initializeSurfaceScanner(List<Box> listBox, int[][] loadingMatrix,
+	public void initializeSurfaceScanner(List<Box> listBox, int[][][] loadingMatrix,
 			Map<String, Stack<Box>> loadedCargo) {
-		int heightPos = loadingMatrix.length - 1;
+		int heightPos = loadingMatrix[0].length - 1;
 		int widthPos = 0;
+		int depthPos = 0;
+		int unloadedBoxes = listBox.size();
 
 		for (Box box : listBox) {
 
 			// Set starting position
-			if (loadingMatrix[heightPos][widthPos] != 0) {
-				while (loadingMatrix[heightPos][widthPos] != 0 & widthPos + 1 < loadingMatrix[0].length) {
+			if (loadingMatrix[depthPos][heightPos][widthPos] != 0) {
+				while (loadingMatrix[depthPos][heightPos][widthPos] != 0 & widthPos + 1 < loadingMatrix[0].length) {
 					widthPos++;
 				}
 			}
 
 			while (heightPos > 0) {
-				if (loadingMatrix[heightPos - 1][widthPos] != 0) {
+				if (loadingMatrix[depthPos][heightPos - 1][widthPos] != 0) {
 					break;
 				} else {
 					heightPos--;
@@ -110,9 +123,10 @@ public class CargoLoader {
 			}
 
 			// TODO: ASK ABOUT CONCEPT
-			if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, loadingMatrix)) {
-				heightPos = loadingMatrix.length - 1;
+			if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, depthPos, loadingMatrix)) {
+				heightPos = loadingMatrix[0].length - 1;
 				widthPos = 0;
+				loadedCargo.get(box.getDestination()).push(box);
 			}
 
 //			if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, loadingMatrix)) {
@@ -129,12 +143,13 @@ public class CargoLoader {
 	}
 
 	// Scan surface and place box
-	private boolean scanSurfaceAndPlaceBox(Box box, int currentWidth, int currentHeight, int[][] loadingMatrix) {
+	private boolean scanSurfaceAndPlaceBox(Box box, int currentWidth, int currentHeight, int currentDepth,
+			int[][][] loadingMatrix) {
 		boolean canClimb = false;
 		while (currentWidth < loadingMatrix[0].length) {
 
-			if (checkPlace(box, loadingMatrix, currentWidth, currentHeight)) {
-				placeBox(box, loadingMatrix, currentHeight, currentWidth);
+			if (checkPlace(box, loadingMatrix, currentWidth, currentHeight, currentDepth)) {
+				placeBox(box, loadingMatrix, currentHeight, currentWidth, currentDepth);
 				return true;
 
 			} else {
@@ -146,15 +161,15 @@ public class CargoLoader {
 					if (currentWidth < loadingMatrix[0].length - 1) {
 
 						// Move forward
-						if (loadingMatrix[currentHeight - 1][currentWidth] != 0
-								& loadingMatrix[currentHeight][currentWidth + 1] == 0) {
+						if (loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0
+								& loadingMatrix[currentDepth][currentHeight][currentWidth + 1] == 0) {
 							currentWidth++;
 							continue;
 						}
 
 						// Start to move up
-						if (loadingMatrix[currentHeight - 1][currentWidth] != 0
-								& loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+						if (loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0
+								& loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
 							currentHeight++;
 							canClimb = true;
 							continue;
@@ -162,23 +177,23 @@ public class CargoLoader {
 
 						// Move up
 						if (canClimb) {
-							if (loadingMatrix[currentHeight + 1][currentWidth] == 0
-									& loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+							if (loadingMatrix[currentDepth][currentHeight + 1][currentWidth] == 0
+									& loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
 								currentHeight++;
 								continue;
 							}
 						}
 
 						// Climb to the edge
-						if (loadingMatrix[currentHeight][currentWidth + 1] == 0
-								& loadingMatrix[currentHeight - 1][currentWidth + 1] != 0) {
+						if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] == 0
+								& loadingMatrix[currentDepth][currentHeight - 1][currentWidth + 1] != 0) {
 							currentWidth++;
 							canClimb = false;
 							continue;
 						}
 
 						// Move down
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0) {
+						if (loadingMatrix[currentDepth][currentHeight - 1][currentWidth] == 0) {
 							currentHeight--;
 							continue;
 						}
@@ -187,7 +202,7 @@ public class CargoLoader {
 					} else if (currentWidth == loadingMatrix[0].length - 1) {
 
 						// Move down near the wall
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0) {
+						if (loadingMatrix[currentDepth][currentHeight - 1][currentWidth] == 0) {
 							currentHeight--;
 							continue;
 						}
@@ -200,17 +215,17 @@ public class CargoLoader {
 					if (currentWidth < loadingMatrix[0].length - 1) {
 
 						// Move forward
-						if (loadingMatrix[currentHeight][currentWidth + 1] == 0
-								& loadingMatrix[currentHeight - 1][currentWidth] != 0) {
+						if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] == 0
+								& loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0) {
 							currentWidth++;
 							continue;
 						}
 
 						// Go around an obstacle
-						if (loadingMatrix[currentHeight][currentWidth + 1] != 0
-								& loadingMatrix[currentHeight - 1][currentWidth] != 0) {
+						if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0
+								& loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0) {
 							while (true) {
-								if (loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+								if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
 									currentWidth++;
 								} else {
 									canClimb = false;
@@ -221,9 +236,9 @@ public class CargoLoader {
 						}
 
 						if (canClimb) {
-							if (loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+							if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
 								while (true) {
-									if (loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+									if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
 										currentWidth++;
 									} else {
 										canClimb = false;
@@ -235,7 +250,7 @@ public class CargoLoader {
 						}
 
 						// Move down
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0) {
+						if (loadingMatrix[currentDepth][currentHeight - 1][currentWidth] == 0) {
 							currentHeight--;
 							continue;
 						}
@@ -244,7 +259,7 @@ public class CargoLoader {
 					} else if (currentWidth == loadingMatrix[0].length - 1) {
 
 						// Move down near the wall
-						if (loadingMatrix[currentHeight - 1][currentWidth] == 0) {
+						if (loadingMatrix[currentDepth][currentHeight - 1][currentWidth] == 0) {
 							currentHeight--;
 							continue;
 						}
@@ -256,13 +271,13 @@ public class CargoLoader {
 					if (currentWidth < loadingMatrix[0].length - 1) {
 
 						// Move forward
-						if (loadingMatrix[currentHeight][currentWidth + 1] == 0) {
+						if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] == 0) {
 							currentWidth++;
 							continue;
 						}
 
 						// Start to move up
-						if (loadingMatrix[currentHeight][currentWidth + 1] != 0) {
+						if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
 							currentHeight++;
 							canClimb = true;
 							continue;
@@ -275,7 +290,8 @@ public class CargoLoader {
 
 			// Check if there are no ways
 			if (currentHeight == 0 & currentWidth == loadingMatrix[0].length - 1
-					| loadingMatrix[currentHeight - 1][currentWidth] != 0 & currentWidth == loadingMatrix[0].length - 1
+					| loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0
+							& currentWidth == loadingMatrix[0].length - 1
 					| currentHeight == loadingMatrix.length & currentWidth == loadingMatrix[0].length - 1) {
 				break;
 			}
@@ -284,32 +300,31 @@ public class CargoLoader {
 	}
 
 	// Place box
-	private void placeBox(Box box, int[][] loadingMatrix, int currentHeight, int currentWidth) {
-		for (int i = currentHeight; i < currentHeight + box.getHeightInCells(); i++) {
-			for (int j = currentWidth; j < currentWidth + box.getWidthInCells(); j++) {
-				loadingMatrix[i][j] = box.getFragility();
+	private void placeBox(Box box, int[][][] loadingMatrix, int currentHeight, int currentWidth, int currentDepth) {
+		for (int i = currentDepth; i < currentDepth + box.getDepthInCells(); i++) {
+			for (int j = currentHeight; j < currentHeight + box.getHeightInCells(); j++) {
+				for (int k = currentWidth; k < currentWidth + box.getWidthInCells(); k++) {
+					loadingMatrix[i][j][k] = box.getFragility();
+				}
 			}
 		}
 	}
 
 	// Print all matrix
-	private void printMatrix(int[][] matrix) {
-		for (int i = matrix.length - 1; i >= 0; i--) {
-			for (int j = 0; j < matrix[0].length; j++) {
-//				if (matrix[i][j] != 0) {
-//					System.out.print("N ");
-//				} else if (matrix[i][j] == 0) {
-//					System.out.print(". ");
-//				}
-				if (matrix[i][j] == 0) {
-					System.out.print(". ");
-				} else {
-					System.out.print(matrix[i][j] + " ");
+	private void printMatrix(int[][][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = matrix[0].length - 1; j >= 0; j--) {
+				for (int k = 0; k < matrix[0][0].length; k++) {
+					if (matrix[i][j][k] == 0) {
+						System.out.print(". ");
+					} else {
+						System.out.print(matrix[i][j][k] + " ");
+					}
 				}
+				System.out.println();
 			}
 			System.out.println();
 		}
-		System.out.println();
 	}
 
 	public static void main(String[] args) {
@@ -336,7 +351,7 @@ public class CargoLoader {
 		Hub hub3 = new Hub("Lviv");
 		Route route = new Route(hub1, hub2, hub3);
 		CargoHold cargohold = new CargoHold();
-		CargoLoader cargoLoader = new CargoLoader();
+		CargoLoader3D cargoLoader = new CargoLoader3D();
 		cargoLoader.loadCargo(listBox, route, cargohold);
 	}
 }

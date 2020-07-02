@@ -30,15 +30,8 @@ public class CargoHold {
 		return loadedCargo;
 	}
 
-	public void setLoadedCargo(Map<String, Stack<Box>> loadedCargo) {
-		this.loadedCargo = loadedCargo;
-	}
-
 	public int[][][] getLoadingMatrix() {
 		return loadingMatrix;
 	}
 
-	public void setLoadingMatrix(int[][][] loadingMatrix) {
-		this.loadingMatrix = loadingMatrix;
-	}
 }
