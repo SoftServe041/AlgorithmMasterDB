@@ -31,6 +31,8 @@ public class CameraRotationApp extends Application {
 		Cargo box6 = new Cargo(0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
 		Cargo box7 = new Cargo(0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
 		Cargo box8 = new Cargo(0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
+		Cargo box9 = new Cargo(0.9, 0.9, 0.9, 2, 9, "Kyiv");// 2x2x4
+		Cargo box10 = new Cargo(1.2, 1.2, 1.2, 2, 10, "Kyiv");// 2x2x4
 		listCargo.add(box1);
 		listCargo.add(box2);
 		listCargo.add(box3);
@@ -39,6 +41,16 @@ public class CameraRotationApp extends Application {
 		listCargo.add(box6);
 		listCargo.add(box7);
 		listCargo.add(box8);
+		listCargo.add(box9);
+		listCargo.add(box10);
+//		listCargo.add(box2);
+//		listCargo.add(box3);
+//		listCargo.add(box4);
+//		listCargo.add(box5);
+//		listCargo.add(box6);
+//		listCargo.add(box7);
+//		listCargo.add(box8);
+//		listCargo.add(box9);
 
 		Hub hub1 = new Hub("Kharkiv");
 		Hub hub2 = new Hub("Kyiv");
@@ -73,6 +85,34 @@ public class CameraRotationApp extends Application {
 				Box cargobox = new Box(c.getWidthInCells(), c.getHeightInCells(), c.getDepthInCells());
 				switch (c.getFragility()) {
 				case 1:
+					cargobox.setMaterial(new PhongMaterial(Color.BROWN));
+					break;
+				case 2:
+					cargobox.setMaterial(new PhongMaterial(Color.DARKRED));
+					break;
+				case 3:
+					cargobox.setMaterial(new PhongMaterial(Color.RED));
+					break;
+				case 4:
+					cargobox.setMaterial(new PhongMaterial(Color.ORANGERED));
+					break;
+				case 5:
+					cargobox.setMaterial(new PhongMaterial(Color.DARKORANGE));
+					break;
+				case 6:
+					cargobox.setMaterial(new PhongMaterial(Color.ORANGE));
+					break;
+				case 7:
+					cargobox.setMaterial(new PhongMaterial(Color.DARKGOLDENROD));
+					break;
+				case 8:
+					cargobox.setMaterial(new PhongMaterial(Color.GOLD));
+					break;
+				case 9:
+					cargobox.setMaterial(new PhongMaterial(Color.LIGHTYELLOW));
+					break;
+				case 10:
+					cargobox.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
 					break;
 				}
 				cargobox.getTransforms()

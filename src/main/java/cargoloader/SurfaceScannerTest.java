@@ -290,25 +290,26 @@ public class SurfaceScannerTest {
 		SurfaceScannerTest scannerTest = new SurfaceScannerTest();
 		List<Cargo> listBox = new LinkedList<Cargo>();
 
-		Cargo box1 = new Cargo(1.2, 1.2, 1, 1, 1, "Kyiv");
-		Cargo box2 = new Cargo(0.9, 0.9, 1, 2, 2, "Kyiv");
-		Cargo box3 = new Cargo(0.9, 0.9, 1, 2, 3, "Kyiv");
-		Cargo box4 = new Cargo(0.6, 0.6, 1, 5, 4, "Kyiv");
-		Cargo box5 = new Cargo(0.9, 0.3, 1, 2, 5, "Kyiv");
-		Cargo box6 = new Cargo(0.6, 0.9, 1, 2, 6, "Kyiv");
-		Cargo box7 = new Cargo(0.3, 0.3, 1, 2, 7, "Kyiv");
-		Cargo box8 = new Cargo(0.3, 0.9, 1, 2, 8, "Kyiv");
-		Cargo box9 = new Cargo(1.2, 1.2, 1, 2, 9, "Kyiv");
+		List<Cargo> listCargo = new LinkedList<Cargo>();
+		Cargo box1 = new Cargo(1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
+		Cargo box2 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
+		Cargo box3 = new Cargo(0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x2
+		Cargo box4 = new Cargo(0.6, 0.6, 2.4, 5, 4, "Lviv");// 2x2x8
+		Cargo box5 = new Cargo(0.9, 0.3, 1.2, 2, 5, "Lviv");// 3x1x4
+		Cargo box6 = new Cargo(0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
+		Cargo box7 = new Cargo(0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
+		Cargo box8 = new Cargo(0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
+		Cargo box9 = new Cargo(0.9, 0.9, 0.9, 2, 8, "Kyiv");// 2x2x4
 
 		listBox.add(box1);
 		listBox.add(box2);
-		listBox.add(box9);
 		listBox.add(box3);
 		listBox.add(box4);
 		listBox.add(box5);
 		listBox.add(box6);
 		listBox.add(box7);
 		listBox.add(box8);
+		listBox.add(box9);
 
 		scannerTest.initializeSurfaceScanner(listBox, matrix);
 
