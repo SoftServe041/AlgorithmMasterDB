@@ -17,7 +17,7 @@ import javafx.util.Duration;
 import pathfinder.entities.Hub;
 import pathfinder.entities.Route;
 
-public class CameraRotationApp extends Application {
+public class CargoLoading3DAnimation extends Application {
 
 	private Parent createContent() throws Exception {
 
@@ -32,7 +32,17 @@ public class CameraRotationApp extends Application {
 		Cargo box7 = new Cargo(0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
 		Cargo box8 = new Cargo(0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
 		Cargo box9 = new Cargo(0.9, 0.9, 0.9, 2, 9, "Kyiv");// 2x2x4
-		Cargo box10 = new Cargo(1.2, 1.2, 1.2, 2, 10, "Kyiv");// 2x2x4
+		Cargo box10 = new Cargo(1.2, 1.2, 1.2, 2, 9, "Lviv");// 2x2x4
+		Cargo box11 = new Cargo(0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
+		Cargo box12 = new Cargo(0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
+		Cargo box13 = new Cargo(0.9, 0.9, 0.9, 2, 3, "Lviv");// 3x3x3
+		Cargo box14 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 2x2x4
+		Cargo box15 = new Cargo(0.9, 0.9, 0.9, 2, 4, "Kyiv");// 2x2x4
+		Cargo box16 = new Cargo(0.9, 0.9, 0.9, 2, 5, "Kyiv");// 2x2x4
+		Cargo box17 = new Cargo(0.9, 0.9, 0.9, 2, 7, "Kyiv");// 2x2x4
+		Cargo box18 = new Cargo(0.9, 0.3, 1.2, 2, 6, "Lviv");// 3x1x4
+		Cargo box19 = new Cargo(0.9, 0.3, 1.2, 2, 8, "Lviv");// 3x1x4
+		Cargo box20 = new Cargo(0.9, 0.3, 1.2, 2, 9, "Lviv");// 3x1x4
 		listCargo.add(box1);
 		listCargo.add(box2);
 		listCargo.add(box3);
@@ -43,14 +53,16 @@ public class CameraRotationApp extends Application {
 		listCargo.add(box8);
 		listCargo.add(box9);
 		listCargo.add(box10);
-//		listCargo.add(box2);
-//		listCargo.add(box3);
-//		listCargo.add(box4);
-//		listCargo.add(box5);
-//		listCargo.add(box6);
-//		listCargo.add(box7);
-//		listCargo.add(box8);
-//		listCargo.add(box9);
+		listCargo.add(box11);
+		listCargo.add(box12);
+		listCargo.add(box13);
+		listCargo.add(box14);
+		listCargo.add(box15);
+		listCargo.add(box16);
+		listCargo.add(box17);
+		listCargo.add(box18);
+		listCargo.add(box19);
+		listCargo.add(box20);
 
 		Hub hub1 = new Hub("Kharkiv");
 		Hub hub2 = new Hub("Kyiv");
@@ -65,6 +77,11 @@ public class CameraRotationApp extends Application {
 		cargoHold.setMaterial(new PhongMaterial(Color.DARKGRAY));
 		cargoHold.setDrawMode(DrawMode.LINE);
 
+		// Create timeline for animation
+		Timeline timeline = new Timeline();
+		Duration timepoint = Duration.ZERO;
+		Duration pause = Duration.seconds(0.5);
+
 		// Initialize zero for coordinates
 		double zeroWidth = -cargoHold.getWidth() / 2;
 		double zeroHeight = cargoHold.getHeight() / 2;
@@ -74,7 +91,7 @@ public class CameraRotationApp extends Application {
 		// Create and position camera
 		PerspectiveCamera camera = new PerspectiveCamera(true);
 		camera.getTransforms().addAll(new Rotate(60, Rotate.X_AXIS), new Rotate(-120, Rotate.Y_AXIS),
-				new Rotate(40, Rotate.Z_AXIS), new Translate(0, 0, -60));
+				new Rotate(60, Rotate.Z_AXIS), new Translate(0, 0, -60));
 		// --------------------------------------------------------------------------------------------
 
 		List<Box> boxList = new LinkedList<Box>();
@@ -111,9 +128,6 @@ public class CameraRotationApp extends Application {
 				case 9:
 					cargobox.setMaterial(new PhongMaterial(Color.LIGHTYELLOW));
 					break;
-				case 10:
-					cargobox.setMaterial(new PhongMaterial(Color.LIGHTCORAL));
-					break;
 				}
 				cargobox.getTransforms()
 						.addAll(new Translate(zeroWidth + c.getWidthPos() + (double) c.getWidthInCells() / 2,
@@ -122,12 +136,16 @@ public class CameraRotationApp extends Application {
 				boxList.add(cargobox);
 			}
 		}
+
 		// Build the Scene Graph
 		Group root = new Group();
 		root.getChildren().add(camera);
 		root.getChildren().add(cargoHold);
 		for (Box box : boxList) {
-			root.getChildren().add(box);
+			timepoint = timepoint.add(pause);
+			KeyFrame keyFrame = new KeyFrame(timepoint, e -> root.getChildren().add(box));
+			timeline.getKeyFrames().add(keyFrame);
+			// root.getChildren().add(box);
 		}
 
 		// Use a SubScene
@@ -136,7 +154,7 @@ public class CameraRotationApp extends Application {
 		subScene.setCamera(camera);
 		Group group = new Group();
 		group.getChildren().add(subScene);
-
+		timeline.play();
 		return group;
 	}
 
@@ -149,7 +167,7 @@ public class CameraRotationApp extends Application {
 	}
 
 	public static void main(String[] args) {
-		CameraRotationApp app = new CameraRotationApp();
+		CargoLoading3DAnimation app = new CargoLoading3DAnimation();
 		app.launch(args);
 	}
 }
