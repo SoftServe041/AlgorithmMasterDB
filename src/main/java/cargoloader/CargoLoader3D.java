@@ -111,6 +111,7 @@ public class CargoLoader3D {
 		while (unloadedBoxes.size() > 0) {
 			boolean canLoad = false;
 			for (Cargo box : unloadedBoxes) {
+
 				// Set starting position
 				if (loadingMatrix[depthPos][heightPos][widthPos] != 0) {
 					while (loadingMatrix[depthPos][heightPos][widthPos] != 0
@@ -127,7 +128,6 @@ public class CargoLoader3D {
 					}
 				}
 
-				// TODO: ASK ABOUT CONCEPT
 				if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, depthPos, loadingMatrix)) {
 					heightPos = loadingMatrix[0].length - 1;
 					widthPos = 0;
@@ -146,6 +146,7 @@ public class CargoLoader3D {
 //					loadedCargo.get(box.getDestination()).push(box);
 //				}
 //			}
+
 			}
 			if (!canLoad & depthPos < loadingMatrix.length) {
 				depthPos++;
@@ -159,7 +160,6 @@ public class CargoLoader3D {
 			int[][][] loadingMatrix) {
 		boolean canClimb = false;
 		while (currentWidth < loadingMatrix[0][0].length) {
-
 			if (checkPlace(box, loadingMatrix, currentWidth, currentHeight, currentDepth)) {
 				placeBox(box, loadingMatrix, currentHeight, currentWidth, currentDepth);
 				box.setDepthPos(currentDepth);
@@ -245,6 +245,7 @@ public class CargoLoader3D {
 							continue;
 						}
 
+						// TODO: Change moving around an obstacle
 						// Go around an obstacle
 						if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0
 								& loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0) {
@@ -261,7 +262,7 @@ public class CargoLoader3D {
 
 						if (canClimb) {
 							if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
-								while (true) {
+								while (currentWidth + 1 < loadingMatrix[0][0].length) {
 									if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
 										currentWidth++;
 									} else {
@@ -371,15 +372,15 @@ public class CargoLoader3D {
 		listCargo.add(box7);
 		listCargo.add(box8);
 		listCargo.add(box9);
-//		listCargo.add(box1);
-//		listCargo.add(box2);
-//		listCargo.add(box3);
-//		listCargo.add(box4);
-//		listCargo.add(box5);
-//		listCargo.add(box6);
-//		listCargo.add(box7);
-//		listCargo.add(box8);
-//		listCargo.add(box9);
+		listCargo.add(box1);
+		listCargo.add(box2);
+		listCargo.add(box3);
+		listCargo.add(box4);
+		listCargo.add(box5);
+		listCargo.add(box6);
+		listCargo.add(box7);
+		listCargo.add(box8);
+		listCargo.add(box9);
 
 		Hub hub1 = new Hub("Kharkiv");
 		Hub hub2 = new Hub("Kyiv");

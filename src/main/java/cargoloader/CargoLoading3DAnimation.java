@@ -1,14 +1,21 @@
 package cargoloader;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Stack;
 
+import javax.imageio.ImageIO;
+
 import javafx.animation.*;
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.*;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.transform.*;

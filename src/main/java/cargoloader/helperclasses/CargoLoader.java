@@ -1,4 +1,4 @@
-package cargoloader;
+package cargoloader.helperclasses;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import cargoloader.Cargo;
+import cargoloader.CargoHold;
+import cargoloader.CargoSorter;
 import pathfinder.entities.Hub;
 import pathfinder.entities.Route;
 
