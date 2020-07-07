@@ -5,36 +5,40 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * This class represents cargo box for loading algorithm.
+ */
 public class Cargo {
-	// id of the box
+
+	// Id of the box
 	int id;
 
-	// size in three dimensions in meters
+	// Size in three dimensions in meters
 	private double width;
 	private double depth;
 	private double height;
 
-	// position of box (for visualization)
+	// Position of box in matrix (for visualization)
 	private int widthPos;
 	private int depthPos;
 	private int heightPos;
 
-	// size in minimal cells
+	// Size in matrix cells
 	private int widthInCells;
 	private int depthInCells;
 	private int heightInCells;
 
-	// weight and volume in kg
+	// Weight and volume in kilograms
 	private double weight;
 	private double volume;
 
-	// fragility from 1 to 5
+	// Fragility of cargo
 	private int fragility;
 
-	// destination point
+	// Destination point
 	private String destination;
 
-	// constructor
+	// Constructor
 	public Cargo(double width, double height, double depth, double weight, int fragility, String destination) {
 		this.width = width;
 		this.height = height;
@@ -42,14 +46,18 @@ public class Cargo {
 		this.weight = weight;
 		this.fragility = fragility;
 		this.destination = destination;
-		// calculate volume
+
+		// Calculate volume
 		volume = this.width * this.height * this.depth;
-		// calculate size int cells
-		widthInCells = (int) (this.width / 0.3);// can be related to transport type
+
+		// Calculate size in cells
+		// Can be used for any transport type in future
+		widthInCells = (int) (this.width / 0.3);
 		depthInCells = (int) (this.depth / 0.3);
 		heightInCells = (int) (this.height / 0.3);
 	}
 
+	// Getters
 	public int getId() {
 		return id;
 	}
@@ -118,6 +126,7 @@ public class Cargo {
 		this.heightPos = heightPos;
 	}
 
+// Basic version of toString	
 //	@Override
 //	public String toString() {
 //		return "Box [id=" + id + ", width=" + width + ", depth=" + depth + ", height=" + height + ", widthInCells="
@@ -125,6 +134,7 @@ public class Cargo {
 //				+ weight + ", volume=" + volume + ", fragility=" + fragility + ", destination=" + destination + "]";
 //	}
 
+	// For testing
 	@Override
 	public String toString() {
 		return "Fragility=" + getFragility() + " ,volume=" + getVolume();

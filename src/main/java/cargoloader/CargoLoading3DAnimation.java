@@ -1,35 +1,34 @@
 package cargoloader;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Stack;
-
-import javax.imageio.ImageIO;
-
 import javafx.animation.*;
 import javafx.application.Application;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.*;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.image.WritableImage;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.transform.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import pathfinder.entities.Hub;
-import pathfinder.entities.Route;
 
+/**
+ * This class represents 3D visualization of cargo loading algorithm. Program
+ * uses JavaFX library. This program can be used for testing of cargo load
+ * algorithm.
+ */
+
+// Create main class of application
 public class CargoLoading3DAnimation extends Application {
 
+	// Method for creating cargo boxes and visual components
 	private Parent createContent() throws Exception {
 
-		// Load cargo for visualization
+		// Create and load cargo for visualization
 		List<Cargo> listCargo = new LinkedList<Cargo>();
+
 		Cargo box1 = new Cargo(1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
 		Cargo box2 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
 		Cargo box3 = new Cargo(0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x2
@@ -50,6 +49,7 @@ public class CargoLoading3DAnimation extends Application {
 		Cargo box18 = new Cargo(0.9, 0.3, 1.2, 2, 6, "Lviv");// 3x1x4
 		Cargo box19 = new Cargo(0.9, 0.3, 1.2, 2, 8, "Lviv");// 3x1x4
 		Cargo box20 = new Cargo(0.9, 0.3, 1.2, 2, 9, "Lviv");// 3x1x4
+
 		listCargo.add(box1);
 		listCargo.add(box2);
 		listCargo.add(box3);
@@ -71,20 +71,29 @@ public class CargoLoading3DAnimation extends Application {
 		listCargo.add(box19);
 		listCargo.add(box20);
 
+		// Create Hubs for route
 		Hub hub1 = new Hub("Kharkiv");
 		Hub hub2 = new Hub("Kyiv");
 		Hub hub3 = new Hub("Lviv");
+
+		// Create new route
 		Route route = new Route(hub1, hub2, hub3);
+
+		// Create cargo hold as part of transport
 		CargoHold cargohold = new CargoHold();
+
+		// Create cargo loader (contains algorithm)
 		CargoLoader3D cargoLoader = new CargoLoader3D();
+
+		// Load all cargo
 		cargoLoader.loadCargo(listCargo, route, cargohold);
 
-		// Initialize CargoHold
+		// Initialize cargo hold as javafx object
 		Box cargoHold = new Box(8, 8, 40); // (WIDTH,HEIGHT,DEPTH)
 		cargoHold.setMaterial(new PhongMaterial(Color.DARKGRAY));
 		cargoHold.setDrawMode(DrawMode.LINE);
 
-		// Create timeline for animation
+		// Create time line for animation
 		Timeline timeline = new Timeline();
 		Duration timepoint = Duration.ZERO;
 		Duration pause = Duration.seconds(0.5);
@@ -101,6 +110,7 @@ public class CargoLoading3DAnimation extends Application {
 				new Rotate(60, Rotate.Z_AXIS), new Translate(0, 0, -60));
 		// --------------------------------------------------------------------------------------------
 
+		// Create list of 3D boxes for visualization and fill it
 		List<Box> boxList = new LinkedList<Box>();
 		for (Map.Entry<String, Stack<Cargo>> entry : cargohold.getLoadedCargo().entrySet()) {
 			ListIterator<Cargo> iterator = entry.getValue().listIterator();
@@ -136,10 +146,14 @@ public class CargoLoading3DAnimation extends Application {
 					cargobox.setMaterial(new PhongMaterial(Color.LIGHTYELLOW));
 					break;
 				}
+
+				// Set position for every cargo box
 				cargobox.getTransforms()
 						.addAll(new Translate(zeroWidth + c.getWidthPos() + (double) c.getWidthInCells() / 2,
 								zeroHeight - c.getHeightPos() - (double) c.getHeightInCells() / 2,
 								zeroDepth + c.getDepthPos() + (double) c.getDepthInCells() / 2));
+
+				// Add box
 				boxList.add(cargobox);
 			}
 		}
@@ -148,23 +162,30 @@ public class CargoLoading3DAnimation extends Application {
 		Group root = new Group();
 		root.getChildren().add(camera);
 		root.getChildren().add(cargoHold);
+
+		// Create loop with time pauses for animation of loading
 		for (Box box : boxList) {
 			timepoint = timepoint.add(pause);
 			KeyFrame keyFrame = new KeyFrame(timepoint, e -> root.getChildren().add(box));
 			timeline.getKeyFrames().add(keyFrame);
-			// root.getChildren().add(box);
+			// root.getChildren().add(box); // Add box to scene without time pauses
 		}
 
 		// Use a SubScene
 		SubScene subScene = new SubScene(root, 1600, 900, true, SceneAntialiasing.BALANCED);
 		subScene.setFill(Color.WHITE);
 		subScene.setCamera(camera);
+		
 		Group group = new Group();
 		group.getChildren().add(subScene);
+		
+		// Start timer
 		timeline.play();
+		
 		return group;
 	}
 
+	// Method for application starting
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setResizable(false);
@@ -173,6 +194,7 @@ public class CargoLoading3DAnimation extends Application {
 		stage.show();
 	}
 
+	// Create and launch application
 	public static void main(String[] args) {
 		CargoLoading3DAnimation app = new CargoLoading3DAnimation();
 		app.launch(args);

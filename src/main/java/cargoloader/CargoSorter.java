@@ -8,16 +8,25 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import pathfinder.entities.Hub;
-import pathfinder.entities.Route;
+
+/**
+ * This class sorts cargo by destination point, fragility and volume
+ */
 
 public class CargoSorter {
+
+	// Map for sorted cargo
 	private Map<String, List<Cargo>> sortedCargoMap;
 
+	// Initialize map for sorted cargo in constructor
+	// This map keeps values in the given order (from distant points to near)
+	// First value in map is a list of cargo for the farthest destination point
 	public CargoSorter() {
 		sortedCargoMap = new LinkedHashMap<String, List<Cargo>>();
 	}
 
+	// Sort cargo by destination, form distant route point to near (and by fragility
+	// and volume)
 	public void sortCargoByDestination(List<Cargo> boxes, Route route) {
 		ListIterator<Hub> hubIterator = route.getRoute().listIterator(route.getRoute().size());
 		while (hubIterator.hasPrevious()) {
@@ -43,6 +52,8 @@ public class CargoSorter {
 		sortByFragilityAndVolume();
 	}
 
+	// Sort cargo by fragility and volume from biggest and hard boxes to smallest
+	// and fragile
 	private void sortByFragilityAndVolume() {
 		for (Map.Entry<String, List<Cargo>> entry : sortedCargoMap.entrySet()) {
 			List<Cargo> listBox = entry.getValue();
@@ -51,6 +62,7 @@ public class CargoSorter {
 		}
 	}
 
+	// Create comparators
 	static class FragilityComparator implements Comparator<Cargo> {
 		@Override
 		public int compare(Cargo o1, Cargo o2) {
@@ -69,6 +81,7 @@ public class CargoSorter {
 		}
 	}
 
+	// Create multiple comparator
 	static class BoxChainedComparator implements Comparator<Cargo> {
 
 		private List<Comparator<Cargo>> listComparators;
@@ -90,6 +103,7 @@ public class CargoSorter {
 		}
 	}
 
+	// Return sorted map of cargo
 	public Map<String, List<Cargo>> getSortedCargo() {
 		return sortedCargoMap;
 	}
