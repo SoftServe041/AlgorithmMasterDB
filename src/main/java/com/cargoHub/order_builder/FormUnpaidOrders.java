@@ -12,10 +12,13 @@ import java.util.*;
 
 @Component
 public class FormUnpaidOrders {
+
     @Autowired
     RouteService routeService;
+
     @Setter
     Double pricePerKm = 1.4;
+
     @Setter
     Double averageSpeed = 60d;
     Double truckVolume = 80d;
@@ -64,14 +67,15 @@ public class FormUnpaidOrders {
     }
 
     private int countPriceForRoute(OrderModel orderModel) {
-        int volumeOfCargo = (int) Math.ceil(orderModel.getCargoHeight() * orderModel.getCargoLength() * orderModel.getCargoWidth());
+        double volumeOfCargo = orderModel.getCargoHeight() * orderModel.getCargoLength() * orderModel.getCargoWidth();
         double cub = carryingCapacity / truckVolume; // ? weight in 1 m^3 according to truck properties
 
         double cargoWeight = orderModel.getCargoWeight() / 1000; // tonne
 
         double admittedWeightForCargo = cub * volumeOfCargo; // determine how much is applicable for cargoVolume
         while (admittedWeightForCargo < cargoWeight - 0.030) { // increase admittedWeight while it equals approximately to cargoWeight
-            admittedWeightForCargo = cub * (++volumeOfCargo);
+            volumeOfCargo += 0.1;
+            admittedWeightForCargo = cub * volumeOfCargo;
         }
         int price = (int) Math.ceil(admittedWeightForCargo * pricePerKm);
         return price;
