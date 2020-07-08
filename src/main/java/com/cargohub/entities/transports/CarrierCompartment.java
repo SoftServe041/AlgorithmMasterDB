@@ -1,7 +1,7 @@
 package com.cargohub.entities.transports;
 
 
-import com.cargohub.entities.Cargo;
+import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.Dimensions;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class CarrierCompartment {
     Double freeSpace;
 
     @OneToMany(mappedBy = "carrierCompartment")
-    List<Cargo> cargos;
+    List<CargoEntity> cargoEntities;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "volume_id", referencedColumnName = "id")

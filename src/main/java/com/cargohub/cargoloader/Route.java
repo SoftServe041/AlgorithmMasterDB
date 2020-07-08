@@ -1,9 +1,10 @@
-package cargoloader;
+package com.cargohub.cargoloader;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // This class represents a primitive model of route for cargo transport
+//TODO Should be taken from Order builder or directly from Neo4j
 public class Route {
 	private List<Hub> route;
 

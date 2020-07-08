@@ -29,7 +29,7 @@ public class ResponseOrderDto {
         rod.setEstimatedDeliveryDate(orderEntity.getEstimatedDeliveryDate());
         rod.setTrackingId(orderEntity.getTrackingId());
         rod.setPrice(orderEntity.getPrice());
-        rod.setCargoWeight(orderEntity.getCargo().getWeight());
+        rod.setCargoWeight(orderEntity.getCargoEntity().getWeight());
         return rod;
     }
 

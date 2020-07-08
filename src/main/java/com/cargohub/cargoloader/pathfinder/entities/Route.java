@@ -1,4 +1,4 @@
-package pathfinder.entities;
+package com.cargohub.cargoloader.pathfinder.entities;
 
 import java.util.ArrayList;
 import java.util.List;

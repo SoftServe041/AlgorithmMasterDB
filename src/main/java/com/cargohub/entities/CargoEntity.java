@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "cargo")
-public class Cargo {
+public class CargoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class Cargo {
     @JoinColumn(name = "carrier_compartment_id")
     CarrierCompartment carrierCompartment;
 
-    @OneToOne(mappedBy = "cargo")
+    @OneToOne(mappedBy = "cargoEntity")
     OrderEntity orderEntity;
 
     @Column

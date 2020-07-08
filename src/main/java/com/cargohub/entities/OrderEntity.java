@@ -42,7 +42,7 @@ public class OrderEntity {
 
     @OneToOne
     @JoinColumn(name = "cargo_id")
-    Cargo cargo;
+    CargoEntity cargoEntity;
 
     @Column
     @Enumerated(EnumType.STRING)

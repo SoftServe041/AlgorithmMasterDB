@@ -1,9 +1,7 @@
-package pathfinder.entities;
+package com.cargohub.cargoloader.pathfinder.entities;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import pathfinder.criteries.Distance;
 
 public class Hub {
 	private String name;

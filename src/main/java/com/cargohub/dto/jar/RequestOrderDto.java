@@ -1,6 +1,6 @@
 package com.cargohub.dto.jar;
 
-import com.cargohub.entities.Cargo;
+import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
 import com.cargohub.entities.OrderEntity;
@@ -37,17 +37,17 @@ public class RequestOrderDto {
         orderEntity.setDeliveryStatus(DeliveryStatus.PROCESSING);
         orderEntity.setEstimatedDeliveryDate(reqOrder.getEstimatedDeliveryDate());
         orderEntity.setPrice(reqOrder.getPrice());
-        Cargo cargo = new Cargo();
-        cargo.setDeliveryStatus(orderEntity.getDeliveryStatus());
-        cargo.setStartingDestination(orderEntity.getDepartureHub().getName());
-        cargo.setFinalDestination(orderEntity.getArrivalHub().getName());
-        cargo.setWeight(reqOrder.getCargoWeight());
+        CargoEntity cargoEntity = new CargoEntity();
+        cargoEntity.setDeliveryStatus(orderEntity.getDeliveryStatus());
+        cargoEntity.setStartingDestination(orderEntity.getDepartureHub().getName());
+        cargoEntity.setFinalDestination(orderEntity.getArrivalHub().getName());
+        cargoEntity.setWeight(reqOrder.getCargoWeight());
         Dimensions dimensions = new Dimensions();
         dimensions.setHeight(reqOrder.getCargoHeight());
         dimensions.setLength(reqOrder.getCargoLength());
         dimensions.setWidth(reqOrder.getCargoWidth());
-        cargo.setDimensions(dimensions);
-        orderEntity.setCargo(cargo);
+        cargoEntity.setDimensions(dimensions);
+        orderEntity.setCargoEntity(cargoEntity);
 
         return orderEntity;
     }

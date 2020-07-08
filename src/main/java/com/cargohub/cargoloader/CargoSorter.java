@@ -1,4 +1,4 @@
-package cargoloader;
+package com.cargohub.cargoloader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,18 +33,12 @@ public class CargoSorter {
 			if (!hubIterator.previous().getName().equals(route.getRoute().get(0).getName())) {
 				hubIterator.next();
 				Hub hub = hubIterator.previous();
-				if (sortedCargoMap.containsKey(hub.getName()) == false) {
+				if (!sortedCargoMap.containsKey(hub.getName())) {
 					sortedCargoMap.put(hub.getName(), new ArrayList<Cargo>());
-					for (Cargo box : boxes) {
-						if (box.getDestination().equals(hub.getName())) {
-							sortedCargoMap.get(hub.getName()).add(box);
-						}
-					}
-				} else {
-					for (Cargo box : boxes) {
-						if (box.getDestination().equals(hub.getName())) {
-							sortedCargoMap.get(hub.getName()).add(box);
-						}
+				}
+				for (Cargo box : boxes) {
+					if (box.getDestination().equals(hub.getName())) {
+						sortedCargoMap.get(hub.getName()).add(box);
 					}
 				}
 			}

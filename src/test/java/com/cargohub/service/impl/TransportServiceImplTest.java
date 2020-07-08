@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Cargo;
+import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
 import com.cargohub.entities.transports.CarrierCompartment;
@@ -62,7 +62,7 @@ class TransportServiceImplTest {
         subject.setId(9992);
         CarrierCompartment carrierCompartment = new CarrierCompartment();
         carrierCompartment.setVolume(new Dimensions());
-        carrierCompartment.setCargos(List.of(new Cargo()));
+        carrierCompartment.setCargoEntities(List.of(new CargoEntity()));
         List<CarrierCompartment> compartments = new ArrayList<>();
         compartments.add(carrierCompartment);
         subject.setCompartments(compartments);

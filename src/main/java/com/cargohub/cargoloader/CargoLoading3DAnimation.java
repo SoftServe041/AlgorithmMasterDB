@@ -1,10 +1,9 @@
-package cargoloader;
+package com.cargohub.cargoloader;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.Stack;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.*;
@@ -29,26 +28,26 @@ public class CargoLoading3DAnimation extends Application {
 		// Create and load cargo for visualization
 		List<Cargo> listCargo = new LinkedList<Cargo>();
 
-		Cargo box1 = new Cargo(1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
-		Cargo box2 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
-		Cargo box3 = new Cargo(0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x2
-		Cargo box4 = new Cargo(0.6, 0.6, 2.4, 5, 4, "Lviv");// 2x2x8
-		Cargo box5 = new Cargo(0.9, 0.3, 1.2, 2, 5, "Lviv");// 3x1x4
-		Cargo box6 = new Cargo(0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
-		Cargo box7 = new Cargo(0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
-		Cargo box8 = new Cargo(0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
-		Cargo box9 = new Cargo(0.9, 0.9, 0.9, 2, 9, "Kyiv");// 2x2x4
-		Cargo box10 = new Cargo(1.2, 1.2, 1.2, 2, 9, "Lviv");// 2x2x4
-		Cargo box11 = new Cargo(0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
-		Cargo box12 = new Cargo(0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
-		Cargo box13 = new Cargo(0.9, 0.9, 0.9, 2, 3, "Lviv");// 3x3x3
-		Cargo box14 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 2x2x4
-		Cargo box15 = new Cargo(0.9, 0.9, 0.9, 2, 4, "Kyiv");// 2x2x4
-		Cargo box16 = new Cargo(0.9, 0.9, 0.9, 2, 5, "Kyiv");// 2x2x4
-		Cargo box17 = new Cargo(0.9, 0.9, 0.9, 2, 7, "Kyiv");// 2x2x4
-		Cargo box18 = new Cargo(0.9, 0.3, 1.2, 2, 6, "Lviv");// 3x1x4
-		Cargo box19 = new Cargo(0.9, 0.3, 1.2, 2, 8, "Lviv");// 3x1x4
-		Cargo box20 = new Cargo(0.9, 0.3, 1.2, 2, 9, "Lviv");// 3x1x4
+		Cargo box1 = new Cargo(1,1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
+		Cargo box2 = new Cargo(2,0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
+		Cargo box3 = new Cargo(3,0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x2
+		Cargo box4 = new Cargo(4,0.6, 0.6, 2.4, 5, 4, "Lviv");// 2x2x8
+		Cargo box5 = new Cargo(5,0.9, 0.3, 1.2, 2, 5, "Lviv");// 3x1x4
+		Cargo box6 = new Cargo(6,0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
+		Cargo box7 = new Cargo(7,0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
+		Cargo box8 = new Cargo(8,0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
+		Cargo box9 = new Cargo(9,0.9, 0.9, 0.9, 2, 9, "Kyiv");// 2x2x4
+		Cargo box10 = new Cargo(10,1.2, 1.2, 1.2, 2, 9, "Lviv");// 2x2x4
+		Cargo box11 = new Cargo(11,0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
+		Cargo box12 = new Cargo(12,0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
+		Cargo box13 = new Cargo(13,0.9, 0.9, 0.9, 2, 3, "Lviv");// 3x3x3
+		Cargo box14 = new Cargo(14,0.9, 0.9, 0.9, 2, 2, "Kyiv");// 2x2x4
+		Cargo box15 = new Cargo(15,0.9, 0.9, 0.9, 2, 4, "Kyiv");// 2x2x4
+		Cargo box16 = new Cargo(16,0.9, 0.9, 0.9, 2, 5, "Kyiv");// 2x2x4
+		Cargo box17 = new Cargo(17,0.9, 0.9, 0.9, 2, 7, "Kyiv");// 2x2x4
+		Cargo box18 = new Cargo(18,0.9, 0.3, 1.2, 2, 6, "Lviv");// 3x1x4
+		Cargo box19 = new Cargo(19,0.9, 0.3, 1.2, 2, 8, "Lviv");// 3x1x4
+		Cargo box20 = new Cargo(20,0.9, 0.3, 1.2, 2, 9, "Lviv");// 3x1x4
 
 		listCargo.add(box1);
 		listCargo.add(box2);
@@ -80,7 +79,7 @@ public class CargoLoading3DAnimation extends Application {
 		Route route = new Route(hub1, hub2, hub3);
 
 		// Create cargo hold as part of transport
-		CargoHold cargohold = new CargoHold();
+		CargoHold cargohold = new CargoHold(2.4, 2.4, 12d, 22000, new int[40][8][8]);
 
 		// Create cargo loader (contains algorithm)
 		CargoLoader3D cargoLoader = new CargoLoader3D();
@@ -112,7 +111,7 @@ public class CargoLoading3DAnimation extends Application {
 
 		// Create list of 3D boxes for visualization and fill it
 		List<Box> boxList = new LinkedList<Box>();
-		for (Map.Entry<String, Stack<Cargo>> entry : cargohold.getLoadedCargo().entrySet()) {
+		for (Map.Entry<String, List<Cargo>> entry : cargohold.getLoadedCargo().entrySet()) {
 			ListIterator<Cargo> iterator = entry.getValue().listIterator();
 			while (iterator.hasNext()) {
 				Cargo c = iterator.next();

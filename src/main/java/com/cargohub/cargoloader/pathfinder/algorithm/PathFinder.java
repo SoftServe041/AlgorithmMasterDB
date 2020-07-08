@@ -1,12 +1,11 @@
-package pathfinder.algorithm;
+package com.cargohub.cargoloader.pathfinder.algorithm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pathfinder.criteries.Distance;
-import pathfinder.entities.Hub;
+import com.cargohub.cargoloader.pathfinder.entities.Hub;
 
 public class PathFinder {
 	private Map<String, Hub> hubMap;

@@ -1,7 +1,7 @@
-package cargoloader;
+package com.cargohub.cargoloader;
 
 // This class represents very simple model of cargo hub
-public class Hub {
+public class Hub { //TODO HubEntity
 	private String name;
 
 	public Hub(String name) {

@@ -1,4 +1,4 @@
-package pathfinder.criteries;
+package com.cargohub.cargoloader.pathfinder.criteries;
 
 public class Distance {
 	String cityName;

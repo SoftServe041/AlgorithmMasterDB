@@ -1,6 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-CREATE TABLE `cargo` (
+CREATE TABLE `cargoEntity` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `weight` double NOT NULL,
   `starting_destination` varchar(100) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `cargo_order` (
   KEY `FK_cargo_order_cargo` (`cargo_id`),
   CONSTRAINT `FK_cargo_order_departure_hub` FOREIGN KEY (`departure_hub_id`) REFERENCES `hub` (`id`),
   CONSTRAINT `FK_cargo_order_arrival_hub` FOREIGN KEY (`arrival_hub_id`) REFERENCES `hub` (`id`),
-  CONSTRAINT `FK_cargo_order_cargo` FOREIGN KEY (`cargo_id`) REFERENCES `cargo` (`id`)
+  CONSTRAINT `FK_cargo_order_cargo` FOREIGN KEY (`cargo_id`) REFERENCES `cargoEntity` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `cargo_position` (

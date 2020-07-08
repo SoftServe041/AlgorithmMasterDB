@@ -1,4 +1,4 @@
-import com.cargohub.entities.Cargo;
+import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
 import com.cargohub.entities.OrderEntity;
@@ -46,7 +46,7 @@ public class OrderEntityServiceImplTest {
     private OrderRepository orderRepository;
 
     private OrderEntity orderEntity;
-    private Cargo cargo;
+    private CargoEntity cargoEntity;
     private Dimensions dimensions;
     private Hub hub;
 
@@ -67,10 +67,10 @@ public class OrderEntityServiceImplTest {
         orderEntity.setDepartureHub(hub);
         orderEntity.setDeliveryStatus(DeliveryStatus.PROCESSING);
         orderEntity.setPrice(22.0);
-        cargo = new Cargo();
+        cargoEntity = new CargoEntity();
         dimensions = new Dimensions();
-        cargo.setDimensions(dimensions);
-        orderEntity.setCargo(cargo);
+        cargoEntity.setDimensions(dimensions);
+        orderEntity.setCargoEntity(cargoEntity);
         page = new PageImpl(List.of(orderEntity));
         pageable = PageRequest.of(0, 10);
     }
@@ -81,7 +81,7 @@ public class OrderEntityServiceImplTest {
         when(orderRepository.save(nullable(OrderEntity.class))).thenReturn(orderEntity);
         when(dimensionsRepository.save(nullable(Dimensions.class))).thenReturn(dimensions);
         when(hubRepository.save(nullable(Hub.class))).thenReturn(hub);
-        when(cargoRepository.save(nullable(Cargo.class))).thenReturn(cargo);
+        when(cargoRepository.save(nullable(CargoEntity.class))).thenReturn(cargoEntity);
         ArgumentCaptor<OrderEntity> captor = ArgumentCaptor.forClass(OrderEntity.class);
         OrderEntity returned = orderService.save(orderEntity);
         verify(orderRepository).save(captor.capture());

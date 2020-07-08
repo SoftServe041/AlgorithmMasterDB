@@ -1,4 +1,4 @@
-package pathfinder.algorithm;
+package com.cargohub.cargoloader.pathfinder.algorithm;
 
 import java.util.*;
 
