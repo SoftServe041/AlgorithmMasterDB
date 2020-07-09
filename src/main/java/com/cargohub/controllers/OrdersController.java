@@ -21,8 +21,8 @@ import java.util.Map;
 
 @RestController
 public class OrdersController {
-    private OrderService orderService;
-    private FormUnpaidOrders formUnpaidOrders;
+    private final OrderService orderService;
+    private final FormUnpaidOrders formUnpaidOrders;
     @Autowired
     public OrdersController(OrderService orderService, FormUnpaidOrders formUnpaidOrders) {
         this.orderService = orderService;
@@ -36,6 +36,11 @@ public class OrdersController {
         orderEntity.setUserId(id);
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+    @PostMapping("/simulation")
+    public ResponseEntity simulation() {
+        orderService.simulate();
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
     @PostMapping("/requestRoutes")
     public Map<String, List<UnpaidOrder>> getOrderVariants(@RequestBody OrderModel reqModel) {
