@@ -47,6 +47,10 @@ public class CargoLoader3D {
         printMatrix(cargohold.getLoadingMatrix());
     }
 
+    public void unloadCargo() {
+
+    }
+
     // Check if we can fit box
     private boolean checkPlace(Cargo box, int[][][] loadingMatrix, int currentWidthPos, int currentHeightPos,
                                int currentDepth) {
@@ -58,9 +62,9 @@ public class CargoLoader3D {
             return false;
 
             // Check free place for box from all sides
-        } else if (checkVolume(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepth) == false
-                || checkBottom(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepth) == false
-                || checkTop(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepth) == false) {
+        } else if (!checkVolume(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepth)
+                || !checkBottom(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepth)
+                || !checkTop(box, loadingMatrix, currentWidthPos, currentHeightPos, currentDepth)) {
             return false;
         }
         return true;
@@ -120,7 +124,6 @@ public class CargoLoader3D {
     }
 
     // Start surface scanner for loading matrix
-    //TODO change name of method
     public void initializeSurfaceScanner(List<Cargo> listBox, int[][][] loadingMatrix,
                                          Map<String, List<Cargo>> loadedCargo) {
 
@@ -129,27 +132,29 @@ public class CargoLoader3D {
         int widthPos = 0;
         int depthPos = 0;
 
-        List<Cargo> unloadedBoxes = new LinkedList<>(listBox);
+        List<Cargo> unloadedBoxes = new LinkedList<Cargo>();
+        unloadedBoxes.addAll(listBox);
 
         while (unloadedBoxes.size() > 0) {
             boolean canLoad = false;
             for (Cargo box : unloadedBoxes) {
 
                 // Set starting position
-                if (loadingMatrix[depthPos][heightPos][widthPos] != 0) {
-                    while (loadingMatrix[depthPos][heightPos][widthPos] != 0
-                            & widthPos + 1 < loadingMatrix[0][0].length) {
-                        widthPos++;
-                    }
-                }
-
-                while (heightPos > 0) {
-                    if (loadingMatrix[depthPos][heightPos - 1][widthPos] != 0) {
-                        break;
-                    } else {
-                        heightPos--;
-                    }
-                }
+                //TODO Проблема в это куске кода, который ищет стартовую позицию, без него вроде пашет, надо будет переделать
+//				if (loadingMatrix[depthPos][heightPos][widthPos] != 0) {
+//					while (loadingMatrix[depthPos][heightPos][widthPos] != 0
+//							& widthPos + 1 < loadingMatrix[0][0].length) {
+//						widthPos++;
+//					}
+//				}
+//
+//				while (heightPos > 0) {
+//					if (loadingMatrix[depthPos][heightPos - 1][widthPos] != 0) {
+//						break;
+//					} else {
+//						heightPos--;
+//					}
+//				}
 
                 if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, depthPos, loadingMatrix)) {
                     heightPos = loadingMatrix[0].length - 1;
@@ -159,19 +164,8 @@ public class CargoLoader3D {
                     canLoad = true;
                     break;
                 }
-// Find a position with a shift in width
-//			if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, loadingMatrix)) {
-//				widthPos += box.getWidthInCells()-1;
-//				loadedCargo.get(box.getDestination()).push(box);
-//			} else {
-//				widthPos = 0;
-//				if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, loadingMatrix)) {
-//					loadedCargo.get(box.getDestination()).push(box);
-//				}
-//			}
-
             }
-            if (!canLoad & depthPos < loadingMatrix.length - 1) {
+            if (!canLoad & depthPos < loadingMatrix.length) {
                 depthPos++;
             }
         }
@@ -276,8 +270,8 @@ public class CargoLoader3D {
 
                         // Go around an obstacle
                         if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0
-                                & loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0) {
-                            while (true) {
+                                & loadingMatrix[currentDepth][currentHeight][currentWidth] != 0) {
+                            while (currentWidth + 1 < loadingMatrix[0][0].length) {
                                 if (loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
                                     currentWidth++;
                                 } else {
@@ -382,9 +376,42 @@ public class CargoLoader3D {
     }
 
     // Test algorithm
-    //TODO move into test
     public static void main(String[] args) {
-        List<Cargo> listCargo = new LinkedList<>();
+        List<Cargo> listCargo = new LinkedList<Cargo>();
+//		Cargo box1 = new Cargo(1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
+//		Cargo box2 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
+//		Cargo box3 = new Cargo(0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x2
+//		Cargo box4 = new Cargo(0.6, 0.6, 2.4, 5, 4, "Lviv");// 2x2x8
+//		Cargo box5 = new Cargo(0.9, 0.3, 1.2, 2, 5, "Lviv");// 3x1x4
+//		Cargo box6 = new Cargo(0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
+//		Cargo box7 = new Cargo(0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
+//		Cargo box8 = new Cargo(0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
+//		Cargo box9 = new Cargo(0.9, 0.9, 0.9, 2, 9, "Kyiv");// 2x2x4
+//
+//		listCargo.add(box1);
+//		listCargo.add(box2);
+//		listCargo.add(box3);
+//		listCargo.add(box4);
+//		listCargo.add(box5);
+//		listCargo.add(box6);
+//		listCargo.add(box7);
+//		listCargo.add(box8);
+//		listCargo.add(box9);
+//		listCargo.add(box1);
+//		listCargo.add(box2);
+//		listCargo.add(box3);
+//		listCargo.add(box4);
+//		listCargo.add(box5);
+//		listCargo.add(box6);
+//		listCargo.add(box7);
+//		listCargo.add(box8);
+//		listCargo.add(box9);
+
+//		Cargo box1 = new Cargo(2.4, 2.4, 2.4, 1, 1, "Kyiv");
+//		Cargo box2 = new Cargo(2.4, 2.4, 2.4, 1, 1, "Kyiv");
+//		listCargo.add(box1);
+//		listCargo.add(box2);
+
         Cargo box1 = new Cargo(1, 1.2, 1.2, 1.2, 1, 1, "Kyiv");
         Cargo box2 = new Cargo(2, 0.6, 0.6, 1.2, 2, 2, "Kyiv");
         Cargo box3 = new Cargo(3, 1.2, 1.2, 1.2, 2, 3, "Lviv");
@@ -433,12 +460,12 @@ public class CargoLoader3D {
         Route route = new Route();
         route.setRoute(Arrays.asList(hub1, hub2, hub3));
 
-        CargoHold cargohold = new CargoHold(2.4, 2.4, 12d, 22000, new int[8][8][40]);
+        CargoHold cargohold = new CargoHold(2.4, 2.4, 12d, 22000, new int[40][8][8]);
 
         CargoLoader3D cargoLoader = new CargoLoader3D();
 
         cargoLoader.loadCargo(listCargo, route, cargohold);
 
-        System.out.println(cargohold.getLoadedCargo());
+        //System.out.println(cargohold.getLoadedCargo());
     }
 }
