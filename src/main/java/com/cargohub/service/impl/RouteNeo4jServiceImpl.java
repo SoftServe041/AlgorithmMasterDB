@@ -1,7 +1,7 @@
 package com.cargohub.service.impl;
 
 import com.cargohub.models.RouteModel;
-import com.cargohub.repository.RouteRepository;
+import com.cargohub.repository.RouteNeo4jRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,23 +9,23 @@ import java.util.List;
 
 
 @Service
-public class RouteService {
+public class RouteNeo4jServiceImpl {
 
     final
-    RouteRepository routeRepository;
+    RouteNeo4jRepository routeNeo4jRepository;
 
-    public RouteService(RouteRepository routeRepository) {
-        this.routeRepository = routeRepository;
+    public RouteNeo4jServiceImpl(RouteNeo4jRepository routeNeo4jRepository) {
+        this.routeNeo4jRepository = routeNeo4jRepository;
     }
 
     public List<RouteModel> getRoute(String departure, String arrival) {
         List<RouteModel> routeModel = new ArrayList<>();
 
-        List<RouteRepository.RouteData> routeData = new ArrayList<>();
-        routeData = routeRepository.getAllRoutes(departure, arrival);
+        List<RouteNeo4jRepository.RouteData> routeData = new ArrayList<>();
+        routeData = routeNeo4jRepository.getAllRoutes(departure, arrival);
 
-        List<RouteRepository.RouteDataDistance> distanceData = new ArrayList<>();
-        distanceData = routeRepository.getAllRoutesDistance(departure, arrival);
+        List<RouteNeo4jRepository.RouteDataDistance> distanceData = new ArrayList<>();
+        distanceData = routeNeo4jRepository.getAllRoutesDistance(departure, arrival);
 
         for (int i = 0; i < routeData.size(); i++) {
             RouteModel routeModelTemp = new RouteModel();

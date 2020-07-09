@@ -18,5 +18,14 @@ public class CargoPosition {
     Integer id;
 
     @OneToOne(mappedBy =  "cargoPosition")
-    Cargo cargo;
+    CargoEntity cargoEntity;
+
+    @Column
+    Integer widthPos;
+
+    @Column
+    Integer heightPos;
+
+    @Column
+    Integer lengthPos;
 }

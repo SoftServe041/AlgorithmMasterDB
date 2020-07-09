@@ -22,6 +22,9 @@ public class Hub {
     @Column
     String name;
 
+    @ManyToMany(mappedBy = "route", fetch = FetchType.LAZY)
+    List<Route> routes;
+
     @OneToMany(orphanRemoval = true, mappedBy = "ownerHub")
     List<Relation> relations;
 

@@ -24,6 +24,9 @@ public class TransportDetails {
     Double pricePerKm;
 
     @Column
+    Double cellSize;
+
+    @Column
     @Enumerated(EnumType.STRING)
     TransporterType type;
 }

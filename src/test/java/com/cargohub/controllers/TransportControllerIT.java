@@ -53,9 +53,9 @@ public class TransportControllerIT {
         List<CarrierCompartmentDto> compartments = new ArrayList<>();
         CarrierCompartmentDto compartment = new CarrierCompartmentDto();
         DimensionsDto dimensionsDto = new DimensionsDto();
-        dimensionsDto.setWidth(Integer.MAX_VALUE / 2);
-        dimensionsDto.setHeight(Integer.MAX_VALUE / 2);
-        dimensionsDto.setLength(Integer.MAX_VALUE / 2);
+        dimensionsDto.setWidth(Double.MAX_VALUE / 2);
+        dimensionsDto.setHeight(Double.MAX_VALUE / 2);
+        dimensionsDto.setLength(Double.MAX_VALUE / 2);
         compartment.setVolume(dimensionsDto);
         compartment.setFreeSpace(Double.MAX_VALUE / 2);
         compartment.setMaximumWeight(Double.MAX_VALUE / 2);
@@ -70,6 +70,7 @@ public class TransportControllerIT {
         transportDetailsDto.setType(TransporterType.TRUCK);
         transportDetailsDto.setPricePerKm(999d);
         transportDetailsDto.setAverageSpeed(9379992d);
+        transportDetailsDto.setCellSize(.999);
     }
 
 
@@ -92,9 +93,9 @@ public class TransportControllerIT {
         compartment.setMaximumWeight(Double.MAX_VALUE / 2);
         compartment.setFreeSpace(101d);
         DimensionsDto dimensions = new DimensionsDto();
-        dimensions.setWidth(Integer.MIN_VALUE / 2);
-        dimensions.setHeight(Integer.MIN_VALUE / 2);
-        dimensions.setLength(Integer.MIN_VALUE / 2);
+        dimensions.setWidth(Double.MIN_VALUE / 2);
+        dimensions.setHeight(Double.MIN_VALUE / 2);
+        dimensions.setLength(Double.MIN_VALUE / 2);
         compartment.setVolume(dimensions);
         Integer id = getTransporterTestingValueId();
         transporterDto.setId(id);

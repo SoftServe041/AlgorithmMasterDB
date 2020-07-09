@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DimensionsDto {
     private Integer id;
-    private Integer width;
-    private Integer height;
-    private Integer length;
+    private Double width;
+    private Double height;
+    private Double length;
 
     public Dimensions toDimensions() {
         Dimensions dimensions = new Dimensions();

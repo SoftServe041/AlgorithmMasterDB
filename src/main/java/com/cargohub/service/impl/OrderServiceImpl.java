@@ -3,6 +3,7 @@ package com.cargohub.service.impl;
 import com.cargohub.entities.Cargo;
 import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
+import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.exceptions.OrderException;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Random;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -96,8 +98,11 @@ public class OrderServiceImpl implements OrderService {
 
         //orderEntity.setArrivalHub(hubRepository.findByName(orderEntity.getArrivalHub().getName()).get());
         orderEntity.setTrackingId(generateTrackingId(orderEntity.getDepartureHub().getName(), orderEntity.getArrivalHub().getName(), orderEntity.getUserId()));
-        dimensionsRepository.save(orderEntity.getCargo().getDimensions());
-        cargoRepository.save(orderEntity.getCargo());
+        for (CargoEntity cargo : orderEntity.getCargoEntities()
+        ) {
+            dimensionsRepository.save(cargo.getDimensions());
+            cargoRepository.save(cargo);
+        }
         //hubRepository.save(orderEntity.getArrivalHub());
         //hubRepository.save(orderEntity.getDepartureHub());
         return repository.save(orderEntity);
@@ -177,6 +182,7 @@ public class OrderServiceImpl implements OrderService {
         order.setArrivalHub(arrHub);
         order.setDepartureHub(depHub);
     }
+
 
     private String generateTrackingId(String firstCity, String secondCity, long id) {
         final Random random = new Random();

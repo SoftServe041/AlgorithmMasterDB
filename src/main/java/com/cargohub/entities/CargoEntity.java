@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "cargo")
-public class Cargo {
+public class CargoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class Cargo {
     @Column
     String finalDestination;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "dimensions_id")
     Dimensions dimensions;
 
@@ -40,7 +40,8 @@ public class Cargo {
     @JoinColumn(name = "carrier_compartment_id")
     CarrierCompartment carrierCompartment;
 
-    @OneToOne(mappedBy = "cargo")
+    @ManyToOne
+    @JoinColumn(name = "order_id")
     OrderEntity orderEntity;
 
     @Column
