@@ -15,6 +15,9 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    @OneToOne(mappedBy = "route")
+    OrderEntity order;
+
     @ManyToMany
     @JoinTable(name = "route_hub",
             joinColumns = @JoinColumn(name = "route_id", referencedColumnName = "id"),

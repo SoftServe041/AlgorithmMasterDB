@@ -41,6 +41,10 @@ public class OrderEntity {
     @JoinColumn(name = "arrival_hub_id")
     Hub arrivalHub;
 
+    @OneToOne
+    @JoinColumn(name = "route_id")
+    Route route;
+
     @OneToMany(mappedBy = "orderEntity")
     List<CargoEntity> cargoEntities;
 
