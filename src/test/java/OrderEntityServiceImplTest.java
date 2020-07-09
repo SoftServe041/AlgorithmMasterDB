@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,7 +71,7 @@ public class OrderEntityServiceImplTest {
         cargoEntity = new CargoEntity();
         dimensions = new Dimensions();
         cargoEntity.setDimensions(dimensions);
-        orderEntity.setCargoEntity(cargoEntity);
+        orderEntity.setCargoEntities(Arrays.asList(cargoEntity));
         page = new PageImpl(List.of(orderEntity));
         pageable = PageRequest.of(0, 10);
     }

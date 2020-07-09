@@ -20,13 +20,13 @@ public class Dimensions {
     Integer id;
 
     @Column
-    Integer width;
+    Double width;
 
     @Column
-    Integer height;
+    Double height;
 
     @Column
-    Integer length;
+    Double length;
 
     @OneToOne(mappedBy = "volume", cascade = CascadeType.ALL)
     CarrierCompartment carrierCompartment;

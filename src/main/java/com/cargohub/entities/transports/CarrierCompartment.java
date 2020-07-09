@@ -25,7 +25,6 @@ public class CarrierCompartment {
     @Column
     Double maximumWeight;
 
-    //Percents or cubic meters
     @Column
     Double freeSpace;
 

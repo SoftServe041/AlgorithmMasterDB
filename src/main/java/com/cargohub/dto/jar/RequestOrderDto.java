@@ -1,5 +1,6 @@
 package com.cargohub.dto.jar;
 
+import com.cargohub.dto.CargoDto;
 import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.Dimensions;
 import com.cargohub.entities.Hub;
@@ -9,7 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,10 +23,7 @@ public class RequestOrderDto {
     private Date estimatedDeliveryDate;
     private String departureHub;
     private String arrivalHub;
-    private Double cargoWeight;
-    private Integer cargoWidth;
-    private Integer cargoHeight;
-    private Integer cargoLength;
+    private List<CargoDto> cargos;
 
 
     public static OrderEntity reqOrderToEntity(RequestOrderDto reqOrder) {
@@ -37,17 +37,21 @@ public class RequestOrderDto {
         orderEntity.setDeliveryStatus(DeliveryStatus.PROCESSING);
         orderEntity.setEstimatedDeliveryDate(reqOrder.getEstimatedDeliveryDate());
         orderEntity.setPrice(reqOrder.getPrice());
-        CargoEntity cargoEntity = new CargoEntity();
-        cargoEntity.setDeliveryStatus(orderEntity.getDeliveryStatus());
-        cargoEntity.setStartingDestination(orderEntity.getDepartureHub().getName());
-        cargoEntity.setFinalDestination(orderEntity.getArrivalHub().getName());
-        cargoEntity.setWeight(reqOrder.getCargoWeight());
-        Dimensions dimensions = new Dimensions();
-        dimensions.setHeight(reqOrder.getCargoHeight());
-        dimensions.setLength(reqOrder.getCargoLength());
-        dimensions.setWidth(reqOrder.getCargoWidth());
-        cargoEntity.setDimensions(dimensions);
-        orderEntity.setCargoEntity(cargoEntity);
+        List<CargoEntity> entities = new ArrayList<>();
+        for (CargoDto dto : reqOrder.getCargos()) {
+            CargoEntity entity = new CargoEntity();
+            entity.setWeight(dto.getWeight());
+            entity.setDeliveryStatus(orderEntity.getDeliveryStatus());
+            entity.setStartingDestination(orderEntity.getDepartureHub().getName());
+            entity.setFinalDestination(orderEntity.getArrivalHub().getName());
+            Dimensions dimensions = new Dimensions();
+            dimensions.setHeight(dto.getHeight());
+            dimensions.setLength(dto.getLength());
+            dimensions.setWidth(dto.getWidth());
+            entity.setDimensions(dimensions);
+            entities.add(entity);
+        }
+        orderEntity.setCargoEntities(entities);
 
         return orderEntity;
     }

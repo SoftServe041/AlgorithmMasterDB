@@ -5,9 +5,11 @@ import com.cargohub.entities.enums.DeliveryStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,7 +21,6 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    //ToDo Generating rules discussing
     @Column
     String trackingId;
 
@@ -40,11 +41,15 @@ public class OrderEntity {
     @JoinColumn(name = "arrival_hub_id")
     Hub arrivalHub;
 
-    @OneToOne
-    @JoinColumn(name = "cargo_id")
-    CargoEntity cargoEntity;
+    @OneToMany(mappedBy = "orderEntity")
+    List<CargoEntity> cargoEntities;
 
     @Column
     @Enumerated(EnumType.STRING)
     DeliveryStatus deliveryStatus;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    @Column(name = "created")
+    private Date created;
 }

@@ -28,7 +28,7 @@ public class CargoEntity {
     @Column
     String finalDestination;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "dimensions_id")
     Dimensions dimensions;
 
@@ -40,7 +40,8 @@ public class CargoEntity {
     @JoinColumn(name = "carrier_compartment_id")
     CarrierCompartment carrierCompartment;
 
-    @OneToOne(mappedBy = "cargoEntity")
+    @ManyToOne
+    @JoinColumn(name = "order_id")
     OrderEntity orderEntity;
 
     @Column

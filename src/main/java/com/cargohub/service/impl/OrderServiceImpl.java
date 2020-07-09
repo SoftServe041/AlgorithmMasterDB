@@ -1,5 +1,6 @@
 package com.cargohub.service.impl;
 
+import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.exceptions.OrderException;
 import com.cargohub.repository.CargoRepository;
@@ -78,8 +79,11 @@ public class OrderServiceImpl implements OrderService {
             throw new OrderException("Illegal state for Order");
         }
         orderEntity.setTrackingId(generateTrackingId(orderEntity.getDepartureHub().getName(), orderEntity.getArrivalHub().getName(), orderEntity.getUserId()));
-        dimensionsRepository.save(orderEntity.getCargoEntity().getDimensions());
-        cargoRepository.save(orderEntity.getCargoEntity());
+        for (CargoEntity cargo : orderEntity.getCargoEntities()
+        ) {
+            dimensionsRepository.save(cargo.getDimensions());
+            cargoRepository.save(cargo);
+        }
         hubRepository.save(orderEntity.getArrivalHub());
         hubRepository.save(orderEntity.getDepartureHub());
         return repository.save(orderEntity);
@@ -98,6 +102,7 @@ public class OrderServiceImpl implements OrderService {
         }
         throw new OrderException("Cargo not found");
     }
+
     private String generateTrackingId(String firstCity, String secondCity, long id) {
         final Random random = new Random();
 

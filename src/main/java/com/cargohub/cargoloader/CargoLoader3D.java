@@ -169,7 +169,7 @@ public class CargoLoader3D {
 //			}
 
             }
-            if (!canLoad & depthPos < loadingMatrix.length) {
+            if (!canLoad & depthPos < loadingMatrix.length - 1) {
                 depthPos++;
             }
         }
@@ -383,15 +383,24 @@ public class CargoLoader3D {
     //TODO move into test
     public static void main(String[] args) {
         List<Cargo> listCargo = new LinkedList<>();
-        Cargo box1 = new Cargo(1, 1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
-        Cargo box2 = new Cargo(2, 0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
-        Cargo box3 = new Cargo(3, 0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x2
-        Cargo box4 = new Cargo(4, 0.6, 0.6, 2.4, 5, 4, "Lviv");// 2x2x8
-        Cargo box5 = new Cargo(5, 0.9, 0.3, 1.2, 2, 5, "Lviv");// 3x1x4
-        Cargo box6 = new Cargo(6, 0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
-        Cargo box7 = new Cargo(7, 0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
-        Cargo box8 = new Cargo(8, 0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
-        Cargo box9 = new Cargo(9, 0.9, 0.9, 0.9, 2, 9, "Kyiv");// 2x2x4
+        Cargo box1 = new Cargo(1, 1.2, 1.2, 1.2, 1, 1, "Kyiv");
+        Cargo box2 = new Cargo(2, 0.6, 0.6, 1.2, 2, 2, "Kyiv");
+        Cargo box3 = new Cargo(3, 1.2, 1.2, 1.2, 2, 3, "Lviv");
+        Cargo box4 = new Cargo(4, 0.6, 0.6, 1.2, 5, 4, "Lviv");
+        Cargo box5 = new Cargo(5, 1.2, 1.2, 1.2, 2, 5, "Lviv");
+        Cargo box6 = new Cargo(6, 0.6, 1.2, 1.2, 2, 6, "Kyiv");
+        Cargo box7 = new Cargo(7, 0.3, 0.3, 0.6, 2, 7, "Lviv");
+        Cargo box8 = new Cargo(8, 0.6, 0.6, 1.2, 2, 8, "Kyiv");
+        Cargo box9 = new Cargo(9, 1.2, 1.2, 1.2, 2, 9, "Kyiv");
+        Cargo box11 = new Cargo(11, 1.2, 1.2, 1.2, 1, 1, "Kyiv");
+        Cargo box12 = new Cargo(12, 0.6, 0.6, 1.2, 2, 2, "Kyiv");
+        Cargo box13 = new Cargo(13, 1.2, 1.2, 1.2, 2, 3, "Lviv");
+//        Cargo box14 = new Cargo(14, 0.6, 0.6, 1.2, 5, 4, "Lviv");
+//        Cargo box15 = new Cargo(15, 1.2, 1.2, 1.2, 2, 5, "Lviv");
+//        Cargo box16 = new Cargo(16, 0.6, 1.2, 1.2, 2, 6, "Kyiv");
+//        Cargo box17 = new Cargo(17, 0.3, 0.3, 0.6, 2, 7, "Lviv");
+//        Cargo box18 = new Cargo(18, 0.6, 0.6, 1.2, 2, 8, "Kyiv");
+//        Cargo box19 = new Cargo(19, 2.4, 2.4, 2.4, 2, 9, "Kyiv");
 
         listCargo.add(box1);
         listCargo.add(box2);
@@ -402,15 +411,15 @@ public class CargoLoader3D {
         listCargo.add(box7);
         listCargo.add(box8);
         listCargo.add(box9);
-        listCargo.add(box1);
-        listCargo.add(box2);
-        listCargo.add(box3);
-        listCargo.add(box4);
-        listCargo.add(box5);
-        listCargo.add(box6);
-        listCargo.add(box7);
-        listCargo.add(box8);
-        listCargo.add(box9);
+        listCargo.add(box11);
+        listCargo.add(box12);
+        listCargo.add(box13);
+//        listCargo.add(box14);
+//        listCargo.add(box15);
+//        listCargo.add(box16);
+//        listCargo.add(box17);
+//        listCargo.add(box18);
+//        listCargo.add(box19);
 
         Hub hub1 = new Hub("Kharkiv");
         Hub hub2 = new Hub("Kyiv");

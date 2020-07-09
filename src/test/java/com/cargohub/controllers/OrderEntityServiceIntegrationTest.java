@@ -1,5 +1,6 @@
 package com.cargohub.controllers;
 
+import com.cargohub.dto.CargoDto;
 import com.cargohub.dto.jar.RequestOrderDto;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.service.OrderService;
@@ -19,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -53,10 +55,12 @@ public class OrderEntityServiceIntegrationTest {
         requestOrderDto = new RequestOrderDto();
         requestOrderDto.setArrivalHub("A");
         requestOrderDto.setDepartureHub("B");
-        requestOrderDto.setCargoHeight(15);
-        requestOrderDto.setCargoLength(15);
-        requestOrderDto.setCargoWidth(15);
-        requestOrderDto.setCargoWeight(20.0);
+        CargoDto cargoDto = new CargoDto();
+        cargoDto.setHeight(15d);
+        cargoDto.setLength(15d);
+        cargoDto.setWidth(15d);
+        cargoDto.setWeight(20.0);
+        requestOrderDto.setCargos(Arrays.asList(cargoDto));
         Date date = new SimpleDateFormat("yyyyMMdd").parse("20100520");
         requestOrderDto.setEstimatedDeliveryDate(date);
         requestOrderDto.setPrice(400.0);
