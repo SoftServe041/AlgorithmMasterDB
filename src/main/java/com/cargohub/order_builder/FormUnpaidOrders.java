@@ -1,5 +1,6 @@
 package com.cargohub.order_builder;
 
+import com.cargohub.models.CargoSizeModel;
 import com.cargohub.models.OrderModel;
 import com.cargohub.models.RouteModel;
 import com.cargohub.service.impl.RouteService;
@@ -67,18 +68,25 @@ public class FormUnpaidOrders {
     }
 
     private int countPriceForRoute(OrderModel orderModel) {
-        double volumeOfCargo = orderModel.getCargoHeight() * orderModel.getCargoLength() * orderModel.getCargoWidth();
+        int price = 0;
+        for (CargoSizeModel cargoSizeModel : orderModel.getSizeList()) {
+            price += getPrice(cargoSizeModel);
+        }
+        return price;
+    }
+
+    private int getPrice(CargoSizeModel cargoSizeModel) {
+        double volumeOfCargo = cargoSizeModel.getCargoHeight() * cargoSizeModel.getCargoLength() * cargoSizeModel.getCargoWidth();
         double cub = carryingCapacity / truckVolume; // ? weight in 1 m^3 according to truck properties
 
-        double cargoWeight = orderModel.getCargoWeight() / 1000; // tonne
+        double cargoWeight = cargoSizeModel.getCargoWeight() / 1000; // tonne
 
         double admittedWeightForCargo = cub * volumeOfCargo; // determine how much is applicable for cargoVolume
         while (admittedWeightForCargo < cargoWeight - 0.030) { // increase admittedWeight while it equals approximately to cargoWeight
             volumeOfCargo += 0.1;
             admittedWeightForCargo = cub * volumeOfCargo;
         }
-        int price = (int) Math.ceil(admittedWeightForCargo * pricePerKm);
-        return price;
+        return (int) Math.ceil(admittedWeightForCargo * pricePerKm);
     }
 
 }

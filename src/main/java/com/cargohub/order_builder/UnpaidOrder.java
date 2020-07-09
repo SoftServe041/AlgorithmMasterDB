@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class UnpaidOrder {
+
     private static int counter = 0;
     @NonNull
     private String trackingId = generateNextTrackingId();
