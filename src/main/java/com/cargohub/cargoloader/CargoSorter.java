@@ -1,5 +1,8 @@
 package com.cargohub.cargoloader;
 
+import com.cargohub.entities.Hub;
+import com.cargohub.entities.Route;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

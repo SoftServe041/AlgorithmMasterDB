@@ -1,9 +1,9 @@
 package com.cargohub.cargoloader;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
+import java.util.*;
+
+import com.cargohub.entities.Hub;
+import com.cargohub.entities.Route;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.*;
@@ -71,12 +71,15 @@ public class CargoLoading3DAnimation extends Application {
 		listCargo.add(box20);
 
 		// Create Hubs for route
-		Hub hub1 = new Hub("Kharkiv");
-		Hub hub2 = new Hub("Kyiv");
-		Hub hub3 = new Hub("Lviv");
+		Hub hub1 = new Hub();
+		hub1.setName("Kharkiv");
+		Hub hub2 = new Hub();
+		hub2.setName("Kyiv");
+		Hub hub3 = new Hub();
+		hub3.setName("Lviv");
 
-		// Create new route
-		Route route = new Route(hub1, hub2, hub3);
+		Route route = new Route();
+		route.setRoute(Arrays.asList(hub1, hub2, hub3));
 
 		// Create cargo hold as part of transport
 		CargoHold cargohold = new CargoHold(2.4, 2.4, 12d, 22000, new int[40][8][8]);

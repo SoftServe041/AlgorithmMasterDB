@@ -1,5 +1,7 @@
 package com.cargohub.cargoloader;
 
+import com.cargohub.entities.Hub;
+import com.cargohub.entities.Route;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -395,12 +397,12 @@ public class CargoLoader3D {
         Cargo box11 = new Cargo(11, 1.2, 1.2, 1.2, 1, 1, "Kyiv");
         Cargo box12 = new Cargo(12, 0.6, 0.6, 1.2, 2, 2, "Kyiv");
         Cargo box13 = new Cargo(13, 1.2, 1.2, 1.2, 2, 3, "Lviv");
-//        Cargo box14 = new Cargo(14, 0.6, 0.6, 1.2, 5, 4, "Lviv");
-//        Cargo box15 = new Cargo(15, 1.2, 1.2, 1.2, 2, 5, "Lviv");
-//        Cargo box16 = new Cargo(16, 0.6, 1.2, 1.2, 2, 6, "Kyiv");
-//        Cargo box17 = new Cargo(17, 0.3, 0.3, 0.6, 2, 7, "Lviv");
-//        Cargo box18 = new Cargo(18, 0.6, 0.6, 1.2, 2, 8, "Kyiv");
-//        Cargo box19 = new Cargo(19, 2.4, 2.4, 2.4, 2, 9, "Kyiv");
+        Cargo box14 = new Cargo(14, 0.6, 0.6, 1.2, 5, 4, "Lviv");
+        Cargo box15 = new Cargo(15, 1.2, 1.2, 1.2, 2, 5, "Lviv");
+        Cargo box16 = new Cargo(16, 0.6, 1.2, 1.2, 2, 6, "Kyiv");
+        Cargo box17 = new Cargo(17, 0.3, 0.3, 0.6, 2, 7, "Lviv");
+        Cargo box18 = new Cargo(18, 0.6, 0.6, 1.2, 2, 8, "Kyiv");
+        Cargo box19 = new Cargo(19, 2.4, 2.4, 2.4, 2, 9, "Kyiv");
 
         listCargo.add(box1);
         listCargo.add(box2);
@@ -414,20 +416,24 @@ public class CargoLoader3D {
         listCargo.add(box11);
         listCargo.add(box12);
         listCargo.add(box13);
-//        listCargo.add(box14);
-//        listCargo.add(box15);
-//        listCargo.add(box16);
-//        listCargo.add(box17);
-//        listCargo.add(box18);
-//        listCargo.add(box19);
+        listCargo.add(box14);
+        listCargo.add(box15);
+        listCargo.add(box16);
+        listCargo.add(box17);
+        listCargo.add(box18);
+        listCargo.add(box19);
 
-        Hub hub1 = new Hub("Kharkiv");
-        Hub hub2 = new Hub("Kyiv");
-        Hub hub3 = new Hub("Lviv");
+        Hub hub1 = new Hub();
+        hub1.setName("Kharkiv");
+        Hub hub2 = new Hub();
+        hub2.setName("Kyiv");
+        Hub hub3 = new Hub();
+        hub3.setName("Lviv");
 
-        Route route = new Route(hub1, hub2, hub3);
+        Route route = new Route();
+        route.setRoute(Arrays.asList(hub1, hub2, hub3));
 
-        CargoHold cargohold = new CargoHold(2.4, 2.4, 12d, 22000, new int[40][8][8]);
+        CargoHold cargohold = new CargoHold(2.4, 2.4, 12d, 22000, new int[8][8][40]);
 
         CargoLoader3D cargoLoader = new CargoLoader3D();
 

@@ -15,7 +15,7 @@ public class CargoDto {
     private Double height;
     private Double length;
 
-    static CargoDto toDto(CargoEntity cargoEntity) {
+    public static CargoDto toDto(CargoEntity cargoEntity) {
         CargoDto cargoDto = new CargoDto();
         cargoDto.setWeight(cargoEntity.getWeight());
         cargoDto.setHeight(cargoEntity.getDimensions().getHeight());
