@@ -23,6 +23,7 @@ import java.util.Map;
 public class OrdersController {
     private final OrderService orderService;
     private final FormUnpaidOrders formUnpaidOrders;
+
     @Autowired
     public OrdersController(OrderService orderService, FormUnpaidOrders formUnpaidOrders) {
         this.orderService = orderService;
@@ -37,15 +38,17 @@ public class OrdersController {
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
     @PostMapping("/simulation")
     public ResponseEntity simulation() {
         orderService.simulate();
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
+
     @PostMapping("/requestRoutes")
     public Map<String, List<UnpaidOrder>> getOrderVariants(@RequestBody OrderModel reqModel) {
-        Map<String,List<UnpaidOrder>>  map = formUnpaidOrders.formUnpaidOrders(reqModel);
-        return  map;
+        Map<String, List<UnpaidOrder>> map = formUnpaidOrders.formUnpaidOrders(reqModel);
+        return map;
     }
 
     @GetMapping(path = "/{id}/profile", produces = MediaType.APPLICATION_JSON_VALUE)

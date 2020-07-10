@@ -20,6 +20,7 @@ import java.util.List;
 public class RequestOrderDto {
 
     private Double price;
+    private String trackingId;
     private Date estimatedDeliveryDate;
     private String departureHub;
     private String arrivalHub;
@@ -37,6 +38,7 @@ public class RequestOrderDto {
         orderEntity.setDeliveryStatus(DeliveryStatus.PROCESSING);
         orderEntity.setEstimatedDeliveryDate(reqOrder.getEstimatedDeliveryDate());
         orderEntity.setPrice(reqOrder.getPrice());
+        orderEntity.setTrackingId(reqOrder.getTrackingId());
         List<CargoEntity> entities = new ArrayList<>();
         for (CargoDto dto : reqOrder.getCargos()) {
             CargoEntity entity = new CargoEntity();
