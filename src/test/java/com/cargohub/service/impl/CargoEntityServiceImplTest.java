@@ -1,7 +1,7 @@
 package com.cargohub.service.impl;
 
 import com.cargohub.entities.CargoEntity;
-import com.cargohub.entities.CargoPosition;
+import com.cargohub.entities.CargoPositionEntity;
 import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.exceptions.CargoException;
 import com.cargohub.repository.CargoRepository;
@@ -42,7 +42,7 @@ class CargoEntityServiceImplTest {
         MockitoAnnotations.initMocks(this);
         subject = new CargoEntity();
         subject.setId(9992);
-        subject.setCargoPosition(new CargoPosition());
+        subject.setCargoPosition(new CargoPositionEntity());
         subject.setDeliveryStatus(DeliveryStatus.PROCESSING);
         subject.setFinalDestination("Rome");
         subject.setWeight(1000d);

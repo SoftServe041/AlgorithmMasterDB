@@ -1,7 +1,7 @@
 package com.cargohub.cargoloader;
 
-import com.cargohub.entities.Hub;
-import com.cargohub.entities.Route;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.RouteEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -27,7 +27,7 @@ public class CargoLoader3D {
     }
 
     // Main method, takes boxes, route and cargo hold, changes cargo hold state
-    public void loadCargo(List<Cargo> boxes, Route route, CargoHold cargohold) {
+    public void loadCargo(List<Cargo> boxes, RouteEntity route, CargoHold cargohold) {
 
         // First of all sort all boxes by destination, fragility and volume
         cargoSorter.sortCargoByDestination(boxes, route);
@@ -450,14 +450,14 @@ public class CargoLoader3D {
         listCargo.add(box18);
         listCargo.add(box19);
 
-        Hub hub1 = new Hub();
+        HubEntity hub1 = new HubEntity();
         hub1.setName("Kharkiv");
-        Hub hub2 = new Hub();
+        HubEntity hub2 = new HubEntity();
         hub2.setName("Kyiv");
-        Hub hub3 = new Hub();
+        HubEntity hub3 = new HubEntity();
         hub3.setName("Lviv");
 
-        Route route = new Route();
+        RouteEntity route = new RouteEntity();
         route.setRoute(Arrays.asList(hub1, hub2, hub3));
 
         CargoHold cargohold = new CargoHold(2.4, 2.4, 12d, 22000, new int[40][8][8]);

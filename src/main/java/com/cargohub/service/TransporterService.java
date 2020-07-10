@@ -1,6 +1,6 @@
 package com.cargohub.service;
 
-import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.transports.TransporterEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,13 +8,13 @@ public interface TransporterService {
 
     boolean existsById(Integer id);
 
-    Transporter findById(Integer id);
+    TransporterEntity findById(Integer id);
 
-    Transporter update(Transporter transporter);
+    TransporterEntity update(TransporterEntity transporter);
 
-    Transporter save(Transporter transporter);
+    TransporterEntity save(TransporterEntity transporter);
 
-    Page<Transporter> findAll(Pageable pageable);
+    Page<TransporterEntity> findAll(Pageable pageable);
 
     void delete(Integer id);
 

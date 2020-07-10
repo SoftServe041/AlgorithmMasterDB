@@ -1,6 +1,6 @@
 package com.cargohub.dto;
 
-import com.cargohub.entities.transports.TransportDetails;
+import com.cargohub.entities.transports.TransportDetailsEntity;
 import com.cargohub.entities.transports.TransporterType;
 import lombok.Data;
 
@@ -15,7 +15,7 @@ public class TransportDetailsDto {
     private Double pricePerKm;
     private Double cellSize;
 
-    public static TransportDetailsDto toDto(TransportDetails transportDetails) {
+    public static TransportDetailsDto toDto(TransportDetailsEntity transportDetails) {
         TransportDetailsDto dto = new TransportDetailsDto();
         dto.setId(transportDetails.getId());
         dto.setAverageSpeed(transportDetails.getAverageSpeed());
@@ -25,8 +25,8 @@ public class TransportDetailsDto {
         return dto;
     }
 
-    public TransportDetails toTransportDetails() {
-        TransportDetails details = new TransportDetails();
+    public TransportDetailsEntity toTransportDetails() {
+        TransportDetailsEntity details = new TransportDetailsEntity();
         details.setId(this.id);
         details.setAverageSpeed(this.averageSpeed);
         details.setPricePerKm(this.pricePerKm);

@@ -4,8 +4,8 @@ import com.cargohub.dto.CarrierCompartmentDto;
 import com.cargohub.dto.DimensionsDto;
 import com.cargohub.dto.TransportDetailsDto;
 import com.cargohub.dto.TransporterDto;
-import com.cargohub.entities.transports.TransportDetails;
-import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.transports.TransportDetailsEntity;
+import com.cargohub.entities.transports.TransporterEntity;
 import com.cargohub.entities.transports.TransporterType;
 import com.cargohub.service.TransportDetailsService;
 import com.cargohub.service.TransporterService;
@@ -223,16 +223,16 @@ public class TransportControllerIT {
     }
 
     private Integer getTransporterTestingValueId() {
-        Page<Transporter> all = service.findAll(PageRequest.of(0, 1));
+        Page<TransporterEntity> all = service.findAll(PageRequest.of(0, 1));
         long lastElement = all.getTotalElements();
-        Page<Transporter> last = service.findAll(PageRequest.of((int) lastElement - 1, 1));
+        Page<TransporterEntity> last = service.findAll(PageRequest.of((int) lastElement - 1, 1));
         return last.getContent().get(0).getId();
     }
 
     private Integer getTransporterDetailsTestingValueId() {
-        Page<TransportDetails> all = detailsService.findAll(PageRequest.of(0, 1));
+        Page<TransportDetailsEntity> all = detailsService.findAll(PageRequest.of(0, 1));
         long lastElement = all.getTotalElements();
-        Page<TransportDetails> last = detailsService.findAll(PageRequest.of((int) lastElement - 1, 1));
+        Page<TransportDetailsEntity> last = detailsService.findAll(PageRequest.of((int) lastElement - 1, 1));
         return last.getContent().get(0).getId();
     }
 }

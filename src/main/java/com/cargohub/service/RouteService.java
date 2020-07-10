@@ -1,6 +1,6 @@
 package com.cargohub.service;
 
-import com.cargohub.entities.Route;
+import com.cargohub.entities.RouteEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,13 +8,13 @@ public interface RouteService {
 
     boolean existsById(Integer id);
 
-    Route findById(Integer id);
+    RouteEntity findById(Integer id);
 
-    Route update(Route route);
+    RouteEntity update(RouteEntity route);
 
-    Route save(Route route);
+    RouteEntity save(RouteEntity route);
 
-    Page<Route> findAll(Pageable pageable);
+    Page<RouteEntity> findAll(Pageable pageable);
 
     void delete(Integer id);
 

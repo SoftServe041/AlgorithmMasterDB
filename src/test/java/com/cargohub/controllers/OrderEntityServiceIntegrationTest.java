@@ -1,7 +1,7 @@
 package com.cargohub.controllers;
 
 import com.cargohub.dto.CargoDto;
-import com.cargohub.dto.jar.RequestOrderDto;
+import com.cargohub.dto.RequestOrderDto;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.service.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -2,8 +2,8 @@ package com.cargohub.cargoloader;
 
 import java.util.*;
 
-import com.cargohub.entities.Hub;
-import com.cargohub.entities.Route;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.RouteEntity;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.*;
@@ -12,6 +12,7 @@ import javafx.scene.shape.*;
 import javafx.scene.transform.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.springframework.stereotype.Component;
 
 /**
  * This class represents 3D visualization of cargo loading algorithm. Program
@@ -20,6 +21,7 @@ import javafx.util.Duration;
  */
 
 // Create main class of application
+@Component
 public class CargoLoading3DAnimation extends Application {
 
 	// Method for creating cargo boxes and visual components
@@ -67,14 +69,14 @@ public class CargoLoading3DAnimation extends Application {
 		listCargo.add(box19);
 
 		// Create Hubs for route
-		Hub hub1 = new Hub();
+		HubEntity hub1 = new HubEntity();
 		hub1.setName("Kharkiv");
-		Hub hub2 = new Hub();
+		HubEntity hub2 = new HubEntity();
 		hub2.setName("Kyiv");
-		Hub hub3 = new Hub();
+		HubEntity hub3 = new HubEntity();
 		hub3.setName("Lviv");
 
-		Route route = new Route();
+		RouteEntity route = new RouteEntity();
 		route.setRoute(Arrays.asList(hub1, hub2, hub3));
 
 		// Create cargo hold as part of transport

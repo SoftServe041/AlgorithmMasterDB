@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Dimensions;
+import com.cargohub.entities.DimensionsEntity;
 import com.cargohub.exceptions.DimensionsException;
 import com.cargohub.repository.DimensionsRepository;
 import com.cargohub.service.DimensionsService;
@@ -25,14 +25,14 @@ public class DimensionsServiceImpl implements DimensionsService {
     }
 
     @Override
-    public Dimensions findById(Integer id) {
-        Dimensions result;
+    public DimensionsEntity findById(Integer id) {
+        DimensionsEntity result;
         result = repository.findById(id).orElseThrow(() -> new DimensionsException("Dimensions not found"));
         return result;
     }
 
     @Override
-    public Dimensions update(Dimensions dimensions) {
+    public DimensionsEntity update(DimensionsEntity dimensions) {
         if (dimensions.getId() == null) {
             throw new DimensionsException("Illegal state for Dimensions");
         }
@@ -43,7 +43,7 @@ public class DimensionsServiceImpl implements DimensionsService {
     }
 
     @Override
-    public Dimensions save(Dimensions dimensions) {
+    public DimensionsEntity save(DimensionsEntity dimensions) {
         if (dimensions.getId() != null) {
             throw new DimensionsException("Illegal state for Dimensions");
         }
@@ -51,7 +51,7 @@ public class DimensionsServiceImpl implements DimensionsService {
     }
 
     @Override
-    public Page<Dimensions> findAll(Pageable pageable) {
+    public Page<DimensionsEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

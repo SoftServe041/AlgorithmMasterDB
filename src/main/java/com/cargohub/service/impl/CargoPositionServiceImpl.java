@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.CargoPosition;
+import com.cargohub.entities.CargoPositionEntity;
 import com.cargohub.exceptions.CargoPositionException;
 import com.cargohub.repository.CargoPositionRepository;
 import com.cargohub.service.CargoPositionService;
@@ -25,14 +25,14 @@ public class CargoPositionServiceImpl implements CargoPositionService {
     }
 
     @Override
-    public CargoPosition findById(Integer id) {
-        CargoPosition result;
+    public CargoPositionEntity findById(Integer id) {
+        CargoPositionEntity result;
         result = repository.findById(id).orElseThrow(() -> new CargoPositionException("CargoPosition not found"));
         return result;
     }
 
     @Override
-    public CargoPosition update(CargoPosition cargoPosition) {
+    public CargoPositionEntity update(CargoPositionEntity cargoPosition) {
         if (cargoPosition.getId() == null) {
             throw new CargoPositionException("Illegal state for CargoPosition");
         }
@@ -43,7 +43,7 @@ public class CargoPositionServiceImpl implements CargoPositionService {
     }
 
     @Override
-    public CargoPosition save(CargoPosition cargoPosition) {
+    public CargoPositionEntity save(CargoPositionEntity cargoPosition) {
         if (cargoPosition.getId() != null) {
             throw new CargoPositionException("Illegal state for CargoPosition");
         }
@@ -51,7 +51,7 @@ public class CargoPositionServiceImpl implements CargoPositionService {
     }
 
     @Override
-    public Page<CargoPosition> findAll(Pageable pageable) {
+    public Page<CargoPositionEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

@@ -1,7 +1,7 @@
 package com.cargohub.cargoloader;
 
-import com.cargohub.entities.Hub;
-import com.cargohub.entities.Route;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.RouteEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,12 +30,12 @@ public class CargoSorter {
 
 	// Sort cargo by destination, form distant route point to near (and by fragility
 	// and volume)
-	public void sortCargoByDestination(List<Cargo> boxes, Route route) {
-		ListIterator<Hub> hubIterator = route.getRoute().listIterator(route.getRoute().size());
+	public void sortCargoByDestination(List<Cargo> boxes, RouteEntity route) {
+		ListIterator<HubEntity> hubIterator = route.getRoute().listIterator(route.getRoute().size());
 		while (hubIterator.hasPrevious()) {
 			if (!hubIterator.previous().getName().equals(route.getRoute().get(0).getName())) {
 				hubIterator.next();
-				Hub hub = hubIterator.previous();
+				HubEntity hub = hubIterator.previous();
 				if (!sortedCargoMap.containsKey(hub.getName())) {
 					sortedCargoMap.put(hub.getName(), new ArrayList<Cargo>());
 				}

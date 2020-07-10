@@ -1,9 +1,8 @@
-package com.cargohub.dto.jar;
+package com.cargohub.dto;
 
-import com.cargohub.dto.CargoDto;
 import com.cargohub.entities.CargoEntity;
-import com.cargohub.entities.Dimensions;
-import com.cargohub.entities.Hub;
+import com.cargohub.entities.DimensionsEntity;
+import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.entities.enums.DeliveryStatus;
 import lombok.Getter;
@@ -28,8 +27,8 @@ public class RequestOrderDto {
 
     public static OrderEntity reqOrderToEntity(RequestOrderDto reqOrder) {
         OrderEntity orderEntity = new OrderEntity();
-        Hub arrival = new Hub();
-        Hub departure = new Hub();
+        HubEntity arrival = new HubEntity();
+        HubEntity departure = new HubEntity();
         arrival.setName(reqOrder.arrivalHub);
         departure.setName(reqOrder.departureHub);
         orderEntity.setArrivalHub(arrival);
@@ -44,7 +43,7 @@ public class RequestOrderDto {
             entity.setDeliveryStatus(orderEntity.getDeliveryStatus());
             entity.setStartingDestination(orderEntity.getDepartureHub().getName());
             entity.setFinalDestination(orderEntity.getArrivalHub().getName());
-            Dimensions dimensions = new Dimensions();
+            DimensionsEntity dimensions = new DimensionsEntity();
             dimensions.setHeight(dto.getHeight());
             dimensions.setLength(dto.getLength());
             dimensions.setWidth(dto.getWidth());

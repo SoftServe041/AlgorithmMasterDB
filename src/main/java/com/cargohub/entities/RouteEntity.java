@@ -9,7 +9,8 @@ import java.util.List;
 @Entity
 @Data
 @EqualsAndHashCode(exclude = "id")
-public class Route {
+@Table(name = "route")
+public class RouteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,7 @@ public class Route {
     @JoinTable(name = "route_hub",
             joinColumns = @JoinColumn(name = "route_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "hub_id", referencedColumnName = "id"))
-    private List<Hub> route;
+    private List<HubEntity> route;
 
 
 }

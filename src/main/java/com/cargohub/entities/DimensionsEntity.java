@@ -1,6 +1,6 @@
 package com.cargohub.entities;
 
-import com.cargohub.entities.transports.CarrierCompartment;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Table(name = "dimensions")
-public class Dimensions {
+public class DimensionsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +29,13 @@ public class Dimensions {
     Double length;
 
     @OneToOne(mappedBy = "volume", cascade = CascadeType.ALL)
-    CarrierCompartment carrierCompartment;
+    CarrierCompartmentEntity carrierCompartment;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Dimensions that = (Dimensions) o;
+        DimensionsEntity that = (DimensionsEntity) o;
         return width.equals(that.width) &&
                 height.equals(that.height) &&
                 length.equals(that.length);
