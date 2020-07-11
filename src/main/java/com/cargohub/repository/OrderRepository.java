@@ -2,6 +2,7 @@ package com.cargohub.repository;
 
 import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.OrderEntity;
+import com.cargohub.entities.RouteEntity;
 import com.cargohub.entities.enums.DeliveryStatus;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,7 @@ public interface OrderRepository extends PagingAndSortingRepository<OrderEntity,
     @Query("select o from OrderEntity o WHERE o.userId = :userId")
     Page<OrderEntity> findAllByUserId(@Param("userId") Integer userId, Pageable pageable);
 
-    List<OrderEntity> findAllByDepartureHubAndDeliveryStatus(HubEntity hub, DeliveryStatus status);
+    List<OrderEntity> findAllByRouteAndDeliveryStatus(RouteEntity route, DeliveryStatus status);
 
     List<OrderEntity> findAll(Example<OrderEntity> example);
 

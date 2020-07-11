@@ -4,7 +4,6 @@ import com.cargohub.entities.transports.TransporterEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,7 +22,7 @@ public class HubEntity {
     @Column
     String name;
 
-    @ManyToMany(mappedBy = "route", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "hubs", fetch = FetchType.LAZY)
     List<RouteEntity> routes;
 
     @OneToMany(orphanRemoval = true, mappedBy = "ownerHub")

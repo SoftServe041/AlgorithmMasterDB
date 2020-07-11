@@ -56,14 +56,14 @@ public class RouteServiceImpl implements RouteService {
             throw new RouteException("Illegal state for Route");
         }
         List<HubEntity> realHubs = new ArrayList<>();
-        for (HubEntity routeHub : route.getRoute()) {
+        for (HubEntity routeHub : route.getHubs()) {
             HubEntity hub = hubRepository.findByName(routeHub.getName()).
                     orElseThrow(() -> {
                         throw new HubException("Hub not found");
                     });
             realHubs.add(hub);
         }
-        route.setRoute(realHubs);
+        route.setHubs(realHubs);
         return repository.save(route);
     }
 

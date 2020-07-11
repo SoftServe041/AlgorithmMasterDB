@@ -41,7 +41,7 @@ public class OrderEntity {
     @JoinColumn(name = "arrival_hub_id")
     HubEntity arrivalHub;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "route_id")
     RouteEntity route;
 

@@ -19,7 +19,7 @@ public class RouteDto {
             hubEntity.setName(hub);
             hubsList.add(hubEntity);
         }
-        route.setRoute(hubsList);
+        route.setHubs(hubsList);
         return route;
     }
 }

@@ -77,7 +77,7 @@ public class CargoLoading3DAnimation extends Application {
 		hub3.setName("Lviv");
 
 		RouteEntity route = new RouteEntity();
-		route.setRoute(Arrays.asList(hub1, hub2, hub3));
+		route.setHubs(Arrays.asList(hub1, hub2, hub3));
 
 		// Create cargo hold as part of transport
 		CargoHold cargohold = new CargoHold(2.4, 2.4, 12d, 22000, new int[40][8][8]);

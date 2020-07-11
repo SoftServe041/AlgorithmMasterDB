@@ -31,9 +31,9 @@ public class CargoSorter {
 	// Sort cargo by destination, form distant route point to near (and by fragility
 	// and volume)
 	public void sortCargoByDestination(List<Cargo> boxes, RouteEntity route) {
-		ListIterator<HubEntity> hubIterator = route.getRoute().listIterator(route.getRoute().size());
+		ListIterator<HubEntity> hubIterator = route.getHubs().listIterator(route.getHubs().size());
 		while (hubIterator.hasPrevious()) {
-			if (!hubIterator.previous().getName().equals(route.getRoute().get(0).getName())) {
+			if (!hubIterator.previous().getName().equals(route.getHubs().get(0).getName())) {
 				hubIterator.next();
 				HubEntity hub = hubIterator.previous();
 				if (!sortedCargoMap.containsKey(hub.getName())) {
@@ -54,8 +54,8 @@ public class CargoSorter {
 	private void sortByFragilityAndVolume() {
 		for (Map.Entry<String, List<Cargo>> entry : sortedCargoMap.entrySet()) {
 			List<Cargo> listBox = entry.getValue();
-			Collections.sort(listBox, new CargoSorter.BoxChainedComparator(new CargoSorter.FragilityComparator(),
-					new CargoSorter.VolumeComparator()));
+			listBox.sort(new BoxChainedComparator(new FragilityComparator(),
+					new VolumeComparator()));
 		}
 	}
 
@@ -70,11 +70,7 @@ public class CargoSorter {
 	static class VolumeComparator implements Comparator<Cargo> {
 		@Override
 		public int compare(Cargo o1, Cargo o2) {
-			if (o1.getVolume() < o2.getVolume())
-				return 1;
-			if (o1.getVolume() > o2.getVolume())
-				return -1;
-			return 0;
+			return Double.compare(o2.getVolume(), o1.getVolume());
 		}
 	}
 
