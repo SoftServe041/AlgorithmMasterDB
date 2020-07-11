@@ -37,6 +37,7 @@ public class FormUnpaidOrders {
             UnpaidOrder unpaidOrder = new UnpaidOrder();
             unpaidOrder.setEstimatedDeliveryDate(localDate);
             unpaidOrder.setPrice(price);
+            unpaidOrder.setHubs(routeModel.getRoutes());
             unpaidOrders.add(unpaidOrder);
         });
         unpaidOrders.sort(new PriceComparator());
@@ -58,6 +59,7 @@ public class FormUnpaidOrders {
             UnpaidOrder unpaidOrder = new UnpaidOrder();
             unpaidOrder.setEstimatedDeliveryDate(localDate);
             unpaidOrder.setPrice(price);
+            unpaidOrder.setHubs(routeModel.getRoutes());
             unpaidOrders.add(unpaidOrder);
         });
         unpaidOrders.sort(new PriceComparator());
