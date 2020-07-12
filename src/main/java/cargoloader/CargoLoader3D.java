@@ -136,12 +136,13 @@ public class CargoLoader3D {
 		List<Cargo> unloadedBoxes = new LinkedList<Cargo>();
 		unloadedBoxes.addAll(listBox);
 
-		while (unloadedBoxes.size() > 0) {
+		while (unloadedBoxes.size() > 0 & depthPos < loadingMatrix.length) {
 			boolean canLoad = false;
 			for (Cargo box : unloadedBoxes) {
 
 				// Set starting position
-				//TODO Проблема в это куске кода, который ищет стартовую позицию, без него вроде пашет, надо будет переделать
+				// TODO Проблема в это куске кода, который ищет стартовую позицию, без него
+				// вроде пашет, надо будет переделать
 //				if (loadingMatrix[depthPos][heightPos][widthPos] != 0) {
 //					while (loadingMatrix[depthPos][heightPos][widthPos] != 0
 //							& widthPos + 1 < loadingMatrix[0][0].length) {
@@ -166,7 +167,7 @@ public class CargoLoader3D {
 					break;
 				}
 			}
-			if (!canLoad & depthPos < loadingMatrix.length) {
+			if (!canLoad) {
 				depthPos++;
 			}
 		}
@@ -451,6 +452,21 @@ public class CargoLoader3D {
 //		listCargo.add(box18);
 //		listCargo.add(box19);
 
+//		Cargo box1 = new Cargo(1.2, 1.2, 2.4, 1, 1, "Kyiv");
+//		Cargo box2 = new Cargo(1.2, 1.2, 1.2, 2, 2, "Kyiv");
+//		Cargo box3 = new Cargo(1.2, 1.2, 1.2, 3, 3, "Kyiv");
+//		Cargo box4 = new Cargo(1.2, 1.2, 1.2, 4, 4, "Kyiv");
+//		Cargo box5 = new Cargo(1.2, 1.2, 1.2, 5, 5, "Kyiv");
+//
+//		listCargo.add(box1);
+//		listCargo.add(box2);
+//		listCargo.add(box3);
+//		listCargo.add(box4);
+//		listCargo.add(box5);
+		
+		for(int i=0;i<2563;i++) {
+			listCargo.add(new Cargo(0.3, 0.3, 0.3, 1, 1, "Kyiv"));
+		}
 
 		Hub hub1 = new Hub("Kharkiv");
 		Hub hub2 = new Hub("Kyiv");
@@ -464,6 +480,6 @@ public class CargoLoader3D {
 
 		cargoLoader.loadCargo(listCargo, route, cargohold);
 
-		//System.out.println(cargohold.getLoadedCargo());
+		// System.out.println(cargohold.getLoadedCargo());
 	}
 }

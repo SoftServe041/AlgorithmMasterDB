@@ -72,10 +72,6 @@ public class CargoLoading3DAnimation extends Application {
 //		listCargo.add(box19);
 //		listCargo.add(box20);
 
-		for (int i = 0; i < 5; i++) {
-			listCargo.add(new Cargo(2.4, 2.4, 2.4, 2, 1, "Lviv"));
-		}
-
 		// Create Hubs for route
 		Hub hub1 = new Hub("Kharkiv");
 		Hub hub2 = new Hub("Kyiv");
