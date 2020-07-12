@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Relation;
+import com.cargohub.entities.RelationEntity;
 import com.cargohub.exceptions.RelationException;
 import com.cargohub.repository.RelationRepository;
 import com.cargohub.service.RelationService;
@@ -25,14 +25,14 @@ public class RelationServiceImpl implements RelationService {
     }
 
     @Override
-    public Relation findById(Integer id) {
-        Relation result;
+    public RelationEntity findById(Integer id) {
+        RelationEntity result;
         result = repository.findById(id).orElseThrow(() -> new RelationException("Order not found"));
         return result;
     }
 
     @Override
-    public Relation update(Relation relation) {
+    public RelationEntity update(RelationEntity relation) {
         if (relation.getId() == null) {
             throw new RelationException("Illegal state for Order");
         }
@@ -43,7 +43,7 @@ public class RelationServiceImpl implements RelationService {
     }
 
     @Override
-    public Relation save(Relation relation) {
+    public RelationEntity save(RelationEntity relation) {
         if (relation.getId() != null) {
             throw new RelationException("Illegal state for Order");
         }
@@ -51,7 +51,7 @@ public class RelationServiceImpl implements RelationService {
     }
 
     @Override
-    public Page<Relation> findAll(Pageable pageable) {
+    public Page<RelationEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

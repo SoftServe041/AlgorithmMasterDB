@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Hub;
+import com.cargohub.entities.HubEntity;
 import com.cargohub.exceptions.HubException;
 import com.cargohub.repository.HubRepository;
 import com.cargohub.service.HubService;
@@ -28,20 +28,20 @@ public class HubServiceImpl implements HubService {
     }
 
     @Override
-    public Hub findById(Integer id) {
-        Hub result;
+    public HubEntity findById(Integer id) {
+        HubEntity result;
         result = repository.findById(id).orElseThrow(() -> new HubException("Hub not found"));
         return result;
     }
 
     @Override
-    public Hub findByName(String name) {
-        Optional<Hub> result = repository.findByName(name);
+    public HubEntity findByName(String name) {
+        Optional<HubEntity> result = repository.findByName(name);
         return result.orElseThrow(() -> new HubException("Hub not found"));
     }
 
     @Override
-    public Hub update(Hub cargo) {
+    public HubEntity update(HubEntity cargo) {
         if (cargo.getId() == null) {
             throw new HubException("Illegal state for Hub");
         }
@@ -52,7 +52,7 @@ public class HubServiceImpl implements HubService {
     }
 
     @Override
-    public Hub save(Hub cargo) {
+    public HubEntity save(HubEntity cargo) {
         if (cargo.getId() != null) {
             throw new HubException("Illegal state for Hub");
         }
@@ -60,7 +60,7 @@ public class HubServiceImpl implements HubService {
     }
 
     @Override
-    public Page<Hub> findAll(Pageable pageable) {
+    public Page<HubEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

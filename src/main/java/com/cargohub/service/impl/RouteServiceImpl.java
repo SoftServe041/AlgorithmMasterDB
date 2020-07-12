@@ -1,7 +1,7 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Hub;
-import com.cargohub.entities.Route;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.RouteEntity;
 import com.cargohub.exceptions.HubException;
 import com.cargohub.exceptions.RouteException;
 import com.cargohub.repository.HubRepository;
@@ -33,14 +33,14 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public Route findById(Integer id) {
-        Route result;
+    public RouteEntity findById(Integer id) {
+        RouteEntity result;
         result = repository.findById(id).orElseThrow(() -> new RouteException("Route not found"));
         return result;
     }
 
     @Override
-    public Route update(Route route) {
+    public RouteEntity update(RouteEntity route) {
         if (route.getId() == null) {
             throw new RouteException("Illegal state for Route");
         }
@@ -51,24 +51,24 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public Route save(Route route) {
+    public RouteEntity save(RouteEntity route) {
         if (route.getId() != null) {
             throw new RouteException("Illegal state for Route");
         }
-        List<Hub> realHubs = new ArrayList<>();
-        for (Hub routeHub : route.getRoute()) {
-            Hub hub = hubRepository.findByName(routeHub.getName()).
+        List<HubEntity> realHubs = new ArrayList<>();
+        for (HubEntity routeHub : route.getHubs()) {
+            HubEntity hub = hubRepository.findByName(routeHub.getName()).
                     orElseThrow(() -> {
                         throw new HubException("Hub not found");
                     });
             realHubs.add(hub);
         }
-        route.setRoute(realHubs);
+        route.setHubs(realHubs);
         return repository.save(route);
     }
 
     @Override
-    public Page<Route> findAll(Pageable pageable) {
+    public Page<RouteEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

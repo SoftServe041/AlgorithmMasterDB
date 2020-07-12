@@ -1,7 +1,7 @@
 package com.cargohub.entities;
 
 import com.cargohub.entities.enums.DeliveryStatus;
-import com.cargohub.entities.transports.CarrierCompartment;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,15 +30,15 @@ public class CargoEntity {
 
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "dimensions_id")
-    Dimensions dimensions;
+    DimensionsEntity dimensions;
 
     @OneToOne
     @JoinColumn(name = "cargo_position_id")
-    CargoPosition cargoPosition;
+    CargoPositionEntity cargoPosition;
 
     @ManyToOne
     @JoinColumn(name = "carrier_compartment_id")
-    CarrierCompartment carrierCompartment;
+    CarrierCompartmentEntity carrierCompartment;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

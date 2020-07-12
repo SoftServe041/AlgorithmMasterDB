@@ -6,9 +6,6 @@ ALTER TABLE `cargo_position`
 ALTER TABLE `transport_details`
     Add column `cell_size` double NOT NULL;
 
-ALTER TABLE `cargo_order`
-    Add column `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP();
-
 CREATE TABLE `route`
 (
     `id` integer NOT NULL AUTO_INCREMENT,
@@ -16,6 +13,11 @@ CREATE TABLE `route`
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
+
+ALTER TABLE `cargo_order`
+    Add column `created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    Add column `route_id` INTEGER NOT NULL,
+    Add CONSTRAINT `FK_cargo_order_route` FOREIGN KEY (`route_id`) REFERENCES `route` (`id`);
 
 CREATE TABLE `route_hub`
 (

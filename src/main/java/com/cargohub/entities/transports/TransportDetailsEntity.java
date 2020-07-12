@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "transport_details")
-public class TransportDetails {
+public class TransportDetailsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

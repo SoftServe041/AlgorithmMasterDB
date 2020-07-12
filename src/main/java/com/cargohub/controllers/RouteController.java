@@ -1,9 +1,8 @@
 package com.cargohub.controllers;
 
 import com.cargohub.dto.RouteDto;
-import com.cargohub.entities.Route;
+import com.cargohub.entities.RouteEntity;
 import com.cargohub.models.RouteModel;
-import com.cargohub.repository.RouteRepository;
 import com.cargohub.service.RouteService;
 import com.cargohub.service.impl.RouteNeo4jServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -32,7 +31,7 @@ public class RouteController {
 
     @PostMapping
     public ResponseEntity saveRoute(@RequestBody RouteDto dto){
-        Route route = dto.toEntity();
+        RouteEntity route = dto.toEntity();
         service.save(route);
         return new ResponseEntity(HttpStatus.OK);
     }

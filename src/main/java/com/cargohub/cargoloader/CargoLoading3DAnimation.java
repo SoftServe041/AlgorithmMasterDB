@@ -2,8 +2,8 @@ package com.cargohub.cargoloader;
 
 import java.util.*;
 
-import com.cargohub.entities.Hub;
-import com.cargohub.entities.Route;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.RouteEntity;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.*;
@@ -12,6 +12,7 @@ import javafx.scene.shape.*;
 import javafx.scene.transform.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.springframework.stereotype.Component;
 
 /**
  * This class represents 3D visualization of cargo loading algorithm. Program
@@ -20,6 +21,7 @@ import javafx.util.Duration;
  */
 
 // Create main class of application
+@Component
 public class CargoLoading3DAnimation extends Application {
 
 	// Method for creating cargo boxes and visual components
@@ -28,26 +30,24 @@ public class CargoLoading3DAnimation extends Application {
 		// Create and load cargo for visualization
 		List<Cargo> listCargo = new LinkedList<Cargo>();
 
-		Cargo box1 = new Cargo(1,1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
-		Cargo box2 = new Cargo(2,0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
-		Cargo box3 = new Cargo(3,0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x2
-		Cargo box4 = new Cargo(4,0.6, 0.6, 2.4, 5, 4, "Lviv");// 2x2x8
-		Cargo box5 = new Cargo(5,0.9, 0.3, 1.2, 2, 5, "Lviv");// 3x1x4
-		Cargo box6 = new Cargo(6,0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
-		Cargo box7 = new Cargo(7,0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
-		Cargo box8 = new Cargo(8,0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
-		Cargo box9 = new Cargo(9,0.9, 0.9, 0.9, 2, 9, "Kyiv");// 2x2x4
-		Cargo box10 = new Cargo(10,1.2, 1.2, 1.2, 2, 9, "Lviv");// 2x2x4
-		Cargo box11 = new Cargo(11,0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
-		Cargo box12 = new Cargo(12,0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
-		Cargo box13 = new Cargo(13,0.9, 0.9, 0.9, 2, 3, "Lviv");// 3x3x3
-		Cargo box14 = new Cargo(14,0.9, 0.9, 0.9, 2, 2, "Kyiv");// 2x2x4
-		Cargo box15 = new Cargo(15,0.9, 0.9, 0.9, 2, 4, "Kyiv");// 2x2x4
-		Cargo box16 = new Cargo(16,0.9, 0.9, 0.9, 2, 5, "Kyiv");// 2x2x4
-		Cargo box17 = new Cargo(17,0.9, 0.9, 0.9, 2, 7, "Kyiv");// 2x2x4
-		Cargo box18 = new Cargo(18,0.9, 0.3, 1.2, 2, 6, "Lviv");// 3x1x4
-		Cargo box19 = new Cargo(19,0.9, 0.3, 1.2, 2, 8, "Lviv");// 3x1x4
-		Cargo box20 = new Cargo(20,0.9, 0.3, 1.2, 2, 9, "Lviv");// 3x1x4
+		Cargo box1 = new Cargo(1, 1.2, 1.2, 1.2, 1, 1, "Kyiv");
+		Cargo box2 = new Cargo(2, 0.6, 0.6, 1.2, 2, 2, "Kyiv");
+		Cargo box3 = new Cargo(3, 1.2, 1.2, 1.2, 2, 3, "Lviv");
+		Cargo box4 = new Cargo(4, 0.6, 0.6, 1.2, 5, 4, "Lviv");
+		Cargo box5 = new Cargo(5, 1.2, 1.2, 1.2, 2, 5, "Lviv");
+		Cargo box6 = new Cargo(6, 0.6, 1.2, 1.2, 2, 6, "Kyiv");
+		Cargo box7 = new Cargo(7, 0.3, 0.3, 0.6, 2, 7, "Lviv");
+		Cargo box8 = new Cargo(8, 0.6, 0.6, 1.2, 2, 8, "Kyiv");
+		Cargo box9 = new Cargo(9, 1.2, 1.2, 1.2, 2, 9, "Kyiv");
+		Cargo box11 = new Cargo(11, 1.2, 1.2, 1.2, 1, 1, "Kyiv");
+		Cargo box12 = new Cargo(12, 0.6, 0.6, 1.2, 2, 2, "Kyiv");
+		Cargo box13 = new Cargo(13, 1.2, 1.2, 1.2, 2, 3, "Lviv");
+		Cargo box14 = new Cargo(14, 0.6, 0.6, 1.2, 5, 4, "Lviv");
+		Cargo box15 = new Cargo(15, 1.2, 1.2, 1.2, 2, 5, "Lviv");
+		Cargo box16 = new Cargo(16, 0.6, 1.2, 1.2, 2, 6, "Kyiv");
+		Cargo box17 = new Cargo(17, 0.3, 0.3, 0.6, 2, 7, "Lviv");
+		Cargo box18 = new Cargo(18, 0.6, 0.6, 1.2, 2, 8, "Kyiv");
+		Cargo box19 = new Cargo(19, 2.4, 2.4, 2.4, 2, 9, "Kyiv");
 
 		listCargo.add(box1);
 		listCargo.add(box2);
@@ -58,7 +58,6 @@ public class CargoLoading3DAnimation extends Application {
 		listCargo.add(box7);
 		listCargo.add(box8);
 		listCargo.add(box9);
-		listCargo.add(box10);
 		listCargo.add(box11);
 		listCargo.add(box12);
 		listCargo.add(box13);
@@ -68,18 +67,17 @@ public class CargoLoading3DAnimation extends Application {
 		listCargo.add(box17);
 		listCargo.add(box18);
 		listCargo.add(box19);
-		listCargo.add(box20);
 
 		// Create Hubs for route
-		Hub hub1 = new Hub();
+		HubEntity hub1 = new HubEntity();
 		hub1.setName("Kharkiv");
-		Hub hub2 = new Hub();
+		HubEntity hub2 = new HubEntity();
 		hub2.setName("Kyiv");
-		Hub hub3 = new Hub();
+		HubEntity hub3 = new HubEntity();
 		hub3.setName("Lviv");
 
-		Route route = new Route();
-		route.setRoute(Arrays.asList(hub1, hub2, hub3));
+		RouteEntity route = new RouteEntity();
+		route.setHubs(Arrays.asList(hub1, hub2, hub3));
 
 		// Create cargo hold as part of transport
 		CargoHold cargohold = new CargoHold(2.4, 2.4, 12d, 22000, new int[40][8][8]);

@@ -1,7 +1,7 @@
 package com.cargohub.controllers;
 
 import com.cargohub.dto.UpdateHubDto;
-import com.cargohub.entities.Hub;
+import com.cargohub.entities.HubEntity;
 import com.cargohub.models.HubRequest;
 import com.cargohub.models.Location;
 import com.cargohub.service.HubService;
@@ -41,7 +41,7 @@ public class AdminController {
     @PostMapping
     public ResponseEntity postNewHub(@RequestBody HubRequest hubRequest) {
         locationService.createNewCity(hubRequest.getNewCity());
-        Hub hub = new Hub();
+        HubEntity hub = new HubEntity();
         hub.setName(hubRequest.getNewCity());
         hubService.save(hub);
         return new ResponseEntity(HttpStatus.CREATED);
@@ -56,7 +56,7 @@ public class AdminController {
     @PatchMapping("/{name}")
     public void updateHub(@PathVariable String name, @RequestBody UpdateHubDto dto) {
         locationService.modifyCity(name, dto.getNewName());
-        Hub hub = hubService.findByName(name);
+        HubEntity hub = hubService.findByName(name);
         hub.setName(dto.getNewName());
         hubService.update(hub);
     }

@@ -1,6 +1,6 @@
 package com.cargohub.entities;
 
-import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.transports.TransporterEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name = "hub")
-public class Hub {
+public class HubEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +22,12 @@ public class Hub {
     @Column
     String name;
 
-    @ManyToMany(mappedBy = "route", fetch = FetchType.LAZY)
-    List<Route> routes;
+    @ManyToMany(mappedBy = "hubs", fetch = FetchType.LAZY)
+    List<RouteEntity> routes;
 
     @OneToMany(orphanRemoval = true, mappedBy = "ownerHub")
-    List<Relation> relations;
+    List<RelationEntity> relations;
 
     @OneToMany(orphanRemoval = true, mappedBy = "currentHub")
-    List<Transporter> transporters;
+    List<TransporterEntity> transporters;
 }

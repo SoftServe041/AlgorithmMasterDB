@@ -1,6 +1,6 @@
 package com.cargohub.service;
 
-import com.cargohub.entities.Dimensions;
+import com.cargohub.entities.DimensionsEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,13 +8,13 @@ public interface DimensionsService {
 
     boolean existsById(Integer id);
 
-    Dimensions findById(Integer id);
+    DimensionsEntity findById(Integer id);
 
-    Dimensions update(Dimensions dimensions);
+    DimensionsEntity update(DimensionsEntity dimensions);
 
-    Dimensions save(Dimensions dimensions);
+    DimensionsEntity save(DimensionsEntity dimensions);
 
-    Page<Dimensions> findAll(Pageable pageable);
+    Page<DimensionsEntity> findAll(Pageable pageable);
 
     void delete(Integer id);
 

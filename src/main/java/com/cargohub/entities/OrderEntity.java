@@ -33,13 +33,17 @@ public class OrderEntity {
     @Column
     Date estimatedDeliveryDate;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "departure_hub_id")
-    Hub departureHub;
+    HubEntity departureHub;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "arrival_hub_id")
-    Hub arrivalHub;
+    HubEntity arrivalHub;
+
+    @ManyToOne
+    @JoinColumn(name = "route_id")
+    RouteEntity route;
 
     @OneToMany(mappedBy = "orderEntity")
     List<CargoEntity> cargoEntities;

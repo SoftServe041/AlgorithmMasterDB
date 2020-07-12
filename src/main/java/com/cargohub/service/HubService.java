@@ -1,24 +1,22 @@
 package com.cargohub.service;
 
-import com.cargohub.entities.Hub;
+import com.cargohub.entities.HubEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.Optional;
 
 public interface HubService {
 
     boolean existsById(Integer id);
 
-    Hub findById(Integer id);
+    HubEntity findById(Integer id);
 
-    Hub findByName(String name);
+    HubEntity findByName(String name);
 
-    Hub update(Hub hub);
+    HubEntity update(HubEntity hub);
 
-    Hub save(Hub hub);
+    HubEntity save(HubEntity hub);
 
-    Page<Hub> findAll(Pageable pageable);
+    Page<HubEntity> findAll(Pageable pageable);
 
     void delete(Integer id);
 

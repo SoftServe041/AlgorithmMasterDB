@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Dimensions;
+import com.cargohub.entities.DimensionsEntity;
 import com.cargohub.exceptions.DimensionsException;
 import com.cargohub.repository.DimensionsRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +33,14 @@ class DimensionsServiceImplTest {
     @Mock
     DimensionsRepository repository;
 
-    Dimensions subject;
-    Page<Dimensions> page;
+    DimensionsEntity subject;
+    Page<DimensionsEntity> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        subject = new Dimensions();
+        subject = new DimensionsEntity();
         subject.setId(9992);
 
         page = new PageImpl(List.of(subject));
@@ -50,11 +50,11 @@ class DimensionsServiceImplTest {
     @Test
     void create() {
         subject.setId(null);
-        when(repository.save(nullable(Dimensions.class))).thenReturn(subject);
-        ArgumentCaptor<Dimensions> captor = ArgumentCaptor.forClass(Dimensions.class);
-        Dimensions returned = service.save(subject);
+        when(repository.save(nullable(DimensionsEntity.class))).thenReturn(subject);
+        ArgumentCaptor<DimensionsEntity> captor = ArgumentCaptor.forClass(DimensionsEntity.class);
+        DimensionsEntity returned = service.save(subject);
         verify(repository).save(captor.capture());
-        Dimensions used = captor.getValue();
+        DimensionsEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -68,7 +68,7 @@ class DimensionsServiceImplTest {
     void findById() {
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        Dimensions returned = service.findById(subject.getId());
+        DimensionsEntity returned = service.findById(subject.getId());
         verify(repository).findById(captor.capture());
         Integer used = captor.getValue();
         assertThat(used, is(subject.getId()));
@@ -85,12 +85,12 @@ class DimensionsServiceImplTest {
 
     @Test
     void update() {
-        when(repository.save(nullable(Dimensions.class))).thenReturn(subject);
+        when(repository.save(nullable(DimensionsEntity.class))).thenReturn(subject);
         when(repository.existsById(nullable(Integer.class))).thenReturn(true);
-        ArgumentCaptor<Dimensions> captor = ArgumentCaptor.forClass(Dimensions.class);
-        Dimensions returned = service.update(subject);
+        ArgumentCaptor<DimensionsEntity> captor = ArgumentCaptor.forClass(DimensionsEntity.class);
+        DimensionsEntity returned = service.update(subject);
         verify(repository).save(captor.capture());
-        Dimensions used = captor.getValue();
+        DimensionsEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -122,7 +122,7 @@ class DimensionsServiceImplTest {
     void findAll() {
         when(repository.findAll(any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        Page<Dimensions> returned = service.findAll(pageable);
+        Page<DimensionsEntity> returned = service.findAll(pageable);
         verify(repository).findAll(captor.capture());
         Pageable used = captor.getValue();
         assertThat(returned, is(page));

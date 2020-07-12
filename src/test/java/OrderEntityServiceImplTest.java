@@ -1,6 +1,6 @@
 import com.cargohub.entities.CargoEntity;
-import com.cargohub.entities.Dimensions;
-import com.cargohub.entities.Hub;
+import com.cargohub.entities.DimensionsEntity;
+import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.exceptions.OrderException;
@@ -48,8 +48,8 @@ public class OrderEntityServiceImplTest {
 
     private OrderEntity orderEntity;
     private CargoEntity cargoEntity;
-    private Dimensions dimensions;
-    private Hub hub;
+    private DimensionsEntity dimensions;
+    private HubEntity hub;
 
     private Page<OrderEntity> page;
     private Pageable pageable;
@@ -62,14 +62,14 @@ public class OrderEntityServiceImplTest {
         orderEntity.setPrice(2.2);
         orderEntity.setTrackingId("123232323");
         orderEntity.setUserId(4);
-        hub = new Hub();
+        hub = new HubEntity();
         hub.setName("A");
         orderEntity.setArrivalHub(hub);
         orderEntity.setDepartureHub(hub);
         orderEntity.setDeliveryStatus(DeliveryStatus.PROCESSING);
         orderEntity.setPrice(22.0);
         cargoEntity = new CargoEntity();
-        dimensions = new Dimensions();
+        dimensions = new DimensionsEntity();
         cargoEntity.setDimensions(dimensions);
         orderEntity.setCargoEntities(Arrays.asList(cargoEntity));
         page = new PageImpl(List.of(orderEntity));
@@ -80,8 +80,8 @@ public class OrderEntityServiceImplTest {
         orderEntity.setId(null);
 
         when(orderRepository.save(nullable(OrderEntity.class))).thenReturn(orderEntity);
-        when(dimensionsRepository.save(nullable(Dimensions.class))).thenReturn(dimensions);
-        when(hubRepository.save(nullable(Hub.class))).thenReturn(hub);
+        when(dimensionsRepository.save(nullable(DimensionsEntity.class))).thenReturn(dimensions);
+        when(hubRepository.save(nullable(HubEntity.class))).thenReturn(hub);
         when(cargoRepository.save(nullable(CargoEntity.class))).thenReturn(cargoEntity);
         ArgumentCaptor<OrderEntity> captor = ArgumentCaptor.forClass(OrderEntity.class);
         OrderEntity returned = orderService.save(orderEntity);

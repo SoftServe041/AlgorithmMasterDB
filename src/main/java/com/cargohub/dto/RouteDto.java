@@ -1,7 +1,7 @@
 package com.cargohub.dto;
 
-import com.cargohub.entities.Hub;
-import com.cargohub.entities.Route;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.RouteEntity;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -11,15 +11,15 @@ import java.util.List;
 public class RouteDto {
     private List<String> hubs;
 
-    public Route toEntity() {
-        Route route = new Route();
-        List<Hub> hubsList = new ArrayList<>();
+    public RouteEntity toEntity() {
+        RouteEntity route = new RouteEntity();
+        List<HubEntity> hubsList = new ArrayList<>();
         for (String hub : hubs) {
-            Hub hubEntity = new Hub();
+            HubEntity hubEntity = new HubEntity();
             hubEntity.setName(hub);
             hubsList.add(hubEntity);
         }
-        route.setRoute(hubsList);
+        route.setHubs(hubsList);
         return route;
     }
 }

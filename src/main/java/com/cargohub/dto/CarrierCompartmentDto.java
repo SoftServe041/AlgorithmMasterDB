@@ -1,6 +1,6 @@
 package com.cargohub.dto;
 
-import com.cargohub.entities.transports.CarrierCompartment;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,7 @@ public class CarrierCompartmentDto {
     private Double freeSpace;
     private DimensionsDto volume;
 
-    public static CarrierCompartmentDto toDto(CarrierCompartment carrierCompartment) {
+    public static CarrierCompartmentDto toDto(CarrierCompartmentEntity carrierCompartment) {
         CarrierCompartmentDto dto = new CarrierCompartmentDto();
         dto.setId(carrierCompartment.getId());
         dto.setFreeSpace(carrierCompartment.getFreeSpace());
@@ -23,8 +23,8 @@ public class CarrierCompartmentDto {
         return dto;
     }
 
-    public CarrierCompartment toCarrierCompartment() {
-        CarrierCompartment carrierCompartment = new CarrierCompartment();
+    public CarrierCompartmentEntity toCarrierCompartment() {
+        CarrierCompartmentEntity carrierCompartment = new CarrierCompartmentEntity();
         carrierCompartment.setId(this.id);
         carrierCompartment.setFreeSpace(this.freeSpace == null ? 100d : this.freeSpace);
         carrierCompartment.setMaximumWeight(this.maximumWeight);

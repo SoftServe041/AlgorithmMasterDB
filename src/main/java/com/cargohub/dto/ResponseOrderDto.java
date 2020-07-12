@@ -1,4 +1,4 @@
-package com.cargohub.dto.jar;
+package com.cargohub.dto;
 
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.entities.enums.DeliveryStatus;

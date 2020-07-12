@@ -2,7 +2,7 @@ package com.cargohub.entities.transports;
 
 
 import com.cargohub.entities.CargoEntity;
-import com.cargohub.entities.Dimensions;
+import com.cargohub.entities.DimensionsEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Table(name = "carrier_compartment")
-public class CarrierCompartment {
+public class CarrierCompartmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,17 +33,17 @@ public class CarrierCompartment {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "volume_id", referencedColumnName = "id")
-    Dimensions volume;
+    DimensionsEntity volume;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "transporter_id", referencedColumnName = "id")
-    Transporter transporter;
+    TransporterEntity transporter;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CarrierCompartment that = (CarrierCompartment) o;
+        CarrierCompartmentEntity that = (CarrierCompartmentEntity) o;
         return Objects.equals(maximumWeight, that.maximumWeight) &&
                 Objects.equals(volume, that.volume);
     }

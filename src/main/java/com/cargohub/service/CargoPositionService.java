@@ -1,6 +1,6 @@
 package com.cargohub.service;
 
-import com.cargohub.entities.CargoPosition;
+import com.cargohub.entities.CargoPositionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,13 +8,13 @@ public interface CargoPositionService {
 
     boolean existsById(Integer id);
 
-    CargoPosition findById(Integer id);
+    CargoPositionEntity findById(Integer id);
 
-    CargoPosition update(CargoPosition cargoPosition);
+    CargoPositionEntity update(CargoPositionEntity cargoPosition);
 
-    CargoPosition save(CargoPosition cargoPosition);
+    CargoPositionEntity save(CargoPositionEntity cargoPosition);
 
-    Page<CargoPosition> findAll(Pageable pageable);
+    Page<CargoPositionEntity> findAll(Pageable pageable);
 
     void delete(Integer id);
 
