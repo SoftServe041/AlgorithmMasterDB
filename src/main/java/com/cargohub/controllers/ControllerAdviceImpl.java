@@ -1,23 +1,41 @@
 package com.cargohub.controllers;
 
 
-import com.cargohub.exceptions.ErrorResponse;
-import com.cargohub.exceptions.HubNotFoundException;
+import com.cargohub.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Date;
+
 @ControllerAdvice
 public class ControllerAdviceImpl {
 
-    @ExceptionHandler
-    public ResponseEntity<ErrorResponse> handleException(HubNotFoundException e) {
-        ErrorResponse error = new ErrorResponse(
-                HttpStatus.BAD_REQUEST.value(),
-                e.getMessage(),
-                System.currentTimeMillis()
-        );
+    @ExceptionHandler(value = {HubException.class, HubNotFoundException.class})
+    public ResponseEntity<Object> handleHubException(RuntimeException e) {
+        ErrorMessage error = new ErrorMessage(new Date(), e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = {OrderException.class})
+    public ResponseEntity<Object> handleOrderException(RuntimeException e) {
+        ErrorMessage error = new ErrorMessage(new Date(), e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {CargoException.class, CargoPositionException.class, RelationException.class})
+    public ResponseEntity<Object> handleCargoException(RuntimeException e) {
+        ErrorMessage error = new ErrorMessage(new Date(), e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {CarrierCompartmentException.class, DimensionsException.class,
+            TransportDetailsException.class, TransporterException.class})
+    public ResponseEntity<Object> handleTransportException(RuntimeException e) {
+        ErrorMessage error = new ErrorMessage(new Date(), e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+
 }
