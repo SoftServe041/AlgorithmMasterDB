@@ -15,19 +15,15 @@ import java.util.Map;
 
 public class CargoSorter {
 
-	// Map for sorted cargo
-	private Map<String, List<Cargo>> sortedCargoMap;
-
-	// Initialize map for sorted cargo in constructor
-	// This map keeps values in the given order (from distant points to near)
-	// First value in map is a list of cargo for the farthest destination point
-	public CargoSorter() {
-		sortedCargoMap = new LinkedHashMap<String, List<Cargo>>();
-	}
-
 	// Sort cargo by destination, form distant route point to near (and by fragility
 	// and volume)
-	public void sortCargoByDestination(List<Cargo> boxes, Route route) {
+	public Map<String, List<Cargo>> sortCargoByDestination(List<Cargo> boxes, Route route) {
+
+		// Initialize map for sorted cargo in constructor
+		// This map keeps values in the given order (from distant points to near)
+		// First value in map is a list of cargo for the farthest destination point
+		// Map for sorted cargo
+		Map<String, List<Cargo>> sortedCargoMap = new LinkedHashMap<String, List<Cargo>>();
 		ListIterator<Hub> hubIterator = route.getRoute().listIterator(route.getRoute().size());
 		while (hubIterator.hasPrevious()) {
 			if (!hubIterator.previous().getName().equals(route.getRoute().get(0).getName())) {
@@ -49,12 +45,13 @@ public class CargoSorter {
 				}
 			}
 		}
-		sortByFragilityAndVolume();
+		sortByFragilityAndVolume(sortedCargoMap);
+		return sortedCargoMap;
 	}
 
 	// Sort cargo by fragility and volume from biggest and hard boxes to smallest
 	// and fragile
-	private void sortByFragilityAndVolume() {
+	private void sortByFragilityAndVolume(Map<String, List<Cargo>> sortedCargoMap) {
 		for (Map.Entry<String, List<Cargo>> entry : sortedCargoMap.entrySet()) {
 			List<Cargo> listBox = entry.getValue();
 			Collections.sort(listBox, new CargoSorter.BoxChainedComparator(new CargoSorter.FragilityComparator(),
@@ -101,10 +98,5 @@ public class CargoSorter {
 			}
 			return 0;
 		}
-	}
-
-	// Return sorted map of cargo
-	public Map<String, List<Cargo>> getSortedCargo() {
-		return sortedCargoMap;
 	}
 }

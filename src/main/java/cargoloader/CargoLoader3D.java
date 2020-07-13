@@ -29,10 +29,8 @@ public class CargoLoader3D {
 	public void loadCargo(List<Cargo> boxes, Route route, CargoHold cargohold) {
 
 		// First of all sort all boxes by destination, fragility and volume
-		cargoSorter.sortCargoByDestination(boxes, route);
-
 		// Initialize unsorted cargo
-		unloadedCargo = cargoSorter.getSortedCargo();
+		unloadedCargo = cargoSorter.sortCargoByDestination(boxes, route);
 
 		// Initialize surface scanner for each destination point, search place for boxes
 		for (Map.Entry<String, List<Cargo>> entry : unloadedCargo.entrySet()) {
@@ -463,10 +461,10 @@ public class CargoLoader3D {
 //		listCargo.add(box3);
 //		listCargo.add(box4);
 //		listCargo.add(box5);
-		
-		for(int i=0;i<2563;i++) {
-			listCargo.add(new Cargo(0.3, 0.3, 0.3, 1, 1, "Kyiv"));
-		}
+
+//		for (int i = 0; i < 2563; i++) {
+//			listCargo.add(new Cargo(0.3, 0.3, 0.3, 1, 1, "Kyiv"));
+//		}
 
 		Hub hub1 = new Hub("Kharkiv");
 		Hub hub2 = new Hub("Kyiv");
