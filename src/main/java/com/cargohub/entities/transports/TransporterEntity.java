@@ -1,17 +1,16 @@
 package com.cargohub.entities.transports;
 
 import com.cargohub.entities.HubEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.cargohub.entities.enums.TransporterStatus;
+import com.cargohub.entities.enums.TransporterType;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = "id")
 @Table(name = "transporter")
 public class TransporterEntity {
 
@@ -19,14 +18,14 @@ public class TransporterEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "current_hub_id", referencedColumnName = "id")
     HubEntity currentHub;
 
     @OneToMany(mappedBy = "transporter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<CarrierCompartmentEntity> compartments;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "transporter_route",
             joinColumns = {@JoinColumn(name = "transporter_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "hub_id", referencedColumnName = "id")})

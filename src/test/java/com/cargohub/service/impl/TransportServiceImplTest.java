@@ -4,7 +4,7 @@ import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.DimensionsEntity;
 import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.transports.CarrierCompartmentEntity;
-import com.cargohub.entities.transports.TransporterType;
+import com.cargohub.entities.enums.TransporterType;
 import com.cargohub.entities.transports.TransporterEntity;
 import com.cargohub.exceptions.TransporterException;
 import com.cargohub.repository.CarrierCompartmentRepository;

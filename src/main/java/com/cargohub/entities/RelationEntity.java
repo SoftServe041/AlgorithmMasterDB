@@ -1,16 +1,13 @@
 package com.cargohub.entities;
 
-import com.cargohub.entities.transports.TransporterType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.cargohub.entities.enums.TransporterType;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = "id")
 @Table(name = "relation")
 public class RelationEntity {
 
@@ -21,11 +18,11 @@ public class RelationEntity {
     @Column
     Double distance;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "connected_hub_id")
     HubEntity connectedHub;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_hub_id")
     HubEntity ownerHub;
 

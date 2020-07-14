@@ -1,4 +1,4 @@
-package com.cargohub.entities.transports;
+package com.cargohub.entities.enums;
 
 public enum TransporterType {
     TRUCK,

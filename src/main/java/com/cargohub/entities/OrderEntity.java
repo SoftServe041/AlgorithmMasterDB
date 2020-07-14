@@ -2,9 +2,8 @@ package com.cargohub.entities;
 
 
 import com.cargohub.entities.enums.DeliveryStatus;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -12,9 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = "id")
 @Table(name = "cargo_order")
 public class OrderEntity {
     @Id
@@ -37,15 +35,15 @@ public class OrderEntity {
     @JoinColumn(name = "departure_hub_id")
     HubEntity departureHub;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "arrival_hub_id")
     HubEntity arrivalHub;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "route_id")
     RouteEntity route;
 
-    @OneToMany(mappedBy = "orderEntity")
+    @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL)
     List<CargoEntity> cargoEntities;
 
     @Column

@@ -135,27 +135,9 @@ public class CargoLoader3D {
         List<Cargo> unloadedBoxes = new LinkedList<Cargo>();
         unloadedBoxes.addAll(listBox);
 
-        while (unloadedBoxes.size() > 0) {
+        while (unloadedBoxes.size() > 0 & depthPos < loadingMatrix.length) {
             boolean canLoad = false;
             for (Cargo box : unloadedBoxes) {
-
-                // Set starting position
-                //TODO Проблема в это куске кода, который ищет стартовую позицию, без него вроде пашет, надо будет переделать
-//				if (loadingMatrix[depthPos][heightPos][widthPos] != 0) {
-//					while (loadingMatrix[depthPos][heightPos][widthPos] != 0
-//							& widthPos + 1 < loadingMatrix[0][0].length) {
-//						widthPos++;
-//					}
-//				}
-//
-//				while (heightPos > 0) {
-//					if (loadingMatrix[depthPos][heightPos - 1][widthPos] != 0) {
-//						break;
-//					} else {
-//						heightPos--;
-//					}
-//				}
-
                 if (scanSurfaceAndPlaceBox(box, widthPos, heightPos, depthPos, loadingMatrix)) {
                     heightPos = loadingMatrix[0].length - 1;
                     widthPos = 0;
@@ -165,7 +147,7 @@ public class CargoLoader3D {
                     break;
                 }
             }
-            if (!canLoad & depthPos < loadingMatrix.length) {
+            if (!canLoad) {
                 depthPos++;
             }
         }

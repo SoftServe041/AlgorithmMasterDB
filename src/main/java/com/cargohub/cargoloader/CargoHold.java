@@ -38,7 +38,7 @@ public class CargoHold {
         this.loadingMatrix = loadingMatrix;
     }
 
-    public List<Cargo> toCargoEntityList() {
+    public List<Cargo> getCargoList() {
         List<Cargo> cargos = new ArrayList<>();
         for (Map.Entry<String, List<Cargo>> entry : loadedCargo.entrySet()) {
             cargos.addAll(entry.getValue());

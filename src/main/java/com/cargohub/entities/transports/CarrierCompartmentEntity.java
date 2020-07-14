@@ -28,7 +28,7 @@ public class CarrierCompartmentEntity {
     @Column
     Double freeSpace;
 
-    @OneToMany(mappedBy = "carrierCompartment")
+    @OneToMany(mappedBy = "carrierCompartment", cascade = CascadeType.ALL)
     List<CargoEntity> cargoEntities;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

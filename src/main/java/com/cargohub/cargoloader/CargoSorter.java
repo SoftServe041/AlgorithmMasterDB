@@ -25,12 +25,12 @@ public class CargoSorter {
 	// This map keeps values in the given order (from distant points to near)
 	// First value in map is a list of cargo for the farthest destination point
 	public CargoSorter() {
-		sortedCargoMap = new LinkedHashMap<String, List<Cargo>>();
 	}
 
 	// Sort cargo by destination, form distant route point to near (and by fragility
 	// and volume)
 	public void sortCargoByDestination(List<Cargo> boxes, RouteEntity route) {
+		sortedCargoMap = new LinkedHashMap<>();
 		ListIterator<HubEntity> hubIterator = route.getHubs().listIterator(route.getHubs().size());
 		while (hubIterator.hasPrevious()) {
 			if (!hubIterator.previous().getName().equals(route.getHubs().get(0).getName())) {

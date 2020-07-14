@@ -1,15 +1,12 @@
 package com.cargohub.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = "id")
 @Table(name = "cargo_position")
 public class CargoPositionEntity {
 
@@ -17,7 +14,7 @@ public class CargoPositionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @OneToOne(mappedBy =  "cargoPosition")
+    @OneToOne(mappedBy =  "cargoPosition", cascade = CascadeType.ALL)
     CargoEntity cargoEntity;
 
     @Column

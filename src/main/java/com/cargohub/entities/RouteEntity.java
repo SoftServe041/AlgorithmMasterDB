@@ -19,7 +19,7 @@ public class RouteEntity {
     @OneToMany(mappedBy = "route")
     List<OrderEntity> order;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "route_hub",
             joinColumns = @JoinColumn(name = "route_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "hub_id", referencedColumnName = "id"))
