@@ -2,7 +2,9 @@ package com.cargohub.cargoloader;
 
 import com.cargohub.entities.*;
 import com.cargohub.entities.enums.DeliveryStatus;
-import com.cargohub.repository.RelationRepository;
+import com.cargohub.exceptions.RouteException;
+import com.cargohub.models.RouteModel;
+import com.cargohub.service.impl.RouteNeo4jServiceImpl;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
@@ -12,15 +14,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Component
 public class OrderSimulation {
 
-    private final RelationRepository repository;
     private static long counter = 0;
+    private final RouteNeo4jServiceImpl routeNeo4jServiceImpl;
 
-    public OrderSimulation(RelationRepository relationRepository){
-        this.repository = relationRepository;
+    public OrderSimulation(RouteNeo4jServiceImpl routeNeo4jServiceImpl){
+        this.routeNeo4jServiceImpl = routeNeo4jServiceImpl;
     }
 
     @Setter
@@ -28,23 +31,23 @@ public class OrderSimulation {
 
 
     public OrderEntity getNewOrder(RouteEntity route, Double volume){
-        double distance = 0;
+        List<HubEntity> hubs = route.getHubs();
+        List<RouteModel> routes = routeNeo4jServiceImpl.getRoute(hubs.get(0).getName(),hubs.get(hubs.size()-1).getName());
+        double distance = findDistanceForRoute(routes, hubs);
         Random random = new Random();
         OrderEntity order = new OrderEntity();
         order.setDeliveryStatus(DeliveryStatus.PROCESSING);
-        List<HubEntity> hubs = route.getHubs();
         order.setRoute(route);
         order.setArrivalHub(hubs.get(0));
         order.setDepartureHub(hubs.get(hubs.size()-1));
         order.setTrackingId("ch" + random.nextInt(100) + counter++ + order.getArrivalHub().getName().hashCode()+ random.nextInt(1000));
         Date date = new Date();
         order.setCreated(date);
-        List<HubEntity> hubEntities = route.getHubs();
-        for(int i = 0; i < hubEntities.size()-1; i++){
+        /*for(int i = 0; i < hubEntities.size()-1; i++){
             RelationEntity relationEntity = repository.findByOwnerHubAndConnectedHub(hubEntities.get(i), hubEntities.get(i+1))
                     .orElseThrow(() -> new IllegalArgumentException("no such relation found"));
             distance+=relationEntity.getDistance();
-        }
+        }*/
         setCargo(order, volume);
         double hours = distance / averageSpeed;
         int days = (int) hours / 10 + (((int) hours % 10) < 5 ? 0 : 1);
@@ -52,9 +55,22 @@ public class OrderSimulation {
         order.setEstimatedDeliveryDate(Date.from(localDate.atStartOfDay()
                 .atZone(ZoneId.systemDefault())
                 .toInstant()));
-
         return order;
     }
+
+    private double findDistanceForRoute(List<RouteModel> routes, List<HubEntity> hubs) {
+        for(RouteModel routeModel : routes){
+            List<String> list = routeModel.getRoutes();
+            if(list.size() == hubs.size()){
+                List<String> hubsList = hubs.stream().map(HubEntity::getName).collect(Collectors.toList());
+                if(list.equals(hubsList)){
+                    return routeModel.getDistance();
+                }
+            }
+        }
+        throw new RouteException("no such route");
+    }
+
     private void setCargo(OrderEntity orderEntity, Double volume) {
         Double currentVolume = 0.0;
         List<CargoEntity> cargoList = new ArrayList<>();
