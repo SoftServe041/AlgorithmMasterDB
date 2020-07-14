@@ -30,47 +30,47 @@ public class CargoLoading3DAnimation extends Application {
 		// Create and load cargo for visualization
 		List<Cargo> listCargo = new LinkedList<Cargo>();
 
-//		Cargo box1 = new Cargo(1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
-//		Cargo box2 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
-//		Cargo box3 = new Cargo(0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x2
-//		Cargo box4 = new Cargo(0.6, 0.6, 2.4, 5, 4, "Lviv");// 2x2x8
-//		Cargo box5 = new Cargo(0.9, 0.3, 1.2, 2, 5, "Lviv");// 3x1x4
-//		Cargo box6 = new Cargo(0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
-//		Cargo box7 = new Cargo(0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
-//		Cargo box8 = new Cargo(0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
-//		Cargo box9 = new Cargo(0.9, 0.9, 0.9, 2, 9, "Kyiv");// 2x2x4
-//		Cargo box10 = new Cargo(1.2, 1.2, 1.2, 2, 9, "Lviv");// 2x2x4
-//		Cargo box11 = new Cargo(0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
-//		Cargo box12 = new Cargo(0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
-//		Cargo box13 = new Cargo(0.9, 0.9, 0.9, 2, 3, "Lviv");// 3x3x3
-//		Cargo box14 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 2x2x4
-//		Cargo box15 = new Cargo(0.9, 0.9, 0.9, 2, 4, "Kyiv");// 2x2x4
-//		Cargo box16 = new Cargo(0.9, 0.9, 0.9, 2, 5, "Kyiv");// 2x2x4
-//		Cargo box17 = new Cargo(0.9, 0.9, 0.9, 2, 7, "Kyiv");// 2x2x4
-//		Cargo box18 = new Cargo(0.9, 0.3, 1.2, 2, 6, "Lviv");// 3x1x4
-//		Cargo box19 = new Cargo(0.9, 0.3, 1.2, 2, 8, "Lviv");// 3x1x4
-//		Cargo box20 = new Cargo(0.9, 0.3, 1.2, 2, 9, "Lviv");// 3x1x4
-//
-//		listCargo.add(box1);
-//		listCargo.add(box2);
-//		listCargo.add(box3);
-//		listCargo.add(box4);
-//		listCargo.add(box5);
-//		listCargo.add(box6);
-//		listCargo.add(box7);
-//		listCargo.add(box8);
-//		listCargo.add(box9);
-//		listCargo.add(box10);
-//		listCargo.add(box11);
-//		listCargo.add(box12);
-//		listCargo.add(box13);
-//		listCargo.add(box14);
-//		listCargo.add(box15);
-//		listCargo.add(box16);
-//		listCargo.add(box17);
-//		listCargo.add(box18);
-//		listCargo.add(box19);
-//		listCargo.add(box20);
+		Cargo box1 = new Cargo(1.2, 1.2, 1.2, 1, 1, "Kyiv");// 4x4x4
+		Cargo box2 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 3x3x3
+		Cargo box3 = new Cargo(0.9, 0.9, 0.6, 2, 3, "Lviv");// 3x3x2
+		Cargo box4 = new Cargo(0.6, 0.6, 2.4, 5, 4, "Lviv");// 2x2x8
+		Cargo box5 = new Cargo(0.9, 0.3, 1.2, 2, 5, "Lviv");// 3x1x4
+		Cargo box6 = new Cargo(0.6, 0.9, 1.2, 2, 6, "Kyiv");// 2x3x4
+		Cargo box7 = new Cargo(0.3, 0.3, 1.2, 2, 7, "Lviv");// 1x1x4
+		Cargo box8 = new Cargo(0.6, 0.6, 1.2, 2, 8, "Kyiv");// 2x2x4
+		Cargo box9 = new Cargo(0.9, 0.9, 0.9, 2, 9, "Kyiv");// 2x2x4
+		Cargo box10 = new Cargo(1.2, 1.2, 1.2, 2, 9, "Lviv");// 2x2x4
+		Cargo box11 = new Cargo(0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
+		Cargo box12 = new Cargo(0.9, 0.9, 0.9, 2, 1, "Lviv");// 3x3x3
+		Cargo box13 = new Cargo(0.9, 0.9, 0.9, 2, 3, "Lviv");// 3x3x3
+		Cargo box14 = new Cargo(0.9, 0.9, 0.9, 2, 2, "Kyiv");// 2x2x4
+		Cargo box15 = new Cargo(0.9, 0.9, 0.9, 2, 4, "Kyiv");// 2x2x4
+		Cargo box16 = new Cargo(0.9, 0.9, 0.9, 2, 5, "Kyiv");// 2x2x4
+		Cargo box17 = new Cargo(0.9, 0.9, 0.9, 2, 7, "Kyiv");// 2x2x4
+		Cargo box18 = new Cargo(0.9, 0.3, 1.2, 2, 6, "Lviv");// 3x1x4
+		Cargo box19 = new Cargo(0.9, 0.3, 1.2, 2, 8, "Lviv");// 3x1x4
+		Cargo box20 = new Cargo(0.9, 0.3, 1.2, 2, 9, "Lviv");// 3x1x4
+
+		listCargo.add(box1);
+		listCargo.add(box2);
+		listCargo.add(box3);
+		listCargo.add(box4);
+		listCargo.add(box5);
+		listCargo.add(box6);
+		listCargo.add(box7);
+		listCargo.add(box8);
+		listCargo.add(box9);
+		listCargo.add(box10);
+		listCargo.add(box11);
+		listCargo.add(box12);
+		listCargo.add(box13);
+		listCargo.add(box14);
+		listCargo.add(box15);
+		listCargo.add(box16);
+		listCargo.add(box17);
+		listCargo.add(box18);
+		listCargo.add(box19);
+		listCargo.add(box20);
 
 		// Create Hubs for route
 		Hub hub1 = new Hub("Kharkiv");
