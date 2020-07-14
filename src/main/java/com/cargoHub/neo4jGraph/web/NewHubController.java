@@ -6,6 +6,7 @@ import com.cargoHub.neo4jGraph.model.Location;
 
 import com.cargoHub.neo4jGraph.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,11 +45,18 @@ public class NewHubController {
     }
 
     @PostMapping("/create")
-    public void postNewHub(@RequestBody HubRequest hubRequest) {
-        locationService.createNewCity(hubRequest.getNewCity());
+    public ResponseEntity<Location> postNewHub(@RequestBody HubRequest hubRequest) {
+        Location location = locationService.createNewCity(hubRequest.getNewCity());
+        return ResponseEntity.status(HttpStatus.CREATED).body(location);
     }
 
-    @PatchMapping("/{name}")
+    @PostMapping("/create-bulk")
+    public ResponseEntity<Location> postNewHub() {
+        locationService.createNewCityBulk();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+        @PatchMapping("/{name}")
     public void updateHub(@PathVariable String name, @RequestParam String newName){
         locationService.modifyCity(name, newName);
     }

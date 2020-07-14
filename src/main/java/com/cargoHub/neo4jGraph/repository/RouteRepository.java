@@ -39,18 +39,7 @@ public class RouteRepository extends SimpleNeo4jRepository<Location, Long> {
                         "            WITH collect(p) as paths\n" +
                         "            CALL apoc.spatial.sortByDistance(paths) " +
                         "            YIELD path, distance\n" +
-                        "            RETURN path, distance LIMIT 5"
-
-                /*"MATCH (a:City {name:'Lviv'}), (b:City {name:'Kharkiv'})
-                            MATCH p=(a)-[*]->(b) WITH collect(p) as paths
-                            CALL apoc.spatial.sortByDistance(paths)
-                            YIELD path, distance
-                            RETURN path, distance LIMIT 5"*/
-                /*"MATCH (a:City {name:$departure}), (b:City {name:$arrival})\n" +
-                        "            MATCH p=allShortestPaths((a)-[*]->(b))\n" +
-                        "            WITH collect(p) as paths\n" +
-                        "            CALL apoc.spatial.sortByDistance(paths) YIELD path, distance\n" +
-                        "            RETURN path, distance LIMIT 5"*/,
+                        "            RETURN path, distance LIMIT 5",
                 parameters
         );
         log.info("RESULT = {}", result);
@@ -75,8 +64,8 @@ public class RouteRepository extends SimpleNeo4jRepository<Location, Long> {
                         path.end().id(),
                         path.end().get("name").asString(),
                         path.end().get("latitude").asDouble(),
-                        path.end().get("longitude").asDouble(),
-                        Collections.singleton(new Connection())
+                        path.end().get("longitude").asDouble()
+                        //Collections.singleton(new Connection())
                 );
                 locations.add(end);
             }

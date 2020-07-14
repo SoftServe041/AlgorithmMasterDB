@@ -42,8 +42,7 @@ public class Location {
             Long id,
             String name,
             double longitude,
-            double latitude,
-            Set<Connection> connections
+            double latitude
     ) {
         this.id = id;
         this.name = name;

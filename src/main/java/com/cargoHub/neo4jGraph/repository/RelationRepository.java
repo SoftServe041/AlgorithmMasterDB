@@ -18,8 +18,9 @@ public interface RelationRepository extends Neo4jRepository<Location, Long> {
 //    @Query("MATCH (a:City {name:$connectedCity}), (l:City {name:$newCity})\n" +
 //            "CREATE (l) -[:NEXT]-> (a)\n" +
 //            "CREATE (l) <-[:NEXT]- (a);")
-@Query("MATCH (a:City {name:$connectedCity}), (l:City {name:$newCity})\n" +
-        "CREATE (l) -[:NEXT]-> (a);")
+@Query("MATCH (a:City {name:$connectedCity}), (b:City {name:$connectedCity})\n" +
+        "CREATE (a) -[:NEXT {distance:0}]-> (b)\n" +
+        "CREATE (b) -[:NEXT {distance:0}]-> (a);")
     void createNewRelation(String connectedCity, String newCity);
 
 /**
@@ -36,4 +37,12 @@ public interface RelationRepository extends Neo4jRepository<Location, Long> {
             " RETURN b;")
     List<Location> getAllLocations(String city);
 
+/**
+ * Use this method to get distance between two directly(!) connected cities
+ * */
+    @Query("MATCH (t:City{name:$connectedCity})-[:NEXT]->(o:City{name:$newCity})\n" +
+            "WITH point({ longitude: t.longitude, latitude: t.latitude }) AS tPoint, " +
+            "point({ longitude: o.longitude, latitude: o.latitude }) AS oPoint\n" +
+            "RETURN round(distance(tPoint, oPoint)) AS travelDistance")
+    Double getDistance(String connectedCity, String newCity);
 }

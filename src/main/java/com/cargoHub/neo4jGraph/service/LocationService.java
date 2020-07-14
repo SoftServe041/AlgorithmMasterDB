@@ -18,12 +18,48 @@ public class LocationService {
         return locationRepository.getAllLocations();
     }
 
-    public void createNewCity(String newCity) {
+    public Location createNewCity(String newCity) {
+        //ToDo create a check for existing location
 //        locationRepository.createNewHub(newCity);
         Location location = new Location();
         location.setName(newCity);
         locationRepository.save(location);
         locationRepository.setGeoData(newCity);
+        return locationRepository.findByName(newCity);
+    }
+
+    public void createNewCityBulk() { //ToDo return list of new cities
+        //ToDo create a check for existing location
+//        locationRepository.createNewHub(newCity);
+        Location location = new Location();
+        String[] newCities = {
+                "Berlin",
+                "Hamburg",
+                "Munich",
+                "Cologne",
+                "Frankfurt",
+                "Essen",
+                "Dortmund",
+                "Stuttgart",
+                "Zurich",
+                "Geneva",
+                "Basel",
+                "Bern",
+                "Lausanne",
+                "Lucerne",
+                "Paris",
+                "Marseille",
+                "Lyon",
+                "Toulouse",
+                "Nice",
+                "Nantes",
+                "Strasbourg"};
+
+        for (String city: newCities) {
+            createNewCity(city);
+
+        }
+        //return locationRepository.findByName(newCity);
     }
 
     public Location searchHubByName(String name) {

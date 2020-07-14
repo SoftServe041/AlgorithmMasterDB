@@ -16,7 +16,8 @@ public class Connection {
     private Location start;
     @EndNode
     private Location end;
-//    public String type;
+    public String type;
+    
 
     public Connection(long id, Location start, Location end) {
         this.id = id;

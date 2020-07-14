@@ -24,4 +24,8 @@ public class RelationService {
     public List<Location> getAllConnectedLocations(String city) {
         return relationRepository.getAllLocations(city);
     }
+
+    public Double getDistanceBetweenCities(String connectedCity, String newCity) {
+        return relationRepository.getDistance(connectedCity, newCity);
+    }
 }

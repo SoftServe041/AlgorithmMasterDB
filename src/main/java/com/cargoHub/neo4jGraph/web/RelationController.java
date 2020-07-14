@@ -36,4 +36,10 @@ public class RelationController {
     public ResponseEntity<List<Location>> getAllConnectedHubs(@PathVariable String name) {
         return ResponseEntity.ok(relationService.getAllConnectedLocations(name));
     }
+
+    @PostMapping("/distance")
+    public ResponseEntity<Double> getDistance(@RequestBody HubRequest hubRequest) {
+        return ResponseEntity.ok(relationService.getDistanceBetweenCities(hubRequest.getConnectedCity(),
+                hubRequest.getNewCity()));
+    }
 }
