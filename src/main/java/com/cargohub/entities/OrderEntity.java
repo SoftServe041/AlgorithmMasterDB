@@ -37,15 +37,15 @@ public class OrderEntity {
     @JoinColumn(name = "departure_hub_id")
     HubEntity departureHub;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "arrival_hub_id")
     HubEntity arrivalHub;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "route_id")
     RouteEntity route;
 
-    @OneToMany(mappedBy = "orderEntity")
+    @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL)
     List<CargoEntity> cargoEntities;
 
     @Column

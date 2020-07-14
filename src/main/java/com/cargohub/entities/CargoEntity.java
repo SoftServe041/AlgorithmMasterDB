@@ -28,19 +28,19 @@ public class CargoEntity {
     @Column
     String finalDestination;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "dimensions_id")
     DimensionsEntity dimensions;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cargo_position_id")
     CargoPositionEntity cargoPosition;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "carrier_compartment_id")
     CarrierCompartmentEntity carrierCompartment;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     OrderEntity orderEntity;
 
