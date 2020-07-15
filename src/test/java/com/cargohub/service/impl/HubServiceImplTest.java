@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Hub;
+import com.cargohub.entities.HubEntity;
 import com.cargohub.exceptions.HubException;
 import com.cargohub.repository.HubRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +33,14 @@ class HubServiceImplTest {
     @Mock
     HubRepository repository;
 
-    Hub subject;
-    Page<Hub> page;
+    HubEntity subject;
+    Page<HubEntity> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        subject = new Hub();
+        subject = new HubEntity();
         subject.setId(9992);
 
         page = new PageImpl(List.of(subject));
@@ -50,11 +50,11 @@ class HubServiceImplTest {
     @Test
     void create() {
         subject.setId(null);
-        when(repository.save(nullable(Hub.class))).thenReturn(subject);
-        ArgumentCaptor<Hub> captor = ArgumentCaptor.forClass(Hub.class);
-        Hub returned = service.save(subject);
+        when(repository.save(nullable(HubEntity.class))).thenReturn(subject);
+        ArgumentCaptor<HubEntity> captor = ArgumentCaptor.forClass(HubEntity.class);
+        HubEntity returned = service.save(subject);
         verify(repository).save(captor.capture());
-        Hub used = captor.getValue();
+        HubEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -68,7 +68,7 @@ class HubServiceImplTest {
     void findById() {
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        Hub returned = service.findById(subject.getId());
+        HubEntity returned = service.findById(subject.getId());
         verify(repository).findById(captor.capture());
         Integer used = captor.getValue();
         assertThat(used, is(subject.getId()));
@@ -85,12 +85,12 @@ class HubServiceImplTest {
 
     @Test
     void update() {
-        when(repository.save(nullable(Hub.class))).thenReturn(subject);
+        when(repository.save(nullable(HubEntity.class))).thenReturn(subject);
         when(repository.existsById(nullable(Integer.class))).thenReturn(true);
-        ArgumentCaptor<Hub> captor = ArgumentCaptor.forClass(Hub.class);
-        Hub returned = service.update(subject);
+        ArgumentCaptor<HubEntity> captor = ArgumentCaptor.forClass(HubEntity.class);
+        HubEntity returned = service.update(subject);
         verify(repository).save(captor.capture());
-        Hub used = captor.getValue();
+        HubEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -122,7 +122,7 @@ class HubServiceImplTest {
     void findAll() {
         when(repository.findAll(any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        Page<Hub> returned = service.findAll(pageable);
+        Page<HubEntity> returned = service.findAll(pageable);
         verify(repository).findAll(captor.capture());
         Pageable used = captor.getValue();
         assertThat(returned, is(page));

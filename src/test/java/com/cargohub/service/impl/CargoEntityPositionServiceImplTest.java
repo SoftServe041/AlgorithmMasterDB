@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.CargoPosition;
+import com.cargohub.entities.CargoPositionEntity;
 import com.cargohub.exceptions.CargoPositionException;
 import com.cargohub.repository.CargoPositionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class CargoPositionServiceImplTest {
+class CargoEntityPositionServiceImplTest {
 
     @InjectMocks
     CargoPositionServiceImpl service;
@@ -33,14 +33,14 @@ class CargoPositionServiceImplTest {
     @Mock
     CargoPositionRepository repository;
 
-    CargoPosition subject;
-    Page<CargoPosition> page;
+    CargoPositionEntity subject;
+    Page<CargoPositionEntity> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        subject = new CargoPosition();
+        subject = new CargoPositionEntity();
         subject.setId(9992);
 
         page = new PageImpl(List.of(subject));
@@ -50,11 +50,11 @@ class CargoPositionServiceImplTest {
     @Test
     void create() {
         subject.setId(null);
-        when(repository.save(nullable(CargoPosition.class))).thenReturn(subject);
-        ArgumentCaptor<CargoPosition> captor = ArgumentCaptor.forClass(CargoPosition.class);
-        CargoPosition returned = service.save(subject);
+        when(repository.save(nullable(CargoPositionEntity.class))).thenReturn(subject);
+        ArgumentCaptor<CargoPositionEntity> captor = ArgumentCaptor.forClass(CargoPositionEntity.class);
+        CargoPositionEntity returned = service.save(subject);
         verify(repository).save(captor.capture());
-        CargoPosition used = captor.getValue();
+        CargoPositionEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -68,7 +68,7 @@ class CargoPositionServiceImplTest {
     void findById() {
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        CargoPosition returned = service.findById(subject.getId());
+        CargoPositionEntity returned = service.findById(subject.getId());
         verify(repository).findById(captor.capture());
         Integer used = captor.getValue();
         assertThat(used, is(subject.getId()));
@@ -85,12 +85,12 @@ class CargoPositionServiceImplTest {
 
     @Test
     void update() {
-        when(repository.save(nullable(CargoPosition.class))).thenReturn(subject);
+        when(repository.save(nullable(CargoPositionEntity.class))).thenReturn(subject);
         when(repository.existsById(nullable(Integer.class))).thenReturn(true);
-        ArgumentCaptor<CargoPosition> captor = ArgumentCaptor.forClass(CargoPosition.class);
-        CargoPosition returned = service.update(subject);
+        ArgumentCaptor<CargoPositionEntity> captor = ArgumentCaptor.forClass(CargoPositionEntity.class);
+        CargoPositionEntity returned = service.update(subject);
         verify(repository).save(captor.capture());
-        CargoPosition used = captor.getValue();
+        CargoPositionEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -122,7 +122,7 @@ class CargoPositionServiceImplTest {
     void findAll() {
         when(repository.findAll(any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        Page<CargoPosition> returned = service.findAll(pageable);
+        Page<CargoPositionEntity> returned = service.findAll(pageable);
         verify(repository).findAll(captor.capture());
         Pageable used = captor.getValue();
         assertThat(returned, is(page));

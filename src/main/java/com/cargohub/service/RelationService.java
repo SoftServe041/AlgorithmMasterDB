@@ -1,6 +1,6 @@
 package com.cargohub.service;
 
-import com.cargohub.entities.Relation;
+import com.cargohub.entities.RelationEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,13 +8,13 @@ public interface RelationService {
 
     boolean existsById(Integer id);
 
-    Relation findById(Integer id);
+    RelationEntity findById(Integer id);
 
-    Relation update(Relation relation);
+    RelationEntity update(RelationEntity relation);
 
-    Relation save(Relation relation);
+    RelationEntity save(RelationEntity relation);
 
-    Page<Relation> findAll(Pageable pageable);
+    Page<RelationEntity> findAll(Pageable pageable);
 
     void delete(Integer id);
 

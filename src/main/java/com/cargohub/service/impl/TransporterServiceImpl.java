@@ -1,9 +1,9 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Dimensions;
-import com.cargohub.entities.Hub;
-import com.cargohub.entities.transports.CarrierCompartment;
-import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.DimensionsEntity;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
+import com.cargohub.entities.transports.TransporterEntity;
 import com.cargohub.entities.transports.TransporterStatus;
 import com.cargohub.exceptions.CarrierCompartmentException;
 import com.cargohub.exceptions.HubException;
@@ -45,38 +45,38 @@ public class TransporterServiceImpl implements TransporterService {
     }
 
     @Override
-    public Transporter findById(Integer id) {
-        Transporter result;
+    public TransporterEntity findById(Integer id) {
+        TransporterEntity result;
         result = repository.findById(id).orElseThrow(() -> new TransporterException("Transporter not found"));
         return result;
     }
 
     @Override
-    public Transporter update(Transporter newTransporter) {
+    public TransporterEntity update(TransporterEntity newTransporter) {
         if (newTransporter.getId() == null) {
             throw new TransporterException("Illegal state for Transporter");
         }
         if (existsById(newTransporter.getId())) {
-            Transporter existingTransporter = repository.findById(newTransporter.getId()).get();
-            Hub hub = hubRepository.findByName(newTransporter.getCurrentHub().getName()).orElseThrow(
+            TransporterEntity existingTransporter = repository.findById(newTransporter.getId()).get();
+            HubEntity hub = hubRepository.findByName(newTransporter.getCurrentHub().getName()).orElseThrow(
                     () -> new HubException("Hub not found by name: " + newTransporter.getCurrentHub().getName()));
             existingTransporter.setCurrentHub(hub);
-            List<CarrierCompartment> existingCompartments = existingTransporter.getCompartments();
-            List<CarrierCompartment> newCompartments = newTransporter.getCompartments();
-            List<CarrierCompartment> resolvedCompartments = resolveCompartments(existingCompartments, newCompartments);
+            List<CarrierCompartmentEntity> existingCompartments = existingTransporter.getCompartments();
+            List<CarrierCompartmentEntity> newCompartments = newTransporter.getCompartments();
+            List<CarrierCompartmentEntity> resolvedCompartments = resolveCompartments(existingCompartments, newCompartments);
             existingTransporter.setCompartments(resolvedCompartments);
             return repository.save(existingTransporter);
         }
         throw new TransporterException("Transporter not found");
     }
 
-    private List<CarrierCompartment> resolveCompartments(List<CarrierCompartment> existingCompartments,
-                                                         List<CarrierCompartment> newCompartments) {
-        Transporter transporter = existingCompartments.get(0).getTransporter();
-        List<CarrierCompartment> result = new ArrayList<>();
-        for (CarrierCompartment newC : newCompartments) {
+    private List<CarrierCompartmentEntity> resolveCompartments(List<CarrierCompartmentEntity> existingCompartments,
+                                                               List<CarrierCompartmentEntity> newCompartments) {
+        TransporterEntity transporter = existingCompartments.get(0).getTransporter();
+        List<CarrierCompartmentEntity> result = new ArrayList<>();
+        for (CarrierCompartmentEntity newC : newCompartments) {
             if (newC.getId() != null) {
-                CarrierCompartment compartment = null;
+                CarrierCompartmentEntity compartment = null;
                 compartment = getExistingCompartment(existingCompartments, newC, compartment);
                 if (compartment == null) {
                     throw new CarrierCompartmentException("Compartment not Exists or belongs to another Transporter");
@@ -92,9 +92,9 @@ public class TransporterServiceImpl implements TransporterService {
         return result;
     }
 
-    private void deleteUnusedCompartments(List<CarrierCompartment> existingCompartments) {
+    private void deleteUnusedCompartments(List<CarrierCompartmentEntity> existingCompartments) {
         do{
-            CarrierCompartment deleting = existingCompartments.get(0);
+            CarrierCompartmentEntity deleting = existingCompartments.get(0);
             existingCompartments.remove(deleting);
             deleting.setTransporter(null);
             //By OrphanRemoval dimensions are also deleting
@@ -102,14 +102,14 @@ public class TransporterServiceImpl implements TransporterService {
         }while (existingCompartments.size() != 0);
     }
 
-    private void createNewCompartment(Transporter transporter, List<CarrierCompartment> result, CarrierCompartment newC) {
+    private void createNewCompartment(TransporterEntity transporter, List<CarrierCompartmentEntity> result, CarrierCompartmentEntity newC) {
         newC.setTransporter(transporter);
         newC.setVolume(dimensionsRepository.save(newC.getVolume()));
         carrierCompartmentRepository.save(newC);
         result.add(newC);
     }
 
-    private CarrierCompartment getExistingCompartment(List<CarrierCompartment> existingCompartments, CarrierCompartment newC, CarrierCompartment compartment) {
+    private CarrierCompartmentEntity getExistingCompartment(List<CarrierCompartmentEntity> existingCompartments, CarrierCompartmentEntity newC, CarrierCompartmentEntity compartment) {
         for (int i = 0; i < existingCompartments.size(); i++) {
             if (newC.getId().equals(existingCompartments.get(i).getId())) {
                 compartment = existingCompartments.remove(i);
@@ -124,23 +124,23 @@ public class TransporterServiceImpl implements TransporterService {
     }
 
     @Override
-    public Transporter save(Transporter transporter) {
+    public TransporterEntity save(TransporterEntity transporter) {
         if (transporter.getId() != null) {
             throw new TransporterException("Illegal state for Transporter");
         }
-        for (CarrierCompartment compartment : transporter.getCompartments()) {
-            Dimensions dimensions = dimensionsRepository.save(compartment.getVolume());
+        for (CarrierCompartmentEntity compartment : transporter.getCompartments()) {
+            DimensionsEntity dimensions = dimensionsRepository.save(compartment.getVolume());
             compartment.setVolume(dimensions);
             compartment.setFreeSpace(100d);
             compartment = carrierCompartmentRepository.save(compartment);
         }
-        Hub hub = hubRepository.findByName(transporter.getCurrentHub().getName()).orElseThrow(
+        HubEntity hub = hubRepository.findByName(transporter.getCurrentHub().getName()).orElseThrow(
                 () -> new HubException("Hub not found by name: " + transporter.getCurrentHub().getName()));
         transporter.setCurrentHub(hub);
         transporter.setStatus(TransporterStatus.WAITING);
-        Transporter result = repository.save(transporter);
+        TransporterEntity result = repository.save(transporter);
         for (int i = 0; i < transporter.getCompartments().size(); i++) {
-            CarrierCompartment compartment = transporter.getCompartments().get(i);
+            CarrierCompartmentEntity compartment = transporter.getCompartments().get(i);
             compartment.setTransporter(result);
             carrierCompartmentRepository.save(compartment);
         }
@@ -148,7 +148,7 @@ public class TransporterServiceImpl implements TransporterService {
     }
 
     @Override
-    public Page<Transporter> findAll(Pageable pageable) {
+    public Page<TransporterEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

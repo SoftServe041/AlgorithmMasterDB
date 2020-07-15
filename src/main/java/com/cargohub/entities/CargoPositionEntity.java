@@ -11,12 +11,21 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "cargo_position")
-public class CargoPosition {
+public class CargoPositionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     @OneToOne(mappedBy =  "cargoPosition")
-    Cargo cargo;
+    CargoEntity cargoEntity;
+
+    @Column
+    Integer widthPos;
+
+    @Column
+    Integer heightPos;
+
+    @Column
+    Integer lengthPos;
 }

@@ -1,4 +1,4 @@
-package com.cargohub.dto.jar;
+package com.cargohub.dto;
 
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.entities.enums.DeliveryStatus;
@@ -18,7 +18,6 @@ public class ResponseOrderDto {
     private Date estimatedDeliveryDate;
     private String departureHub;
     private String arrivalHub;
-    private Double cargoWeight;
     private DeliveryStatus deliveryStatus;
 
     public static ResponseOrderDto orderToResponseOrderDto(OrderEntity orderEntity) {
@@ -29,7 +28,6 @@ public class ResponseOrderDto {
         rod.setEstimatedDeliveryDate(orderEntity.getEstimatedDeliveryDate());
         rod.setTrackingId(orderEntity.getTrackingId());
         rod.setPrice(orderEntity.getPrice());
-        rod.setCargoWeight(orderEntity.getCargo().getWeight());
         return rod;
     }
 

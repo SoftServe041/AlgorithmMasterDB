@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Relation;
+import com.cargohub.entities.RelationEntity;
 import com.cargohub.exceptions.RelationException;
 import com.cargohub.repository.RelationRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +33,14 @@ class RelationServiceImplTest {
     @Mock
     RelationRepository repository;
 
-    Relation subject;
-    Page<Relation> page;
+    RelationEntity subject;
+    Page<RelationEntity> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        subject = new Relation();
+        subject = new RelationEntity();
         subject.setId(9992);
 
         page = new PageImpl(List.of(subject));
@@ -50,11 +50,11 @@ class RelationServiceImplTest {
     @Test
     void create() {
         subject.setId(null);
-        when(repository.save(nullable(Relation.class))).thenReturn(subject);
-        ArgumentCaptor<Relation> captor = ArgumentCaptor.forClass(Relation.class);
-        Relation returned = service.save(subject);
+        when(repository.save(nullable(RelationEntity.class))).thenReturn(subject);
+        ArgumentCaptor<RelationEntity> captor = ArgumentCaptor.forClass(RelationEntity.class);
+        RelationEntity returned = service.save(subject);
         verify(repository).save(captor.capture());
-        Relation used = captor.getValue();
+        RelationEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -68,7 +68,7 @@ class RelationServiceImplTest {
     void findById() {
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        Relation returned = service.findById(subject.getId());
+        RelationEntity returned = service.findById(subject.getId());
         verify(repository).findById(captor.capture());
         Integer used = captor.getValue();
         assertThat(used, is(subject.getId()));
@@ -85,12 +85,12 @@ class RelationServiceImplTest {
 
     @Test
     void update() {
-        when(repository.save(nullable(Relation.class))).thenReturn(subject);
+        when(repository.save(nullable(RelationEntity.class))).thenReturn(subject);
         when(repository.existsById(nullable(Integer.class))).thenReturn(true);
-        ArgumentCaptor<Relation> captor = ArgumentCaptor.forClass(Relation.class);
-        Relation returned = service.update(subject);
+        ArgumentCaptor<RelationEntity> captor = ArgumentCaptor.forClass(RelationEntity.class);
+        RelationEntity returned = service.update(subject);
         verify(repository).save(captor.capture());
-        Relation used = captor.getValue();
+        RelationEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -122,7 +122,7 @@ class RelationServiceImplTest {
     void findAll() {
         when(repository.findAll(any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        Page<Relation> returned = service.findAll(pageable);
+        Page<RelationEntity> returned = service.findAll(pageable);
         verify(repository).findAll(captor.capture());
         Pageable used = captor.getValue();
         assertThat(returned, is(page));

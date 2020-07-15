@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "transport_details")
-public class TransportDetails {
+public class TransportDetailsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,9 @@ public class TransportDetails {
 
     @Column
     Double pricePerKm;
+
+    @Column
+    Double cellSize;
 
     @Column
     @Enumerated(EnumType.STRING)

@@ -1,8 +1,8 @@
 package com.cargohub.dto;
 
-import com.cargohub.entities.Hub;
-import com.cargohub.entities.transports.CarrierCompartment;
-import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
+import com.cargohub.entities.transports.TransporterEntity;
 import com.cargohub.entities.transports.TransporterType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ public class TransporterDto {
     @Enumerated
     private TransporterType type;
 
-    public static TransporterDto toDto(Transporter transporter) {
+    public static TransporterDto toDto(TransporterEntity transporter) {
         TransporterDto dto = new TransporterDto();
         dto.setId(transporter.getId());
         dto.setCompartments(transporter
@@ -36,16 +36,16 @@ public class TransporterDto {
         return dto;
     }
 
-    public Transporter toTransporter() {
-        Transporter transporter = new Transporter();
+    public TransporterEntity toTransporter() {
+        TransporterEntity transporter = new TransporterEntity();
         transporter.setId(id);
-        List<CarrierCompartment> carrierCompartments = new ArrayList<>();
+        List<CarrierCompartmentEntity> carrierCompartments = new ArrayList<>();
         for (CarrierCompartmentDto dto : compartments) {
             carrierCompartments.add(dto.toCarrierCompartment());
         }
         transporter.setCompartments(carrierCompartments);
         transporter.setType(type);
-        Hub hub = new Hub();
+        HubEntity hub = new HubEntity();
         hub.setName(hubName);
         transporter.setCurrentHub(hub);
         return transporter;

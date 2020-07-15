@@ -1,6 +1,6 @@
-import com.cargohub.entities.Cargo;
-import com.cargohub.entities.Dimensions;
-import com.cargohub.entities.Hub;
+import com.cargohub.entities.CargoEntity;
+import com.cargohub.entities.DimensionsEntity;
+import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.OrderEntity;
 import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.exceptions.OrderException;
@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,9 +47,9 @@ public class OrderEntityServiceImplTest {
     private OrderRepository orderRepository;
 
     private OrderEntity orderEntity;
-    private Cargo cargo;
-    private Dimensions dimensions;
-    private Hub hub;
+    private CargoEntity cargoEntity;
+    private DimensionsEntity dimensions;
+    private HubEntity hub;
 
     private Page<OrderEntity> page;
     private Pageable pageable;
@@ -61,16 +62,16 @@ public class OrderEntityServiceImplTest {
         orderEntity.setPrice(2.2);
         orderEntity.setTrackingId("123232323");
         orderEntity.setUserId(4);
-        hub = new Hub();
+        hub = new HubEntity();
         hub.setName("A");
         orderEntity.setArrivalHub(hub);
         orderEntity.setDepartureHub(hub);
         orderEntity.setDeliveryStatus(DeliveryStatus.PROCESSING);
         orderEntity.setPrice(22.0);
-        cargo = new Cargo();
-        dimensions = new Dimensions();
-        cargo.setDimensions(dimensions);
-        orderEntity.setCargo(cargo);
+        cargoEntity = new CargoEntity();
+        dimensions = new DimensionsEntity();
+        cargoEntity.setDimensions(dimensions);
+        orderEntity.setCargoEntities(Arrays.asList(cargoEntity));
         page = new PageImpl(List.of(orderEntity));
         pageable = PageRequest.of(0, 10);
     }
@@ -79,9 +80,9 @@ public class OrderEntityServiceImplTest {
         orderEntity.setId(null);
 
         when(orderRepository.save(nullable(OrderEntity.class))).thenReturn(orderEntity);
-        when(dimensionsRepository.save(nullable(Dimensions.class))).thenReturn(dimensions);
-        when(hubRepository.save(nullable(Hub.class))).thenReturn(hub);
-        when(cargoRepository.save(nullable(Cargo.class))).thenReturn(cargo);
+        when(dimensionsRepository.save(nullable(DimensionsEntity.class))).thenReturn(dimensions);
+        when(hubRepository.save(nullable(HubEntity.class))).thenReturn(hub);
+        when(cargoRepository.save(nullable(CargoEntity.class))).thenReturn(cargoEntity);
         ArgumentCaptor<OrderEntity> captor = ArgumentCaptor.forClass(OrderEntity.class);
         OrderEntity returned = orderService.save(orderEntity);
         verify(orderRepository).save(captor.capture());

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "relation")
-public class Relation {
+public class RelationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,11 @@ public class Relation {
 
     @ManyToOne
     @JoinColumn(name = "connected_hub_id")
-    Hub connectedHub;
+    HubEntity connectedHub;
 
     @ManyToOne
     @JoinColumn(name = "owner_hub_id")
-    Hub ownerHub;
+    HubEntity ownerHub;
 
     @Column
     @Enumerated(EnumType.STRING)

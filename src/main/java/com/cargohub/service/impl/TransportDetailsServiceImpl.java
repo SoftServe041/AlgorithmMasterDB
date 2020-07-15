@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.transports.TransportDetails;
+import com.cargohub.entities.transports.TransportDetailsEntity;
 import com.cargohub.entities.transports.TransporterType;
 import com.cargohub.exceptions.TransportDetailsException;
 import com.cargohub.repository.TransportDetailsRepository;
@@ -26,21 +26,21 @@ public class TransportDetailsServiceImpl implements TransportDetailsService {
     }
 
     @Override
-    public TransportDetails findById(Integer id) {
-        TransportDetails result;
+    public TransportDetailsEntity findById(Integer id) {
+        TransportDetailsEntity result;
         result = repository.findById(id).orElseThrow(() -> new TransportDetailsException("TransportDetails not found"));
         return result;
     }
 
     @Override
-    public TransportDetails findByType(TransporterType type) {
-        TransportDetails result;
+    public TransportDetailsEntity findByType(TransporterType type) {
+        TransportDetailsEntity result;
         result = repository.findByType(type).orElseThrow(() -> new TransportDetailsException("TransportDetails not found"));
         return result;
     }
 
     @Override
-    public TransportDetails update(TransportDetails relation) {
+    public TransportDetailsEntity update(TransportDetailsEntity relation) {
         if (relation.getId() == null) {
             throw new TransportDetailsException("Illegal state for TransportDetails");
         }
@@ -51,7 +51,7 @@ public class TransportDetailsServiceImpl implements TransportDetailsService {
     }
 
     @Override
-    public TransportDetails save(TransportDetails relation) {
+    public TransportDetailsEntity save(TransportDetailsEntity relation) {
         if (relation.getId() != null) {
             throw new TransportDetailsException("Illegal state for TransportDetails");
         }
@@ -59,7 +59,7 @@ public class TransportDetailsServiceImpl implements TransportDetailsService {
     }
 
     @Override
-    public Page<TransportDetails> findAll(Pageable pageable) {
+    public Page<TransportDetailsEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

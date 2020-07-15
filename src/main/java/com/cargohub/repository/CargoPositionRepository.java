@@ -1,8 +1,8 @@
 package com.cargohub.repository;
 
-import com.cargohub.entities.CargoPosition;
+import com.cargohub.entities.CargoPositionEntity;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface CargoPositionRepository extends PagingAndSortingRepository<CargoPosition, Integer> {
+public interface CargoPositionRepository extends PagingAndSortingRepository<CargoPositionEntity, Integer> {
 
 }

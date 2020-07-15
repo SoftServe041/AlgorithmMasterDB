@@ -20,4 +20,5 @@ public interface OrderService {
 
     void delete(Integer id);
 
+    void simulate();
 }

@@ -1,7 +1,7 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Dimensions;
-import com.cargohub.entities.transports.CarrierCompartment;
+import com.cargohub.entities.DimensionsEntity;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import com.cargohub.exceptions.CarrierCompartmentException;
 import com.cargohub.repository.CarrierCompartmentRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,16 +34,16 @@ class CarrierCompartmentServiceImplTest {
     @Mock
     CarrierCompartmentRepository repository;
 
-    CarrierCompartment subject;
-    Page<CarrierCompartment> page;
+    CarrierCompartmentEntity subject;
+    Page<CarrierCompartmentEntity> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        subject = new CarrierCompartment();
+        subject = new CarrierCompartmentEntity();
         subject.setId(9992);
-        subject.setVolume(new Dimensions());
+        subject.setVolume(new DimensionsEntity());
         subject.setMaximumWeight(999d);
         subject.setFreeSpace(.35);
 
@@ -54,11 +54,11 @@ class CarrierCompartmentServiceImplTest {
     @Test
     void create() {
         subject.setId(null);
-        when(repository.save(nullable(CarrierCompartment.class))).thenReturn(subject);
-        ArgumentCaptor<CarrierCompartment> captor = ArgumentCaptor.forClass(CarrierCompartment.class);
-        CarrierCompartment returned = service.save(subject);
+        when(repository.save(nullable(CarrierCompartmentEntity.class))).thenReturn(subject);
+        ArgumentCaptor<CarrierCompartmentEntity> captor = ArgumentCaptor.forClass(CarrierCompartmentEntity.class);
+        CarrierCompartmentEntity returned = service.save(subject);
         verify(repository).save(captor.capture());
-        CarrierCompartment used = captor.getValue();
+        CarrierCompartmentEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -72,7 +72,7 @@ class CarrierCompartmentServiceImplTest {
     void findById() {
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        CarrierCompartment returned = service.findById(subject.getId());
+        CarrierCompartmentEntity returned = service.findById(subject.getId());
         verify(repository).findById(captor.capture());
         Integer used = captor.getValue();
         assertThat(used, is(subject.getId()));
@@ -89,12 +89,12 @@ class CarrierCompartmentServiceImplTest {
 
     @Test
     void update() {
-        when(repository.save(nullable(CarrierCompartment.class))).thenReturn(subject);
+        when(repository.save(nullable(CarrierCompartmentEntity.class))).thenReturn(subject);
         when(repository.existsById(nullable(Integer.class))).thenReturn(true);
-        ArgumentCaptor<CarrierCompartment> captor = ArgumentCaptor.forClass(CarrierCompartment.class);
-        CarrierCompartment returned = service.update(subject);
+        ArgumentCaptor<CarrierCompartmentEntity> captor = ArgumentCaptor.forClass(CarrierCompartmentEntity.class);
+        CarrierCompartmentEntity returned = service.update(subject);
         verify(repository).save(captor.capture());
-        CarrierCompartment used = captor.getValue();
+        CarrierCompartmentEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -126,7 +126,7 @@ class CarrierCompartmentServiceImplTest {
     void findAll() {
         when(repository.findAll(any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        Page<CarrierCompartment> returned = service.findAll(pageable);
+        Page<CarrierCompartmentEntity> returned = service.findAll(pageable);
         verify(repository).findAll(captor.capture());
         Pageable used = captor.getValue();
         assertThat(returned, is(page));
