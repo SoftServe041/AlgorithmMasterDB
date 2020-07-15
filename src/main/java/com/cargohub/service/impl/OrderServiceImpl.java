@@ -52,7 +52,20 @@ public class OrderServiceImpl implements OrderService {
     }
     @Override
     public void simulate(){
-        RouteEntity route = routeRepository.findById(1).get();
+        RouteEntity route = new RouteEntity();
+        List<HubEntity> hubList = new ArrayList<>();
+        HubEntity hub = new HubEntity();
+        hub.setName("Berlin");
+        hubList.add(hub);
+        hub = new HubEntity();
+        hub.setName("Stuttgart");
+        hubList.add(hub);
+        hub = new HubEntity();
+        hub.setName("Frankfurt");
+        hubList.add(hub);
+        route.setHubs(hubList);
+
+
         OrderEntity orderEntity = orderSimulation.getNewOrder(route, 30.0);
 
     }
