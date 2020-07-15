@@ -58,16 +58,14 @@ public class OrderServiceImpl implements OrderService {
         hub.setName("Berlin");
         hubList.add(hub);
         hub = new HubEntity();
-        hub.setName("Stuttgart");
+        hub.setName("Frankfurt");
         hubList.add(hub);
         hub = new HubEntity();
-        hub.setName("Frankfurt");
+        hub.setName("Stuttgart");
         hubList.add(hub);
         route.setHubs(hubList);
 
-
         OrderEntity orderEntity = orderSimulation.getNewOrder(route, 30.0);
-
     }
 
     @Override
