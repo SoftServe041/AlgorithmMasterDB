@@ -25,10 +25,8 @@ public class OrderSimulation {
     public OrderSimulation(RouteNeo4jServiceImpl routeNeo4jServiceImpl){
         this.routeNeo4jServiceImpl = routeNeo4jServiceImpl;
     }
-
     @Setter
     Double averageSpeed = 60d;
-
 
     public OrderEntity getNewOrder(RouteEntity route, Double volume){
         List<HubEntity> hubs = route.getHubs();
@@ -36,6 +34,8 @@ public class OrderSimulation {
         double distance = findDistanceForRoute(routes, hubs);
         Random random = new Random();
         OrderEntity order = new OrderEntity();
+        order.setUserId(1);
+        order.setPrice(200.0);
         order.setDeliveryStatus(DeliveryStatus.PROCESSING);
         order.setRoute(route);
         order.setArrivalHub(hubs.get(0));
@@ -43,11 +43,6 @@ public class OrderSimulation {
         order.setTrackingId("ch" + random.nextInt(100) + counter++ + order.getArrivalHub().getName().hashCode()+ random.nextInt(1000));
         Date date = new Date();
         order.setCreated(date);
-        /*for(int i = 0; i < hubEntities.size()-1; i++){
-            RelationEntity relationEntity = repository.findByOwnerHubAndConnectedHub(hubEntities.get(i), hubEntities.get(i+1))
-                    .orElseThrow(() -> new IllegalArgumentException("no such relation found"));
-            distance+=relationEntity.getDistance();
-        }*/
         setCargo(order, volume);
         double hours = distance / averageSpeed;
         int days = (int) hours / 10 + (((int) hours % 10) < 5 ? 0 : 1);

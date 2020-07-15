@@ -1,26 +1,23 @@
 package com.cargohub.service.impl;
 
 import com.cargohub.cargoloader.OrderSimulation;
-import com.cargohub.cargoloader.pathfinder.entities.Route;
-import com.cargohub.entities.*;
-import com.cargohub.entities.enums.DeliveryStatus;
+import com.cargohub.entities.CargoEntity;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.OrderEntity;
+import com.cargohub.entities.RouteEntity;
 import com.cargohub.exceptions.OrderException;
 import com.cargohub.repository.*;
 import com.cargohub.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.lang.reflect.Array;
-import java.text.DateFormat;
-import java.util.Random;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
