@@ -29,10 +29,14 @@ public class LoadingServiceImpl {
     private final CargoLoader3D cargoLoader3D;
     private final CargoPositionRepository cargoPositionRepository;
 
-    public LoadingServiceImpl(CargoRepository cargoRepository, HubRepository hubRepository,
-                              CarrierCompartmentRepository carrierCompartmentRepository, TransporterRepository transporterRepository,
-                              OrderRepository orderRepository, TransportDetailsRepository transportDetailsRepository,
-                              CargoLoader3D cargoLoader3D, CargoPositionRepository cargoPositionRepository) {
+    public LoadingServiceImpl(CargoRepository cargoRepository,
+                              HubRepository hubRepository,
+                              CarrierCompartmentRepository carrierCompartmentRepository,
+                              TransporterRepository transporterRepository,
+                              OrderRepository orderRepository,
+                              TransportDetailsRepository transportDetailsRepository,
+                              CargoLoader3D cargoLoader3D,
+                              CargoPositionRepository cargoPositionRepository) {
         this.cargoRepository = cargoRepository;
         this.hubRepository = hubRepository;
         this.carrierCompartmentRepository = carrierCompartmentRepository;
@@ -60,11 +64,11 @@ public class LoadingServiceImpl {
         return result;
     }
 
+    //TODO remove
     public List<OrderEntity> getAllOrdersByRoute(RouteEntity route) {
         return orderRepository.findAllByRouteAndDeliveryStatus(route, DeliveryStatus.PROCESSING);
     }
 
-    // TODO: WORK WITH THAT METHOD!
     public List<TransporterEntity> loadAllTransportersInHub(String hubName) {
         HubEntity hub = hubRepository.findByName(hubName).orElseThrow(() -> {
             throw new HubException("Hub not found");
@@ -119,7 +123,8 @@ public class LoadingServiceImpl {
         return compartment;
     }
 
-    private List<CargoEntity> postLoadingCargoProcessing(List<Cargo> cargoList, List<OrderEntity> ordersForLoading,
+    private List<CargoEntity> postLoadingCargoProcessing(List<Cargo> cargoList,
+                                                         List<OrderEntity> ordersForLoading,
                                                          CarrierCompartmentEntity compartment) {
         Map<Integer, CargoEntity> dataTransferMap = new HashMap<>();
         List<CargoEntity> cargoEntities = new ArrayList<>();
@@ -133,8 +138,10 @@ public class LoadingServiceImpl {
         return cargoEntities;
     }
 
-    private void saveCargosWithPositions(List<Cargo> cargoList, CarrierCompartmentEntity compartment,
-                                         Map<Integer, CargoEntity> dataTransferMap, List<CargoEntity> cargoEntities) {
+    private void saveCargosWithPositions(List<Cargo> cargoList,
+                                         CarrierCompartmentEntity compartment,
+                                         Map<Integer, CargoEntity> dataTransferMap,
+                                         List<CargoEntity> cargoEntities) {
         for (Cargo cargo : cargoList) {
             CargoEntity cargoEntity = dataTransferMap.get(cargo.getId());
             CargoPositionEntity position = new CargoPositionEntity();
@@ -200,6 +207,46 @@ public class LoadingServiceImpl {
             }
         }
         return ordersForLoading;
+    }
+
+    private CargoHold restoreCargoHold(CarrierCompartmentEntity compartment, double cellSize) {
+        DimensionsEntity volume = compartment.getVolume();
+        int depthInCells = (int) (volume.getLength() / cellSize);
+        int heightInCells = (int) (volume.getHeight() / cellSize);
+        int widthInCells = (int) (volume.getWidth() / cellSize);
+        int[][][] loadingMatrix = new int[depthInCells][heightInCells][widthInCells];
+        List<CargoEntity> cargoEntities = compartment.getCargoEntities();
+        for (CargoEntity cargo : cargoEntities) {
+            CargoPositionEntity cargoPosition = cargo.getCargoPosition();
+            DimensionsEntity dimensions = cargo.getDimensions();
+            int cargoDepthInCells = (int) (dimensions.getLength() / cellSize);
+            int cargoHeightInCells = (int) (dimensions.getHeight() / cellSize);
+            int cargoWidthInCells = (int) (dimensions.getWidth() / cellSize);
+            for (int i = cargoPosition.getLengthPos(); i < cargoPosition.getLengthPos() + cargoDepthInCells; i++) {
+                for (int j = cargoPosition.getHeightPos(); j < cargoPosition.getHeightPos() + cargoHeightInCells; j++) {
+                    for (int k = cargoPosition.getWidthPos(); k < cargoPosition.getWidthPos() + cargoWidthInCells; k++) {
+                        loadingMatrix[i][j][k] = 1;
+                    }
+                }
+            }
+        }
+        return fillRestoringCargoHold(compartment, loadingMatrix);
+    }
+
+    private CargoHold fillRestoringCargoHold(CarrierCompartmentEntity compartment, int[][][] loadingMatrix) {
+        CargoHold cargoHold = new CargoHold(compartment.getVolume().getWidth(),
+                compartment.getVolume().getHeight(),
+                compartment.getVolume().getLength(),
+                compartment.getMaximumWeight().intValue() * 1000,
+                loadingMatrix);
+        List<CargoEntity> cargoEntities = compartment.getCargoEntities();
+        for (CargoEntity cargoEntity : cargoEntities) {
+            if(!cargoHold.getLoadedCargo().containsKey(cargoEntity.getFinalDestination())){
+                cargoHold.getLoadedCargo().put(cargoEntity.getFinalDestination(), new ArrayList<>());
+            }
+            cargoHold.getLoadedCargo().get(cargoEntity.getFinalDestination()).add(Cargo.toCargo(cargoEntity));
+        }
+        return cargoHold;
     }
 
     //TODO remove this
@@ -307,11 +354,11 @@ public class LoadingServiceImpl {
             List<HubEntity> orderHubs = order.getRoute().getHubs();
             if (orderHubs.size() < route.getHubs().size()) {
                 for (int i = 0; i < orderHubs.size(); i++) {
-                    if(!orderHubs.get(i).getName().equals(route.getHubs().get(i).getName())){
+                    if (!orderHubs.get(i).getName().equals(route.getHubs().get(i).getName())) {
                         contains = false;
                     }
                 }
-                if(contains){
+                if (contains) {
                     result.add(order);
                 }
             }

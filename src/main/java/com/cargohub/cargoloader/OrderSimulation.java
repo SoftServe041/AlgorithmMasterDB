@@ -99,13 +99,13 @@ public class OrderSimulation {
                 return returnSetDimensions(0.6, 0.6,0.6);
             }
             case 2: {
-                return returnSetDimensions(0.6, 0.6,0.9);
+                return returnSetDimensions(0.6, 0.6,1.2);
             }
             case 3: {
-                return returnSetDimensions(0.6, 0.9,0.9);
+                return returnSetDimensions(0.6, 1.2,1.2);
             }
             case 4: {
-                return returnSetDimensions(0.9, 0.9,0.9);
+                return returnSetDimensions(1.2, 1.2,1.2);
             }
         }
         return null;

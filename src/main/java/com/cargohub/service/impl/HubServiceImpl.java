@@ -66,8 +66,12 @@ public class HubServiceImpl implements HubService {
     }
 
     @Override
-    public List<HubEntity> saveAll(List<HubEntity> hubs) {
-        return (List<HubEntity>) repository.saveAll(hubs);
+    public void saveAll(List<HubEntity> hubs) {
+        for (HubEntity hub : hubs) {
+            if (repository.findByName(hub.getName()).isEmpty()) {
+                repository.save(hub);
+            }
+        }
     }
 
     @Override
@@ -82,7 +86,7 @@ public class HubServiceImpl implements HubService {
     @Override
     @Transactional
     public void deleteByName(String name) {
-        if(repository.findByName(name).isPresent()){
+        if (repository.findByName(name).isPresent()) {
             repository.deleteByName(name);
             return;
         }

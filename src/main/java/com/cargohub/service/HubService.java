@@ -20,7 +20,7 @@ public interface HubService {
 
     Page<HubEntity> findAll(Pageable pageable);
 
-    List<HubEntity> saveAll(List<HubEntity> hubs);
+    void saveAll(List<HubEntity> hubs);
 
     void delete(Integer id);
 
