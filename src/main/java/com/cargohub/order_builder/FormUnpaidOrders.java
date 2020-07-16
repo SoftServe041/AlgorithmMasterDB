@@ -78,10 +78,10 @@ public class FormUnpaidOrders {
     }
 
     private int getPrice(CargoSizeModel cargoSizeModel) {
-        double volumeOfCargo = cargoSizeModel.getCargoHeight() * cargoSizeModel.getCargoLength() * cargoSizeModel.getCargoWidth();
+        double volumeOfCargo = cargoSizeModel.getHeight() * cargoSizeModel.getLength() * cargoSizeModel.getWidth();
         double cub = carryingCapacity / truckVolume; // ? weight in 1 m^3 according to truck properties
 
-        double cargoWeight = cargoSizeModel.getCargoWeight() / 1000; // tonne
+        double cargoWeight = cargoSizeModel.getWeight() / 1000; // tonne
 
         double admittedWeightForCargo = cub * volumeOfCargo; // determine how much is applicable for cargoVolume
         while (admittedWeightForCargo < cargoWeight - 0.030) { // increase admittedWeight while it equals approximately to cargoWeight
