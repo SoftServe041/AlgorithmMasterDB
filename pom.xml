@@ -123,7 +123,7 @@
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/cargo_transports?serverTimezone=UTC</url>
                     <user>root</user>
-                    <password>Kostyanskiy13</password>
+                    <password>CargoUser</password>
                 </configuration>
                 <dependencies>
                     <dependency>
