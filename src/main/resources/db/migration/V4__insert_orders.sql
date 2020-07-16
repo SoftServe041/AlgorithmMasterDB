@@ -56,39 +56,39 @@ VALUES (default, '100', 'Kharkiv', 'Myrhorod', '4', default, default, '3', 'PROC
 INSERT INTO cargo_order
 VALUES (default, '222222222', '1', '200', '2020-11-13 03:30:55', '1', '2', 'PROCESSING', '2020-10-07 03:30:55', 2);
 INSERT INTO dimensions
-VALUES (default, '1.2', '2.4', '2.4'),
-       (default, '1.2', '2.4', '2.4'),
-       (default, '1.2', '2.4', '2.4'),
-       (default, '1.2', '2.4', '2.4'),
-       (default, '1.2', '2.4', '2.4'),
-       (default, '1.2', '2.4', '2.4'),
-       (default, '1.2', '2.4', '2.4');
+VALUES (default, '0.3', '0.3', '0.3');
+#        (default, '1.2', '2.4', '2.4'),
+#        (default, '1.2', '2.4', '2.4');
+#        (default, '1.2', '2.4', '2.4'),
+#        (default, '1.2', '2.4', '2.4'),
+#        (default, '1.2', '2.4', '2.4'),
+#        (default, '1.2', '2.4', '2.4');
 INSERT INTO cargo
-VALUES (default, '100', 'Kharkiv', 'Poltava', '16', default, default, '4', 'PROCESSING'),
-       (default, '100', 'Kharkiv', 'Poltava', '17', default, default, '4', 'PROCESSING'),
-       (default, '100', 'Kharkiv', 'Poltava', '18', default, default, '4', 'PROCESSING'),
-       (default, '100', 'Kharkiv', 'Poltava', '19', default, default, '4', 'PROCESSING'),
-       (default, '100', 'Kharkiv', 'Poltava', '20', default, default, '4', 'PROCESSING'),
-       (default, '100', 'Kharkiv', 'Poltava', '21', default, default, '4', 'PROCESSING'),
-       (default, '100', 'Kharkiv', 'Poltava', '22', default, default, '4', 'PROCESSING');
+VALUES (default, '100', 'Kharkiv', 'Poltava', '16', default, default, '4', 'PROCESSING');
+#        (default, '100', 'Kharkiv', 'Poltava', '17', default, default, '4', 'PROCESSING'),
+#        (default, '100', 'Kharkiv', 'Poltava', '18', default, default, '4', 'PROCESSING');
+#        (default, '100', 'Kharkiv', 'Poltava', '19', default, default, '4', 'PROCESSING'),
+#        (default, '100', 'Kharkiv', 'Poltava', '20', default, default, '4', 'PROCESSING'),
+#        (default, '100', 'Kharkiv', 'Poltava', '21', default, default, '4', 'PROCESSING'),
+#        (default, '100', 'Kharkiv', 'Poltava', '22', default, default, '4', 'PROCESSING');
 
 INSERT INTO dimensions
 VALUES (default, '2.4', '2.4', '12');
 INSERT INTO transporter
 VALUES (default, '1', 'TRUCK', 'WAITING');
 INSERT INTO carrier_compartment
-VALUES (default, '22', '100', '23', '1');
+VALUES (default, '22', '100', '17', '1');
 
 INSERT INTO transport_details
 VALUES (default, 100, 100, 'TRUCK', 0.3);
 
-INSERT INTO dimensions
-VALUES (default, '1.2', '2.4', '2.4'),
-       (default, '0.6', '1.2', '1.2'),
-       (default, '1.2', '1.2', '2.4'),
-       (default, '2.4', '2.4', '2.4');
-INSERT INTO cargo
-VALUES (default, '100', 'Kharkiv', 'Myrhorod', '24', default, default, '3', 'PROCESSING'),
-       (default, '100', 'Kharkiv', 'Myrhorod', '25', default, default, '3', 'PROCESSING'),
-       (default, '100', 'Kharkiv', 'Myrhorod', '26', default, default, '3', 'PROCESSING'),
-       (default, '100', 'Kharkiv', 'Myrhorod', '27', default, default, '3', 'PROCESSING');
+# INSERT INTO dimensions
+# VALUES (default, '1.2', '2.4', '2.4'),
+#        (default, '0.6', '1.2', '1.2'),
+#        (default, '1.2', '1.2', '2.4'),
+#        (default, '2.4', '2.4', '2.4');
+# INSERT INTO cargo
+# VALUES (default, '100', 'Kharkiv', 'Myrhorod', '24', default, default, '3', 'PROCESSING'),
+#        (default, '100', 'Kharkiv', 'Myrhorod', '25', default, default, '3', 'PROCESSING'),
+#        (default, '100', 'Kharkiv', 'Myrhorod', '26', default, default, '3', 'PROCESSING'),
+#        (default, '100', 'Kharkiv', 'Myrhorod', '27', default, default, '3', 'PROCESSING');
