@@ -24,8 +24,8 @@ public class RouteController {
         this.service = service;
     }
 
-    @GetMapping("/{departure}/{arrival}")
-    public ResponseEntity<List<RouteModel>> getRoute(@PathVariable String departure, @PathVariable String arrival) {
+    @GetMapping("/find")
+    public ResponseEntity<List<RouteModel>> getRoute(@RequestParam String departure, String arrival) {
         return ResponseEntity.ok(routeNeo4jServiceImpl.getRoute(departure, arrival));
     }
 

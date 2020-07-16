@@ -43,6 +43,12 @@ public class OrdersController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @PostMapping("/simulation")
+    public ResponseEntity simulation() {
+        orderService.simulate();
+        return new ResponseEntity(HttpStatus.ACCEPTED);
+    }
+
     @PostMapping("/requestRoutes")
     public Map<String, List<UnpaidOrder>> getOrderVariants(@RequestBody OrderModel reqModel) {
         Map<String, List<UnpaidOrder>> map = formUnpaidOrders.formUnpaidOrders(reqModel);
