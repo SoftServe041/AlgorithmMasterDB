@@ -85,18 +85,18 @@ public class LoadingServiceImpl {
             double cellSize = transportDetailsRepository.findByType(transporter.getType()).orElseThrow(() -> {
                 throw new TransportDetailsException("TransportDetails not found");
             }).getCellSize();
-            loadCompartment(transporter.getCompartments().get(0), ordersByArrivalHub, cellSize);
+            loadCompartment(transporter.getCompartments().get(0), allOrders, ordersByArrivalHub, cellSize);
             //TODO removing orders from map
             for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
                 for (int i = 0; i < entry.getValue().size(); i++) {
-                    if(entry.getValue().get(i).getDeliveryStatus() == DeliveryStatus.ON_THE_WAY){
-                        entry.getValue().remove(i);
+                    if (entry.getValue().get(i).getDeliveryStatus() == DeliveryStatus.ON_THE_WAY) {
                         allOrders.remove(entry.getValue().get(i));
+                        entry.getValue().remove(i);
                         i--;
                     }
                 }
             }
-            if(allOrders.size() == 0){
+            if (allOrders.size() == 0) {
                 break;
             }
         }
@@ -104,9 +104,10 @@ public class LoadingServiceImpl {
     }
 
     private CarrierCompartmentEntity loadCompartment(CarrierCompartmentEntity compartment,
+                                                     List<OrderEntity> allOrders,
                                                      Map<String, List<OrderEntity>> ordersByArrivalHub,
                                                      double cellSize) {
-        List<OrderEntity> ordersForLoading = optimizeOrdersForLoading(ordersByArrivalHub, compartment, cellSize);
+        List<OrderEntity> ordersForLoading = optimizeOrdersForLoading(ordersByArrivalHub, allOrders, compartment, cellSize);
         List<Cargo> cargosForLoading = mapOrdersToCargos(ordersForLoading);
         CargoHold cargoHold = initializeCargoHold(compartment, cellSize);
         cargoLoader3D.loadCargo(cargosForLoading, ordersForLoading.get(0).getRoute(), cargoHold);
@@ -157,6 +158,7 @@ public class LoadingServiceImpl {
     }
 
     private List<OrderEntity> optimizeOrdersForLoading(Map<String, List<OrderEntity>> ordersByArrivalHub,
+                                                       List<OrderEntity> allOrders,
                                                        CarrierCompartmentEntity compartment,
                                                        double cellSize) {
         RouteEntity route;
@@ -166,11 +168,12 @@ public class LoadingServiceImpl {
         } else {
             throw new OrderException("Illegal state of Orders");
         }
-        compartment.getTransporter().setRoute(route.getHubs());
+        List<HubEntity> routeForTransporter = new ArrayList<>(route.getHubs());
+        compartment.getTransporter().setRoute(routeForTransporter);
         double compartmentVolume = computeCompartmentVolume(compartment) * 0.9; // 90% of max volume
         double compartmentMaximumWeight = compartment.getMaximumWeight() * 1000d;
         List<OrderEntity> sameRouteOrders = findOrdersWithSameRoute(maxVolumeList, route);
-        List<OrderEntity> particularRouteOrders = findOrdersWithParticularRoute(maxVolumeList, route);
+        List<OrderEntity> particularRouteOrders = findOrdersWithParticularRoute(allOrders, route);
         List<OrderEntity> ordersForLoading = new ArrayList<>();
         double accuracy = computeCompartmentVolume(compartment) * 0.1; // 10% accuracy (10% of total)
         // To be sure algo will load compartment total volume of Orders will not exceed
@@ -299,10 +302,18 @@ public class LoadingServiceImpl {
 
     private List<OrderEntity> findOrdersWithParticularRoute(List<OrderEntity> allOrders, RouteEntity route) {
         List<OrderEntity> result = new ArrayList<>();
+        boolean contains = true;
         for (OrderEntity order : allOrders) {
             List<HubEntity> orderHubs = order.getRoute().getHubs();
-            if (orderHubs.size() < route.getHubs().size() && route.getHubs().containsAll(orderHubs)) {
-                result.add(order);
+            if (orderHubs.size() < route.getHubs().size()) {
+                for (int i = 0; i < orderHubs.size(); i++) {
+                    if(!orderHubs.get(i).getName().equals(route.getHubs().get(i).getName())){
+                        contains = false;
+                    }
+                }
+                if(contains){
+                    result.add(order);
+                }
             }
         }
         return result;
