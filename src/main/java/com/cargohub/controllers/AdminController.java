@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -34,8 +35,9 @@ public class AdminController {
     }
 
     @PostMapping("relation")
-    public void postNewRelation(@RequestBody HubRequest hubRequest) {
+    public ResponseEntity postNewRelation(@RequestBody HubRequest hubRequest) {
         relationService.createNewRelation(hubRequest.getConnectedCity(), hubRequest.getNewCity());
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping
@@ -47,27 +49,42 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{name}")
-    public void deleteHub(@PathVariable String name) {
-        locationService.deleteCityByName(name);
-        hubService.deleteByName(name);
+    @DeleteMapping("/{hubName}")
+    public void deleteHub(@PathVariable String hubName) {
+        locationService.deleteCityByName(hubName);
+        hubService.deleteByName(hubName);
     }
 
-    @PatchMapping("/{name}")
-    public void updateHub(@PathVariable String name, @RequestBody UpdateHubDto dto) {
-        locationService.modifyCity(name, dto.getNewName());
-        HubEntity hub = hubService.findByName(name);
+    @PatchMapping("/{hubName}")
+    public ResponseEntity updateHub(@PathVariable String hubName, @RequestBody UpdateHubDto dto) {
+        locationService.modifyCity(hubName, dto.getNewName());
+        HubEntity hub = hubService.findByName(hubName);
         hub.setName(dto.getNewName());
         hubService.update(hub);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("relation")
-    public void deleteRelation(@RequestBody HubRequest hubRequest) {
+    public ResponseEntity deleteRelation(@RequestBody HubRequest hubRequest) {
         relationService.deleteMutualRelation(hubRequest.getConnectedCity(), hubRequest.getNewCity());
+        return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("relation/{name}")
-    public ResponseEntity<List<Location>> getAllConnectedHubs(@PathVariable String name) {
-        return ResponseEntity.ok(relationService.getAllConnectedLocations(name));
+    @GetMapping("relation/{hubName}")
+    public ResponseEntity<List<Location>> getAllConnectedHubs(@PathVariable String hubName) {
+        return ResponseEntity.ok(relationService.getAllConnectedLocations(hubName));
+    }
+
+    @PostMapping("/neo4j/to/mysql")
+    public ResponseEntity importAllHubsFromNeoToMysql() {
+        List<Location> allLocations = locationService.getAll();
+        List<HubEntity> hubs = new ArrayList<>();
+        for (Location location : allLocations) {
+            HubEntity hub = new HubEntity();
+            hub.setName(location.getName());
+            hubs.add(hub);
+        }
+        hubService.saveAll(hubs);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

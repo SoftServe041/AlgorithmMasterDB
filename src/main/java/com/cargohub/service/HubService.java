@@ -4,6 +4,8 @@ import com.cargohub.entities.HubEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface HubService {
 
     boolean existsById(Integer id);
@@ -17,6 +19,8 @@ public interface HubService {
     HubEntity save(HubEntity hub);
 
     Page<HubEntity> findAll(Pageable pageable);
+
+    List<HubEntity> saveAll(List<HubEntity> hubs);
 
     void delete(Integer id);
 

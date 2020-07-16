@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,6 +63,11 @@ public class HubServiceImpl implements HubService {
     @Override
     public Page<HubEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public List<HubEntity> saveAll(List<HubEntity> hubs) {
+        return (List<HubEntity>) repository.saveAll(hubs);
     }
 
     @Override
