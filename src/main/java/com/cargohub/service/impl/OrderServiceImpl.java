@@ -9,6 +9,8 @@ import com.cargohub.exceptions.OrderException;
 import com.cargohub.repository.*;
 import com.cargohub.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -113,10 +118,17 @@ public class OrderServiceImpl implements OrderService {
         List<CargoEntity> cargoList = orderEntity.getCargoEntities();
         cargoList.forEach(x -> x.setOrderEntity(orderEntity));
         RouteEntity route = orderEntity.getRoute();
-        Optional<RouteEntity> optional = routeRepository.findByHubsIn(route.getHubs());
+
+
+        List<RouteEntity> optional = routeRepository.findByHubsIn(route.getHubs());
+        Example<RouteEntity> example = Example.of(route, matcher);
+        Optional<RouteEntity> optional = routeRepository.findOne(example);
+
+
+
         if(optional.isPresent()){
             route = optional.get();
-        }
+       }
         orderEntity.setRoute(route);
         return repository.save(orderEntity);
 
