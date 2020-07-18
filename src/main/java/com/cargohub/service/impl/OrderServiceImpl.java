@@ -9,8 +9,6 @@ import com.cargohub.exceptions.OrderException;
 import com.cargohub.repository.*;
 import com.cargohub.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,9 +18,7 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -119,19 +115,26 @@ public class OrderServiceImpl implements OrderService {
         cargoList.forEach(x -> x.setOrderEntity(orderEntity));
         RouteEntity route = orderEntity.getRoute();
 
-
-        List<RouteEntity> optional = routeRepository.findByHubsIn(route.getHubs());
-        Example<RouteEntity> example = Example.of(route, matcher);
-        Optional<RouteEntity> optional = routeRepository.findOne(example);
-
-
-
-        if(optional.isPresent()){
-            route = optional.get();
-       }
+        List<RouteEntity> list = routeRepository.findByHubsIn(route.getHubs());
+        route = TryToFindRouteInRepo(route, list);
         orderEntity.setRoute(route);
         return repository.save(orderEntity);
+    }
 
+    private RouteEntity TryToFindRouteInRepo(RouteEntity route, List<RouteEntity> list) {
+        if(list.size()>0){
+            List<HubEntity> hubs = route.getHubs();
+            for(RouteEntity routeEnt : list){
+                List<String> routeEntList = routeEnt.getHubs().stream().map(HubEntity::getName).collect(Collectors.toList());
+                if(list.size() == hubs.size()){
+                    List<String> hubsList = hubs.stream().map(HubEntity::getName).collect(Collectors.toList());
+                    if(routeEntList.equals(hubsList)){
+                        route = routeEnt;
+                    }
+                }
+            }
+        }
+        return route;
     }
 
     private void getRealHubsForRoute(OrderEntity orderEntity) {
