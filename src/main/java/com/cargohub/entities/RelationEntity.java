@@ -2,6 +2,7 @@ package com.cargohub.entities;
 
 import com.cargohub.entities.enums.TransporterType;
 import lombok.*;
+import org.apache.commons.lang3.builder.ToStringExclude;
 
 import javax.persistence.*;
 

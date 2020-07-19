@@ -19,6 +19,4 @@ public interface OrderService {
     Page<OrderEntity> findAllByUserId(Integer userId, Pageable pageable);
 
     void delete(Integer id);
-
-    void simulate();
 }

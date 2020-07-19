@@ -64,12 +64,7 @@ public class LoadingServiceImpl {
         return result;
     }
 
-    //TODO remove
-    public List<OrderEntity> getAllOrdersByRoute(RouteEntity route) {
-        return orderRepository.findAllByRouteAndDeliveryStatus(route, DeliveryStatus.PROCESSING);
-    }
-
-    public List<TransporterEntity> loadAllTransportersInHub(String hubName) {
+    public void loadAllTransportersInHub(String hubName) {
         HubEntity hub = hubRepository.findByName(hubName).orElseThrow(() -> {
             throw new HubException("Hub not found");
         });
@@ -90,7 +85,6 @@ public class LoadingServiceImpl {
                 throw new TransportDetailsException("TransportDetails not found");
             }).getCellSize();
             loadCompartment(transporter.getCompartments().get(0), allOrders, ordersByArrivalHub, cellSize);
-            //TODO removing orders from map
             for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
                 for (int i = 0; i < entry.getValue().size(); i++) {
                     if (entry.getValue().get(i).getDeliveryStatus() == DeliveryStatus.ON_THE_WAY) {
@@ -104,23 +98,21 @@ public class LoadingServiceImpl {
                 break;
             }
         }
-        return allTransporters;
     }
 
-    private CarrierCompartmentEntity loadCompartment(CarrierCompartmentEntity compartment,
-                                                     List<OrderEntity> allOrders,
-                                                     Map<String, List<OrderEntity>> ordersByArrivalHub,
-                                                     double cellSize) {
+    private void loadCompartment(CarrierCompartmentEntity compartment,
+                                 List<OrderEntity> allOrders,
+                                 Map<String, List<OrderEntity>> ordersByArrivalHub,
+                                 double cellSize) {
         List<OrderEntity> ordersForLoading = optimizeOrdersForLoading(ordersByArrivalHub, allOrders, compartment, cellSize);
         List<Cargo> cargosForLoading = mapOrdersToCargos(ordersForLoading);
-        CargoHold cargoHold = initializeCargoHold(compartment, cellSize);
+        CargoHold cargoHold = restoreCargoHoldState(compartment, cellSize);
         cargoLoader3D.loadCargo(cargosForLoading, ordersForLoading.get(0).getRoute(), cargoHold);
         List<Cargo> cargoList = cargoHold.getCargoList();
         List<CargoEntity> cargoEntities = postLoadingCargoProcessing(cargoList, ordersForLoading, compartment);
         compartment.setFreeSpace(0d);
         compartment.setCargoEntities(cargoEntities);
         carrierCompartmentRepository.save(compartment);
-        return compartment;
     }
 
     private List<CargoEntity> postLoadingCargoProcessing(List<Cargo> cargoList,
@@ -193,7 +185,7 @@ public class LoadingServiceImpl {
             double ordersVolume = computeOrderListVolume(ordersForLoading);
             double ordersWeight = computeOrderListWeight(ordersForLoading);
             List<Cargo> cargosForLoading = mapOrdersToCargos(ordersForLoading);
-            CargoHold cargoHold = initializeCargoHold(compartment, cellSize);
+            CargoHold cargoHold = restoreCargoHoldState(compartment, cellSize);
             if (cargoLoader3D.checkLoadingForOrder(cargosForLoading, cargoHold.getLoadingMatrix())) {
                 if (Math.abs(compartmentVolume - ordersVolume) <= accuracy
                         && ordersWeight <= compartmentMaximumWeight) {
@@ -209,23 +201,25 @@ public class LoadingServiceImpl {
         return ordersForLoading;
     }
 
-    private CargoHold restoreCargoHold(CarrierCompartmentEntity compartment, double cellSize) {
+    private CargoHold restoreCargoHoldState(CarrierCompartmentEntity compartment, double cellSize) {
         DimensionsEntity volume = compartment.getVolume();
-        int depthInCells = (int) (volume.getLength() / cellSize);
         int heightInCells = (int) (volume.getHeight() / cellSize);
+        int depthInCells = (int) (volume.getLength() / cellSize);
         int widthInCells = (int) (volume.getWidth() / cellSize);
         int[][][] loadingMatrix = new int[depthInCells][heightInCells][widthInCells];
         List<CargoEntity> cargoEntities = compartment.getCargoEntities();
-        for (CargoEntity cargo : cargoEntities) {
-            CargoPositionEntity cargoPosition = cargo.getCargoPosition();
-            DimensionsEntity dimensions = cargo.getDimensions();
-            int cargoDepthInCells = (int) (dimensions.getLength() / cellSize);
-            int cargoHeightInCells = (int) (dimensions.getHeight() / cellSize);
-            int cargoWidthInCells = (int) (dimensions.getWidth() / cellSize);
-            for (int i = cargoPosition.getLengthPos(); i < cargoPosition.getLengthPos() + cargoDepthInCells; i++) {
-                for (int j = cargoPosition.getHeightPos(); j < cargoPosition.getHeightPos() + cargoHeightInCells; j++) {
-                    for (int k = cargoPosition.getWidthPos(); k < cargoPosition.getWidthPos() + cargoWidthInCells; k++) {
-                        loadingMatrix[i][j][k] = 1;
+        if (cargoEntities != null && cargoEntities.size() != 0) {
+            for (CargoEntity cargo : cargoEntities) {
+                CargoPositionEntity cargoPosition = cargo.getCargoPosition();
+                DimensionsEntity dimensions = cargo.getDimensions();
+                int cargoDepthInCells = (int) (dimensions.getLength() / cellSize);
+                int cargoHeightInCells = (int) (dimensions.getHeight() / cellSize);
+                int cargoWidthInCells = (int) (dimensions.getWidth() / cellSize);
+                for (int i = cargoPosition.getLengthPos(); i < cargoPosition.getLengthPos() + cargoDepthInCells; i++) {
+                    for (int j = cargoPosition.getHeightPos(); j < cargoPosition.getHeightPos() + cargoHeightInCells; j++) {
+                        for (int k = cargoPosition.getWidthPos(); k < cargoPosition.getWidthPos() + cargoWidthInCells; k++) {
+                            loadingMatrix[i][j][k] = 1;
+                        }
                     }
                 }
             }
@@ -240,59 +234,15 @@ public class LoadingServiceImpl {
                 compartment.getMaximumWeight().intValue() * 1000,
                 loadingMatrix);
         List<CargoEntity> cargoEntities = compartment.getCargoEntities();
-        for (CargoEntity cargoEntity : cargoEntities) {
-            if(!cargoHold.getLoadedCargo().containsKey(cargoEntity.getFinalDestination())){
-                cargoHold.getLoadedCargo().put(cargoEntity.getFinalDestination(), new ArrayList<>());
+        if (cargoEntities != null && cargoEntities.size() != 0) {
+            for (CargoEntity cargoEntity : cargoEntities) {
+                if (!cargoHold.getLoadedCargo().containsKey(cargoEntity.getFinalDestination())) {
+                    cargoHold.getLoadedCargo().put(cargoEntity.getFinalDestination(), new ArrayList<>());
+                }
+                cargoHold.getLoadedCargo().get(cargoEntity.getFinalDestination()).add(Cargo.toCargo(cargoEntity));
             }
-            cargoHold.getLoadedCargo().get(cargoEntity.getFinalDestination()).add(Cargo.toCargo(cargoEntity));
         }
         return cargoHold;
-    }
-
-    //TODO remove this
-    private boolean fillOrdersForLoadingList(CarrierCompartmentEntity compartment,
-                                             List<OrderEntity> sameRouteOrders,
-                                             List<OrderEntity> ordersForLoading) {
-        double compartmentVolume = computeCompartmentVolume(compartment) * 0.8; // 80% of max volume
-        double compartmentMaxWeight = compartment.getMaximumWeight() * 1000;
-        double accuracy = compartmentVolume * 0.05; // 5% accuracy (5% of setup == 4% of total)
-        double ordersVolume;
-        double ordersWeight;
-        for (OrderEntity order : sameRouteOrders) {
-            ordersForLoading.add(order);
-            ordersVolume = computeOrderListVolume(ordersForLoading);
-            ordersWeight = computeOrderListWeight(ordersForLoading);
-            if (Math.abs(compartmentVolume - ordersVolume) < accuracy && ordersWeight <= compartmentMaxWeight) {
-                return true;
-            } else {
-                if (compartmentVolume < ordersVolume || ordersWeight <= compartmentMaxWeight) {
-                    ordersForLoading.remove(order);
-                }
-            }
-        }
-        return false;
-    }
-
-    private CargoHold initializeCargoHold(CarrierCompartmentEntity compartment, double cellSize) {
-        double width = compartment.getVolume().getWidth();
-        double height = compartment.getVolume().getHeight();
-        double length = compartment.getVolume().getLength();
-        double maximumWeight = compartment.getMaximumWeight();
-        // Got from previous version KHJ-71 branch commit
-        // 85eaf2de266f7fa76205964800f07e098e68b88b
-        int[][][] loadMatrix = new int[(int) (length / cellSize)][(int) (height / cellSize)][(int) (width / cellSize)];
-        return new CargoHold(width, height, length, (int) maximumWeight, loadMatrix);
-    }
-
-    //TODO remove this
-    private double computeTransporterVolume(TransporterEntity transporter) {
-        DimensionsEntity dimensions;
-        double result = 0d;
-        for (CarrierCompartmentEntity compartment : transporter.getCompartments()) {
-            dimensions = compartment.getVolume();
-            result += dimensions.getHeight() * dimensions.getWidth() * dimensions.getLength();
-        }
-        return result;
     }
 
     private double computeCompartmentVolume(CarrierCompartmentEntity compartment) {
@@ -377,25 +327,6 @@ public class LoadingServiceImpl {
         return result;
     }
 
-    //TODO remove this
-    private List<OrderEntity> findOrdersWithLargerRoute(List<OrderEntity> allOrders, RouteEntity route) {
-        List<OrderEntity> result = new ArrayList<>();
-        RouteEntity firstMatchingRoute = null;
-        for (OrderEntity order : allOrders) {
-            List<HubEntity> orderHubs = order.getRoute().getHubs();
-            if (orderHubs.size() > route.getHubs().size() && orderHubs.containsAll(order.getRoute().getHubs())) {
-                if (firstMatchingRoute == null) {
-                    firstMatchingRoute = order.getRoute();
-                }
-                if (order.getRoute().equals(firstMatchingRoute)) {
-                    result.add(order);
-                }
-            }
-        }
-        return result;
-    }
-
-    // TODO: Check comparators
     // Create multiple comparator
     class OrderChainedComparator implements Comparator<OrderEntity> {
 
@@ -433,7 +364,6 @@ public class LoadingServiceImpl {
         }
     }
 
-    // TODO: Check this method
     // Sort cargo by route and volume from largest route and biggest volume to
     // shortest
     // route and smallest volume

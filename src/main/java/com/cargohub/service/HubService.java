@@ -20,10 +20,11 @@ public interface HubService {
 
     Page<HubEntity> findAll(Pageable pageable);
 
-    void saveAll(List<HubEntity> hubs);
+    List<HubEntity> saveAll(List<HubEntity> hubs);
 
     void delete(Integer id);
 
     void deleteByName(String name);
 
+    void exportAllFromNeo();
 }
