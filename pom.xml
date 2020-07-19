@@ -121,7 +121,8 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.4.2</version>
                 <configuration>
-                    <url>jdbc:mysql://localhost:3306/cargo_transports?serverTimezone=UTC</url>
+<!--                    <url>jdbc:mysql://localhost:3306/cargo_transports?serverTimezone=UTC</url>-->
+                    <url>jdbc:mysql://mysql:3306/cargo_transports?serverTimezone=Europe/Kiev&amp;autoReconnect=true&amp;useSSL=false</url>
                     <user>root</user>
                     <password>CargoUsers</password>
                 </configuration>
