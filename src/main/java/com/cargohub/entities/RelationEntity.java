@@ -19,11 +19,11 @@ public class RelationEntity {
     @Column
     Double distance;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "connected_hub_id")
     HubEntity connectedHub;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_hub_id")
     HubEntity ownerHub;
 

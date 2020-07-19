@@ -40,8 +40,8 @@ public class OrderSimulation {
         order.setPrice(200.0);
         order.setDeliveryStatus(DeliveryStatus.PROCESSING);
         order.setRoute(route);
-        order.setArrivalHub(hubs.get(0));
-        order.setDepartureHub(hubs.get(hubs.size() - 1));
+        order.setDepartureHub(hubs.get(0));
+        order.setArrivalHub(hubs.get(hubs.size() - 1));
         order.setTrackingId("ch" + random.nextInt(100) + counter++ + order.getArrivalHub().getName().hashCode() +
                 random.nextInt(1000));
         Date date = new Date();
@@ -76,6 +76,7 @@ public class OrderSimulation {
         int randWeight = 10;
         while (currentVolume < volume) {
             CargoEntity cargo = new CargoEntity();
+            cargo.setOrderEntity(orderEntity);
             cargo.setDeliveryStatus(orderEntity.getDeliveryStatus());
             cargo.setStartingDestination(orderEntity.getDepartureHub().getName());
             cargo.setFinalDestination(orderEntity.getArrivalHub().getName());
@@ -85,7 +86,6 @@ public class OrderSimulation {
             currentVolume += cargoVolume;
             cargo.setDimensions(dimensionsEntity);
             cargoList.add(cargo);
-
         }
         orderEntity.setCargoEntities(cargoList);
     }

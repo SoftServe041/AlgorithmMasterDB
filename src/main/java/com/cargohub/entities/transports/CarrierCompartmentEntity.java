@@ -28,10 +28,10 @@ public class CarrierCompartmentEntity {
     @Column
     Double freeSpace;
 
-    @OneToMany(mappedBy = "carrierCompartment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "carrierCompartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<CargoEntity> cargoEntities;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "volume_id", referencedColumnName = "id")
     DimensionsEntity volume;
 

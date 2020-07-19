@@ -129,4 +129,9 @@ public class OrderServiceImpl implements OrderService {
         }
         throw new OrderException("Cargo not found");
     }
+
+    @Override
+    public List<OrderEntity> saveAll(List<OrderEntity> orders) {
+        return (List<OrderEntity>) repository.saveAll(orders);
+    }
 }
