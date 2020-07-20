@@ -30,23 +30,8 @@ public class SimulationServiceImpl {
     }
 
     public void simulate() {
-//        RouteEntity route = new RouteEntity();
-//        RouteEntity route1 = new RouteEntity();
-//        List<HubEntity> hubList = new ArrayList<>();
         HubEntity hub = new HubEntity();
-//        hub.setName("Stuttgart");
-//        hubList.add(hub);
-//        hub = new HubEntity();
-//        hub.setName("Frankfurt");
-//        hubList.add(hub);
-//        hub = new HubEntity();
         hub.setName("Berlin");
-//        hubList.add(hub);
-//        route.setHubs(hubList);
-//        hubList.remove(hubList.size() - 1);
-//        route1.setHubs(hubList);
-//        OrderEntity orderEntity = orderSimulation.getNewOrder(route, 30.0);
-//        orderSimulation.getNewOrder(route, 30.0);
         hub = hubRepository.findByName(hub.getName()).orElseThrow();
         fillHub(hub);
     }

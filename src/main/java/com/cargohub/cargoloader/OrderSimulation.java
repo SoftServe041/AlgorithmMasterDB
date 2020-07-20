@@ -31,8 +31,6 @@ public class OrderSimulation {
 
     public OrderEntity getNewOrder(RouteEntity route, Double volume) {
         List<HubEntity> hubs = route.getHubs();
-//        List<RouteModel> routes = routeNeo4jServiceImpl.getRoute(hubs.get(0).getName(),
-//                hubs.get(hubs.size() - 1).getName());
         double distance = findDistanceForRoute(route);
         Random random = new Random();
         OrderEntity order = new OrderEntity();

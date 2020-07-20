@@ -5,10 +5,10 @@ import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = "id")
 @Table(name = "cargo")
 public class CargoEntity {
 
@@ -44,4 +44,22 @@ public class CargoEntity {
     @Column
     @Enumerated(EnumType.STRING)
     DeliveryStatus deliveryStatus;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CargoEntity that = (CargoEntity) o;
+        return Objects.equals(weight, that.weight) &&
+                Objects.equals(startingDestination, that.startingDestination) &&
+                Objects.equals(finalDestination, that.finalDestination) &&
+                Objects.equals(dimensions, that.dimensions) &&
+                Objects.equals(cargoPosition, that.cargoPosition) &&
+                deliveryStatus == that.deliveryStatus;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(weight, startingDestination, finalDestination, dimensions, cargoPosition, deliveryStatus);
+    }
 }
