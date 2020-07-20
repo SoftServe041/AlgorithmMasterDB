@@ -29,7 +29,7 @@ public class CargoLoader3D {
     }
 
     // Main method, takes boxes, route and cargo hold, changes cargo hold state
-    public void loadCargo(List<Cargo> boxes, RouteEntity route, CargoHold cargohold) {
+    public synchronized void loadCargo(List<Cargo> boxes, RouteEntity route, CargoHold cargohold) {
 
         // First of all sort all boxes by destination, fragility and volume
         cargoSorter.sortCargoByDestination(boxes, route);

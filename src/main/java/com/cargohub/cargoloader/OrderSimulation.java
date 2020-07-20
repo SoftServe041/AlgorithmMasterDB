@@ -3,7 +3,6 @@ package com.cargohub.cargoloader;
 import com.cargohub.entities.*;
 import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.exceptions.RouteException;
-import com.cargohub.models.RouteModel;
 import com.cargohub.service.impl.RouteNeo4jServiceImpl;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Component
 public class OrderSimulation {
@@ -27,7 +25,7 @@ public class OrderSimulation {
     }
 
     @Setter
-    Double averageSpeed = 60d;
+    Double averageSpeed = 60000d;
 
     public OrderEntity getNewOrder(RouteEntity route, Double volume) {
         List<HubEntity> hubs = route.getHubs();
@@ -46,6 +44,7 @@ public class OrderSimulation {
         order.setCreated(date);
         setCargo(order, volume);
         double hours = distance / averageSpeed;
+        //replace here
         int days = (int) hours / 10 + (((int) hours % 10) < 5 ? 0 : 1);
         LocalDate localDate = LocalDate.now().plusDays(days);
         order.setEstimatedDeliveryDate(Date.from(localDate.atStartOfDay()
@@ -59,17 +58,17 @@ public class OrderSimulation {
         double distance = 0;
         for (int i = 0; i < hubs.size() - 1; i++) {
             List<RelationEntity> relations = hubs.get(i).getRelations();
-            for (RelationEntity relation: relations                 ) {
-                if(relation.getConnectedHub().getName().equals(hubs.get(i + 1).getName())){
+            for (RelationEntity relation : relations) {
+                if (relation.getConnectedHub().getName().equals(hubs.get(i + 1).getName())) {
                     distance += relation.getDistance();
                     break;
                 }
             }
         }
-        if(distance == 0){
+        if (distance == 0) {
             throw new RouteException("no such route");
         }
-        return distance;
+        return distance / 1000;
     }
 
     private void setCargo(OrderEntity orderEntity, Double volume) {
