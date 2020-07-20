@@ -22,15 +22,16 @@ public class OrderSimulation {
     private static long counter = 0;
     private final RouteNeo4jServiceImpl routeNeo4jServiceImpl;
 
-    public OrderSimulation(RouteNeo4jServiceImpl routeNeo4jServiceImpl){
+    public OrderSimulation(RouteNeo4jServiceImpl routeNeo4jServiceImpl) {
         this.routeNeo4jServiceImpl = routeNeo4jServiceImpl;
     }
+
     @Setter
     Double averageSpeed = 60d;
 
-    public OrderEntity getNewOrder(RouteEntity route, Double volume){
+    public OrderEntity getNewOrder(RouteEntity route, Double volume) {
         List<HubEntity> hubs = route.getHubs();
-        List<RouteModel> routes = routeNeo4jServiceImpl.getRoute(hubs.get(0).getName(),hubs.get(hubs.size()-1).getName());
+        List<RouteModel> routes = routeNeo4jServiceImpl.getRoute(hubs.get(0).getName(), hubs.get(hubs.size() - 1).getName());
         double distance = findDistanceForRoute(routes, hubs);
         Random random = new Random();
         OrderEntity order = new OrderEntity();
@@ -38,9 +39,9 @@ public class OrderSimulation {
         order.setPrice(200.0);
         order.setDeliveryStatus(DeliveryStatus.PROCESSING);
         order.setRoute(route);
-        order.setArrivalHub(hubs.get(0));
-        order.setDepartureHub(hubs.get(hubs.size()-1));
-        order.setTrackingId("ch" + random.nextInt(100) + counter++ + order.getArrivalHub().getName().hashCode()+ random.nextInt(1000));
+        order.setArrivalHub(hubs.get(hubs.size() - 1));
+        order.setDepartureHub(hubs.get(0));
+        order.setTrackingId("ch" + random.nextInt(100) + counter++ + order.getArrivalHub().getName().hashCode() + random.nextInt(1000));
         Date date = new Date();
         order.setCreated(date);
         setCargo(order, volume);
@@ -54,11 +55,11 @@ public class OrderSimulation {
     }
 
     private double findDistanceForRoute(List<RouteModel> routes, List<HubEntity> hubs) {
-        for(RouteModel routeModel : routes){
+        for (RouteModel routeModel : routes) {
             List<String> list = routeModel.getRoutes();
-            if(list.size() == hubs.size()){
+            if (list.size() == hubs.size()) {
                 List<String> hubsList = hubs.stream().map(HubEntity::getName).collect(Collectors.toList());
-                if(list.equals(hubsList)){
+                if (list.equals(hubsList)) {
                     return routeModel.getDistance();
                 }
             }
@@ -71,12 +72,12 @@ public class OrderSimulation {
         List<CargoEntity> cargoList = new ArrayList<>();
         Random random = new Random();
         int randWeight = 10;
-        while(currentVolume < volume) {
+        while (currentVolume < volume) {
             CargoEntity cargo = new CargoEntity();
             cargo.setDeliveryStatus(orderEntity.getDeliveryStatus());
             cargo.setStartingDestination(orderEntity.getDepartureHub().getName());
             cargo.setFinalDestination(orderEntity.getArrivalHub().getName());
-            cargo.setWeight((double) random.nextInt(randWeight)+1);
+            cargo.setWeight((double) random.nextInt(randWeight) + 1);
             DimensionsEntity dimensionsEntity = getRandDimensions();
             double cargoVolume = dimensionsEntity.getHeight()*dimensionsEntity.getLength()*dimensionsEntity.getWidth();
             currentVolume += cargoVolume;
@@ -94,24 +95,25 @@ public class OrderSimulation {
         int rand = random.nextInt(max);
         switch (rand) {
             case 0: {
-                return returnSetDimensions(0.3, 0.3,0.3);
+                return returnSetDimensions(0.3, 0.3, 0.3);
             }
             case 1: {
-                return returnSetDimensions(0.6, 0.6,0.6);
+                return returnSetDimensions(0.6, 0.6, 0.6);
             }
             case 2: {
-                return returnSetDimensions(0.6, 0.6,0.9);
+                return returnSetDimensions(0.6, 0.6, 0.9);
             }
             case 3: {
-                return returnSetDimensions(0.6, 0.9,0.9);
+                return returnSetDimensions(0.6, 0.9, 0.9);
             }
             case 4: {
-                return returnSetDimensions(0.9, 0.9,0.9);
+                return returnSetDimensions(0.9, 0.9, 0.9);
             }
         }
         return null;
     }
-    private DimensionsEntity returnSetDimensions(double height, double width, double length){
+
+    private DimensionsEntity returnSetDimensions(double height, double width, double length) {
         DimensionsEntity dimensions = new DimensionsEntity();
         dimensions.setHeight(height);
         dimensions.setWidth(width);

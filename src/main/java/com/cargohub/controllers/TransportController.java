@@ -43,6 +43,15 @@ public class TransportController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/batch")
+    ResponseEntity<?> createTransporters(@RequestBody TransporterDto[] transporterDtos) {
+        for (TransporterDto transporterDto : transporterDtos) {
+            Transporter transporter = transporterDto.toTransporter();
+            service.save(transporter);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @PutMapping
     ResponseEntity<?> updateTransporter(@RequestBody TransporterDto transporterDto) {
         TransporterEntity transporter = transporterDto.toTransporter();
