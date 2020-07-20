@@ -265,7 +265,7 @@ public class CargoLoader3D {
 
                     // Check if height = top
                 } else if (currentHeight == loadingMatrix[0].length - 1) {
-                    printMatrix(loadingMatrix);
+                    //printMatrix(loadingMatrix);
                     // Check if width < end
                     if (currentWidth < loadingMatrix[0][0].length - 1) {
 

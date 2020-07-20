@@ -71,10 +71,10 @@ public class SimulationServiceImpl {
             List<RouteEntity> routes = entry.getValue();
             for (RouteEntity route : routes) {
                 TransporterEntity transporter = initializeTransporter(route.getHubs().get(0));
-                double compartmentVolume = computeCompartmentVolume(transporter.getCompartments().get(0));
+                double compartmentVolume = computeCompartmentVolume(transporter.getCompartments().get(0)) - 4;
                 // in Alexey`s simulation the upper range is limited by last added box volume,
                 // so the biggest box volume is 1.728 and i am decreasing order`s volume by 1.5
-                double ordersVolume = compartmentVolume / (route.getHubs().size() - 1) - 1.5;
+                double ordersVolume = compartmentVolume / (route.getHubs().size() - 1);
                 List<OrderEntity> orders = formOrders(route, ordersVolume);
                 saveAllGeneratedEntities(orders, transporter);
             }
@@ -94,14 +94,19 @@ public class SimulationServiceImpl {
         orderService.saveAll(orders);
     }
 
-    private List<OrderEntity> formOrders(RouteEntity route, Double ordersVolume) {
+    private List<OrderEntity> formOrders(RouteEntity route, double ordersVolume) {
         List<OrderEntity> result = new ArrayList<>();
         for (int i = 1; i < route.getHubs().size(); i++) {
-            RouteEntity formingRoute = new RouteEntity();
-            List<HubEntity> hubs = route.getHubs().subList(0, i + 1);
-            formingRoute.setHubs(hubs);
-            OrderEntity order = orderSimulation.getNewOrder(formingRoute,ordersVolume);
-            result.add(order);
+            RouteEntity formingRoute1 = new RouteEntity();
+            RouteEntity formingRoute2 = new RouteEntity();
+            List<HubEntity> hubs1 = route.getHubs().subList(0, i + 1);
+            List<HubEntity> hubs2 = new ArrayList<>(hubs1);
+            formingRoute1.setHubs(hubs1);
+            formingRoute2.setHubs(hubs2);
+            OrderEntity order1 = orderSimulation.getNewOrder(formingRoute1,ordersVolume / 2);
+            OrderEntity order2 = orderSimulation.getNewOrder(formingRoute2,ordersVolume / 2);
+            result.add(order1);
+            result.add(order2);
         }
         return result;
     }

@@ -5,6 +5,7 @@ import com.cargohub.entities.RelationEntity;
 import com.cargohub.entities.enums.TransporterType;
 import com.cargohub.exceptions.HubException;
 import com.cargohub.models.Location;
+import com.cargohub.models.RouteModel;
 import com.cargohub.repository.HubRepository;
 import com.cargohub.service.HubService;
 import com.cargohub.service.RelationService;
@@ -23,16 +24,18 @@ public class HubServiceImpl implements HubService {
     private final RelationService relationService;
     private final LocationServiceNeo4j locationServiceNeo4j;
     private final RelationServiceNeo4j relationServiceNeo4j;
+    private final RouteNeo4jServiceImpl routeNeo4jService;
 
     @Autowired
     public HubServiceImpl(HubRepository repository,
                           RelationService relationService,
                           LocationServiceNeo4j locationServiceNeo4j,
-                          RelationServiceNeo4j relationServiceNeo4j) {
+                          RelationServiceNeo4j relationServiceNeo4j, RouteNeo4jServiceImpl routeNeo4jService) {
         this.repository = repository;
         this.relationService = relationService;
         this.locationServiceNeo4j = locationServiceNeo4j;
         this.relationServiceNeo4j = relationServiceNeo4j;
+        this.routeNeo4jService = routeNeo4jService;
     }
 
     @Override
@@ -121,7 +124,8 @@ public class HubServiceImpl implements HubService {
                 RelationEntity relationEntity = new RelationEntity();
                 relationEntity.setOwnerHub(hubEntity);
                 relationEntity.setConnectedHub(hubByName.get(location.getName()));
-                relationEntity.setDistance(0d);
+                List<RouteModel> route = routeNeo4jService.getRoute(hubEntity.getName(), location.getName());
+                relationEntity.setDistance(route.get(0).getDistance());
                 relationEntity.setRelationType(TransporterType.TRUCK);
                 relations.add(relationEntity);
             }

@@ -31,9 +31,9 @@ public class OrderSimulation {
 
     public OrderEntity getNewOrder(RouteEntity route, Double volume) {
         List<HubEntity> hubs = route.getHubs();
-        List<RouteModel> routes = routeNeo4jServiceImpl.getRoute(hubs.get(0).getName(),
-                hubs.get(hubs.size() - 1).getName());
-        double distance = findDistanceForRoute(routes, hubs);
+//        List<RouteModel> routes = routeNeo4jServiceImpl.getRoute(hubs.get(0).getName(),
+//                hubs.get(hubs.size() - 1).getName());
+        double distance = findDistanceForRoute(route);
         Random random = new Random();
         OrderEntity order = new OrderEntity();
         order.setUserId(1);
@@ -56,17 +56,22 @@ public class OrderSimulation {
         return order;
     }
 
-    private double findDistanceForRoute(List<RouteModel> routes, List<HubEntity> hubs) {
-        for (RouteModel routeModel : routes) {
-            List<String> list = routeModel.getRoutes();
-            if (list.size() == hubs.size()) {
-                List<String> hubsList = hubs.stream().map(HubEntity::getName).collect(Collectors.toList());
-                if (list.equals(hubsList)) {
-                    return routeModel.getDistance();
+    private double findDistanceForRoute(RouteEntity route) {
+        List<HubEntity> hubs = route.getHubs();
+        double distance = 0;
+        for (int i = 0; i < hubs.size() - 1; i++) {
+            List<RelationEntity> relations = hubs.get(i).getRelations();
+            for (RelationEntity relation: relations                 ) {
+                if(relation.getConnectedHub().getName().equals(hubs.get(i + 1).getName())){
+                    distance += relation.getDistance();
+                    break;
                 }
             }
         }
-        throw new RouteException("no such route");
+        if(distance == 0){
+            throw new RouteException("no such route");
+        }
+        return distance;
     }
 
     private void setCargo(OrderEntity orderEntity, Double volume) {
