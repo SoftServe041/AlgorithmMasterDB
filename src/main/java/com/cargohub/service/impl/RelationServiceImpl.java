@@ -1,7 +1,10 @@
 package com.cargohub.service.impl;
 
+import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.RelationEntity;
+import com.cargohub.exceptions.HubException;
 import com.cargohub.exceptions.RelationException;
+import com.cargohub.repository.HubRepository;
 import com.cargohub.repository.RelationRepository;
 import com.cargohub.service.RelationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +12,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RelationServiceImpl implements RelationService {
 
     private final RelationRepository repository;
+    private final HubRepository hubRepository;
 
     @Autowired
-    public RelationServiceImpl(RelationRepository repository) {
+    public RelationServiceImpl(RelationRepository repository, HubRepository hubRepository) {
         this.repository = repository;
+        this.hubRepository = hubRepository;
     }
 
     @Override
@@ -51,6 +58,11 @@ public class RelationServiceImpl implements RelationService {
     }
 
     @Override
+    public List<RelationEntity> saveAll(List<RelationEntity> relations) {
+        return (List<RelationEntity>) repository.saveAll(relations);
+    }
+
+    @Override
     public Page<RelationEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
@@ -62,5 +74,18 @@ public class RelationServiceImpl implements RelationService {
             return;
         }
         throw new RelationException("Cargo not found");
+    }
+
+    @Override
+    public void deleteByOwnerAndConnectedHubs(String connectedHubName, String ownerHubName) {
+        HubEntity connectedHub = hubRepository.findByName(connectedHubName).
+                orElseThrow(() -> {
+                    throw new HubException("Hub not found by name: " + connectedHubName);
+                });
+        HubEntity ownerHub = hubRepository.findByName(ownerHubName).
+                orElseThrow(() -> {
+                    throw new HubException("Hub not found by name: " + ownerHubName);
+                });
+        repository.deleteAllByConnectedHubAndOwnerHub(connectedHub, ownerHub);
     }
 }

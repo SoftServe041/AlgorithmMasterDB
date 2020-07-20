@@ -1,9 +1,6 @@
 package com.cargohub.dto;
 
-import com.cargohub.entities.CargoEntity;
-import com.cargohub.entities.DimensionsEntity;
-import com.cargohub.entities.HubEntity;
-import com.cargohub.entities.OrderEntity;
+import com.cargohub.entities.*;
 import com.cargohub.entities.enums.DeliveryStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +16,12 @@ import java.util.List;
 public class RequestOrderDto {
 
     private Double price;
+    private String trackingId;
     private Date estimatedDeliveryDate;
     private String departureHub;
     private String arrivalHub;
     private List<CargoDto> cargos;
-
+    private RouteDto route;
 
     public static OrderEntity reqOrderToEntity(RequestOrderDto reqOrder) {
         OrderEntity orderEntity = new OrderEntity();
@@ -36,7 +34,9 @@ public class RequestOrderDto {
         orderEntity.setDeliveryStatus(DeliveryStatus.PROCESSING);
         orderEntity.setEstimatedDeliveryDate(reqOrder.getEstimatedDeliveryDate());
         orderEntity.setPrice(reqOrder.getPrice());
+        orderEntity.setTrackingId(reqOrder.getTrackingId());
         List<CargoEntity> entities = new ArrayList<>();
+        orderEntity.setRoute(reqOrder.getRoute().toEntity());
         for (CargoDto dto : reqOrder.getCargos()) {
             CargoEntity entity = new CargoEntity();
             entity.setWeight(dto.getWeight());

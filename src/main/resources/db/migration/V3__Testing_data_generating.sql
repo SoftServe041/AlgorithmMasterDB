@@ -1,9 +1,9 @@
-INSERT INTO hub
-values (default, 'Kharkiv'),
-       (default, 'Poltava'),
-       (default, 'Myrhorod'),
-       (default, 'Kyiv'),
-       (default, 'Lviv'),
-       (default, 'Odesa'),
-       (default, 'Sumy'),
-       (default, 'Pavlograd');
+# INSERT INTO hub
+# values (default, 'Lausanne'),
+#        (default, 'Geneva'),
+#        (default, 'Bern'),
+#        (default, 'Basel'),
+#        (default, 'Zurich'),
+#        (default, 'Lucerne'),
+#        (default, 'Munich'),
+#        (default, 'Berlin');

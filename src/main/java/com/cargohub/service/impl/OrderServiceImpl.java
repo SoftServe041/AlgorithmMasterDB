@@ -1,42 +1,36 @@
 package com.cargohub.service.impl;
 
 import com.cargohub.entities.CargoEntity;
+import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.OrderEntity;
+import com.cargohub.entities.RouteEntity;
 import com.cargohub.exceptions.OrderException;
-import com.cargohub.repository.CargoRepository;
-import com.cargohub.repository.DimensionsRepository;
 import com.cargohub.repository.HubRepository;
 import com.cargohub.repository.OrderRepository;
+import com.cargohub.repository.RouteRepository;
 import com.cargohub.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository repository;
-    private final CargoRepository cargoRepository;
     private final HubRepository hubRepository;
-    private final DimensionsRepository dimensionsRepository;
+    private final RouteRepository routeRepository;
 
-    @PersistenceContext
-    private EntityManager em;
-
-    @Autowired
     public OrderServiceImpl(OrderRepository repository,
-                            CargoRepository cargoRepository,
                             HubRepository hubRepository,
-                            DimensionsRepository dimensionsRepository) {
+                            RouteRepository routeRepository
+    ) {
         this.repository = repository;
-        this.cargoRepository = cargoRepository;
         this.hubRepository = hubRepository;
-        this.dimensionsRepository = dimensionsRepository;
+        this.routeRepository = routeRepository;
     }
 
     @Override
@@ -75,19 +69,52 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderEntity save(OrderEntity orderEntity) {
+
         if (orderEntity.getId() != null) {
             throw new OrderException("Illegal state for Order");
         }
-        orderEntity.setTrackingId(generateTrackingId(orderEntity.getDepartureHub().getName(), orderEntity.getArrivalHub().getName(), orderEntity.getUserId()));
-        for (CargoEntity cargo : orderEntity.getCargoEntities()
-        ) {
-            dimensionsRepository.save(cargo.getDimensions());
-            cargoRepository.save(cargo);
+        orderEntity.setArrivalHub(getRealHubFromName(orderEntity.getArrivalHub()));
+        orderEntity.setDepartureHub(getRealHubFromName(orderEntity.getDepartureHub()));
+
+        getRealHubsForRoute(orderEntity);
+        orderEntity.getRoute().getOrder().add(orderEntity);
+        List<CargoEntity> cargoList = orderEntity.getCargoEntities();
+        cargoList.forEach(x -> x.setOrderEntity(orderEntity));
+        RouteEntity route = orderEntity.getRoute();
+        Optional<RouteEntity> optional = routeRepository.findByHubsIn(route.getHubs());
+        if (optional.isPresent()) {
+            route = optional.get();
         }
-        hubRepository.save(orderEntity.getArrivalHub());
-        hubRepository.save(orderEntity.getDepartureHub());
+        orderEntity.setRoute(route);
         return repository.save(orderEntity);
+
     }
+
+    private void getRealHubsForRoute(OrderEntity orderEntity) {
+        RouteEntity route = orderEntity.getRoute();
+        route.setOrder(new ArrayList<>());
+        List<HubEntity> list = new ArrayList<>();
+        for (HubEntity hub : route.getHubs()) {
+            Optional<HubEntity> optional = hubRepository.findByName(hub.getName());
+            if (optional.isPresent()) {
+                list.add(optional.get());
+            } else {
+                throw new IllegalArgumentException("No such hub");
+            }
+
+        }
+        route.setHubs(list);
+    }
+
+    private HubEntity getRealHubFromName(HubEntity hub) {
+        Optional<HubEntity> optional = hubRepository.findByName(hub.getName());
+        if (optional.isPresent())
+            return optional.get();
+        else {
+            throw new IllegalArgumentException("No such hub");
+        }
+    }
+
 
     @Override
     public Page<OrderEntity> findAll(Pageable pageable) {
@@ -103,23 +130,8 @@ public class OrderServiceImpl implements OrderService {
         throw new OrderException("Cargo not found");
     }
 
-    private String generateTrackingId(String firstCity, String secondCity, long id) {
-        final Random random = new Random();
-
-        byte[] byteCity1 = firstCity.getBytes();
-        byte[] byteCity2 = secondCity.getBytes();
-
-        StringBuffer returnStr = new StringBuffer();
-        for (byte a : byteCity1) {
-            returnStr.append(a);
-        }
-        for (byte a : byteCity2) {
-            returnStr.append(a);
-        }
-        returnStr.append(id);
-        returnStr.append(random.nextInt());
-        returnStr.append(System.currentTimeMillis() % 100);
-
-        return returnStr.toString();
+    @Override
+    public List<OrderEntity> saveAll(List<OrderEntity> orders) {
+        return (List<OrderEntity>) repository.saveAll(orders);
     }
 }

@@ -2,6 +2,7 @@ package com.cargohub.entities;
 
 import com.cargohub.entities.enums.TransporterType;
 import lombok.*;
+import org.apache.commons.lang3.builder.ToStringExclude;
 
 import javax.persistence.*;
 
@@ -18,11 +19,11 @@ public class RelationEntity {
     @Column
     Double distance;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "connected_hub_id")
     HubEntity connectedHub;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_hub_id")
     HubEntity ownerHub;
 

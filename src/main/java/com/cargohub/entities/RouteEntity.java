@@ -31,6 +31,6 @@ public class RouteEntity {
         for (HubEntity hub : hubs) {
             route.append(hub.name).append(" ");
         }
-        return "route = [ " + route.toString() + "]}";
+        return "route = [ " + route.toString() + "]";
     }
 }
