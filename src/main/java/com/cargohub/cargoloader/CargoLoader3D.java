@@ -261,7 +261,6 @@ public class CargoLoader3D {
 
 					// Check if height = top
 				} else if (currentHeight == loadingMatrix[0].length - 1) {
-					printMatrix(loadingMatrix);
 					// Check if width < end
 					if (currentWidth < loadingMatrix[0][0].length - 1) {
 
@@ -350,12 +349,10 @@ public class CargoLoader3D {
 
 			// Check if there are no ways
 			if (currentHeight == 0 & currentWidth == loadingMatrix[0][0].length - 1
-					| loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0
-							& currentWidth == loadingMatrix[0][0].length - 1
-					| currentHeight == loadingMatrix.length - 1 & currentWidth == loadingMatrix[0][0].length - 1
-					| currentHeight == loadingMatrix[0].length - 1 & currentWidth < loadingMatrix[0][0].length - 1
-							& loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0
-							& loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
+					| currentHeight > 0 & currentWidth == loadingMatrix[0][0].length - 1
+					| currentHeight == loadingMatrix[0].length - 1 & currentWidth == loadingMatrix[0][0].length - 1
+					| currentHeight == loadingMatrix[0].length - 1 & (currentWidth + 1 < loadingMatrix[0][0].length
+							&& loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0)) {
 				break;
 			}
 		}

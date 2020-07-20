@@ -175,13 +175,13 @@ public class CargoLoading3DAnimation extends Application {
 		SubScene subScene = new SubScene(root, 1600, 900, true, SceneAntialiasing.BALANCED);
 		subScene.setFill(Color.WHITE);
 		subScene.setCamera(camera);
-		
+
 		Group group = new Group();
 		group.getChildren().add(subScene);
-		
+
 		// Start timer
 		timeline.play();
-		
+
 		return group;
 	}
 
