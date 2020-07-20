@@ -67,7 +67,7 @@ public class OrderSimulation {
     }
 
     private void setCargo(OrderEntity orderEntity, Double volume) {
-        Double currentVolume = 0.0;
+        double currentVolume = 0.0;
         List<CargoEntity> cargoList = new ArrayList<>();
         Random random = new Random();
         int randWeight = 10;
@@ -78,11 +78,12 @@ public class OrderSimulation {
             cargo.setFinalDestination(orderEntity.getArrivalHub().getName());
             cargo.setWeight((double) random.nextInt(randWeight)+1);
             DimensionsEntity dimensionsEntity = getRandDimensions();
-            Double cargoVolume = dimensionsEntity.getHeight()*dimensionsEntity.getLength()*dimensionsEntity.getWidth();
+            double cargoVolume = dimensionsEntity.getHeight()*dimensionsEntity.getLength()*dimensionsEntity.getWidth();
             currentVolume += cargoVolume;
-            cargo.setDimensions(dimensionsEntity);
-            cargoList.add(cargo);
-
+            if(currentVolume < volume) {
+                cargo.setDimensions(dimensionsEntity);
+                cargoList.add(cargo);
+            }
         }
         orderEntity.setCargoEntities(cargoList);
     }
