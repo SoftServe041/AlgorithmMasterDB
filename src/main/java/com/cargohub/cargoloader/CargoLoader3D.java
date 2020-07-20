@@ -49,10 +49,6 @@ public class CargoLoader3D {
 		printMatrix(cargohold.getLoadingMatrix());
 	}
 
-	public void unloadCargo() {
-
-	}
-
 	// TODO: Restore loadingMatrix in CargoHold from entities
 	// Method to check level of loading into compartment
 	public boolean checkLoadingForOrder(List<Cargo> listBox, int[][][] loadingMatrix) {
@@ -356,12 +352,10 @@ public class CargoLoader3D {
 			if (currentHeight == 0 & currentWidth == loadingMatrix[0][0].length - 1
 					| loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0
 							& currentWidth == loadingMatrix[0][0].length - 1
-					| currentHeight == loadingMatrix.length - 1 & currentWidth == loadingMatrix[0][0].length - 1) {
-				break;
-			}
-			if (currentHeight == 0 & currentWidth < loadingMatrix[0][0].length - 1
-					& loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0
-					& loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
+					| currentHeight == loadingMatrix.length - 1 & currentWidth == loadingMatrix[0][0].length - 1
+					| currentHeight == loadingMatrix[0].length - 1 & currentWidth < loadingMatrix[0][0].length - 1
+							& loadingMatrix[currentDepth][currentHeight - 1][currentWidth] != 0
+							& loadingMatrix[currentDepth][currentHeight][currentWidth + 1] != 0) {
 				break;
 			}
 		}
