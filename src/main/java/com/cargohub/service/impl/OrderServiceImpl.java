@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -81,13 +82,27 @@ public class OrderServiceImpl implements OrderService {
         List<CargoEntity> cargoList = orderEntity.getCargoEntities();
         cargoList.forEach(x -> x.setOrderEntity(orderEntity));
         RouteEntity route = orderEntity.getRoute();
-        Optional<RouteEntity> optional = routeRepository.findByHubsIn(route.getHubs());
-        if (optional.isPresent()) {
-            route = optional.get();
-        }
+
+        List<RouteEntity> list = routeRepository.findByHubsIn(route.getHubs());
+        route = TryToFindRouteInRepo(route, list);
         orderEntity.setRoute(route);
         return repository.save(orderEntity);
+    }
 
+    private RouteEntity TryToFindRouteInRepo(RouteEntity route, List<RouteEntity> list) {
+        if(list.size()>0){
+            List<HubEntity> hubs = route.getHubs();
+            for(RouteEntity routeEnt : list){
+                List<String> routeEntList = routeEnt.getHubs().stream().map(HubEntity::getName).collect(Collectors.toList());
+                if(list.size() == hubs.size()){
+                    List<String> hubsList = hubs.stream().map(HubEntity::getName).collect(Collectors.toList());
+                    if(routeEntList.equals(hubsList)){
+                        route = routeEnt;
+                    }
+                }
+            }
+        }
+        return route;
     }
 
     private void getRealHubsForRoute(OrderEntity orderEntity) {

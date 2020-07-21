@@ -8,7 +8,9 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,20 +38,15 @@ public class OrderSimulation {
         order.setPrice(200.0);
         order.setDeliveryStatus(DeliveryStatus.PROCESSING);
         order.setRoute(route);
-        order.setDepartureHub(hubs.get(0));
         order.setArrivalHub(hubs.get(hubs.size() - 1));
-        order.setTrackingId("ch" + random.nextInt(100) + counter++ + order.getArrivalHub().getName().hashCode() +
-                random.nextInt(1000));
+        order.setDepartureHub(hubs.get(0));
+        order.setTrackingId("ch" + random.nextInt(100) + counter++ + order.getArrivalHub().getName().hashCode() + random.nextInt(1000));
         Date date = new Date();
         order.setCreated(date);
         setCargo(order, volume);
-        double hours = distance / averageSpeed;
-        //replace here
-        int days = (int) hours / 10 + (((int) hours % 10) < 5 ? 0 : 1);
-        LocalDate localDate = LocalDate.now().plusDays(days);
-        order.setEstimatedDeliveryDate(Date.from(localDate.atStartOfDay()
-                .atZone(ZoneId.systemDefault())
-                .toInstant()));
+        long seconds = (long) (distance / averageSpeed * 36000);
+        LocalDateTime localDate = LocalDateTime.now().plusSeconds(seconds);
+        order.setEstimatedDeliveryDate(Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant()));
         return order;
     }
 
@@ -72,7 +69,7 @@ public class OrderSimulation {
     }
 
     private void setCargo(OrderEntity orderEntity, Double volume) {
-        Double currentVolume = 0.0;
+        double currentVolume = 0.0;
         List<CargoEntity> cargoList = new ArrayList<>();
         Random random = new Random();
         int randWeight = 10;
@@ -84,10 +81,12 @@ public class OrderSimulation {
             cargo.setFinalDestination(orderEntity.getArrivalHub().getName());
             cargo.setWeight((double) random.nextInt(randWeight) + 1);
             DimensionsEntity dimensionsEntity = getRandDimensions();
-            Double cargoVolume = dimensionsEntity.getHeight() * dimensionsEntity.getLength() * dimensionsEntity.getWidth();
+            double cargoVolume = dimensionsEntity.getHeight() * dimensionsEntity.getLength() * dimensionsEntity.getWidth();
             currentVolume += cargoVolume;
-            cargo.setDimensions(dimensionsEntity);
-            cargoList.add(cargo);
+            if(currentVolume < volume) {
+                cargo.setDimensions(dimensionsEntity);
+                cargoList.add(cargo);
+            }
         }
         orderEntity.setCargoEntities(cargoList);
     }
