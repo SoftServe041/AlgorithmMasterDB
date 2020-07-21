@@ -9,7 +9,9 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,12 +29,11 @@ public class OrderSimulation {
     }
 
     @Setter
-    Double averageSpeed = 60d;
+    Double averageSpeed = 60000d;
 
     public OrderEntity getNewOrder(RouteEntity route, Double volume) {
         List<HubEntity> hubs = route.getHubs();
-        List<RouteModel> routes = routeNeo4jServiceImpl.getRoute(hubs.get(0).getName(), hubs.get(hubs.size() - 1).getName());
-        double distance = findDistanceForRoute(routes, hubs);
+        double distance = findDistanceForRoute(route);
         Random random = new Random();
         OrderEntity order = new OrderEntity();
         order.setUserId(1);
@@ -45,26 +46,28 @@ public class OrderSimulation {
         Date date = new Date();
         order.setCreated(date);
         setCargo(order, volume);
-        double hours = distance / averageSpeed;
-        int days = (int) hours / 10 + (((int) hours % 10) < 5 ? 0 : 1);
-        LocalDate localDate = LocalDate.now().plusDays(days);
-        order.setEstimatedDeliveryDate(Date.from(localDate.atStartOfDay()
-                .atZone(ZoneId.systemDefault())
-                .toInstant()));
+        long seconds = (long) (distance / averageSpeed * 36000);
+        LocalDateTime localDate = LocalDateTime.now().plusSeconds(seconds);
+        order.setEstimatedDeliveryDate(Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant()));
         return order;
     }
 
-    private double findDistanceForRoute(List<RouteModel> routes, List<HubEntity> hubs) {
-        for (RouteModel routeModel : routes) {
-            List<String> list = routeModel.getRoutes();
-            if (list.size() == hubs.size()) {
-                List<String> hubsList = hubs.stream().map(HubEntity::getName).collect(Collectors.toList());
-                if (list.equals(hubsList)) {
-                    return routeModel.getDistance();
+    private double findDistanceForRoute(RouteEntity route) {
+        List<HubEntity> hubs = route.getHubs();
+        double distance = 0;
+        for (int i = 0; i < hubs.size() - 1; i++) {
+            List<RelationEntity> relations = hubs.get(i).getRelations();
+            for (RelationEntity relation : relations) {
+                if (relation.getConnectedHub().getName().equals(hubs.get(i + 1).getName())) {
+                    distance += relation.getDistance();
+                    break;
                 }
             }
         }
-        throw new RouteException("no such route");
+        if (distance == 0) {
+            throw new RouteException("no such route");
+        }
+        return distance / 1000;
     }
 
     private void setCargo(OrderEntity orderEntity, Double volume) {
