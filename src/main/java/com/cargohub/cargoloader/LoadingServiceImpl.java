@@ -110,6 +110,7 @@ public class LoadingServiceImpl {
                     }
                 }
             });
+            thread.start();
             for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
                 for (int i = 0; i < entry.getValue().size(); i++) {
                     if (entry.getValue().get(i).getDeliveryStatus() == DeliveryStatus.ON_THE_WAY) {
