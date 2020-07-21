@@ -9,6 +9,7 @@ import com.cargohub.exceptions.HubException;
 import com.cargohub.exceptions.OrderException;
 import com.cargohub.exceptions.TransportDetailsException;
 import com.cargohub.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
-
+@Slf4j
 @Service
 public class LoadingServiceImpl {
     private final CargoRepository cargoRepository;
@@ -28,6 +29,7 @@ public class LoadingServiceImpl {
     private final TransportDetailsRepository transportDetailsRepository;
     private final CargoLoader3D cargoLoader3D;
     private final CargoPositionRepository cargoPositionRepository;
+    private final static String DEMO = "<====================== D E M O ======================>";
 
     public LoadingServiceImpl(CargoRepository cargoRepository, HubRepository hubRepository,
                               CarrierCompartmentRepository carrierCompartmentRepository, TransporterRepository transporterRepository,
@@ -77,6 +79,37 @@ public class LoadingServiceImpl {
             //sleep thread for time = estimated delivery time - current time;
             //unload + load new orders,
             // next loop step
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int countHub = 0;
+                    while (countHub < transporter.getRoute().size() - 2) {
+                        log.info(DEMO + " Transporter " + transporter.getId() + " left "
+                                + transporter.getCurrentHub().getName() + " for "
+                                + transporter.getRoute().get(countHub + 1).getName());
+                        transporter.setCurrentHub(transporter.getRoute().get(countHub + 1));
+                        ArrayList<CargoEntity> cargoEntities = (ArrayList<CargoEntity>) transporter.getCompartments().get(0).getCargoEntities();
+                        Date deliveryDate = cargoEntities.get(0).getOrderEntity().getEstimatedDeliveryDate();
+                        for (int i = 1; i < cargoEntities.size(); i++) {
+                            if (deliveryDate.after(cargoEntities.get(i).getOrderEntity().getEstimatedDeliveryDate())) {
+                                deliveryDate = cargoEntities.get(i).getOrderEntity().getEstimatedDeliveryDate();
+                            }
+                        }
+                        long milliseconds = deliveryDate.getTime() - new Date().getTime();
+                        if (milliseconds > 0) {
+                            try {
+                                Thread.sleep(milliseconds);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        log.info(DEMO + " Transporter " + transporter.getId()
+                                        + "is being processed in " + transporter.getCurrentHub().getName());
+                        countHub++;
+                        unloadAndFillUpCompartment(transporter.getCompartments().get(0), cellSize);
+                    }
+                }
+            });
             for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
                 for (int i = 0; i < entry.getValue().size(); i++) {
                     if (entry.getValue().get(i).getDeliveryStatus() == DeliveryStatus.ON_THE_WAY) {
