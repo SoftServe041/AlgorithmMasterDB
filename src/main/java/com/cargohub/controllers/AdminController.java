@@ -1,5 +1,6 @@
 package com.cargohub.controllers;
 
+import com.cargohub.cargoloader.SimulationServiceImpl;
 import com.cargohub.dto.UpdateHubDto;
 import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.RelationEntity;
@@ -26,13 +27,16 @@ public class AdminController {
 
     private final RelationServiceNeo4j relationServiceNeo4j;
     private final LocationServiceNeo4j locationServiceNeo4j;
-    private final RelationService relationService;
+    private final SimulationServiceImpl simulationService;
     private final HubService hubService;
 
-    public AdminController(LocationServiceNeo4j locationServiceNeo4j, RelationServiceNeo4j relationServiceNeo4j, RelationService relationService, HubService hubService) {
+    public AdminController(LocationServiceNeo4j locationServiceNeo4j,
+                           RelationServiceNeo4j relationServiceNeo4j,
+                           SimulationServiceImpl simulationService,
+                           HubService hubService) {
         this.locationServiceNeo4j = locationServiceNeo4j;
         this.relationServiceNeo4j = relationServiceNeo4j;
-        this.relationService = relationService;
+        this.simulationService = simulationService;
         this.hubService = hubService;
     }
 
@@ -78,6 +82,12 @@ public class AdminController {
     @PostMapping("/neo4j/to/mysql")
     public ResponseEntity importAllHubsFromNeoToMysql() {
         hubService.exportAllFromNeo();
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/transports/{hubName}")
+    public ResponseEntity initTransportersInHub(@PathVariable String hubName) {
+        simulationService.initTransportersInHub(hubName);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

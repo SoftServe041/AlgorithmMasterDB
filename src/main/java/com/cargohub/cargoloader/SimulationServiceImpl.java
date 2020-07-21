@@ -30,20 +30,52 @@ public class SimulationServiceImpl {
     }
 
     public void simulate() {
-        HubEntity hub = new HubEntity();
-        hub.setName("Berlin");
-        hub = hubRepository.findByName(hub.getName()).orElseThrow();
-        fillHub(hub);
+        List<HubEntity> hubs = (List<HubEntity>) hubRepository.findAll();
+        fillHubs(hubs);
     }
+
+    public void initTransportersInHub(String hubName) {
+        HubEntity hub = hubRepository.findByName(hubName).orElseThrow();
+        fillHubWithTransporters(hub);
+    }
+
+    private void fillHubWithTransporters(HubEntity hub) {
+        Map<String, List<RouteEntity>> routesWithDirections = getRoutesWithDirections(hub);
+        List<TransporterEntity> transporters = new ArrayList<>();
+        for (int i = 0; i < routesWithDirections.size() + 1; i++) {
+            TransporterEntity transporter = initializeTransporter(hub);
+            transporters.add(transporter);
+        }
+        transporterService.saveAll(transporters);
+    }
+
 
     public void fillHubs(List<HubEntity> hubs) {
         for (HubEntity hub : hubs) {
-            fillHub(hub);
+            fillHubWithOrders(hub);
         }
     }
 
-    private void fillHub(HubEntity hub) {
+    private void fillHubWithOrders(HubEntity hub) {
         //There will be as many entries in the Map as many relations have current Hub
+        Map<String, List<RouteEntity>> routesWithDirections = getRoutesWithDirections(hub);
+        for (Map.Entry<String, List<RouteEntity>> entry : routesWithDirections.entrySet()) {
+            List<RouteEntity> routes = entry.getValue();
+            //only first variants of routes for Berlin Should be 5 routes
+            RouteEntity route = routes.get(0);
+            TransporterEntity transporter = initializeTransporter(hub);
+            double compartmentVolume = computeCompartmentVolume(transporter.getCompartments().get(0));
+            // "-1" here because route segments count is hubs - 1
+            double ordersVolume = compartmentVolume / (route.getHubs().size() - 1);
+            List<OrderEntity> orders = formOrders(route, ordersVolume);
+            RouteEntity subRoute = new RouteEntity();
+            subRoute.setHubs(route.getHubs().subList(1, route.getHubs().size()));
+            orders.addAll(formOrders(subRoute, ordersVolume / 2));
+            orderService.saveAll(orders);
+        }
+    }
+
+    private Map<String, List<RouteEntity>> getRoutesWithDirections(HubEntity hub) {
         Map<String, List<RouteEntity>> routesWithDirections = new HashMap<>();
         List<RelationEntity> relations = hub.getRelations();
         for (RelationEntity relation : relations) {
@@ -52,52 +84,19 @@ public class SimulationServiceImpl {
             List<RouteEntity> routes = getAllPossibleRoutes(hub, connectedHub);
             routesWithDirections.put(name, routes);
         }
-        for (Map.Entry<String, List<RouteEntity>> entry : routesWithDirections.entrySet()) {
-            List<RouteEntity> routes = entry.getValue();
-            //only first variants of routes for Berlin Should be 5 routes
-            for (int i = 0; i < 1; i++) {
-                RouteEntity route = routes.get(i);
-                TransporterEntity transporter = initializeTransporter(hub);
-                double compartmentVolume = computeCompartmentVolume(transporter.getCompartments().get(0)) - 4;
-                // in Alexey`s simulation the upper range is limited by last added box volume,
-                // so the biggest box volume is 1.728 and i am decreasing order`s volume by 1.5
-                // "-1" here because route segments count is hubs - 1
-                double ordersVolume = compartmentVolume / (route.getHubs().size() - 1);
-                List<OrderEntity> orders = formOrders(route, ordersVolume);
-                RouteEntity subRoute = new RouteEntity();
-                subRoute.setHubs(route.getHubs().subList(1, route.getHubs().size()));
-                orders.addAll(formOrders(subRoute, ordersVolume / 2));
-                saveAllGeneratedEntities(orders, transporter);
-            }
-        }
-        //TODO remove after testing
-        routesWithDirections.forEach((name, list) -> {
-            System.out.println("name = " + name);
-            list.forEach(routeEntity -> {
-                System.out.println("routeEntity = " + routeEntity);
-            });
-        });
-
-    }
-
-    private void saveAllGeneratedEntities(List<OrderEntity> orders, TransporterEntity transporter) {
-        transporterService.save(transporter);
-        orderService.saveAll(orders);
+        return routesWithDirections;
     }
 
     private List<OrderEntity> formOrders(RouteEntity route, double ordersVolume) {
         List<OrderEntity> result = new ArrayList<>();
         for (int i = 1; i < route.getHubs().size(); i++) {
-            RouteEntity formingRoute1 = new RouteEntity();
-            RouteEntity formingRoute2 = new RouteEntity();
-            List<HubEntity> hubs1 = route.getHubs().subList(0, i + 1);
-            List<HubEntity> hubs2 = new ArrayList<>(hubs1);
-            formingRoute1.setHubs(hubs1);
-            formingRoute2.setHubs(hubs2);
-            OrderEntity order1 = orderSimulation.getNewOrder(formingRoute1, ordersVolume / 2);
-            OrderEntity order2 = orderSimulation.getNewOrder(formingRoute2, ordersVolume / 2);
-            result.add(order1);
-            result.add(order2);
+            for (int j = 0; j < ordersVolume / 5 + 1; j++) {
+            RouteEntity formingRoute = new RouteEntity();
+            List<HubEntity> hubs = route.getHubs().subList(0, i + 1);
+            formingRoute.setHubs(hubs);
+            OrderEntity order = orderSimulation.getNewOrder(formingRoute, ordersVolume / 5);
+            result.add(order);
+            }
         }
         return result;
     }

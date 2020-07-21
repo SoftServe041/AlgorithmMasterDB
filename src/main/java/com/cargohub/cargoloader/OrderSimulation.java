@@ -3,14 +3,11 @@ package com.cargohub.cargoloader;
 import com.cargohub.entities.*;
 import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.exceptions.RouteException;
-import com.cargohub.service.impl.RouteNeo4jServiceImpl;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,11 +17,6 @@ import java.util.Random;
 public class OrderSimulation {
 
     private static long counter = 0;
-    private final RouteNeo4jServiceImpl routeNeo4jServiceImpl;
-
-    public OrderSimulation(RouteNeo4jServiceImpl routeNeo4jServiceImpl) {
-        this.routeNeo4jServiceImpl = routeNeo4jServiceImpl;
-    }
 
     @Setter
     Double averageSpeed = 60000d;

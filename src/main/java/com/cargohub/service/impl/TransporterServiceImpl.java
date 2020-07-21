@@ -160,4 +160,9 @@ public class TransporterServiceImpl implements TransporterService {
         }
         throw new TransporterException("Transporter not found");
     }
+
+    @Override
+    public List<TransporterEntity> saveAll(List<TransporterEntity> transporters) {
+        return (List<TransporterEntity>) repository.saveAll(transporters);
+    }
 }

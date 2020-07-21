@@ -63,7 +63,7 @@ public class TransportControllerIT {
 
         transporterDto = new TransporterDto();
         transporterDto.setCompartments(compartments);
-        transporterDto.setHubName("Kharkiv");
+        transporterDto.setHubName("Berlin");
         transporterDto.setType(TransporterType.TRUCK);
 
         transportDetailsDto = new TransportDetailsDto();
