@@ -3,7 +3,6 @@ package com.cargohub.cargoloader;
 import com.cargohub.entities.*;
 import com.cargohub.entities.enums.DeliveryStatus;
 import com.cargohub.exceptions.RouteException;
-import com.cargohub.models.RouteModel;
 import com.cargohub.service.impl.RouteNeo4jServiceImpl;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Component
 public class OrderSimulation {
@@ -77,12 +75,13 @@ public class OrderSimulation {
         int randWeight = 10;
         while (currentVolume < volume) {
             CargoEntity cargo = new CargoEntity();
+            cargo.setOrderEntity(orderEntity);
             cargo.setDeliveryStatus(orderEntity.getDeliveryStatus());
             cargo.setStartingDestination(orderEntity.getDepartureHub().getName());
             cargo.setFinalDestination(orderEntity.getArrivalHub().getName());
             cargo.setWeight((double) random.nextInt(randWeight) + 1);
             DimensionsEntity dimensionsEntity = getRandDimensions();
-            double cargoVolume = dimensionsEntity.getHeight()*dimensionsEntity.getLength()*dimensionsEntity.getWidth();
+            double cargoVolume = dimensionsEntity.getHeight() * dimensionsEntity.getLength() * dimensionsEntity.getWidth();
             currentVolume += cargoVolume;
             if(currentVolume < volume) {
                 cargo.setDimensions(dimensionsEntity);
@@ -104,13 +103,13 @@ public class OrderSimulation {
                 return returnSetDimensions(0.6, 0.6, 0.6);
             }
             case 2: {
-                return returnSetDimensions(0.6, 0.6, 0.9);
+                return returnSetDimensions(0.6, 0.6, 1.2);
             }
             case 3: {
-                return returnSetDimensions(0.6, 0.9, 0.9);
+                return returnSetDimensions(0.6, 1.2, 1.2);
             }
             case 4: {
-                return returnSetDimensions(0.9, 0.9, 0.9);
+                return returnSetDimensions(1.2, 1.2, 1.2);
             }
         }
         return null;

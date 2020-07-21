@@ -1,16 +1,15 @@
 package com.cargohub.entities;
 
-import com.cargohub.entities.transports.TransporterType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.cargohub.entities.enums.TransporterType;
+import lombok.*;
+import org.apache.commons.lang3.builder.ToStringExclude;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = "id")
 @Table(name = "relation")
 public class RelationEntity {
 
@@ -21,15 +20,31 @@ public class RelationEntity {
     @Column
     Double distance;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "connected_hub_id")
     HubEntity connectedHub;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_hub_id")
     HubEntity ownerHub;
 
     @Column
     @Enumerated(EnumType.STRING)
     TransporterType relationType;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RelationEntity that = (RelationEntity) o;
+        return Objects.equals(distance, that.distance) &&
+                Objects.equals(connectedHub.getName(), that.connectedHub.getName()) &&
+                Objects.equals(ownerHub.getName(), that.ownerHub.getName()) &&
+                relationType == that.relationType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(distance, connectedHub.getName(), ownerHub.getName(), relationType);
+    }
 }

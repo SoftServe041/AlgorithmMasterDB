@@ -7,5 +7,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.Optional;
 
 public interface RelationRepository extends PagingAndSortingRepository<RelationEntity, Integer> {
-Optional<RelationEntity> findByOwnerHubAndConnectedHub(HubEntity owner, HubEntity connected);
+
+    Optional<RelationEntity> findByOwnerHubAndConnectedHub(HubEntity owner, HubEntity connected);
+
+    void deleteAllByConnectedHubAndOwnerHub(HubEntity connectedHub, HubEntity ownerHub);
 }

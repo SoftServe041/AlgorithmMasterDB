@@ -34,4 +34,10 @@ public interface RelationRepositoryNeo4j extends Neo4jRepository<Location, Long>
             " RETURN b;")
     List<Location> getAllLocations(String city);
 
+    @Query("MATCH (t:City{name:$connectedCity})-[:NEXT]->(o:City{name:$newCity})\n" +
+            "WITH point({ longitude: t.longitude, latitude: t.latitude }) AS tPoint, " +
+            "point({ longitude: o.longitude, latitude: o.latitude }) AS oPoint\n" +
+            "RETURN round(distance(tPoint, oPoint)) AS travelDistance")
+    Double getDistance(String connectedCity, String newCity);
+
 }

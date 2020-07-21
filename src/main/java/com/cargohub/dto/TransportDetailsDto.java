@@ -1,7 +1,7 @@
 package com.cargohub.dto;
 
 import com.cargohub.entities.transports.TransportDetailsEntity;
-import com.cargohub.entities.transports.TransporterType;
+import com.cargohub.entities.enums.TransporterType;
 import lombok.Data;
 
 import javax.persistence.Enumerated;
