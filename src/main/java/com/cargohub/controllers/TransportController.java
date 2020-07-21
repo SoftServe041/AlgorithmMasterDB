@@ -115,4 +115,10 @@ public class TransportController {
         loadingService.loadAllTransportersInHub(hubName);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @PostMapping("/transit/{hubName}")
+    ResponseEntity loadAllTransitTransportsInHub(@PathVariable String hubName) {
+        loadingService.loadAllTransitTransportersInHub(hubName);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

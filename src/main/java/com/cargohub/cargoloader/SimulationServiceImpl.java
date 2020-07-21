@@ -54,13 +54,19 @@ public class SimulationServiceImpl {
         }
         for (Map.Entry<String, List<RouteEntity>> entry : routesWithDirections.entrySet()) {
             List<RouteEntity> routes = entry.getValue();
-            for (RouteEntity route : routes) {
-                TransporterEntity transporter = initializeTransporter(route.getHubs().get(0));
+            //only first variants of routes for Berlin Should be 5 routes
+            for (int i = 0; i < 1; i++) {
+                RouteEntity route = routes.get(i);
+                TransporterEntity transporter = initializeTransporter(hub);
                 double compartmentVolume = computeCompartmentVolume(transporter.getCompartments().get(0)) - 4;
                 // in Alexey`s simulation the upper range is limited by last added box volume,
                 // so the biggest box volume is 1.728 and i am decreasing order`s volume by 1.5
+                // "-1" here because route segments count is hubs - 1
                 double ordersVolume = compartmentVolume / (route.getHubs().size() - 1);
                 List<OrderEntity> orders = formOrders(route, ordersVolume);
+                RouteEntity subRoute = new RouteEntity();
+                subRoute.setHubs(route.getHubs().subList(1, route.getHubs().size()));
+                orders.addAll(formOrders(subRoute, ordersVolume / 2));
                 saveAllGeneratedEntities(orders, transporter);
             }
         }
@@ -88,8 +94,8 @@ public class SimulationServiceImpl {
             List<HubEntity> hubs2 = new ArrayList<>(hubs1);
             formingRoute1.setHubs(hubs1);
             formingRoute2.setHubs(hubs2);
-            OrderEntity order1 = orderSimulation.getNewOrder(formingRoute1,ordersVolume / 2);
-            OrderEntity order2 = orderSimulation.getNewOrder(formingRoute2,ordersVolume / 2);
+            OrderEntity order1 = orderSimulation.getNewOrder(formingRoute1, ordersVolume / 2);
+            OrderEntity order2 = orderSimulation.getNewOrder(formingRoute2, ordersVolume / 2);
             result.add(order1);
             result.add(order2);
         }
