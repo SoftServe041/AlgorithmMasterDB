@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 
 @Slf4j
 @Service
+@Transactional
 public class LoadingServiceImpl {
     private final CargoRepository cargoRepository;
     private final HubRepository hubRepository;
@@ -83,6 +85,12 @@ public class LoadingServiceImpl {
             Thread thread = new Thread(() -> {
                 int countHub = 0;
                 while (countHub < transporter.getRoute().size() - 1) {
+                    StringBuilder routelog = new StringBuilder("Route = [ ");
+                    for (HubEntity h : transporter.getRoute()) {
+                        routelog.append(h.getName()).append(", ");
+                    }
+                    routelog.append("]");
+                    log.info(routelog.toString());
                     log.info(DEMO + " Transporter " + transporter.getId() + " left "
                             + transporter.getCurrentHub().getName() + " on the way to "
                             + transporter.getRoute().get(countHub + 1).getName());
@@ -90,6 +98,8 @@ public class LoadingServiceImpl {
                     List<CargoEntity> cargoEntities = transporter.getCompartments().get(0).getCargoEntities();
                     Date deliveryDate = getNextArrivalDate(cargoEntities, transporter.getCurrentHub());
                     long milliseconds = deliveryDate.getTime() - new Date().getTime();
+                    log.info(DEMO + " Transporter " + transporter.getId()
+                            + " will wait " + milliseconds + " milliseconds");
                     if (milliseconds > 0) {
                         try {
                             Thread.sleep(milliseconds);
@@ -98,9 +108,11 @@ public class LoadingServiceImpl {
                         }
                     }
                     log.info(DEMO + " Transporter " + transporter.getId()
-                            + "is being processed in " + transporter.getCurrentHub().getName());
+                            + " is starting unload in " + transporter.getCurrentHub().getName());
                     countHub++;
                     unloadAndFillUpCompartment(transporter.getCompartments().get(0), cellSize);
+                    log.info(DEMO + " Transporter " + transporter.getId()
+                            + " is unloaded and loaded in " + transporter.getCurrentHub().getName());
                 }
             });
             thread.start();
@@ -123,13 +135,16 @@ public class LoadingServiceImpl {
         String nextHubName = nextHub.getName();
         OrderEntity nextHubOrder = null;
         for (CargoEntity cargo : cargoEntities) {
-            if(cargo.getOrderEntity().getArrivalHub().getName().equals(nextHubName)){
+            if (cargo.getOrderEntity().getArrivalHub().getName().equals(nextHubName)) {
                 nextHubOrder = cargo.getOrderEntity();
                 break;
             }
         }
-        assert nextHubOrder != null;
-        return nextHubOrder.getEstimatedDeliveryDate();
+        Date result = new Date();
+        if(nextHubOrder != null){
+            result = nextHubOrder.getEstimatedDeliveryDate();
+        }
+        return result;
     }
 
     public List<OrderEntity> getAllOrdersByHub(String hubName) {
@@ -192,8 +207,10 @@ public class LoadingServiceImpl {
                 arrivedOrders.add(cargo.getOrderEntity());
             }
         });
-        freeArrivedOrders(arrivedOrders);
-        fillUpUnloadedCompartment(compartment, cellSize);
+        if(arrivedOrders.size() > 0){
+            freeArrivedOrders(arrivedOrders);
+            fillUpUnloadedCompartment(compartment, cellSize);
+        }
     }
 
     private void fillUpUnloadedCompartment(CarrierCompartmentEntity compartment, double cellSize) {
@@ -355,8 +372,8 @@ public class LoadingServiceImpl {
         return cargoEntities;
     }
 
-    private void saveCargosWithPositions(List<Cargo> cargoList, CarrierCompartmentEntity compartment,
-                                         Map<Integer, CargoEntity> dataTransferMap, List<CargoEntity> cargoEntities) {
+    public void saveCargosWithPositions(List<Cargo> cargoList, CarrierCompartmentEntity compartment,
+                                        Map<Integer, CargoEntity> dataTransferMap, List<CargoEntity> cargoEntities) {
         for (Cargo cargo : cargoList) {
             CargoEntity cargoEntity = dataTransferMap.get(cargo.getId());
             CargoPositionEntity position = new CargoPositionEntity();
@@ -494,7 +511,8 @@ public class LoadingServiceImpl {
         return result;
     }
 
-    private List<OrderEntity> findOrdersWithSameRoute(List<OrderEntity> allOrders, RouteEntity route) {
+    @Transactional
+    public List<OrderEntity> findOrdersWithSameRoute(List<OrderEntity> allOrders, RouteEntity route) {
         List<OrderEntity> result = new ArrayList<>();
         for (OrderEntity order : allOrders) {
             List<HubEntity> orderHubs = order.getRoute().getHubs();

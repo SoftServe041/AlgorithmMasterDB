@@ -29,7 +29,7 @@ public class CargoEntity {
     @JoinColumn(name = "dimensions_id")
     DimensionsEntity dimensions;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn(name = "cargo_position_id")
     CargoPositionEntity cargoPosition;
 

@@ -14,7 +14,7 @@ public class CargoPositionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @OneToOne(mappedBy =  "cargoPosition", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy =  "cargoPosition", cascade = CascadeType.REFRESH)
     CargoEntity cargoEntity;
 
     @Column

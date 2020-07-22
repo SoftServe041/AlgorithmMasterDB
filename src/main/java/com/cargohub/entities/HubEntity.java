@@ -2,6 +2,8 @@ package com.cargohub.entities;
 
 import com.cargohub.entities.transports.TransporterEntity;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,7 +11,6 @@ import java.util.Objects;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = "id")
 @Table(name = "hub")
 public class HubEntity {
 
@@ -20,7 +21,8 @@ public class HubEntity {
     @Column
     String name;
 
-    @ManyToMany(mappedBy = "hubs", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(mappedBy = "hubs", cascade = CascadeType.ALL)
     List<RouteEntity> routes;
 
     @OneToMany(orphanRemoval = true, mappedBy = "ownerHub", cascade = CascadeType.ALL)

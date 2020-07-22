@@ -2,6 +2,9 @@ package com.cargohub.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(exclude = "id")
 @Table(name = "route")
+@Transactional
 public class RouteEntity {
 
     @Id
@@ -19,6 +23,7 @@ public class RouteEntity {
     @OneToMany(mappedBy = "route")
     List<OrderEntity> order;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "route_hub",
             joinColumns = @JoinColumn(name = "route_id", referencedColumnName = "id"),
