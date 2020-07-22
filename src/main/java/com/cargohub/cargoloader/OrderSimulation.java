@@ -27,7 +27,7 @@ public class OrderSimulation {
     }
 
     @Setter
-    Double averageSpeed = 60000d;
+    Double averageSpeed = 600000d;
 
     public OrderEntity getNewOrder(RouteEntity route, Double volume) {
         List<HubEntity> hubs = route.getHubs();

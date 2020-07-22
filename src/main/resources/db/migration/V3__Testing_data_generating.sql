@@ -1,9 +1,2 @@
-# INSERT INTO hub
-# values (default, 'Lausanne'),
-#        (default, 'Geneva'),
-#        (default, 'Bern'),
-#        (default, 'Basel'),
-#        (default, 'Zurich'),
-#        (default, 'Lucerne'),
-#        (default, 'Munich'),
-#        (default, 'Berlin');
+INSERT INTO transport_details
+ values (default, 100, 100, 'TRUCK', 0.3);
