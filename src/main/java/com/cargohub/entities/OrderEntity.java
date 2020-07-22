@@ -39,7 +39,7 @@ public class OrderEntity {
     @JoinColumn(name = "arrival_hub_id")
     HubEntity arrivalHub;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "route_id")
     RouteEntity route;
 

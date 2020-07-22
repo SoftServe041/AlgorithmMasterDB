@@ -22,12 +22,14 @@ public class HubEntity {
     String name;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(mappedBy = "hubs", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "hubs", cascade = CascadeType.REFRESH)
     List<RouteEntity> routes;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(orphanRemoval = true, mappedBy = "ownerHub", cascade = CascadeType.ALL)
     List<RelationEntity> relations;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(orphanRemoval = true, mappedBy = "currentHub", cascade = CascadeType.ALL)
     List<TransporterEntity> transporters;
 

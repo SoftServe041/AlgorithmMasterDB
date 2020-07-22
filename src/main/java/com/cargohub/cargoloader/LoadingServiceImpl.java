@@ -48,19 +48,19 @@ public class LoadingServiceImpl {
         this.cargoPositionRepository = cargoPositionRepository;
     }
 
-    public void loadAllTransitTransportersInHub(String hubName) {
-        HubEntity hub = hubRepository.findByName(hubName).orElseThrow(() -> {
-            throw new HubException("Hub not found");
-        });
-        List<TransporterEntity> allTransporters = transporterRepository.
-                findAllByCurrentHubAndStatus(hub, TransporterStatus.WAITING);
-        for (TransporterEntity transporter : allTransporters) {
-            double cellSize = transportDetailsRepository.findByType(transporter.getType()).orElseThrow(() -> {
-                throw new TransportDetailsException("TransportDetails not found");
-            }).getCellSize();
-            unloadAndFillUpCompartment(transporter.getCompartments().get(0), cellSize);
-        }
-    }
+//    public void loadAllTransitTransportersInHub(String hubName) {
+//        HubEntity hub = hubRepository.findByName(hubName).orElseThrow(() -> {
+//            throw new HubException("Hub not found");
+//        });
+//        List<TransporterEntity> allTransporters = transporterRepository.
+//                findAllByCurrentHubAndStatus(hub, TransporterStatus.WAITING);
+//        for (TransporterEntity transporter : allTransporters) {
+//            double cellSize = transportDetailsRepository.findByType(transporter.getType()).orElseThrow(() -> {
+//                throw new TransportDetailsException("TransportDetails not found");
+//            }).getCellSize();
+//            unloadAndFillUpCompartment(transporter.getCompartments().get(0), cellSize);
+//        }
+//    }
 
     public void loadAllTransportersInHub(String hubName) {
         HubEntity hub = hubRepository.findByName(hubName).orElseThrow(() -> {
@@ -110,9 +110,14 @@ public class LoadingServiceImpl {
                     log.info(DEMO + " Transporter " + transporter.getId()
                             + " is starting unload in " + transporter.getCurrentHub().getName());
                     countHub++;
-                    unloadAndFillUpCompartment(transporter.getCompartments().get(0), cellSize);
-                    log.info(DEMO + " Transporter " + transporter.getId()
-                            + " is unloaded and loaded in " + transporter.getCurrentHub().getName());
+                    if(countHub < transporter.getRoute().size() - 1) {
+                        unloadAndFillUpCompartment(transporter.getCompartments().get(0), cellSize);
+                        log.info(DEMO + " Transporter " + transporter.getId()
+                                + " is unloaded and loaded in " + transporter.getCurrentHub().getName());
+                    } else {
+                        log.info(DEMO + " Transporter " + transporter.getId()
+                                + " is unloaded and reached final destination " + transporter.getCurrentHub().getName());
+                    }
                 }
             });
             thread.start();

@@ -22,7 +22,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/admin/hub")
+@RequestMapping("/admin")
 public class AdminController {
 
     private final RelationServiceNeo4j relationServiceNeo4j;
@@ -40,41 +40,41 @@ public class AdminController {
         this.hubService = hubService;
     }
 
-    @GetMapping
+    @GetMapping("/hub")
     public ResponseEntity<List<Location>> getAll() {
         return ResponseEntity.ok(locationServiceNeo4j.getAll());
     }
 
-    @PostMapping("relation")
+    @PostMapping("/hub/relation")
     public ResponseEntity postNewRelation(@RequestBody HubRequest hubRequest) {
         relationServiceNeo4j.createNewRelation(hubRequest.getConnectedCity(), hubRequest.getNewCity());
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @PostMapping
+    @PostMapping("/hub")
     public ResponseEntity postNewHub(@RequestBody HubRequest hubRequest) {
         locationServiceNeo4j.createNewCity(hubRequest.getNewCity());
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{hubName}")
+    @DeleteMapping("/hub/{hubName}")
     public void deleteHub(@PathVariable String hubName) {
         locationServiceNeo4j.deleteCityByName(hubName);
     }
 
-    @PatchMapping("/{hubName}")
+    @PatchMapping("/hub/{hubName}")
     public ResponseEntity updateHub(@PathVariable String hubName, @RequestBody UpdateHubDto dto) {
         locationServiceNeo4j.modifyCity(hubName, dto.getNewName());
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping("relation")
+    @DeleteMapping("/hub/relation")
     public ResponseEntity deleteRelation(@RequestBody HubRequest hubRequest) {
         relationServiceNeo4j.deleteMutualRelation(hubRequest.getConnectedCity(), hubRequest.getNewCity());
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("relation/{hubName}")
+    @GetMapping("/hub/relation/{hubName}")
     public ResponseEntity<List<Location>> getAllConnectedHubs(@PathVariable String hubName) {
         return ResponseEntity.ok(relationServiceNeo4j.getAllConnectedLocations(hubName));
     }
@@ -85,9 +85,15 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/transports/{hubName}")
+    @PostMapping("/hub/transports/{hubName}")
     public ResponseEntity initTransportersInHub(@PathVariable String hubName) {
         simulationService.initTransportersInHub(hubName);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/simulation")
+    public ResponseEntity simulation() {
+        simulationService.simulate();
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }

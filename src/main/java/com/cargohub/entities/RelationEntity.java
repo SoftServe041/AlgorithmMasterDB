@@ -47,4 +47,15 @@ public class RelationEntity {
     public int hashCode() {
         return Objects.hash(distance, connectedHub.getName(), ownerHub.getName(), relationType);
     }
+
+    @Override
+    public String toString() {
+        return "RelationEntity{" +
+                "id=" + id +
+                ", distance=" + distance +
+                ", connectedHub=" + connectedHub.getName() +
+                ", ownerHub=" + ownerHub.getName() +
+                ", relationType=" + relationType +
+                '}';
+    }
 }

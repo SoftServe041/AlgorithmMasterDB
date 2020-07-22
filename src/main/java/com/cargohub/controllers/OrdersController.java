@@ -27,14 +27,14 @@ public class OrdersController {
     private OrderService orderService;
     private FormUnpaidOrders formUnpaidOrders;
     private LoadingServiceImpl loadingService;
-    private final SimulationServiceImpl simulationService;
 
     @Autowired
-    public OrdersController(OrderService orderService, FormUnpaidOrders formUnpaidOrders, LoadingServiceImpl loadingService, SimulationServiceImpl simulationService) {
+    public OrdersController(OrderService orderService,
+                            FormUnpaidOrders formUnpaidOrders,
+                            LoadingServiceImpl loadingService) {
         this.orderService = orderService;
         this.formUnpaidOrders = formUnpaidOrders;
         this.loadingService = loadingService;
-        this.simulationService = simulationService;
     }
 
     @PostMapping("/{id}")
@@ -44,12 +44,6 @@ public class OrdersController {
         orderEntity.setUserId(id);
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
-    }
-
-    @PostMapping("/simulation")
-    public ResponseEntity simulation() {
-        simulationService.simulate();
-        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/requestRoutes")
