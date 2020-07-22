@@ -9,6 +9,7 @@ import com.cargohub.exceptions.HubException;
 import com.cargohub.exceptions.OrderException;
 import com.cargohub.exceptions.TransportDetailsException;
 import com.cargohub.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
 
+@Slf4j
 @Service
 public class LoadingServiceImpl {
     private final CargoRepository cargoRepository;
@@ -28,6 +30,7 @@ public class LoadingServiceImpl {
     private final TransportDetailsRepository transportDetailsRepository;
     private final CargoLoader3D cargoLoader3D;
     private final CargoPositionRepository cargoPositionRepository;
+    private final static String DEMO = "<====================== D E M O ======================>\n";
 
     public LoadingServiceImpl(CargoRepository cargoRepository, HubRepository hubRepository,
                               CarrierCompartmentRepository carrierCompartmentRepository, TransporterRepository transporterRepository,
@@ -77,6 +80,30 @@ public class LoadingServiceImpl {
             //sleep thread for time = estimated delivery time - current time;
             //unload + load new orders,
             // next loop step
+            Thread thread = new Thread(() -> {
+                int countHub = 0;
+                while (countHub < transporter.getRoute().size() - 1) {
+                    log.info(DEMO + " Transporter " + transporter.getId() + " left "
+                            + transporter.getCurrentHub().getName() + " on the way to "
+                            + transporter.getRoute().get(countHub + 1).getName());
+                    transporter.setCurrentHub(transporter.getRoute().get(countHub + 1));
+                    List<CargoEntity> cargoEntities = transporter.getCompartments().get(0).getCargoEntities();
+                    Date deliveryDate = getNextArrivalDate(cargoEntities, transporter.getCurrentHub());
+                    long milliseconds = deliveryDate.getTime() - new Date().getTime();
+                    if (milliseconds > 0) {
+                        try {
+                            Thread.sleep(milliseconds);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    log.info(DEMO + " Transporter " + transporter.getId()
+                            + "is being processed in " + transporter.getCurrentHub().getName());
+                    countHub++;
+                    unloadAndFillUpCompartment(transporter.getCompartments().get(0), cellSize);
+                }
+            });
+            thread.start();
             for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
                 for (int i = 0; i < entry.getValue().size(); i++) {
                     if (entry.getValue().get(i).getDeliveryStatus() == DeliveryStatus.ON_THE_WAY) {
@@ -90,6 +117,19 @@ public class LoadingServiceImpl {
                 break;
             }
         }
+    }
+
+    private Date getNextArrivalDate(List<CargoEntity> cargoEntities, HubEntity nextHub) {
+        String nextHubName = nextHub.getName();
+        OrderEntity nextHubOrder = null;
+        for (CargoEntity cargo : cargoEntities) {
+            if(cargo.getOrderEntity().getArrivalHub().getName().equals(nextHubName)){
+                nextHubOrder = cargo.getOrderEntity();
+                break;
+            }
+        }
+        assert nextHubOrder != null;
+        return nextHubOrder.getEstimatedDeliveryDate();
     }
 
     public List<OrderEntity> getAllOrdersByHub(String hubName) {
@@ -171,7 +211,7 @@ public class LoadingServiceImpl {
             List<OrderEntity> ordersForTransitLoading =
                     optimizeOrdersForTransitLoading(allOrdersByHub, compartment, compartmentOrders,
                             restOfTheRoute, cellSize);
-            if(ordersForTransitLoading.size() > 0) {
+            if (ordersForTransitLoading.size() > 0) {
                 loadAndSaveTransitCargos(compartment, cellSize, restOfTheRoute, ordersForTransitLoading);
             }
         }
@@ -501,6 +541,7 @@ public class LoadingServiceImpl {
             return Double.compare(computeOrderVolume(order2), computeOrderVolume(order1));
         }
     }
+
     // Sort cargo by route and volume from largest route and biggest volume to
     // shortest
     // route and smallest volume
