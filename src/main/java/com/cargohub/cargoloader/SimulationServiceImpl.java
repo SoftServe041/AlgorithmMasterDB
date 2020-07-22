@@ -122,6 +122,8 @@ public class SimulationServiceImpl {
             result.add(order);
         }
         if (route.getHubs().size() == 2) {
+            result.remove(result.size() - 1);
+            result.remove(result.size() - 1);
             formingRoute = new RouteEntity();
             hubs = new ArrayList<>(route.getHubs());
             formingRoute.setHubs(hubs);

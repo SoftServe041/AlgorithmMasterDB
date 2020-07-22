@@ -37,7 +37,7 @@ public class CargoEntity {
     @JoinColumn(name = "carrier_compartment_id")
     CarrierCompartmentEntity carrierCompartment;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     OrderEntity orderEntity;
 

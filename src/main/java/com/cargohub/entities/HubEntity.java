@@ -30,7 +30,7 @@ public class HubEntity {
     List<RelationEntity> relations;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(orphanRemoval = true, mappedBy = "currentHub", cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = true, mappedBy = "currentHub", cascade = CascadeType.REFRESH)
     List<TransporterEntity> transporters;
 
     @Override

@@ -48,20 +48,6 @@ public class LoadingServiceImpl {
         this.cargoPositionRepository = cargoPositionRepository;
     }
 
-//    public void loadAllTransitTransportersInHub(String hubName) {
-//        HubEntity hub = hubRepository.findByName(hubName).orElseThrow(() -> {
-//            throw new HubException("Hub not found");
-//        });
-//        List<TransporterEntity> allTransporters = transporterRepository.
-//                findAllByCurrentHubAndStatus(hub, TransporterStatus.WAITING);
-//        for (TransporterEntity transporter : allTransporters) {
-//            double cellSize = transportDetailsRepository.findByType(transporter.getType()).orElseThrow(() -> {
-//                throw new TransportDetailsException("TransportDetails not found");
-//            }).getCellSize();
-//            unloadAndFillUpCompartment(transporter.getCompartments().get(0), cellSize);
-//        }
-//    }
-
     public void loadAllTransportersInHub(String hubName) {
         HubEntity hub = hubRepository.findByName(hubName).orElseThrow(() -> {
             throw new HubException("Hub not found");
@@ -70,6 +56,11 @@ public class LoadingServiceImpl {
                 findAllByCurrentHubAndStatus(hub, TransporterStatus.WAITING);
         List<OrderEntity> allOrders = getAllOrdersByHub(hub.getName());
         Map<String, List<OrderEntity>> ordersByArrivalHub = formOrdersByArrivalHubMap(allOrders);
+        for (Map.Entry<String, List<OrderEntity>> entry: ordersByArrivalHub.entrySet()) {
+
+            System.out.println("entry.getKey() = " + entry.getKey());
+            System.out.println("loadingService.computeOrderListVolume(entry.getValue()) = " + computeOrderListVolume(entry.getValue()));
+        }
         for (TransporterEntity transporter : allTransporters) {
             double cellSize = transportDetailsRepository.findByType(transporter.getType()).orElseThrow(() -> {
                 throw new TransportDetailsException("TransportDetails not found");
@@ -110,7 +101,7 @@ public class LoadingServiceImpl {
                     log.info(DEMO + " Transporter " + transporter.getId()
                             + " is starting unload in " + transporter.getCurrentHub().getName());
                     countHub++;
-                    if(countHub < transporter.getRoute().size() - 1) {
+                    if (countHub < transporter.getRoute().size() - 1) {
                         unloadAndFillUpCompartment(transporter.getCompartments().get(0), cellSize);
                         log.info(DEMO + " Transporter " + transporter.getId()
                                 + " is unloaded and loaded in " + transporter.getCurrentHub().getName());
@@ -121,15 +112,17 @@ public class LoadingServiceImpl {
                 }
             });
             thread.start();
-            for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
-                for (int i = 0; i < entry.getValue().size(); i++) {
-                    if (entry.getValue().get(i).getDeliveryStatus() == DeliveryStatus.ON_THE_WAY) {
-                        allOrders.remove(entry.getValue().get(i));
-                        entry.getValue().remove(i);
-                        i--;
-                    }
-                }
-            }
+            allOrders = getAllOrdersByHub(hub.getName());
+            ordersByArrivalHub = formOrdersByArrivalHubMap(allOrders);
+//            for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
+//                for (int i = 0; i < entry.getValue().size(); i++) {
+//                    if (entry.getValue().get(i).getDeliveryStatus() == DeliveryStatus.ON_THE_WAY) {
+//                        allOrders.remove(entry.getValue().get(i));
+//                        entry.getValue().remove(i);
+//                        i--;
+//                    }
+//                }
+//            }
             if (allOrders.size() == 0) {
                 break;
             }
@@ -146,7 +139,7 @@ public class LoadingServiceImpl {
             }
         }
         Date result = new Date();
-        if(nextHubOrder != null){
+        if (nextHubOrder != null) {
             result = nextHubOrder.getEstimatedDeliveryDate();
         }
         return result;
@@ -188,6 +181,7 @@ public class LoadingServiceImpl {
                                               double cellSize) {
         List<OrderEntity> ordersForLoading = optimizeOrdersForFirstLoading(ordersByArrivalHub, allOrders, compartment,
                 cellSize);
+        log.info(" Transporter " + compartment.getTransporter().getId() + " loaded " + computeOrderListVolume(ordersForLoading));
         List<Cargo> cargosForLoading = mapOrdersToCargos(ordersForLoading);
         CargoHold cargoHold = restoreCargoHoldState(compartment, cellSize);
         cargoLoader3D.loadCargo(cargosForLoading, ordersForLoading.get(0).getRoute(), cargoHold);
@@ -212,7 +206,7 @@ public class LoadingServiceImpl {
                 arrivedOrders.add(cargo.getOrderEntity());
             }
         });
-        if(arrivedOrders.size() > 0){
+        if (arrivedOrders.size() > 0) {
             freeArrivedOrders(arrivedOrders);
             fillUpUnloadedCompartment(compartment, cellSize);
         }
@@ -316,6 +310,7 @@ public class LoadingServiceImpl {
         } else {
             throw new OrderException("Illegal state of Orders");
         }
+        System.out.println("maxVolumeList.get(0).getArrivalHub() = " + maxVolumeList.get(0).getArrivalHub());
         List<HubEntity> routeForTransporter = new ArrayList<>(route.getHubs());
         compartment.getTransporter().setRoute(routeForTransporter);
         double compartmentVolume = computeCompartmentVolume(compartment) * 0.9; // 90% of max volume
@@ -457,13 +452,13 @@ public class LoadingServiceImpl {
             currentVolume = computeOrderListVolume(list);
             if (currentVolume > pastVolume) {
                 result = list;
+                pastVolume = currentVolume;
             }
-            pastVolume = currentVolume;
         }
         return result;
     }
 
-    private double computeOrderListVolume(List<OrderEntity> list) {
+    public double computeOrderListVolume(List<OrderEntity> list) {
         double volume = 0d;
         for (OrderEntity order : list) {
             volume += computeOrderVolume(order);
@@ -512,11 +507,11 @@ public class LoadingServiceImpl {
                     result.add(order);
                 }
             }
+            contains = true;
         }
         return result;
     }
 
-    @Transactional
     public List<OrderEntity> findOrdersWithSameRoute(List<OrderEntity> allOrders, RouteEntity route) {
         List<OrderEntity> result = new ArrayList<>();
         for (OrderEntity order : allOrders) {

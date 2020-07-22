@@ -70,7 +70,6 @@ public class TransportControllerIT {
         transportDetailsDto.setType(TransporterType.TRUCK);
         transportDetailsDto.setPricePerKm(999d);
         transportDetailsDto.setAverageSpeed(9379992d);
-        transportDetailsDto.setCellSize(.999);
     }
 
 

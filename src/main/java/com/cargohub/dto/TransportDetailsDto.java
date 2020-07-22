@@ -13,7 +13,6 @@ public class TransportDetailsDto {
     private TransporterType type;
     private Double averageSpeed;
     private Double pricePerKm;
-    private Double cellSize;
 
     public static TransportDetailsDto toDto(TransportDetailsEntity transportDetails) {
         TransportDetailsDto dto = new TransportDetailsDto();
@@ -21,7 +20,6 @@ public class TransportDetailsDto {
         dto.setAverageSpeed(transportDetails.getAverageSpeed());
         dto.setPricePerKm(transportDetails.getPricePerKm());
         dto.setType(transportDetails.getType());
-        dto.setCellSize(transportDetails.getCellSize());
         return dto;
     }
 
@@ -31,7 +29,7 @@ public class TransportDetailsDto {
         details.setAverageSpeed(this.averageSpeed);
         details.setPricePerKm(this.pricePerKm);
         details.setType(this.type);
-        details.setCellSize(this.cellSize);
+        details.setCellSize(0.3);
         return details;
     }
 }
