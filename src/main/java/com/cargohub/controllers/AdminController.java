@@ -1,22 +1,14 @@
 package com.cargohub.controllers;
 
-import com.cargohub.dto.CargoPositionAndDimensionDto;
 import com.cargohub.cargoloader.SimulationServiceImpl;
+import com.cargohub.dto.CargoPositionAndDimensionDto;
 import com.cargohub.dto.UpdateHubDto;
 import com.cargohub.entities.CargoEntity;
-import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.transports.CarrierCompartmentEntity;
-import com.cargohub.entities.RelationEntity;
-import com.cargohub.entities.enums.TransporterType;
 import com.cargohub.models.HubRequest;
 import com.cargohub.models.Location;
-import com.cargohub.repository.CargoRepository;
 import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.service.HubService;
-import com.cargohub.service.impl.LocationService;
-import com.cargohub.service.impl.RelationService;
-import com.cargohub.service.impl.TransporterServiceImpl;
-import com.cargohub.service.RelationService;
 import com.cargohub.service.impl.LocationServiceNeo4j;
 import com.cargohub.service.impl.RelationServiceNeo4j;
 import org.springframework.http.HttpStatus;
@@ -24,11 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -44,7 +33,8 @@ public class AdminController {
     public AdminController(LocationServiceNeo4j locationServiceNeo4j,
                            RelationServiceNeo4j relationServiceNeo4j,
                            SimulationServiceImpl simulationService,
-                           HubService hubService) {
+                           HubService hubService,
+                           CarrierCompartmentRepository carrierCompartmentRepository) {
         this.locationServiceNeo4j = locationServiceNeo4j;
         this.relationServiceNeo4j = relationServiceNeo4j;
         this.simulationService = simulationService;
@@ -67,9 +57,7 @@ public class AdminController {
         return cargoEntities.stream().map(CargoPositionAndDimensionDto::cargoToCarPos).collect(Collectors.toList());
     }
 
-    @PostMapping("relation")
-    public void postNewRelation(@RequestBody HubRequest hubRequest) {
-        relationService.createNewRelation(hubRequest.getConnectedCity(), hubRequest.getNewCity());
+
     @PostMapping("/hub/relation")
     public ResponseEntity postNewRelation(@RequestBody HubRequest hubRequest) {
         relationServiceNeo4j.createNewRelation(hubRequest.getConnectedCity(), hubRequest.getNewCity());
