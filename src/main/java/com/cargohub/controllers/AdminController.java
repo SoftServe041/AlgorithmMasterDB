@@ -98,7 +98,7 @@ public class AdminController {
         return ResponseEntity.ok(relationServiceNeo4j.getAllConnectedLocations(hubName));
     }
 
-    @PostMapping("/neo4j/to/mysql")
+    @GetMapping("/neo4j/to/mysql")
     public ResponseEntity importAllHubsFromNeoToMysql() {
         hubService.exportAllFromNeo();
         return new ResponseEntity(HttpStatus.OK);
@@ -110,20 +110,21 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/simulation")
+    @GetMapping("/simulation")
     public ResponseEntity simulation() {
         simulationService.simulate();
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/clear/db")
-    public ResponseEntity clearAllSimulationData() {
-        simulationService.clearDatabase();
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//    @GetMapping("/clear/db")
+//    public ResponseEntity clearAllSimulationData() {
+//        simulationService.clearDatabase();
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
     @GetMapping("/clear")
     public ResponseEntity clearLogs() {
+        simulationService.clearDatabase();
         try (PrintWriter writer = new PrintWriter("demoLog.log")) {
             writer.print("");
         } catch (FileNotFoundException e) {

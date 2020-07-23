@@ -1,695 +1,132 @@
-2020-07-23 17:37:10.216  INFO 17588 --- [main] com.cargohub.AlgorithmMasterDbApp        : Starting AlgorithmMasterDbApp on DESKTOP-6M3SM08 with PID 17588 (C:\Users\SvampX\IdeaProjects\AlgorithmMasterDB\target\classes started by SvampX in C:\Users\SvampX\IdeaProjects\AlgorithmMasterDB)
-2020-07-23 17:37:10.219  INFO 17588 --- [main] com.cargohub.AlgorithmMasterDbApp        : No active profile set, falling back to default profiles: default
-2020-07-23 17:37:10.863  INFO 17588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-07-23 17:37:10.863  INFO 17588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
-2020-07-23 17:37:10.891  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.CargoPositionRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.893  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.CargoRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.895  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.CarrierCompartmentRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.896  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.DimensionsRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.897  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.HubRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.904  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.OrderRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.906  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RelationRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.911  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RouteRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.912  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.TransportDetailsRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.913  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.TransporterRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:37:10.925  INFO 17588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55ms. Found 3 Neo4j repository interfaces.
-2020-07-23 17:37:11.050  INFO 17588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-07-23 17:37:11.050  INFO 17588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2020-07-23 17:37:11.093  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.LocationRepository. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
-2020-07-23 17:37:11.097  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RelationRepositoryNeo4j. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
-2020-07-23 17:37:11.098  INFO 17588 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RouteNeo4jRepository. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
-2020-07-23 17:37:11.127  INFO 17588 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73ms. Found 10 JPA repository interfaces.
-2020-07-23 17:37:11.613  INFO 17588 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9041 (http)
-2020-07-23 17:37:11.620  INFO 17588 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-07-23 17:37:11.620  INFO 17588 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.34]
-2020-07-23 17:37:11.719  INFO 17588 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-07-23 17:37:11.720  INFO 17588 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1454 ms
-2020-07-23 17:37:11.824  INFO 17588 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 6.4.4 by Redgate
-2020-07-23 17:37:11.930  INFO 17588 --- [main] o.f.c.internal.database.DatabaseFactory  : Database: jdbc:mysql://localhost:3306/cargo_transports (MySQL 5.7)
-2020-07-23 17:37:11.966  INFO 17588 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.019s)
-2020-07-23 17:37:11.974  INFO 17588 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `cargo_transports`: 3
-2020-07-23 17:37:11.975  INFO 17588 --- [main] o.f.core.internal.command.DbMigrate      : Schema `cargo_transports` is up to date. No migration necessary.
-2020-07-23 17:37:12.015  INFO 17588 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-07-23 17:37:12.028  INFO 17588 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-07-23 17:37:12.076  INFO 17588 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-07-23 17:37:12.120  INFO 17588 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.15.Final
-2020-07-23 17:37:12.201  INFO 17588 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-07-23 17:37:12.306  INFO 17588 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
-2020-07-23 17:37:12.930  INFO 17588 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-07-23 17:37:12.938  INFO 17588 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2020-07-23 17:37:13.602  INFO 17588 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Starting Post-processing phase
-2020-07-23 17:37:13.602  INFO 17588 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Building byLabel lookup maps
-2020-07-23 17:37:13.603  INFO 17588 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Building interface class map for 125 classes
-2020-07-23 17:37:13.616  INFO 17588 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Post-processing complete
-2020-07-23 17:37:13.663  INFO 17588 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class javafx.application.HostServices so treating as simple type for SD Commons
-2020-07-23 17:37:13.686  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.fatalEnabled
-2020-07-23 17:37:13.686  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.errorEnabled
-2020-07-23 17:37:13.687  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.infoEnabled
-2020-07-23 17:37:13.687  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.debugEnabled
-2020-07-23 17:37:13.687  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.traceEnabled
-2020-07-23 17:37:13.688  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.warnEnabled
-2020-07-23 17:37:13.693  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.parent
-2020-07-23 17:37:13.693  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.environment
-2020-07-23 17:37:13.693  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.classLoader
-2020-07-23 17:37:13.694  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.displayName
-2020-07-23 17:37:13.694  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.startupDate
-2020-07-23 17:37:13.694  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.beanDefinitionCount
-2020-07-23 17:37:13.694  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.autowireCapableBeanFactory
-2020-07-23 17:37:13.694  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.beanDefinitionNames
-2020-07-23 17:37:13.695  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.parentBeanFactory
-2020-07-23 17:37:13.695  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.id
-2020-07-23 17:37:13.695  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.applicationName
-2020-07-23 17:37:13.697  INFO 17588 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration so treating as simple type for SD Commons
-2020-07-23 17:37:13.698  INFO 17588 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder so treating as simple type for SD Commons
-2020-07-23 17:37:13.700  INFO 17588 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class org.springframework.security.config.annotation.web.builders.HttpSecurity so treating as simple type for SD Commons
-2020-07-23 17:37:13.761  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.core.env.Environment.defaultProfiles
-2020-07-23 17:37:13.761  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.core.env.Environment.activeProfiles
-2020-07-23 17:37:13.764  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.initParameterNames
-2020-07-23 17:37:13.764  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.virtualServerName
-2020-07-23 17:37:13.764  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.classLoader
-2020-07-23 17:37:13.764  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.filterRegistrations
-2020-07-23 17:37:13.765  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servletNames
-2020-07-23 17:37:13.765  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.sessionTrackingModes
-2020-07-23 17:37:13.765  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.contextPath
-2020-07-23 17:37:13.765  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.defaultSessionTrackingModes
-2020-07-23 17:37:13.765  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.majorVersion
-2020-07-23 17:37:13.765  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.effectiveMinorVersion
-2020-07-23 17:37:13.766  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.sessionCookieConfig
-2020-07-23 17:37:13.766  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.effectiveSessionTrackingModes
-2020-07-23 17:37:13.766  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.attributeNames
-2020-07-23 17:37:13.766  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.serverInfo
-2020-07-23 17:37:13.766  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servletRegistrations
-2020-07-23 17:37:13.766  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.jspConfigDescriptor
-2020-07-23 17:37:13.766  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servlets
-2020-07-23 17:37:13.767  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.requestCharacterEncoding
-2020-07-23 17:37:13.767  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.responseCharacterEncoding
-2020-07-23 17:37:13.767  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.sessionTimeout
-2020-07-23 17:37:13.767  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.minorVersion
-2020-07-23 17:37:13.767  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servletContextName
-2020-07-23 17:37:13.767  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.effectiveMajorVersion
-2020-07-23 17:37:13.768  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.FilterConfig.initParameterNames
-2020-07-23 17:37:13.769  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.FilterConfig.servletContext
-2020-07-23 17:37:13.769  WARN 17588 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.FilterConfig.filterName
-2020-07-23 17:37:13.828  INFO 17588 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class [[I so treating as simple type for SD Commons
-2020-07-23 17:37:13.865  INFO 17588 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : Neo4jMappingContext initialisation completed
-2020-07-23 17:37:13.947  WARN 17588 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-07-23 17:37:13.949  WARN 17588 --- [main] aAutoConfiguration$Neo4jWebConfiguration : spring.data.neo4j.open-in-view is enabled by default.Therefore, database queries may be performed during view rendering. Explicitly configure spring.data.neo4j.open-in-view to disable this warning
-2020-07-23 17:37:14.026  INFO 17588 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
-
-Using generated security password: a7600f6a-e05c-4d73-9db5-23cb9661352f
-
-2020-07-23 17:37:14.089  INFO 17588 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5b78a946, org.springframework.security.web.context.SecurityContextPersistenceFilter@5274acd1, org.springframework.security.web.header.HeaderWriterFilter@6c26e588, org.springframework.web.filter.CorsFilter@37c762aa, org.springframework.security.web.authentication.logout.LogoutFilter@44d6f9cf, com.cargohub.security.jwt.JwtTokenAuthenticationFilter@4c438f66, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e643402, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@218e186b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@13087c75, org.springframework.security.web.session.SessionManagementFilter@5f7bd970, org.springframework.security.web.access.ExceptionTranslationFilter@693ed09d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@22f7bf36]
-2020-07-23 17:37:14.202  INFO 17588 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-07-23 17:37:14.401  INFO 17588 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9041 (http) with context path ''
-2020-07-23 17:37:14.404  INFO 17588 --- [main] com.cargohub.AlgorithmMasterDbApp        : Started AlgorithmMasterDbApp in 4.546 seconds (JVM running for 5.297)
-2020-07-23 17:37:20.063  INFO 17588 --- [http-nio-9041-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-07-23 17:37:20.064  INFO 17588 --- [http-nio-9041-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-07-23 17:37:20.070  INFO 17588 --- [http-nio-9041-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
-2020-07-23 17:37:27.965  INFO 17588 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 202 loaded 60.85800000000002
-2020-07-23 17:37:28.041  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:37:28.046  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 left Berlin on the way to Munich
-2020-07-23 17:37:28.050  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 will wait 28332 milliseconds
-2020-07-23 17:37:28.153  INFO 17588 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 203 loaded 59.42700000000002
-2020-07-23 17:37:28.209  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
-2020-07-23 17:37:28.209  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 left Berlin on the way to Dortmund
-2020-07-23 17:37:28.209  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 will wait 23961 milliseconds
-2020-07-23 17:37:28.315  INFO 17588 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 204 loaded 60.912000000000035
-2020-07-23 17:37:28.371  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
-2020-07-23 17:37:28.371  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 left Berlin on the way to Frankfurt
-2020-07-23 17:37:28.371  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 will wait 23519 milliseconds
-2020-07-23 17:37:28.476  INFO 17588 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 205 loaded 61.61400000000003
-2020-07-23 17:37:28.514  INFO 17588 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Hamburg, ]
-2020-07-23 17:37:28.514  INFO 17588 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 205 left Berlin on the way to Hamburg
-2020-07-23 17:37:28.514  INFO 17588 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 205 will wait 13930 milliseconds
-2020-07-23 17:37:28.619  INFO 17588 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 206 loaded 60.29100000000003
-2020-07-23 17:37:28.657  INFO 17588 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Cologne, ]
-2020-07-23 17:37:28.657  INFO 17588 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 206 left Berlin on the way to Cologne
-2020-07-23 17:37:28.657  INFO 17588 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 206 will wait 26954 milliseconds
-2020-07-23 17:37:28.757  INFO 17588 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 207 loaded 59.589000000000034
-2020-07-23 17:37:28.796  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:37:28.796  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 left Berlin on the way to Munich
-2020-07-23 17:37:28.796  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 will wait 27583 milliseconds
-2020-07-23 17:37:42.446  INFO 17588 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 205 is starting unload in Hamburg
-2020-07-23 17:37:42.446  INFO 17588 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 205 is unloaded and reached final destination Hamburg
-2020-07-23 17:37:51.891  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 is starting unload in Frankfurt
-2020-07-23 17:37:52.170  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 is starting unload in Dortmund
-2020-07-23 17:37:55.612  INFO 17588 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 206 is starting unload in Cologne
-2020-07-23 17:37:55.612  INFO 17588 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 206 is unloaded and reached final destination Cologne
-2020-07-23 17:37:56.379  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is starting unload in Munich
-2020-07-23 17:37:56.382  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is starting unload in Munich
-2020-07-23 17:37:56.674  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 is unloaded and loaded in Frankfurt
-2020-07-23 17:37:56.674  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
-2020-07-23 17:37:56.674  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 left Frankfurt on the way to Dortmund
-2020-07-23 17:37:56.674  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 will wait -19674 milliseconds
-2020-07-23 17:37:56.674  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 is starting unload in Dortmund
-2020-07-23 17:38:00.371  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is unloaded and loaded in Munich
-2020-07-23 17:38:00.372  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:38:00.372  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 left Munich on the way to Zurich
-2020-07-23 17:38:00.372  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 will wait -20372 milliseconds
-2020-07-23 17:38:00.372  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is starting unload in Zurich
-2020-07-23 17:38:05.656  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is unloaded and loaded in Munich
-2020-07-23 17:38:05.657  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:38:05.657  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 left Munich on the way to Zurich
-2020-07-23 17:38:05.657  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 will wait -25657 milliseconds
-2020-07-23 17:38:05.657  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is starting unload in Zurich
-2020-07-23 17:38:10.770  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 is unloaded and loaded in Dortmund
-2020-07-23 17:38:10.771  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
-2020-07-23 17:38:10.771  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 left Dortmund on the way to Frankfurt
-2020-07-23 17:38:10.771  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 will wait -33771 milliseconds
-2020-07-23 17:38:10.771  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 is starting unload in Frankfurt
-2020-07-23 17:38:11.131  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 is unloaded and loaded in Frankfurt
-2020-07-23 17:38:11.131  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
-2020-07-23 17:38:11.131  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 left Frankfurt on the way to Stuttgart
-2020-07-23 17:38:11.132  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 will wait 1039 milliseconds
-2020-07-23 17:38:12.171  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 is starting unload in Stuttgart
-2020-07-23 17:38:12.171  INFO 17588 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 203 is unloaded and reached final destination Stuttgart
-2020-07-23 17:38:19.274  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is unloaded and loaded in Zurich
-2020-07-23 17:38:19.274  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:38:19.274  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 left Zurich on the way to Bern
-2020-07-23 17:38:19.274  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 will wait -48274 milliseconds
-2020-07-23 17:38:19.274  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is starting unload in Bern
-2020-07-23 17:38:21.366  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is unloaded and loaded in Zurich
-2020-07-23 17:38:21.367  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:38:21.367  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 left Zurich on the way to Bern
-2020-07-23 17:38:21.367  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 will wait -50367 milliseconds
-2020-07-23 17:38:21.367  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is starting unload in Bern
-2020-07-23 17:38:21.755  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 is unloaded and loaded in Dortmund
-2020-07-23 17:38:21.755  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
-2020-07-23 17:38:21.755  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 left Dortmund on the way to Essen
-2020-07-23 17:38:21.755  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 will wait -17865 milliseconds
-2020-07-23 17:38:21.755  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 is starting unload in Essen
-2020-07-23 17:38:21.755  INFO 17588 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 204 is unloaded and reached final destination Essen
-2020-07-23 17:38:26.007  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is unloaded and loaded in Bern
-2020-07-23 17:38:26.008  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:38:26.008  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 left Bern on the way to Geneva
-2020-07-23 17:38:26.008  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 will wait -53008 milliseconds
-2020-07-23 17:38:26.008  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is starting unload in Geneva
-2020-07-23 17:38:31.391  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is unloaded and loaded in Bern
-2020-07-23 17:38:31.391  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:38:31.391  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 left Bern on the way to Geneva
-2020-07-23 17:38:31.391  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 will wait -58391 milliseconds
-2020-07-23 17:38:31.391  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is starting unload in Geneva
-2020-07-23 17:38:32.046  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is unloaded and loaded in Geneva
-2020-07-23 17:38:32.046  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:38:32.046  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 left Geneva on the way to Lausanne
-2020-07-23 17:38:32.046  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 will wait -4667 milliseconds
-2020-07-23 17:38:32.047  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is starting unload in Lausanne
-2020-07-23 17:38:32.047  INFO 17588 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 207 is unloaded and reached final destination Lausanne
-2020-07-23 17:38:32.381  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is unloaded and loaded in Geneva
-2020-07-23 17:38:32.382  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:38:32.382  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 left Geneva on the way to Lausanne
-2020-07-23 17:38:32.382  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 will wait -5003 milliseconds
-2020-07-23 17:38:32.382  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is starting unload in Lausanne
-2020-07-23 17:38:32.382  INFO 17588 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 202 is unloaded and reached final destination Lausanne
-2020-07-23 17:39:16.967  INFO 10848 --- [main] com.cargohub.AlgorithmMasterDbApp        : Starting AlgorithmMasterDbApp on DESKTOP-6M3SM08 with PID 10848 (C:\Users\SvampX\IdeaProjects\AlgorithmMasterDB\target\classes started by SvampX in C:\Users\SvampX\IdeaProjects\AlgorithmMasterDB)
-2020-07-23 17:39:16.970  INFO 10848 --- [main] com.cargohub.AlgorithmMasterDbApp        : No active profile set, falling back to default profiles: default
-2020-07-23 17:39:17.557  INFO 10848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-07-23 17:39:17.558  INFO 10848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
-2020-07-23 17:39:17.592  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.CargoPositionRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.593  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.CargoRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.594  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.CarrierCompartmentRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.596  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.DimensionsRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.597  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.HubRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.604  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.OrderRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.606  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RelationRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.611  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RouteRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.612  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.TransportDetailsRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.613  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.TransporterRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:39:17.625  INFO 10848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 62ms. Found 3 Neo4j repository interfaces.
-2020-07-23 17:39:17.752  INFO 10848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-07-23 17:39:17.752  INFO 10848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2020-07-23 17:39:17.790  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.LocationRepository. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
-2020-07-23 17:39:17.793  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RelationRepositoryNeo4j. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
-2020-07-23 17:39:17.794  INFO 10848 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RouteNeo4jRepository. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
-2020-07-23 17:39:17.827  INFO 10848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72ms. Found 10 JPA repository interfaces.
-2020-07-23 17:39:18.379  INFO 10848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9041 (http)
-2020-07-23 17:39:18.386  INFO 10848 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-07-23 17:39:18.387  INFO 10848 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.34]
-2020-07-23 17:39:18.529  INFO 10848 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-07-23 17:39:18.529  INFO 10848 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1486 ms
-2020-07-23 17:39:18.646  INFO 10848 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 6.4.4 by Redgate
-2020-07-23 17:39:18.758  INFO 10848 --- [main] o.f.c.internal.database.DatabaseFactory  : Database: jdbc:mysql://localhost:3306/cargo_transports (MySQL 5.7)
-2020-07-23 17:39:18.793  INFO 10848 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.019s)
-2020-07-23 17:39:18.801  INFO 10848 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `cargo_transports`: 3
-2020-07-23 17:39:18.802  INFO 10848 --- [main] o.f.core.internal.command.DbMigrate      : Schema `cargo_transports` is up to date. No migration necessary.
-2020-07-23 17:39:18.839  INFO 10848 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-07-23 17:39:18.852  INFO 10848 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-07-23 17:39:18.898  INFO 10848 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-07-23 17:39:18.931  INFO 10848 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.15.Final
-2020-07-23 17:39:19.019  INFO 10848 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-07-23 17:39:19.096  INFO 10848 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
-2020-07-23 17:39:19.714  INFO 10848 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-07-23 17:39:19.721  INFO 10848 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2020-07-23 17:39:20.441  INFO 10848 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Starting Post-processing phase
-2020-07-23 17:39:20.442  INFO 10848 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Building byLabel lookup maps
-2020-07-23 17:39:20.442  INFO 10848 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Building interface class map for 125 classes
-2020-07-23 17:39:20.460  INFO 10848 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Post-processing complete
-2020-07-23 17:39:20.506  INFO 10848 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class javafx.application.HostServices so treating as simple type for SD Commons
-2020-07-23 17:39:20.515  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.fatalEnabled
-2020-07-23 17:39:20.515  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.errorEnabled
-2020-07-23 17:39:20.516  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.infoEnabled
-2020-07-23 17:39:20.516  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.debugEnabled
-2020-07-23 17:39:20.516  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.traceEnabled
-2020-07-23 17:39:20.516  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.warnEnabled
-2020-07-23 17:39:20.521  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.parent
-2020-07-23 17:39:20.522  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.environment
-2020-07-23 17:39:20.522  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.classLoader
-2020-07-23 17:39:20.522  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.displayName
-2020-07-23 17:39:20.522  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.startupDate
-2020-07-23 17:39:20.522  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.beanDefinitionCount
-2020-07-23 17:39:20.523  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.autowireCapableBeanFactory
-2020-07-23 17:39:20.523  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.beanDefinitionNames
-2020-07-23 17:39:20.523  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.parentBeanFactory
-2020-07-23 17:39:20.523  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.id
-2020-07-23 17:39:20.523  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.applicationName
-2020-07-23 17:39:20.526  INFO 10848 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration so treating as simple type for SD Commons
-2020-07-23 17:39:20.527  INFO 10848 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder so treating as simple type for SD Commons
-2020-07-23 17:39:20.529  INFO 10848 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class org.springframework.security.config.annotation.web.builders.HttpSecurity so treating as simple type for SD Commons
-2020-07-23 17:39:20.586  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.core.env.Environment.defaultProfiles
-2020-07-23 17:39:20.586  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.core.env.Environment.activeProfiles
-2020-07-23 17:39:20.589  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.initParameterNames
-2020-07-23 17:39:20.589  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.virtualServerName
-2020-07-23 17:39:20.589  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.classLoader
-2020-07-23 17:39:20.589  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.filterRegistrations
-2020-07-23 17:39:20.589  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servletNames
-2020-07-23 17:39:20.589  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.sessionTrackingModes
-2020-07-23 17:39:20.590  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.contextPath
-2020-07-23 17:39:20.590  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.defaultSessionTrackingModes
-2020-07-23 17:39:20.590  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.majorVersion
-2020-07-23 17:39:20.590  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.effectiveMinorVersion
-2020-07-23 17:39:20.590  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.sessionCookieConfig
-2020-07-23 17:39:20.590  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.effectiveSessionTrackingModes
-2020-07-23 17:39:20.590  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.attributeNames
-2020-07-23 17:39:20.590  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.serverInfo
-2020-07-23 17:39:20.591  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servletRegistrations
-2020-07-23 17:39:20.591  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.jspConfigDescriptor
-2020-07-23 17:39:20.591  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servlets
-2020-07-23 17:39:20.592  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.requestCharacterEncoding
-2020-07-23 17:39:20.592  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.responseCharacterEncoding
-2020-07-23 17:39:20.592  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.sessionTimeout
-2020-07-23 17:39:20.592  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.minorVersion
-2020-07-23 17:39:20.593  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servletContextName
-2020-07-23 17:39:20.593  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.effectiveMajorVersion
-2020-07-23 17:39:20.594  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.FilterConfig.initParameterNames
-2020-07-23 17:39:20.594  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.FilterConfig.servletContext
-2020-07-23 17:39:20.594  WARN 10848 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.FilterConfig.filterName
-2020-07-23 17:39:20.640  INFO 10848 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class [[I so treating as simple type for SD Commons
-2020-07-23 17:39:20.673  INFO 10848 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : Neo4jMappingContext initialisation completed
-2020-07-23 17:39:20.745  WARN 10848 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-07-23 17:39:20.748  WARN 10848 --- [main] aAutoConfiguration$Neo4jWebConfiguration : spring.data.neo4j.open-in-view is enabled by default.Therefore, database queries may be performed during view rendering. Explicitly configure spring.data.neo4j.open-in-view to disable this warning
-2020-07-23 17:39:20.822  INFO 10848 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
-
-Using generated security password: 3dbaf7ba-af92-4a9f-8d5a-3121b03224c1
-
-2020-07-23 17:39:20.883  INFO 10848 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1d4c6e32, org.springframework.security.web.context.SecurityContextPersistenceFilter@466cca41, org.springframework.security.web.header.HeaderWriterFilter@11fb1691, org.springframework.web.filter.CorsFilter@3a5ffea, org.springframework.security.web.authentication.logout.LogoutFilter@24fc9aa5, com.cargohub.security.jwt.JwtTokenAuthenticationFilter@1d126f07, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@496c6d94, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2af31aba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@71689ee2, org.springframework.security.web.session.SessionManagementFilter@28f3a218, org.springframework.security.web.access.ExceptionTranslationFilter@2d527346, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7505dcab]
-2020-07-23 17:39:20.986  INFO 10848 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-07-23 17:39:21.161  INFO 10848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9041 (http) with context path ''
-2020-07-23 17:39:21.162  INFO 10848 --- [main] com.cargohub.AlgorithmMasterDbApp        : Started AlgorithmMasterDbApp in 4.532 seconds (JVM running for 5.175)
-2020-07-23 17:39:23.512  INFO 10848 --- [http-nio-9041-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-07-23 17:39:23.513  INFO 10848 --- [http-nio-9041-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-07-23 17:39:23.520  INFO 10848 --- [http-nio-9041-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
-2020-07-23 17:39:43.720  INFO 10848 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 214 loaded 61.209000000000024
-2020-07-23 17:39:43.780  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:39:43.785  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 left Berlin on the way to Munich
-2020-07-23 17:39:43.788  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 will wait 28418 milliseconds
-2020-07-23 17:39:43.885  INFO 10848 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 215 loaded 59.64300000000001
-2020-07-23 17:39:43.934  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
-2020-07-23 17:39:43.934  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 left Berlin on the way to Frankfurt
-2020-07-23 17:39:43.934  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 will wait 23728 milliseconds
-2020-07-23 17:39:44.038  INFO 10848 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 216 loaded 60.96600000000001
-2020-07-23 17:39:44.086  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
-2020-07-23 17:39:44.086  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 left Berlin on the way to Dortmund
-2020-07-23 17:39:44.086  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 will wait 23848 milliseconds
-2020-07-23 17:39:44.194  INFO 10848 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 217 loaded 61.425000000000026
-2020-07-23 17:39:44.249  INFO 10848 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Hamburg, ]
-2020-07-23 17:39:44.249  INFO 10848 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 217 left Berlin on the way to Hamburg
-2020-07-23 17:39:44.250  INFO 10848 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 217 will wait 13964 milliseconds
-2020-07-23 17:39:44.353  INFO 10848 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 218 loaded 60.75
-2020-07-23 17:39:44.394  INFO 10848 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Cologne, ]
-2020-07-23 17:39:44.394  INFO 10848 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 218 left Berlin on the way to Cologne
-2020-07-23 17:39:44.394  INFO 10848 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 218 will wait 26997 milliseconds
-2020-07-23 17:39:44.501  INFO 10848 --- [http-nio-9041-exec-1] c.c.cargoloader.LoadingServiceImpl       :  Transporter 219 loaded 61.155000000000015
-2020-07-23 17:39:44.540  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:39:44.540  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 left Berlin on the way to Munich
-2020-07-23 17:39:44.540  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 will wait 27663 milliseconds
-2020-07-23 17:39:58.214  INFO 10848 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 217 is starting unload in Hamburg
-2020-07-23 17:39:58.215  INFO 10848 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 217 is unloaded and reached final destination Hamburg
-2020-07-23 17:40:07.662  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 is starting unload in Frankfurt
-2020-07-23 17:40:07.934  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 is starting unload in Dortmund
-2020-07-23 17:40:11.391  INFO 10848 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 218 is starting unload in Cologne
-2020-07-23 17:40:11.391  INFO 10848 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 218 is unloaded and reached final destination Cologne
-2020-07-23 17:40:12.204  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is starting unload in Munich
-2020-07-23 17:40:12.206  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is starting unload in Munich
-2020-07-23 17:40:15.583  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 is unloaded and loaded in Frankfurt
-2020-07-23 17:40:15.583  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
-2020-07-23 17:40:15.583  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 left Frankfurt on the way to Dortmund
-2020-07-23 17:40:15.583  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 will wait -22583 milliseconds
-2020-07-23 17:40:15.583  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 is starting unload in Dortmund
-2020-07-23 17:40:20.000  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is unloaded and loaded in Munich
-2020-07-23 17:40:20.001  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:40:20.001  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 left Munich on the way to Zurich
-2020-07-23 17:40:20.001  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 will wait -24001 milliseconds
-2020-07-23 17:40:20.001  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is starting unload in Zurich
-2020-07-23 17:40:27.122  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is unloaded and loaded in Munich
-2020-07-23 17:40:27.123  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:40:27.123  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 left Munich on the way to Zurich
-2020-07-23 17:40:27.123  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 will wait -31123 milliseconds
-2020-07-23 17:40:27.123  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is starting unload in Zurich
-2020-07-23 17:40:32.321  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 is unloaded and loaded in Dortmund
-2020-07-23 17:40:32.321  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
-2020-07-23 17:40:32.321  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 left Dortmund on the way to Frankfurt
-2020-07-23 17:40:32.321  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 will wait -39321 milliseconds
-2020-07-23 17:40:32.321  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 is starting unload in Frankfurt
-2020-07-23 17:40:38.919  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is unloaded and loaded in Zurich
-2020-07-23 17:40:38.919  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:40:38.919  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 left Zurich on the way to Bern
-2020-07-23 17:40:38.919  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 will wait -51919 milliseconds
-2020-07-23 17:40:38.919  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is starting unload in Bern
-2020-07-23 17:40:43.583  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is unloaded and loaded in Zurich
-2020-07-23 17:40:43.584  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:40:43.584  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 left Zurich on the way to Bern
-2020-07-23 17:40:43.584  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 will wait -56584 milliseconds
-2020-07-23 17:40:43.584  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is starting unload in Bern
-2020-07-23 17:40:44.067  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 is unloaded and loaded in Dortmund
-2020-07-23 17:40:44.067  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
-2020-07-23 17:40:44.067  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 left Dortmund on the way to Essen
-2020-07-23 17:40:44.067  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 will wait -24405 milliseconds
-2020-07-23 17:40:44.067  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 is starting unload in Essen
-2020-07-23 17:40:44.067  INFO 10848 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 215 is unloaded and reached final destination Essen
-2020-07-23 17:40:47.819  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is unloaded and loaded in Bern
-2020-07-23 17:40:47.820  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:40:47.820  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 left Bern on the way to Geneva
-2020-07-23 17:40:47.820  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 will wait -58820 milliseconds
-2020-07-23 17:40:47.820  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is starting unload in Geneva
-2020-07-23 17:40:52.877  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is unloaded and loaded in Bern
-2020-07-23 17:40:52.878  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:40:52.878  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 left Bern on the way to Geneva
-2020-07-23 17:40:52.878  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 will wait -63878 milliseconds
-2020-07-23 17:40:52.878  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is starting unload in Geneva
-2020-07-23 17:40:53.257  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 is unloaded and loaded in Frankfurt
-2020-07-23 17:40:53.257  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
-2020-07-23 17:40:53.258  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 left Frankfurt on the way to Stuttgart
-2020-07-23 17:40:53.258  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 will wait -25324 milliseconds
-2020-07-23 17:40:53.258  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 is starting unload in Stuttgart
-2020-07-23 17:40:53.258  INFO 10848 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 216 is unloaded and reached final destination Stuttgart
-2020-07-23 17:40:53.608  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is unloaded and loaded in Geneva
-2020-07-23 17:40:53.608  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:40:53.608  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 left Geneva on the way to Lausanne
-2020-07-23 17:40:53.608  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 will wait -10405 milliseconds
-2020-07-23 17:40:53.609  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is starting unload in Lausanne
-2020-07-23 17:40:53.609  INFO 10848 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 219 is unloaded and reached final destination Lausanne
-2020-07-23 17:40:53.926  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is unloaded and loaded in Geneva
-2020-07-23 17:40:53.926  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:40:53.926  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 left Geneva on the way to Lausanne
-2020-07-23 17:40:53.926  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 will wait -10723 milliseconds
-2020-07-23 17:40:53.926  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is starting unload in Lausanne
-2020-07-23 17:40:53.926  INFO 10848 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 214 is unloaded and reached final destination Lausanne
-2020-07-23 17:41:53.402  INFO 9032 --- [main] com.cargohub.AlgorithmMasterDbApp        : Starting AlgorithmMasterDbApp on DESKTOP-6M3SM08 with PID 9032 (C:\Users\SvampX\IdeaProjects\AlgorithmMasterDB\target\classes started by SvampX in C:\Users\SvampX\IdeaProjects\AlgorithmMasterDB)
-2020-07-23 17:41:53.405  INFO 9032 --- [main] com.cargohub.AlgorithmMasterDbApp        : No active profile set, falling back to default profiles: default
-2020-07-23 17:41:53.983  INFO 9032 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-07-23 17:41:53.983  INFO 9032 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
-2020-07-23 17:41:54.007  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.CargoPositionRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.008  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.CargoRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.013  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.CarrierCompartmentRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.014  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.DimensionsRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.015  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.HubRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.023  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.OrderRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.024  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RelationRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.029  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RouteRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.030  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.TransportDetailsRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.031  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Neo4j - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.TransporterRepository. If you want this repository to be a Neo4j repository, consider annotating your entities with one of these annotations: org.neo4j.ogm.annotation.NodeEntity, org.neo4j.ogm.annotation.RelationshipEntity (preferred), or consider extending one of the following types with your repository: org.springframework.data.neo4j.repository.Neo4jRepository.
-2020-07-23 17:41:54.044  INFO 9032 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55ms. Found 3 Neo4j repository interfaces.
-2020-07-23 17:41:54.166  INFO 9032 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2020-07-23 17:41:54.166  INFO 9032 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2020-07-23 17:41:54.206  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.LocationRepository. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
-2020-07-23 17:41:54.210  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RelationRepositoryNeo4j. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
-2020-07-23 17:41:54.211  INFO 9032 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.cargohub.repository.RouteNeo4jRepository. If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository.
-2020-07-23 17:41:54.242  INFO 9032 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71ms. Found 10 JPA repository interfaces.
-2020-07-23 17:41:54.713  INFO 9032 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9041 (http)
-2020-07-23 17:41:54.722  INFO 9032 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-07-23 17:41:54.722  INFO 9032 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.34]
-2020-07-23 17:41:54.807  INFO 9032 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-07-23 17:41:54.807  INFO 9032 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1333 ms
-2020-07-23 17:41:54.900  INFO 9032 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 6.4.4 by Redgate
-2020-07-23 17:41:55.003  INFO 9032 --- [main] o.f.c.internal.database.DatabaseFactory  : Database: jdbc:mysql://localhost:3306/cargo_transports (MySQL 5.7)
-2020-07-23 17:41:55.039  INFO 9032 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.018s)
-2020-07-23 17:41:55.046  INFO 9032 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `cargo_transports`: 3
-2020-07-23 17:41:55.047  INFO 9032 --- [main] o.f.core.internal.command.DbMigrate      : Schema `cargo_transports` is up to date. No migration necessary.
-2020-07-23 17:41:55.083  INFO 9032 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2020-07-23 17:41:55.095  INFO 9032 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2020-07-23 17:41:55.145  INFO 9032 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2020-07-23 17:41:55.176  INFO 9032 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.15.Final
-2020-07-23 17:41:55.265  INFO 9032 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-07-23 17:41:55.344  INFO 9032 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
-2020-07-23 17:41:55.922  INFO 9032 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2020-07-23 17:41:55.930  INFO 9032 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2020-07-23 17:41:56.611  INFO 9032 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Starting Post-processing phase
-2020-07-23 17:41:56.611  INFO 9032 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Building byLabel lookup maps
-2020-07-23 17:41:56.611  INFO 9032 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Building interface class map for 125 classes
-2020-07-23 17:41:56.625  INFO 9032 --- [main] org.neo4j.ogm.metadata.DomainInfo        : Post-processing complete
-2020-07-23 17:41:56.669  INFO 9032 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class javafx.application.HostServices so treating as simple type for SD Commons
-2020-07-23 17:41:56.679  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.fatalEnabled
-2020-07-23 17:41:56.680  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.errorEnabled
-2020-07-23 17:41:56.680  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.infoEnabled
-2020-07-23 17:41:56.680  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.debugEnabled
-2020-07-23 17:41:56.681  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.traceEnabled
-2020-07-23 17:41:56.681  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.apache.commons.logging.Log.warnEnabled
-2020-07-23 17:41:56.686  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.parent
-2020-07-23 17:41:56.687  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.environment
-2020-07-23 17:41:56.687  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.classLoader
-2020-07-23 17:41:56.687  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.displayName
-2020-07-23 17:41:56.687  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.startupDate
-2020-07-23 17:41:56.687  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.beanDefinitionCount
-2020-07-23 17:41:56.687  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.autowireCapableBeanFactory
-2020-07-23 17:41:56.688  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.beanDefinitionNames
-2020-07-23 17:41:56.688  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.parentBeanFactory
-2020-07-23 17:41:56.688  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.id
-2020-07-23 17:41:56.688  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.context.ApplicationContext.applicationName
-2020-07-23 17:41:56.690  INFO 9032 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration so treating as simple type for SD Commons
-2020-07-23 17:41:56.691  INFO 9032 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder so treating as simple type for SD Commons
-2020-07-23 17:41:56.693  INFO 9032 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class org.springframework.security.config.annotation.web.builders.HttpSecurity so treating as simple type for SD Commons
-2020-07-23 17:41:56.749  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.core.env.Environment.defaultProfiles
-2020-07-23 17:41:56.749  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: org.springframework.core.env.Environment.activeProfiles
-2020-07-23 17:41:56.752  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.initParameterNames
-2020-07-23 17:41:56.752  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.virtualServerName
-2020-07-23 17:41:56.752  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.classLoader
-2020-07-23 17:41:56.752  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.filterRegistrations
-2020-07-23 17:41:56.752  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servletNames
-2020-07-23 17:41:56.752  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.sessionTrackingModes
-2020-07-23 17:41:56.753  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.contextPath
-2020-07-23 17:41:56.753  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.defaultSessionTrackingModes
-2020-07-23 17:41:56.753  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.majorVersion
-2020-07-23 17:41:56.753  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.effectiveMinorVersion
-2020-07-23 17:41:56.753  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.sessionCookieConfig
-2020-07-23 17:41:56.753  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.effectiveSessionTrackingModes
-2020-07-23 17:41:56.754  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.attributeNames
-2020-07-23 17:41:56.754  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.serverInfo
-2020-07-23 17:41:56.754  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servletRegistrations
-2020-07-23 17:41:56.754  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.jspConfigDescriptor
-2020-07-23 17:41:56.754  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servlets
-2020-07-23 17:41:56.754  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.requestCharacterEncoding
-2020-07-23 17:41:56.755  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.responseCharacterEncoding
-2020-07-23 17:41:56.755  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.sessionTimeout
-2020-07-23 17:41:56.755  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.minorVersion
-2020-07-23 17:41:56.755  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.servletContextName
-2020-07-23 17:41:56.755  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.ServletContext.effectiveMajorVersion
-2020-07-23 17:41:56.755  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.FilterConfig.initParameterNames
-2020-07-23 17:41:56.756  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.FilterConfig.servletContext
-2020-07-23 17:41:56.756  WARN 9032 --- [main] o.s.d.n.mapping.Neo4jPersistentProperty  : Owning ClassInfo is null for property: javax.servlet.FilterConfig.filterName
-2020-07-23 17:41:56.804  INFO 9032 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : No class information found in OGM meta-data for class [[I so treating as simple type for SD Commons
-2020-07-23 17:41:56.836  INFO 9032 --- [main] o.s.d.neo4j.mapping.Neo4jMappingContext  : Neo4jMappingContext initialisation completed
-2020-07-23 17:41:56.906  WARN 9032 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2020-07-23 17:41:56.909  WARN 9032 --- [main] aAutoConfiguration$Neo4jWebConfiguration : spring.data.neo4j.open-in-view is enabled by default.Therefore, database queries may be performed during view rendering. Explicitly configure spring.data.neo4j.open-in-view to disable this warning
-2020-07-23 17:41:56.986  INFO 9032 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
-
-Using generated security password: 8810face-bcca-4b70-aaf5-ef2e5aaa23ed
-
-2020-07-23 17:41:57.048  INFO 9032 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8a7cd7c, org.springframework.security.web.context.SecurityContextPersistenceFilter@1d4e06bb, org.springframework.security.web.header.HeaderWriterFilter@2053b761, org.springframework.web.filter.CorsFilter@21f0cc97, org.springframework.security.web.authentication.logout.LogoutFilter@496c6d94, com.cargohub.security.jwt.JwtTokenAuthenticationFilter@1f6d3a81, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4529048e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@524c3e54, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@641c8ba4, org.springframework.security.web.session.SessionManagementFilter@64d1f549, org.springframework.security.web.access.ExceptionTranslationFilter@501b296a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@23d07ad3]
-2020-07-23 17:41:57.151  INFO 9032 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-07-23 17:41:57.340  INFO 9032 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9041 (http) with context path ''
-2020-07-23 17:41:57.342  INFO 9032 --- [main] com.cargohub.AlgorithmMasterDbApp        : Started AlgorithmMasterDbApp in 4.26 seconds (JVM running for 4.917)
-2020-07-23 17:42:13.209  INFO 9032 --- [http-nio-9041-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-07-23 17:42:13.210  INFO 9032 --- [http-nio-9041-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-07-23 17:42:13.221  INFO 9032 --- [http-nio-9041-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 10 ms
-2020-07-23 17:42:17.043  INFO 9032 --- [http-nio-9041-exec-6] c.c.cargoloader.LoadingServiceImpl       :  Transporter 226 loaded 60.453
-2020-07-23 17:42:17.131  INFO 9032 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
-2020-07-23 17:42:17.137  INFO 9032 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 226 left Berlin on the way to Frankfurt
-2020-07-23 17:42:17.140  INFO 9032 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 226 will wait 23790 milliseconds
-2020-07-23 17:42:17.261  INFO 9032 --- [http-nio-9041-exec-6] c.c.cargoloader.LoadingServiceImpl       :  Transporter 227 loaded 61.37100000000001
-2020-07-23 17:42:17.312  INFO 9032 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
-2020-07-23 17:42:17.312  INFO 9032 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 227 left Berlin on the way to Dortmund
-2020-07-23 17:42:17.312  INFO 9032 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 227 will wait 23905 milliseconds
-2020-07-23 17:42:17.431  INFO 9032 --- [http-nio-9041-exec-6] c.c.cargoloader.LoadingServiceImpl       :  Transporter 228 loaded 60.102000000000025
-2020-07-23 17:42:17.475  INFO 9032 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
-2020-07-23 17:42:17.476  INFO 9032 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 228 left Berlin on the way to Munich
-2020-07-23 17:42:17.476  INFO 9032 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 228 will wait 27943 milliseconds
-2020-07-23 17:42:17.593  INFO 9032 --- [http-nio-9041-exec-6] c.c.cargoloader.LoadingServiceImpl       :  Transporter 229 loaded 61.533000000000015
-2020-07-23 17:42:17.632  INFO 9032 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Hamburg, ]
-2020-07-23 17:42:17.632  INFO 9032 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 229 left Berlin on the way to Hamburg
-2020-07-23 17:42:17.632  INFO 9032 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 229 will wait 13890 milliseconds
-2020-07-23 17:42:17.744  INFO 9032 --- [http-nio-9041-exec-6] c.c.cargoloader.LoadingServiceImpl       :  Transporter 230 loaded 60.318000000000026
-2020-07-23 17:42:17.782  INFO 9032 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Cologne, ]
-2020-07-23 17:42:17.782  INFO 9032 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 230 left Berlin on the way to Cologne
-2020-07-23 17:42:17.782  INFO 9032 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 230 will wait 26905 milliseconds
-2020-07-23 17:42:17.891  INFO 9032 --- [http-nio-9041-exec-6] c.c.cargoloader.LoadingServiceImpl       :  Transporter 231 loaded 60.93900000000003
-2020-07-23 17:42:17.931  INFO 9032 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
-2020-07-23 17:42:17.931  INFO 9032 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 231 left Berlin on the way to Frankfurt
-2020-07-23 17:42:17.931  INFO 9032 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 231 will wait 22996 milliseconds
-2020-07-23 17:42:31.523  INFO 9032 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
- Transporter 229 is starting unload in Hamburg
+2020-07-23 18:07:54.108  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 262 loaded 59.02200000000003
+2020-07-23 18:07:54.157  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:07:54.162  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Berlin on the way to Munich
+2020-07-23 18:07:54.269  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 263 loaded 60.23700000000004
+2020-07-23 18:07:54.313  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
+2020-07-23 18:07:54.313  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 left Berlin on the way to Frankfurt
+2020-07-23 18:07:54.419  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 264 loaded 60.021000000000015
+2020-07-23 18:07:54.456  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
+2020-07-23 18:07:54.456  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 left Berlin on the way to Dortmund
+2020-07-23 18:07:54.555  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 265 loaded 61.10100000000004
+2020-07-23 18:07:54.598  INFO 15524 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Cologne, ]
+2020-07-23 18:07:54.599  INFO 15524 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 265 left Berlin on the way to Cologne
+2020-07-23 18:07:54.711  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 266 loaded 60.93900000000005
+2020-07-23 18:07:54.752  INFO 15524 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Hamburg, ]
+2020-07-23 18:07:54.752  INFO 15524 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 266 left Berlin on the way to Hamburg
+2020-07-23 18:07:54.859  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 267 loaded 61.12800000000003
+2020-07-23 18:07:54.901  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:07:54.901  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Berlin on the way to Munich
+2020-07-23 18:08:08.650  INFO 15524 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 266 is starting unload in Hamburg
+2020-07-23 18:08:08.651  INFO 15524 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 266 is unloaded and reached final destination Hamburg
+2020-07-23 18:08:18.146  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is starting unload in Frankfurt
+2020-07-23 18:08:18.396  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is starting unload in Dortmund
+2020-07-23 18:08:21.809  INFO 15524 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 265 is starting unload in Cologne
+2020-07-23 18:08:21.809  INFO 15524 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 265 is unloaded and reached final destination Cologne
+2020-07-23 18:08:22.785  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Munich
+2020-07-23 18:08:22.786  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Munich
+2020-07-23 18:08:22.849  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is unloaded and loaded in Frankfurt
+2020-07-23 18:08:22.849  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
+2020-07-23 18:08:22.849  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 left Frankfurt on the way to Dortmund
+2020-07-23 18:08:22.849  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is starting unload in Dortmund
+2020-07-23 18:08:27.922  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and loaded in Munich
+2020-07-23 18:08:27.923  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:27.923  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Munich on the way to Zurich
+2020-07-23 18:08:27.923  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Zurich
+2020-07-23 18:08:32.348  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and loaded in Munich
+2020-07-23 18:08:32.348  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:32.348  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Munich on the way to Zurich
+2020-07-23 18:08:32.349  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Zurich
+2020-07-23 18:08:36.616  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is unloaded and loaded in Dortmund
+2020-07-23 18:08:36.617  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
+2020-07-23 18:08:36.617  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 left Dortmund on the way to Frankfurt
+2020-07-23 18:08:36.617  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is starting unload in Frankfurt
+2020-07-23 18:08:42.411  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and loaded in Zurich
+2020-07-23 18:08:42.411  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:42.411  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Zurich on the way to Bern
+2020-07-23 18:08:42.411  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Bern
+2020-07-23 18:08:44.452  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and loaded in Zurich
+2020-07-23 18:08:44.452  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:44.452  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Zurich on the way to Bern
+2020-07-23 18:08:44.452  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Bern
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is unloaded and loaded in Dortmund
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 left Dortmund on the way to Essen
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is starting unload in Essen
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is unloaded and reached final destination Essen
+2020-07-23 18:08:49.724  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and loaded in Bern
+2020-07-23 18:08:49.724  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:49.724  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Bern on the way to Geneva
+2020-07-23 18:08:49.724  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Geneva
+2020-07-23 18:08:54.001  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and loaded in Bern
+2020-07-23 18:08:54.002  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:54.002  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Bern on the way to Geneva
+2020-07-23 18:08:54.002  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Geneva
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is unloaded and loaded in Frankfurt
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 left Frankfurt on the way to Stuttgart
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is starting unload in Stuttgart
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is unloaded and reached final destination Stuttgart
+2020-07-23 18:08:54.661  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and loaded in Geneva
+2020-07-23 18:08:54.661  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:54.661  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Geneva on the way to Lausanne
+2020-07-23 18:08:54.661  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Lausanne
+2020-07-23 18:08:54.662  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and reached final destination Lausanne
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and loaded in Geneva
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Geneva on the way to Lausanne
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Lausanne
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and reached final destination Lausanne

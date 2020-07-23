@@ -86,8 +86,6 @@ public class LoadingServiceImpl {
                     List<CargoEntity> cargoEntities = transporter.getCompartments().get(0).getCargoEntities();
                     Date deliveryDate = getNextArrivalDate(cargoEntities, transporter.getCurrentHub());
                     long milliseconds = deliveryDate.getTime() - new Date().getTime();
-                    log.info(DEMO + " Transporter " + transporter.getId()
-                            + " will wait " + milliseconds + " milliseconds");
                     if (milliseconds > 0) {
                         try {
                             Thread.sleep(milliseconds);
