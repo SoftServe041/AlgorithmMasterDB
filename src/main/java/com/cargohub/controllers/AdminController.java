@@ -1,5 +1,6 @@
 package com.cargohub.controllers;
 
+import com.cargohub.dto.CargoPositionAndDimensionDto;
 import com.cargohub.dto.UpdateHubDto;
 import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.HubEntity;
@@ -9,7 +10,6 @@ import com.cargohub.models.Location;
 import com.cargohub.repository.CargoRepository;
 import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.service.HubService;
-import com.cargohub.service.impl.CarrierCompartmentServiceImpl;
 import com.cargohub.service.impl.LocationService;
 import com.cargohub.service.impl.RelationService;
 import com.cargohub.service.impl.TransporterServiceImpl;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -47,15 +48,15 @@ public class AdminController {
     }
 
     @GetMapping("/cargosByTransporter")
-    public List<CargoEntity> getCargosByTransporter(@RequestParam int id) {
+    public List<CargoPositionAndDimensionDto> getCargosByTransporter(@RequestParam int id) {
         List<CargoEntity> cargoEntities = new ArrayList<>();
-       // List<CarrierCompartmentEntity> compartments = transporterService.findById(id).getCompartments();
         List<CarrierCompartmentEntity> compartments = carrierCompartmentRepository.findAllByTransporterId(id);
-        for(CarrierCompartmentEntity car : compartments){
+        for (CarrierCompartmentEntity car : compartments) {
             cargoEntities.addAll(car.getCargoEntities());
         }
-        return cargoEntities;
+        return cargoEntities.stream().map(CargoPositionAndDimensionDto::cargoToCarPos).collect(Collectors.toList());
     }
+
     @PostMapping("relation")
     public void postNewRelation(@RequestBody HubRequest hubRequest) {
         relationService.createNewRelation(hubRequest.getConnectedCity(), hubRequest.getNewCity());
