@@ -5,6 +5,7 @@ import com.cargohub.dto.UpdateHubDto;
 import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.RelationEntity;
 import com.cargohub.entities.enums.TransporterType;
+import com.cargohub.exceptions.LogsClearException;
 import com.cargohub.models.HubRequest;
 import com.cargohub.models.Location;
 import com.cargohub.service.HubService;
@@ -15,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,9 +100,19 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
+//    @GetMapping("/clear")
+//    public ResponseEntity clearAllSimulationData() {
+//        simulationService.clearDatabase();
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
+
     @GetMapping("/clear")
-    public ResponseEntity clearAllSimulationData() {
-        simulationService.clearDatabase();
+    public ResponseEntity clearLogs() {
+        try (PrintWriter writer = new PrintWriter("demoLog.log")) {
+            writer.print("");
+        } catch (FileNotFoundException e) {
+            throw new LogsClearException("Couldn't find log file");
+        }
         return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -38,7 +38,7 @@ public class SimulationServiceImpl {
     public void simulate() {
         //List<HubEntity> hubs = (List<HubEntity>) hubRepository.findAll();
         //fillHubs(hubs);
-
+        clearDatabase();
         //here also orders added
         initTransportersInHub("Berlin");
         loadingService.loadAllTransportersInHub("Berlin");
