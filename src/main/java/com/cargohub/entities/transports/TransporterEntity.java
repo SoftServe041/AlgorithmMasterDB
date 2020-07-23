@@ -25,7 +25,7 @@ public class TransporterEntity {
     @OneToMany(mappedBy = "transporter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<CarrierCompartmentEntity> compartments;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "transporter_route",
             joinColumns = {@JoinColumn(name = "transporter_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "hub_id", referencedColumnName = "id")})

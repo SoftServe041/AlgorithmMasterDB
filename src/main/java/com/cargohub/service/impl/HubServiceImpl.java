@@ -5,7 +5,6 @@ import com.cargohub.entities.RelationEntity;
 import com.cargohub.entities.enums.TransporterType;
 import com.cargohub.exceptions.HubException;
 import com.cargohub.models.Location;
-import com.cargohub.models.RouteModel;
 import com.cargohub.repository.HubRepository;
 import com.cargohub.service.HubService;
 import com.cargohub.service.RelationService;
@@ -105,30 +104,33 @@ public class HubServiceImpl implements HubService {
 
     @Override
     public void exportAllFromNeo() {
-        List<Location> allLocations = locationServiceNeo4j.getAll();
-        List<HubEntity> hubs = new ArrayList<>();
-        for (Location location : allLocations) {
-            HubEntity hub = new HubEntity();
-            hub.setName(location.getName());
-            hubs.add(hub);
-        }
-        List<HubEntity> hubEntities = saveAll(hubs);
-        Map<String, HubEntity> hubByName = new HashMap<>();
-        hubEntities.forEach(hub -> hubByName.put(hub.getName(), hub));
-        List<RelationEntity> relations = new ArrayList<>();
-        for (HubEntity hubEntity : hubEntities) {
-            List<Location> allConnectedLocations = relationServiceNeo4j.getAllConnectedLocations(hubEntity.getName());
-            for (Location location : allConnectedLocations) {
-                RelationEntity relationEntity = new RelationEntity();
-                relationEntity.setOwnerHub(hubEntity);
-                relationEntity.setConnectedHub(hubByName.get(location.getName()));
-                double distanceBetweenCities = relationServiceNeo4j.
-                        getDistanceBetweenCities(hubEntity.getName(), location.getName());
-                relationEntity.setDistance(distanceBetweenCities);
-                relationEntity.setRelationType(TransporterType.TRUCK);
-                relations.add(relationEntity);
+        List<HubEntity> all = (List<HubEntity>) repository.findAll();
+        if (all.size() == 0) {
+            List<Location> allLocations = locationServiceNeo4j.getAll();
+            List<HubEntity> hubs = new ArrayList<>();
+            for (Location location : allLocations) {
+                HubEntity hub = new HubEntity();
+                hub.setName(location.getName());
+                hubs.add(hub);
             }
+            List<HubEntity> hubEntities = saveAll(hubs);
+            Map<String, HubEntity> hubByName = new HashMap<>();
+            hubEntities.forEach(hub -> hubByName.put(hub.getName(), hub));
+            List<RelationEntity> relations = new ArrayList<>();
+            for (HubEntity hubEntity : hubEntities) {
+                List<Location> allConnectedLocations = relationServiceNeo4j.getAllConnectedLocations(hubEntity.getName());
+                for (Location location : allConnectedLocations) {
+                    RelationEntity relationEntity = new RelationEntity();
+                    relationEntity.setOwnerHub(hubEntity);
+                    relationEntity.setConnectedHub(hubByName.get(location.getName()));
+                    double distanceBetweenCities = relationServiceNeo4j.
+                            getDistanceBetweenCities(hubEntity.getName(), location.getName());
+                    relationEntity.setDistance(distanceBetweenCities);
+                    relationEntity.setRelationType(TransporterType.TRUCK);
+                    relations.add(relationEntity);
+                }
+            }
+            relationService.saveAll(relations);
         }
-        relationService.saveAll(relations);
     }
 }

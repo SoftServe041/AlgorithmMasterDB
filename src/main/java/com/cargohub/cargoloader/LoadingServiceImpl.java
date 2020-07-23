@@ -32,12 +32,13 @@ public class LoadingServiceImpl {
     private final TransportDetailsRepository transportDetailsRepository;
     private final CargoLoader3D cargoLoader3D;
     private final CargoPositionRepository cargoPositionRepository;
+    private final RouteRepository routeRepository;
     private final static String DEMO = "<====================== D E M O ======================>\n";
 
     public LoadingServiceImpl(CargoRepository cargoRepository, HubRepository hubRepository,
                               CarrierCompartmentRepository carrierCompartmentRepository, TransporterRepository transporterRepository,
                               OrderRepository orderRepository, TransportDetailsRepository transportDetailsRepository,
-                              CargoLoader3D cargoLoader3D, CargoPositionRepository cargoPositionRepository) {
+                              CargoLoader3D cargoLoader3D, CargoPositionRepository cargoPositionRepository, RouteRepository routeRepository) {
         this.cargoRepository = cargoRepository;
         this.hubRepository = hubRepository;
         this.carrierCompartmentRepository = carrierCompartmentRepository;
@@ -46,6 +47,7 @@ public class LoadingServiceImpl {
         this.transportDetailsRepository = transportDetailsRepository;
         this.cargoLoader3D = cargoLoader3D;
         this.cargoPositionRepository = cargoPositionRepository;
+        this.routeRepository = routeRepository;
     }
 
     public void loadAllTransportersInHub(String hubName) {
@@ -56,7 +58,7 @@ public class LoadingServiceImpl {
                 findAllByCurrentHubAndStatus(hub, TransporterStatus.WAITING);
         List<OrderEntity> allOrders = getAllOrdersByHub(hub.getName());
         Map<String, List<OrderEntity>> ordersByArrivalHub = formOrdersByArrivalHubMap(allOrders);
-        for (Map.Entry<String, List<OrderEntity>> entry: ordersByArrivalHub.entrySet()) {
+        for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
 
             System.out.println("entry.getKey() = " + entry.getKey());
             System.out.println("loadingService.computeOrderListVolume(entry.getValue()) = " + computeOrderListVolume(entry.getValue()));
@@ -108,25 +110,38 @@ public class LoadingServiceImpl {
                     } else {
                         log.info(DEMO + " Transporter " + transporter.getId()
                                 + " is unloaded and reached final destination " + transporter.getCurrentHub().getName());
+                        saveTransporterReachedFinalDestination(transporter);
                     }
                 }
             });
             thread.start();
             allOrders = getAllOrdersByHub(hub.getName());
             ordersByArrivalHub = formOrdersByArrivalHubMap(allOrders);
-//            for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
-//                for (int i = 0; i < entry.getValue().size(); i++) {
-//                    if (entry.getValue().get(i).getDeliveryStatus() == DeliveryStatus.ON_THE_WAY) {
-//                        allOrders.remove(entry.getValue().get(i));
-//                        entry.getValue().remove(i);
-//                        i--;
-//                    }
-//                }
-//            }
             if (allOrders.size() == 0) {
                 break;
             }
         }
+    }
+
+    private synchronized void saveTransporterReachedFinalDestination(TransporterEntity transporter) {
+        transporter.setStatus(TransporterStatus.WAITING);
+        CarrierCompartmentEntity compartment = transporter.getCompartments().get(0);
+        compartment.setFreeSpace(100d);
+        List<CargoEntity> cargoEntities = compartment.getCargoEntities();
+        compartment.setCargoEntities(null);
+        List<OrderEntity> orders = new ArrayList<>();
+        for (CargoEntity cargo : cargoEntities) {
+            if(!orders.contains(cargo.getOrderEntity())){
+                cargo.getOrderEntity().setDeliveryStatus(DeliveryStatus.DELIVERED);
+                orders.add(cargo.getOrderEntity());
+            }
+            cargo.setDeliveryStatus(DeliveryStatus.DELIVERED);
+            cargo.setCarrierCompartment(null);
+        }
+        transporterRepository.save(transporter);
+        carrierCompartmentRepository.save(compartment);
+        orderRepository.saveAll(orders);
+        cargoRepository.saveAll(cargoEntities);
     }
 
     private Date getNextArrivalDate(List<CargoEntity> cargoEntities, HubEntity nextHub) {
@@ -521,6 +536,14 @@ public class LoadingServiceImpl {
             }
         }
         return result;
+    }
+
+    public void clearDatabaseAfterSimulation() {
+        cargoRepository.deleteAll();
+        transporterRepository.deleteAll();
+        routeRepository.deleteAll();
+        orderRepository.deleteAll();
+        cargoPositionRepository.deleteAll();
     }
 
     // Create multiple comparator

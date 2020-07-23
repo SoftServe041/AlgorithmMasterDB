@@ -29,7 +29,7 @@ public class CargoEntity {
     @JoinColumn(name = "dimensions_id")
     DimensionsEntity dimensions;
 
-    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cargo_position_id")
     CargoPositionEntity cargoPosition;
 
@@ -37,7 +37,7 @@ public class CargoEntity {
     @JoinColumn(name = "carrier_compartment_id")
     CarrierCompartmentEntity carrierCompartment;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     OrderEntity orderEntity;
 

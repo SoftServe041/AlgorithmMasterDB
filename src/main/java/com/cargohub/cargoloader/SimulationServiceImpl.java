@@ -202,6 +202,6 @@ public class SimulationServiceImpl {
     }
 
     public void clearDatabase() {
-
+        loadingService.clearDatabaseAfterSimulation();
     }
 }

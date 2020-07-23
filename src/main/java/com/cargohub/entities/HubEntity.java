@@ -26,7 +26,7 @@ public class HubEntity {
     List<RouteEntity> routes;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(orphanRemoval = true, mappedBy = "ownerHub", cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = true, mappedBy = "ownerHub", cascade = CascadeType.REFRESH)
     List<RelationEntity> relations;
 
     @LazyCollection(LazyCollectionOption.FALSE)
