@@ -6,7 +6,10 @@ import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import com.cargohub.models.HubRequest;
 import com.cargohub.models.Location;
+import com.cargohub.repository.CargoRepository;
+import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.service.HubService;
+import com.cargohub.service.impl.CarrierCompartmentServiceImpl;
 import com.cargohub.service.impl.LocationService;
 import com.cargohub.service.impl.RelationService;
 import com.cargohub.service.impl.TransporterServiceImpl;
@@ -26,12 +29,16 @@ public class AdminController {
     private final LocationService locationService;
     private final TransporterServiceImpl transporterService;
     private final HubService hubService;
+    private final CargoRepository cargoRepository;
+    private final CarrierCompartmentRepository carrierCompartmentRepository;
 
-    public AdminController(LocationService locationService, RelationService relationService, HubService hubService,TransporterServiceImpl transporterService) {
+    public AdminController(LocationService locationService, RelationService relationService, HubService hubService, TransporterServiceImpl transporterService, CargoRepository cargoRepository, CarrierCompartmentRepository carrierCompartmentRepository) {
         this.locationService = locationService;
         this.relationService = relationService;
         this.hubService = hubService;
         this.transporterService = transporterService;
+        this.cargoRepository = cargoRepository;
+        this.carrierCompartmentRepository = carrierCompartmentRepository;
     }
 
     @GetMapping
@@ -39,14 +46,13 @@ public class AdminController {
         return ResponseEntity.ok(locationService.getAll());
     }
 
-    @GetMapping("cargosByTransporter")
+    @GetMapping("/cargosByTransporter")
     public List<CargoEntity> getCargosByTransporter(@RequestParam int id) {
         List<CargoEntity> cargoEntities = new ArrayList<>();
-        List<CarrierCompartmentEntity> compartments = transporterService.findById(id).getCompartments();
+       // List<CarrierCompartmentEntity> compartments = transporterService.findById(id).getCompartments();
+        List<CarrierCompartmentEntity> compartments = carrierCompartmentRepository.findAllByTransporterId(id);
         for(CarrierCompartmentEntity car : compartments){
-            for(CargoEntity cargoEntity : car.getCargoEntities()){
-                cargoEntities.add(cargoEntity);
-            }
+            cargoEntities.addAll(car.getCargoEntities());
         }
         return cargoEntities;
     }
