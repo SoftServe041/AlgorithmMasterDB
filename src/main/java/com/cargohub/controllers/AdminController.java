@@ -1,14 +1,14 @@
 package com.cargohub.controllers;
 
 import com.cargohub.cargoloader.SimulationServiceImpl;
+import com.cargohub.dto.CargoPositionAndDimensionDto;
 import com.cargohub.dto.UpdateHubDto;
-import com.cargohub.entities.HubEntity;
-import com.cargohub.entities.RelationEntity;
-import com.cargohub.entities.enums.TransporterType;
+import com.cargohub.entities.CargoEntity;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import com.cargohub.models.HubRequest;
 import com.cargohub.models.Location;
+import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.service.HubService;
-import com.cargohub.service.RelationService;
 import com.cargohub.service.impl.LocationServiceNeo4j;
 import com.cargohub.service.impl.RelationServiceNeo4j;
 import org.springframework.http.HttpStatus;
@@ -16,9 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -29,21 +28,35 @@ public class AdminController {
     private final LocationServiceNeo4j locationServiceNeo4j;
     private final SimulationServiceImpl simulationService;
     private final HubService hubService;
+    private final CarrierCompartmentRepository carrierCompartmentRepository;
 
     public AdminController(LocationServiceNeo4j locationServiceNeo4j,
                            RelationServiceNeo4j relationServiceNeo4j,
                            SimulationServiceImpl simulationService,
-                           HubService hubService) {
+                           HubService hubService,
+                           CarrierCompartmentRepository carrierCompartmentRepository) {
         this.locationServiceNeo4j = locationServiceNeo4j;
         this.relationServiceNeo4j = relationServiceNeo4j;
         this.simulationService = simulationService;
         this.hubService = hubService;
+        this.carrierCompartmentRepository = carrierCompartmentRepository;
     }
 
     @GetMapping("/hub")
     public ResponseEntity<List<Location>> getAll() {
         return ResponseEntity.ok(locationServiceNeo4j.getAll());
     }
+
+    @GetMapping("/cargosByTransporter")
+    public List<CargoPositionAndDimensionDto> getCargosByTransporter(@RequestParam int id) {
+        List<CargoEntity> cargoEntities = new ArrayList<>();
+        List<CarrierCompartmentEntity> compartments = carrierCompartmentRepository.findAllByTransporterId(id);
+        for (CarrierCompartmentEntity car : compartments) {
+            cargoEntities.addAll(car.getCargoEntities());
+        }
+        return cargoEntities.stream().map(CargoPositionAndDimensionDto::cargoToCarPos).collect(Collectors.toList());
+    }
+
 
     @PostMapping("/hub/relation")
     public ResponseEntity postNewRelation(@RequestBody HubRequest hubRequest) {
