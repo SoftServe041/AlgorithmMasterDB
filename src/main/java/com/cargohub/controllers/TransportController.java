@@ -5,6 +5,9 @@ import com.cargohub.dto.TransporterDto;
 import com.cargohub.entities.transports.TransportDetailsEntity;
 import com.cargohub.entities.transports.TransporterEntity;
 import com.cargohub.entities.transports.TransporterType;
+import com.cargohub.models.OrderModel;
+import com.cargohub.order_builder.UnpaidOrder;
+import com.cargohub.scanner_log.ScannerLog;
 import com.cargohub.service.TransportDetailsService;
 import com.cargohub.service.TransporterService;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -36,6 +40,13 @@ public class TransportController {
         return ResponseEntity.ok(TransporterDto.toDto(result));
     }
 
+    @GetMapping("/logs")
+    public List<String[]> getLogs() {
+        List<String[]> logs = ScannerLog.getLogs();
+        return logs;
+    }
+
+
     @PostMapping
     ResponseEntity<?> createTransporter(@RequestBody TransporterDto transporterDto) {
         TransporterEntity transporter = transporterDto.toTransporter();
@@ -46,7 +57,7 @@ public class TransportController {
     @PostMapping("/batch")
     ResponseEntity<?> createTransporters(@RequestBody TransporterDto[] transporterDtos) {
         for (TransporterDto transporterDto : transporterDtos) {
-            Transporter transporter = transporterDto.toTransporter();
+            TransporterEntity transporter = transporterDto.toTransporter();
             service.save(transporter);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
