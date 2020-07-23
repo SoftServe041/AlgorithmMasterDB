@@ -58,11 +58,6 @@ public class LoadingServiceImpl {
                 findAllByCurrentHubAndStatus(hub, TransporterStatus.WAITING);
         List<OrderEntity> allOrders = getAllOrdersByHub(hub.getName());
         Map<String, List<OrderEntity>> ordersByArrivalHub = formOrdersByArrivalHubMap(allOrders);
-        for (Map.Entry<String, List<OrderEntity>> entry : ordersByArrivalHub.entrySet()) {
-
-            System.out.println("entry.getKey() = " + entry.getKey());
-            System.out.println("loadingService.computeOrderListVolume(entry.getValue()) = " + computeOrderListVolume(entry.getValue()));
-        }
         for (TransporterEntity transporter : allTransporters) {
             double cellSize = transportDetailsRepository.findByType(transporter.getType()).orElseThrow(() -> {
                 throw new TransportDetailsException("TransportDetails not found");

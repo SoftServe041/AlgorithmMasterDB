@@ -36,10 +36,6 @@ public class SimulationServiceImpl {
     }
 
     public void simulate() {
-        //List<HubEntity> hubs = (List<HubEntity>) hubRepository.findAll();
-        //fillHubs(hubs);
-        clearDatabase();
-        //here also orders added
         initTransportersInHub("Berlin");
         loadingService.loadAllTransportersInHub("Berlin");
     }
@@ -114,7 +110,7 @@ public class SimulationServiceImpl {
         RouteEntity formingRoute;
         List<HubEntity> hubs;
         OrderEntity order;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             formingRoute = new RouteEntity();
             hubs = new ArrayList<>(route.getHubs());
             formingRoute.setHubs(hubs);
@@ -131,7 +127,7 @@ public class SimulationServiceImpl {
             result.add(order);
         }
         for (int i = 1; i < route.getHubs().size(); i++) {
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < 4; j++) {
                 formingRoute = new RouteEntity();
                 hubs = new ArrayList<>(route.getHubs().subList(i - 1, i + 1));
                 formingRoute.setHubs(hubs);

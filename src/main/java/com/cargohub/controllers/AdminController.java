@@ -12,9 +12,12 @@ import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.service.HubService;
 import com.cargohub.service.impl.LocationServiceNeo4j;
 import com.cargohub.service.impl.RelationServiceNeo4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -113,11 +116,11 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
-//    @GetMapping("/clear")
-//    public ResponseEntity clearAllSimulationData() {
-//        simulationService.clearDatabase();
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
+    @GetMapping("/clear/db")
+    public ResponseEntity clearAllSimulationData() {
+        simulationService.clearDatabase();
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @GetMapping("/clear")
     public ResponseEntity clearLogs() {
