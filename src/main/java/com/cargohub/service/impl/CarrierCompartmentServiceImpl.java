@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.transports.CarrierCompartment;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import com.cargohub.exceptions.CarrierCompartmentException;
 import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.service.CarrierCompartmentService;
@@ -25,15 +25,15 @@ public class CarrierCompartmentServiceImpl implements CarrierCompartmentService 
     }
 
     @Override
-    public CarrierCompartment findById(Integer id) {
-        CarrierCompartment result;
+    public CarrierCompartmentEntity findById(Integer id) {
+        CarrierCompartmentEntity result;
         result = repository.findById(id).orElseThrow(() -> new CarrierCompartmentException("CarrierCompartment not found"));
         return result;
 
     }
 
     @Override
-    public CarrierCompartment update(CarrierCompartment carrierCompartment) {
+    public CarrierCompartmentEntity update(CarrierCompartmentEntity carrierCompartment) {
         if (carrierCompartment.getId() == null) {
             throw new CarrierCompartmentException("Illegal state for CarrierCompartment");
         }
@@ -44,7 +44,7 @@ public class CarrierCompartmentServiceImpl implements CarrierCompartmentService 
     }
 
     @Override
-    public CarrierCompartment save(CarrierCompartment carrierCompartment) {
+    public CarrierCompartmentEntity save(CarrierCompartmentEntity carrierCompartment) {
         if (carrierCompartment.getId() != null) {
             throw new CarrierCompartmentException("Illegal state for CarrierCompartment");
         }
@@ -52,7 +52,7 @@ public class CarrierCompartmentServiceImpl implements CarrierCompartmentService 
     }
 
     @Override
-    public Page<CarrierCompartment> findAll(Pageable pageable) {
+    public Page<CarrierCompartmentEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

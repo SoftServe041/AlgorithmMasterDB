@@ -1,7 +1,7 @@
 package com.cargohub.dto;
 
 
-import com.cargohub.entities.Dimensions;
+import com.cargohub.entities.DimensionsEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,12 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DimensionsDto {
     private Integer id;
-    private Integer width;
-    private Integer height;
-    private Integer length;
+    private Double width;
+    private Double height;
+    private Double length;
 
-    public Dimensions toDimensions() {
-        Dimensions dimensions = new Dimensions();
+    public DimensionsEntity toDimensions() {
+        DimensionsEntity dimensions = new DimensionsEntity();
         dimensions.setId(this.id);
         dimensions.setHeight(this.height);
         dimensions.setWidth(this.width);
@@ -24,7 +24,7 @@ public class DimensionsDto {
         return dimensions;
     }
 
-    public static DimensionsDto toDto(Dimensions dimensions) {
+    public static DimensionsDto toDto(DimensionsEntity dimensions) {
         DimensionsDto dto = new DimensionsDto();
         dto.setId(dimensions.getId());
         dto.setHeight(dimensions.getHeight());

@@ -1,8 +1,9 @@
 package com.cargohub.order_builder;
 
+import com.cargohub.models.CargoSizeModel;
 import com.cargohub.models.OrderModel;
 import com.cargohub.models.RouteModel;
-import com.cargohub.service.impl.RouteService;
+import com.cargohub.service.impl.RouteNeo4jServiceImpl;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ import java.util.*;
 public class FormUnpaidOrders {
 
     @Autowired
-    RouteService routeService;
+    RouteNeo4jServiceImpl routeNeo4jServiceImpl;
 
     @Setter
     Double pricePerKm = 1.4;
@@ -26,7 +27,7 @@ public class FormUnpaidOrders {
 
     public Map<String, List<UnpaidOrder>> formUnpaidOrders(String departure, String arrival) {
         Map<String,List<UnpaidOrder>> unpaidOrdersMap = new HashMap<>();
-        List<RouteModel> routes = routeService.getRoute(departure, arrival);
+        List<RouteModel> routes = routeNeo4jServiceImpl.getRoute(departure, arrival);
         List<UnpaidOrder> unpaidOrders = new ArrayList<>();
         routes.forEach((routeModel) -> {
             int price = (int) (routeModel.getDistance() * pricePerKm);
@@ -36,6 +37,7 @@ public class FormUnpaidOrders {
             UnpaidOrder unpaidOrder = new UnpaidOrder();
             unpaidOrder.setEstimatedDeliveryDate(localDate);
             unpaidOrder.setPrice(price);
+            unpaidOrder.setHubs(routeModel.getRoutes());
             unpaidOrders.add(unpaidOrder);
         });
         unpaidOrders.sort(new PriceComparator());
@@ -47,7 +49,7 @@ public class FormUnpaidOrders {
 
     public Map<String, List<UnpaidOrder>> formUnpaidOrders(OrderModel orderModel) {
         Map<String,List<UnpaidOrder>> unpaidOrdersMap = new HashMap<>();
-        List<RouteModel> routes = routeService.getRoute(orderModel.getDepartureHub(), orderModel.getArrivalHub());
+        List<RouteModel> routes = routeNeo4jServiceImpl.getRoute(orderModel.getDepartureHub(), orderModel.getArrivalHub());
         List<UnpaidOrder> unpaidOrders = new ArrayList<>();
         routes.forEach((routeModel) -> {
             int price = (int) (routeModel.getDistance() * countPriceForRoute(orderModel));
@@ -57,6 +59,7 @@ public class FormUnpaidOrders {
             UnpaidOrder unpaidOrder = new UnpaidOrder();
             unpaidOrder.setEstimatedDeliveryDate(localDate);
             unpaidOrder.setPrice(price);
+            unpaidOrder.setHubs(routeModel.getRoutes());
             unpaidOrders.add(unpaidOrder);
         });
         unpaidOrders.sort(new PriceComparator());
@@ -67,17 +70,25 @@ public class FormUnpaidOrders {
     }
 
     private int countPriceForRoute(OrderModel orderModel) {
-        int volumeOfCargo = (int) Math.ceil(orderModel.getCargoHeight() * orderModel.getCargoLength() * orderModel.getCargoWidth());
+        int price = 0;
+        for (CargoSizeModel cargoSizeModel : orderModel.getSizeList()) {
+            price += getPrice(cargoSizeModel);
+        }
+        return price;
+    }
+
+    private int getPrice(CargoSizeModel cargoSizeModel) {
+        double volumeOfCargo = cargoSizeModel.getHeight() * cargoSizeModel.getLength() * cargoSizeModel.getWidth();
         double cub = carryingCapacity / truckVolume; // ? weight in 1 m^3 according to truck properties
 
-        double cargoWeight = orderModel.getCargoWeight() / 1000; // tonne
+        double cargoWeight = cargoSizeModel.getWeight() / 1000; // tonne
 
         double admittedWeightForCargo = cub * volumeOfCargo; // determine how much is applicable for cargoVolume
         while (admittedWeightForCargo < cargoWeight - 0.030) { // increase admittedWeight while it equals approximately to cargoWeight
-            admittedWeightForCargo = cub * (++volumeOfCargo);
+            volumeOfCargo += 0.1;
+            admittedWeightForCargo = cub * volumeOfCargo;
         }
-        int price = (int) Math.ceil(admittedWeightForCargo * pricePerKm);
-        return price;
+        return (int) Math.ceil(admittedWeightForCargo * pricePerKm);
     }
 
 }

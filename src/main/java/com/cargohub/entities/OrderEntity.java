@@ -2,24 +2,23 @@ package com.cargohub.entities;
 
 
 import com.cargohub.entities.enums.DeliveryStatus;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = "id")
 @Table(name = "cargo_order")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    //ToDo Generating rules discussing
     @Column
     String trackingId;
 
@@ -32,19 +31,27 @@ public class OrderEntity {
     @Column
     Date estimatedDeliveryDate;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn(name = "departure_hub_id")
-    Hub departureHub;
+    HubEntity departureHub;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn(name = "arrival_hub_id")
-    Hub arrivalHub;
+    HubEntity arrivalHub;
 
-    @OneToOne
-    @JoinColumn(name = "cargo_id")
-    Cargo cargo;
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "route_id")
+    RouteEntity route;
+
+    @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<CargoEntity> cargoEntities;
 
     @Column
     @Enumerated(EnumType.STRING)
     DeliveryStatus deliveryStatus;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    @Column(name = "created")
+    private Date created;
 }

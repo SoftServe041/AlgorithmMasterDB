@@ -1,13 +1,13 @@
 package com.cargohub.controllers;
 
+import com.cargohub.dto.RouteDto;
+import com.cargohub.entities.RouteEntity;
 import com.cargohub.models.RouteModel;
-import com.cargohub.service.impl.RouteService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cargohub.service.RouteService;
+import com.cargohub.service.impl.RouteNeo4jServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,11 +16,23 @@ import java.util.List;
 @RequestMapping("/route")
 public class RouteController {
 
-    @Autowired
-    private RouteService routeService;
+    private final RouteNeo4jServiceImpl routeNeo4jServiceImpl;
+    private final RouteService service;
 
-    @GetMapping("/{departure}/{arrival}")
-    public ResponseEntity<List<RouteModel>> getRoute(@PathVariable String departure, @PathVariable String arrival) {
-        return ResponseEntity.ok(routeService.getRoute(departure, arrival));
+    public RouteController(RouteNeo4jServiceImpl routeNeo4jServiceImpl, RouteService service) {
+        this.routeNeo4jServiceImpl = routeNeo4jServiceImpl;
+        this.service = service;
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<List<RouteModel>> getRoute(@RequestParam String departure, String arrival) {
+        return ResponseEntity.ok(routeNeo4jServiceImpl.getRoute(departure, arrival));
+    }
+
+    @PostMapping
+    public ResponseEntity saveRoute(@RequestBody RouteDto dto){
+        RouteEntity route = dto.toEntity();
+        service.save(route);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

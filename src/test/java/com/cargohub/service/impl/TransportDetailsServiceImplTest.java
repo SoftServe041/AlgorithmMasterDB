@@ -1,6 +1,6 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.transports.TransportDetails;
+import com.cargohub.entities.transports.TransportDetailsEntity;
 import com.cargohub.exceptions.TransportDetailsException;
 import com.cargohub.repository.TransportDetailsRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +33,14 @@ class TransportDetailsServiceImplTest {
     @Mock
     TransportDetailsRepository repository;
 
-    TransportDetails subject;
-    Page<TransportDetails> page;
+    TransportDetailsEntity subject;
+    Page<TransportDetailsEntity> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        subject = new TransportDetails();
+        subject = new TransportDetailsEntity();
         subject.setId(9992);
 
         page = new PageImpl(List.of(subject));
@@ -50,11 +50,11 @@ class TransportDetailsServiceImplTest {
     @Test
     void create() {
         subject.setId(null);
-        when(repository.save(nullable(TransportDetails.class))).thenReturn(subject);
-        ArgumentCaptor<TransportDetails> captor = ArgumentCaptor.forClass(TransportDetails.class);
-        TransportDetails returned = service.save(subject);
+        when(repository.save(nullable(TransportDetailsEntity.class))).thenReturn(subject);
+        ArgumentCaptor<TransportDetailsEntity> captor = ArgumentCaptor.forClass(TransportDetailsEntity.class);
+        TransportDetailsEntity returned = service.save(subject);
         verify(repository).save(captor.capture());
-        TransportDetails used = captor.getValue();
+        TransportDetailsEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -68,7 +68,7 @@ class TransportDetailsServiceImplTest {
     void findById() {
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        TransportDetails returned = service.findById(subject.getId());
+        TransportDetailsEntity returned = service.findById(subject.getId());
         verify(repository).findById(captor.capture());
         Integer used = captor.getValue();
         assertThat(used, is(subject.getId()));
@@ -85,12 +85,12 @@ class TransportDetailsServiceImplTest {
 
     @Test
     void update() {
-        when(repository.save(nullable(TransportDetails.class))).thenReturn(subject);
+        when(repository.save(nullable(TransportDetailsEntity.class))).thenReturn(subject);
         when(repository.existsById(nullable(Integer.class))).thenReturn(true);
-        ArgumentCaptor<TransportDetails> captor = ArgumentCaptor.forClass(TransportDetails.class);
-        TransportDetails returned = service.update(subject);
+        ArgumentCaptor<TransportDetailsEntity> captor = ArgumentCaptor.forClass(TransportDetailsEntity.class);
+        TransportDetailsEntity returned = service.update(subject);
         verify(repository).save(captor.capture());
-        TransportDetails used = captor.getValue();
+        TransportDetailsEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -122,7 +122,7 @@ class TransportDetailsServiceImplTest {
     void findAll() {
         when(repository.findAll(any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        Page<TransportDetails> returned = service.findAll(pageable);
+        Page<TransportDetailsEntity> returned = service.findAll(pageable);
         verify(repository).findAll(captor.capture());
         Pageable used = captor.getValue();
         assertThat(returned, is(page));

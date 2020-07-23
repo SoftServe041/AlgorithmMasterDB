@@ -1,11 +1,11 @@
 package com.cargohub.service.impl;
 
-import com.cargohub.entities.Cargo;
-import com.cargohub.entities.Dimensions;
-import com.cargohub.entities.Hub;
-import com.cargohub.entities.transports.CarrierCompartment;
-import com.cargohub.entities.transports.TransporterType;
-import com.cargohub.entities.transports.Transporter;
+import com.cargohub.entities.CargoEntity;
+import com.cargohub.entities.DimensionsEntity;
+import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
+import com.cargohub.entities.enums.TransporterType;
+import com.cargohub.entities.transports.TransporterEntity;
 import com.cargohub.exceptions.TransporterException;
 import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.repository.DimensionsRepository;
@@ -51,24 +51,24 @@ class TransportServiceImplTest {
     @Mock
     DimensionsRepository dimensionsRepository;
 
-    Transporter subject;
-    Page<Transporter> page;
+    TransporterEntity subject;
+    Page<TransporterEntity> page;
     Pageable pageable;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        subject = new Transporter();
+        subject = new TransporterEntity();
         subject.setId(9992);
-        CarrierCompartment carrierCompartment = new CarrierCompartment();
-        carrierCompartment.setVolume(new Dimensions());
-        carrierCompartment.setCargos(List.of(new Cargo()));
-        List<CarrierCompartment> compartments = new ArrayList<>();
+        CarrierCompartmentEntity carrierCompartment = new CarrierCompartmentEntity();
+        carrierCompartment.setVolume(new DimensionsEntity());
+        carrierCompartment.setCargoEntities(List.of(new CargoEntity()));
+        List<CarrierCompartmentEntity> compartments = new ArrayList<>();
         compartments.add(carrierCompartment);
         subject.setCompartments(compartments);
-        subject.setCurrentHub(new Hub());
+        subject.setCurrentHub(new HubEntity());
         subject.setType(TransporterType.TRUCK);
-        subject.setRoute(List.of(new Hub()));
+        subject.setRoute(List.of(new HubEntity()));
 
         page = new PageImpl(List.of(subject));
         pageable = PageRequest.of(0, 10);
@@ -77,13 +77,13 @@ class TransportServiceImplTest {
     @Test
     void create() {
         subject.setId(null);
-        when(repository.save(nullable(Transporter.class))).thenReturn(subject);
+        when(repository.save(nullable(TransporterEntity.class))).thenReturn(subject);
         when(hubRepository.findByName(nullable(String.class))).thenReturn(Optional.of(subject.getCurrentHub()));
-        when(carrierCompartmentRepository.save(nullable(CarrierCompartment.class))).thenReturn(subject.getCompartments().get(0));
-        ArgumentCaptor<Transporter> captor = ArgumentCaptor.forClass(Transporter.class);
-        Transporter returned = service.save(subject);
+        when(carrierCompartmentRepository.save(nullable(CarrierCompartmentEntity.class))).thenReturn(subject.getCompartments().get(0));
+        ArgumentCaptor<TransporterEntity> captor = ArgumentCaptor.forClass(TransporterEntity.class);
+        TransporterEntity returned = service.save(subject);
         verify(repository).save(captor.capture());
-        Transporter used = captor.getValue();
+        TransporterEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -97,7 +97,7 @@ class TransportServiceImplTest {
     void findById() {
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
-        Transporter returned = service.findById(subject.getId());
+        TransporterEntity returned = service.findById(subject.getId());
         verify(repository).findById(captor.capture());
         Integer used = captor.getValue();
         assertThat(used, is(subject.getId()));
@@ -114,14 +114,14 @@ class TransportServiceImplTest {
 
     @Test
     void update() {
-        when(repository.save(nullable(Transporter.class))).thenReturn(subject);
+        when(repository.save(nullable(TransporterEntity.class))).thenReturn(subject);
         when(repository.findById(nullable(Integer.class))).thenReturn(Optional.of(subject));
         when(repository.existsById(nullable(Integer.class))).thenReturn(true);
         when(hubRepository.findByName(nullable(String.class))).thenReturn(Optional.of(subject.getCurrentHub()));
-        ArgumentCaptor<Transporter> captor = ArgumentCaptor.forClass(Transporter.class);
-        Transporter returned = service.update(subject);
+        ArgumentCaptor<TransporterEntity> captor = ArgumentCaptor.forClass(TransporterEntity.class);
+        TransporterEntity returned = service.update(subject);
         verify(repository).save(captor.capture());
-        Transporter used = captor.getValue();
+        TransporterEntity used = captor.getValue();
         assertThat(used, is(subject));
         assertThat(returned, is(subject));
     }
@@ -153,7 +153,7 @@ class TransportServiceImplTest {
     void findAll() {
         when(repository.findAll(any(Pageable.class))).thenReturn(page);
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        Page<Transporter> returned = service.findAll(pageable);
+        Page<TransporterEntity> returned = service.findAll(pageable);
         verify(repository).findAll(captor.capture());
         Pageable used = captor.getValue();
         assertThat(returned, is(page));

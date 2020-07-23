@@ -1,6 +1,6 @@
 package com.cargohub.service;
 
-import com.cargohub.entities.transports.CarrierCompartment;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,13 +8,13 @@ public interface CarrierCompartmentService {
 
     boolean existsById(Integer id);
 
-    CarrierCompartment findById(Integer id);
+    CarrierCompartmentEntity findById(Integer id);
 
-    CarrierCompartment update(CarrierCompartment carrierCompartment);
+    CarrierCompartmentEntity update(CarrierCompartmentEntity carrierCompartment);
 
-    CarrierCompartment save(CarrierCompartment carrierCompartment);
+    CarrierCompartmentEntity save(CarrierCompartmentEntity carrierCompartment);
 
-    Page<CarrierCompartment> findAll(Pageable pageable);
+    Page<CarrierCompartmentEntity> findAll(Pageable pageable);
 
     void delete(Integer id);
 

@@ -1,0 +1,132 @@
+2020-07-23 18:07:54.108  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 262 loaded 59.02200000000003
+2020-07-23 18:07:54.157  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:07:54.162  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Berlin on the way to Munich
+2020-07-23 18:07:54.269  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 263 loaded 60.23700000000004
+2020-07-23 18:07:54.313  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
+2020-07-23 18:07:54.313  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 left Berlin on the way to Frankfurt
+2020-07-23 18:07:54.419  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 264 loaded 60.021000000000015
+2020-07-23 18:07:54.456  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
+2020-07-23 18:07:54.456  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 left Berlin on the way to Dortmund
+2020-07-23 18:07:54.555  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 265 loaded 61.10100000000004
+2020-07-23 18:07:54.598  INFO 15524 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Cologne, ]
+2020-07-23 18:07:54.599  INFO 15524 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 265 left Berlin on the way to Cologne
+2020-07-23 18:07:54.711  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 266 loaded 60.93900000000005
+2020-07-23 18:07:54.752  INFO 15524 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Hamburg, ]
+2020-07-23 18:07:54.752  INFO 15524 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 266 left Berlin on the way to Hamburg
+2020-07-23 18:07:54.859  INFO 15524 --- [http-nio-9041-exec-10] c.c.cargoloader.LoadingServiceImpl       :  Transporter 267 loaded 61.12800000000003
+2020-07-23 18:07:54.901  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:07:54.901  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Berlin on the way to Munich
+2020-07-23 18:08:08.650  INFO 15524 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 266 is starting unload in Hamburg
+2020-07-23 18:08:08.651  INFO 15524 --- [Thread-6] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 266 is unloaded and reached final destination Hamburg
+2020-07-23 18:08:18.146  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is starting unload in Frankfurt
+2020-07-23 18:08:18.396  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is starting unload in Dortmund
+2020-07-23 18:08:21.809  INFO 15524 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 265 is starting unload in Cologne
+2020-07-23 18:08:21.809  INFO 15524 --- [Thread-5] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 265 is unloaded and reached final destination Cologne
+2020-07-23 18:08:22.785  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Munich
+2020-07-23 18:08:22.786  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Munich
+2020-07-23 18:08:22.849  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is unloaded and loaded in Frankfurt
+2020-07-23 18:08:22.849  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
+2020-07-23 18:08:22.849  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 left Frankfurt on the way to Dortmund
+2020-07-23 18:08:22.849  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is starting unload in Dortmund
+2020-07-23 18:08:27.922  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and loaded in Munich
+2020-07-23 18:08:27.923  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:27.923  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Munich on the way to Zurich
+2020-07-23 18:08:27.923  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Zurich
+2020-07-23 18:08:32.348  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and loaded in Munich
+2020-07-23 18:08:32.348  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:32.348  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Munich on the way to Zurich
+2020-07-23 18:08:32.349  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Zurich
+2020-07-23 18:08:36.616  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is unloaded and loaded in Dortmund
+2020-07-23 18:08:36.617  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
+2020-07-23 18:08:36.617  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 left Dortmund on the way to Frankfurt
+2020-07-23 18:08:36.617  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is starting unload in Frankfurt
+2020-07-23 18:08:42.411  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and loaded in Zurich
+2020-07-23 18:08:42.411  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:42.411  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Zurich on the way to Bern
+2020-07-23 18:08:42.411  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Bern
+2020-07-23 18:08:44.452  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and loaded in Zurich
+2020-07-23 18:08:44.452  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:44.452  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Zurich on the way to Bern
+2020-07-23 18:08:44.452  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Bern
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is unloaded and loaded in Dortmund
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Frankfurt, Dortmund, Essen, ]
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 left Dortmund on the way to Essen
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is starting unload in Essen
+2020-07-23 18:08:44.808  INFO 15524 --- [Thread-3] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 263 is unloaded and reached final destination Essen
+2020-07-23 18:08:49.724  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and loaded in Bern
+2020-07-23 18:08:49.724  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:49.724  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Bern on the way to Geneva
+2020-07-23 18:08:49.724  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Geneva
+2020-07-23 18:08:54.001  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and loaded in Bern
+2020-07-23 18:08:54.002  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:54.002  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Bern on the way to Geneva
+2020-07-23 18:08:54.002  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Geneva
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is unloaded and loaded in Frankfurt
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Dortmund, Frankfurt, Stuttgart, ]
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 left Frankfurt on the way to Stuttgart
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is starting unload in Stuttgart
+2020-07-23 18:08:54.341  INFO 15524 --- [Thread-4] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 264 is unloaded and reached final destination Stuttgart
+2020-07-23 18:08:54.661  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and loaded in Geneva
+2020-07-23 18:08:54.661  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:54.661  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 left Geneva on the way to Lausanne
+2020-07-23 18:08:54.661  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is starting unload in Lausanne
+2020-07-23 18:08:54.662  INFO 15524 --- [Thread-7] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 267 is unloaded and reached final destination Lausanne
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and loaded in Geneva
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : Route = [ Berlin, Munich, Zurich, Bern, Geneva, Lausanne, ]
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 left Geneva on the way to Lausanne
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is starting unload in Lausanne
+2020-07-23 18:08:54.979  INFO 15524 --- [Thread-2] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
+ Transporter 262 is unloaded and reached final destination Lausanne
