@@ -148,3 +148,4 @@
  Transporter 32 is starting unload in Lausanne
 2020-07-23 13:24:11.257  INFO 7688 --- [Thread-9] c.c.cargoloader.LoadingServiceImpl       : <====================== D E M O ======================>
  Transporter 32 is unloaded and reached final destination Lausanne
+2020-07-23 14:00:19.669  INFO 7688 --- [http-nio-9041-exec-4] Driver                                   : Direct driver instance 423747234 created for server address localhost:7687
