@@ -1,16 +1,20 @@
 package com.cargohub.controllers;
 
 import com.cargohub.dto.UpdateHubDto;
+import com.cargohub.entities.CargoEntity;
 import com.cargohub.entities.HubEntity;
+import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import com.cargohub.models.HubRequest;
 import com.cargohub.models.Location;
 import com.cargohub.service.HubService;
 import com.cargohub.service.impl.LocationService;
 import com.cargohub.service.impl.RelationService;
+import com.cargohub.service.impl.TransporterServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,12 +24,14 @@ public class AdminController {
 
     private final RelationService relationService;
     private final LocationService locationService;
+    private final TransporterServiceImpl transporterService;
     private final HubService hubService;
 
-    public AdminController(LocationService locationService, RelationService relationService, HubService hubService) {
+    public AdminController(LocationService locationService, RelationService relationService, HubService hubService,TransporterServiceImpl transporterService) {
         this.locationService = locationService;
         this.relationService = relationService;
         this.hubService = hubService;
+        this.transporterService = transporterService;
     }
 
     @GetMapping
@@ -33,6 +39,17 @@ public class AdminController {
         return ResponseEntity.ok(locationService.getAll());
     }
 
+    @GetMapping("cargosByTransporter")
+    public List<CargoEntity> getCargosByTransporter(@RequestParam int id) {
+        List<CargoEntity> cargoEntities = new ArrayList<>();
+        List<CarrierCompartmentEntity> compartments = transporterService.findById(id).getCompartments();
+        for(CarrierCompartmentEntity car : compartments){
+            for(CargoEntity cargoEntity : car.getCargoEntities()){
+                cargoEntities.add(cargoEntity);
+            }
+        }
+        return cargoEntities;
+    }
     @PostMapping("relation")
     public void postNewRelation(@RequestBody HubRequest hubRequest) {
         relationService.createNewRelation(hubRequest.getConnectedCity(), hubRequest.getNewCity());
