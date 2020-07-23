@@ -1,5 +1,8 @@
 package com.cargohub.controllers;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.util.ContextInitializer;
+import ch.qos.logback.core.joran.spi.JoranException;
 import com.cargohub.cargoloader.SimulationServiceImpl;
 import com.cargohub.dto.UpdateHubDto;
 import com.cargohub.entities.HubEntity;
@@ -11,10 +14,17 @@ import com.cargohub.service.HubService;
 import com.cargohub.service.RelationService;
 import com.cargohub.service.impl.LocationServiceNeo4j;
 import com.cargohub.service.impl.RelationServiceNeo4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,5 +105,32 @@ public class AdminController {
     public ResponseEntity simulation() {
         simulationService.simulate();
         return new ResponseEntity(HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/simulation-result")
+    public ResponseEntity<List<String>> getSimulationResult() throws IOException {
+        List<String> transporterLogs = getTransporterInfo("demoLog.log");
+        clearFile("demoLog.log");
+        return ResponseEntity.ok(transporterLogs);
+    }
+
+    private static List<String> getTransporterInfo(String fileName) throws IOException {
+        List<String> transportersStrings = new ArrayList<>();
+        try (FileInputStream fileInputStream = new FileInputStream(fileName)) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
+            String strLine;
+            while ((strLine = br.readLine()) != null)  {
+                if (strLine.startsWith(" Transporter")) {
+                    transportersStrings.add(strLine);
+                }
+            }
+        }
+        return transportersStrings;
+    }
+
+    private void clearFile(String fileName) throws FileNotFoundException {
+        try (PrintWriter writer = new PrintWriter(fileName)) {
+            writer.print("");
+        }
     }
 }
