@@ -1,7 +1,7 @@
 package com.cargohub.repository;
 
 import com.cargohub.entities.transports.TransportDetailsEntity;
-import com.cargohub.entities.transports.TransporterType;
+import com.cargohub.entities.enums.TransporterType;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Optional;

@@ -1,9 +1,2 @@
-INSERT INTO hub
-values (default, 'Kharkiv'),
-       (default, 'Poltava'),
-       (default, 'Myrgorod'),
-       (default, 'Kyiv'),
-       (default, 'Lviv'),
-       (default, 'Odesa'),
-       (default, 'Sumy'),
-       (default, 'Pavlograd');
+INSERT INTO transport_details
+ values (default, 100, 100, 'TRUCK', 0.3);

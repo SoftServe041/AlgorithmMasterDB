@@ -3,7 +3,7 @@ package com.cargohub.dto;
 import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import com.cargohub.entities.transports.TransporterEntity;
-import com.cargohub.entities.transports.TransporterType;
+import com.cargohub.entities.enums.TransporterType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,7 +1,7 @@
 package com.cargohub.service.impl;
 
 import com.cargohub.entities.transports.TransportDetailsEntity;
-import com.cargohub.entities.transports.TransporterType;
+import com.cargohub.entities.enums.TransporterType;
 import com.cargohub.exceptions.TransportDetailsException;
 import com.cargohub.repository.TransportDetailsRepository;
 import com.cargohub.service.TransportDetailsService;

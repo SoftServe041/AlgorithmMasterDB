@@ -57,7 +57,7 @@ public class Cargo {
         heightInCells = (int) (this.height / 0.3);
     }
 
-    public Cargo toCargo(CargoEntity cargoEntity) {
+    public static Cargo toCargo(CargoEntity cargoEntity) {
         int id = cargoEntity.getId();
         double width = cargoEntity.getDimensions().getWidth();
         double height = cargoEntity.getDimensions().getHeight();

@@ -2,6 +2,9 @@ package com.cargohub.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,16 +13,18 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(exclude = "id")
 @Table(name = "route")
+@Transactional
 public class RouteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @OneToMany(mappedBy = "route")
+    @OneToMany(mappedBy = "route", cascade = CascadeType.REFRESH)
     List<OrderEntity> order;
 
-    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "route_hub",
             joinColumns = @JoinColumn(name = "route_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "hub_id", referencedColumnName = "id"))
@@ -31,6 +36,6 @@ public class RouteEntity {
         for (HubEntity hub : hubs) {
             route.append(hub.name).append(" ");
         }
-        return "route = [ " + route.toString() + "]}";
+        return "route = [ " + route.toString() + "]";
     }
 }

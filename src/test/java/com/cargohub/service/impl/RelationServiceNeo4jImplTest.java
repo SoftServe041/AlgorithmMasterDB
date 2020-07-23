@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class RelationServiceImplTest {
+class RelationServiceNeo4jImplTest {
 
     @InjectMocks
     RelationServiceImpl service;

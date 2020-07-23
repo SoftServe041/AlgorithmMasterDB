@@ -1,6 +1,7 @@
 package com.cargohub.controllers;
 
 import com.cargohub.cargoloader.LoadingServiceImpl;
+import com.cargohub.cargoloader.SimulationServiceImpl;
 import com.cargohub.dto.RequestOrderDto;
 import com.cargohub.dto.ResponseOrderDto;
 import com.cargohub.entities.OrderEntity;
@@ -28,7 +29,9 @@ public class OrdersController {
     private LoadingServiceImpl loadingService;
 
     @Autowired
-    public OrdersController(OrderService orderService, FormUnpaidOrders formUnpaidOrders, LoadingServiceImpl loadingService) {
+    public OrdersController(OrderService orderService,
+                            FormUnpaidOrders formUnpaidOrders,
+                            LoadingServiceImpl loadingService) {
         this.orderService = orderService;
         this.formUnpaidOrders = formUnpaidOrders;
         this.loadingService = loadingService;
@@ -41,12 +44,6 @@ public class OrdersController {
         orderEntity.setUserId(id);
         orderService.save(orderEntity);
         return new ResponseEntity(HttpStatus.CREATED);
-    }
-
-    @PostMapping("/simulation")
-    public ResponseEntity simulation() {
-        orderService.simulate();
-        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/requestRoutes")

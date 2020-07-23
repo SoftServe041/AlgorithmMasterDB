@@ -1,4 +1,4 @@
-package com.cargohub.entities.transports;
+package com.cargohub.entities.enums;
 
 public enum TransporterStatus {
     ON_THE_WAY,
