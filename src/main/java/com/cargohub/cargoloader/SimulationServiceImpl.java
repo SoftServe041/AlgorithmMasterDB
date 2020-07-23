@@ -200,4 +200,8 @@ public class SimulationServiceImpl {
             findAllRoutesOnDirection(routes);
         }
     }
+
+    public void clearDatabase() {
+
+    }
 }

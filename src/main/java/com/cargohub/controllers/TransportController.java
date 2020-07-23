@@ -6,6 +6,7 @@ import com.cargohub.dto.TransporterDto;
 import com.cargohub.entities.transports.TransportDetailsEntity;
 import com.cargohub.entities.transports.TransporterEntity;
 import com.cargohub.entities.enums.TransporterType;
+import com.cargohub.scanner_log.ScannerLog;
 import com.cargohub.service.TransportDetailsService;
 import com.cargohub.service.TransporterService;
 import org.springframework.data.domain.Page;
@@ -40,6 +41,13 @@ public class TransportController {
         TransporterEntity result = service.findById(id);
         return ResponseEntity.ok(TransporterDto.toDto(result));
     }
+
+    @GetMapping("/logs")
+    public List<String[]> getLogs() {
+        List<String[]> logs = ScannerLog.getLogs();
+        return logs;
+    }
+
 
     @PostMapping
     ResponseEntity<?> createTransporter(@RequestBody TransporterDto transporterDto) {

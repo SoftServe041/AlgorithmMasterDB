@@ -96,4 +96,10 @@ public class AdminController {
         simulationService.simulate();
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/clear")
+    public ResponseEntity clearAllSimulationData() {
+        simulationService.clearDatabase();
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
