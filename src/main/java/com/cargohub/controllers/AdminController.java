@@ -28,17 +28,13 @@ public class AdminController {
 
     private final RelationService relationService;
     private final LocationService locationService;
-    private final TransporterServiceImpl transporterService;
     private final HubService hubService;
-    private final CargoRepository cargoRepository;
     private final CarrierCompartmentRepository carrierCompartmentRepository;
 
-    public AdminController(LocationService locationService, RelationService relationService, HubService hubService, TransporterServiceImpl transporterService, CargoRepository cargoRepository, CarrierCompartmentRepository carrierCompartmentRepository) {
+    public AdminController(LocationService locationService, RelationService relationService, HubService hubService, CarrierCompartmentRepository carrierCompartmentRepository) {
         this.locationService = locationService;
         this.relationService = relationService;
         this.hubService = hubService;
-        this.transporterService = transporterService;
-        this.cargoRepository = cargoRepository;
         this.carrierCompartmentRepository = carrierCompartmentRepository;
     }
 
