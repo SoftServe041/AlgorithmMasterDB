@@ -5,8 +5,6 @@ import com.cargohub.dto.TransporterDto;
 import com.cargohub.entities.transports.TransportDetailsEntity;
 import com.cargohub.entities.transports.TransporterEntity;
 import com.cargohub.entities.transports.TransporterType;
-import com.cargohub.models.OrderModel;
-import com.cargohub.order_builder.UnpaidOrder;
 import com.cargohub.scanner_log.ScannerLog;
 import com.cargohub.service.TransportDetailsService;
 import com.cargohub.service.TransporterService;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
