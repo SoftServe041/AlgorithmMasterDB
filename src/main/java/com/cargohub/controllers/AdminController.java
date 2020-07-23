@@ -12,9 +12,12 @@ import com.cargohub.repository.CarrierCompartmentRepository;
 import com.cargohub.service.HubService;
 import com.cargohub.service.impl.LocationServiceNeo4j;
 import com.cargohub.service.impl.RelationServiceNeo4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -95,7 +98,7 @@ public class AdminController {
         return ResponseEntity.ok(relationServiceNeo4j.getAllConnectedLocations(hubName));
     }
 
-    @PostMapping("/neo4j/to/mysql")
+    @GetMapping("/neo4j/to/mysql")
     public ResponseEntity importAllHubsFromNeoToMysql() {
         hubService.exportAllFromNeo();
         return new ResponseEntity(HttpStatus.OK);
@@ -107,13 +110,13 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/simulation")
+    @GetMapping("/simulation")
     public ResponseEntity simulation() {
         simulationService.simulate();
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
-//    @GetMapping("/clear")
+//    @GetMapping("/clear/db")
 //    public ResponseEntity clearAllSimulationData() {
 //        simulationService.clearDatabase();
 //        return new ResponseEntity(HttpStatus.OK);
@@ -121,6 +124,7 @@ public class AdminController {
 
     @GetMapping("/clear")
     public ResponseEntity clearLogs() {
+        simulationService.clearDatabase();
         try (PrintWriter writer = new PrintWriter("demoLog.log")) {
             writer.print("");
         } catch (FileNotFoundException e) {
