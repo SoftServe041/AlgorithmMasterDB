@@ -1,7 +1,7 @@
 package com.cargohub.service;
 
 import com.cargohub.entities.transports.TransportDetailsEntity;
-import com.cargohub.entities.transports.TransporterType;
+import com.cargohub.entities.enums.TransporterType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

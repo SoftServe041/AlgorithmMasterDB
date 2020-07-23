@@ -1,17 +1,13 @@
 package com.cargohub.entities;
 
 import com.cargohub.entities.transports.CarrierCompartmentEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @Table(name = "dimensions")
 public class DimensionsEntity {
 

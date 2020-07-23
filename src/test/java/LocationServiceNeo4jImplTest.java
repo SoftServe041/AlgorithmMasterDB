@@ -1,6 +1,6 @@
 import com.cargohub.models.Location;
 import com.cargohub.repository.LocationRepository;
-import com.cargohub.service.impl.LocationService;
+import com.cargohub.service.impl.LocationServiceNeo4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,10 +11,10 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
-public class LocationServiceImplTest {
+public class LocationServiceNeo4jImplTest {
 
     @InjectMocks
-    LocationService locationService;
+    LocationServiceNeo4j locationServiceNeo4j;
 
     @Mock
     LocationRepository locationRepository;

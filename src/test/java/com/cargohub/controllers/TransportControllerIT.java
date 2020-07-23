@@ -6,7 +6,7 @@ import com.cargohub.dto.TransportDetailsDto;
 import com.cargohub.dto.TransporterDto;
 import com.cargohub.entities.transports.TransportDetailsEntity;
 import com.cargohub.entities.transports.TransporterEntity;
-import com.cargohub.entities.transports.TransporterType;
+import com.cargohub.entities.enums.TransporterType;
 import com.cargohub.service.TransportDetailsService;
 import com.cargohub.service.TransporterService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,14 +63,13 @@ public class TransportControllerIT {
 
         transporterDto = new TransporterDto();
         transporterDto.setCompartments(compartments);
-        transporterDto.setHubName("Kharkiv");
+        transporterDto.setHubName("Berlin");
         transporterDto.setType(TransporterType.TRUCK);
 
         transportDetailsDto = new TransportDetailsDto();
         transportDetailsDto.setType(TransporterType.TRUCK);
         transportDetailsDto.setPricePerKm(999d);
         transportDetailsDto.setAverageSpeed(9379992d);
-        transportDetailsDto.setCellSize(.999);
     }
 
 

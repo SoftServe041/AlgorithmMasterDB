@@ -4,7 +4,7 @@ import com.cargohub.entities.DimensionsEntity;
 import com.cargohub.entities.HubEntity;
 import com.cargohub.entities.transports.CarrierCompartmentEntity;
 import com.cargohub.entities.transports.TransporterEntity;
-import com.cargohub.entities.transports.TransporterStatus;
+import com.cargohub.entities.enums.TransporterStatus;
 import com.cargohub.exceptions.CarrierCompartmentException;
 import com.cargohub.exceptions.HubException;
 import com.cargohub.exceptions.TransporterException;
@@ -159,5 +159,10 @@ public class TransporterServiceImpl implements TransporterService {
             return;
         }
         throw new TransporterException("Transporter not found");
+    }
+
+    @Override
+    public List<TransporterEntity> saveAll(List<TransporterEntity> transporters) {
+        return (List<TransporterEntity>) repository.saveAll(transporters);
     }
 }

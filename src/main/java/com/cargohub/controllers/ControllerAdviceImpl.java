@@ -17,7 +17,7 @@ public class ControllerAdviceImpl {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = {OrderException.class})
+    @ExceptionHandler(value = {OrderException.class, LogsClearException.class})
     public ResponseEntity<Object> handleOrderException(RuntimeException e) {
         ErrorMessage error = new ErrorMessage(new Date(), e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -32,6 +32,12 @@ public class ControllerAdviceImpl {
     @ExceptionHandler(value = {CarrierCompartmentException.class, DimensionsException.class,
             TransportDetailsException.class, TransporterException.class})
     public ResponseEntity<Object> handleTransportException(RuntimeException e) {
+        ErrorMessage error = new ErrorMessage(new Date(), e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<Object> handleTransportException(Exception e) {
         ErrorMessage error = new ErrorMessage(new Date(), e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }

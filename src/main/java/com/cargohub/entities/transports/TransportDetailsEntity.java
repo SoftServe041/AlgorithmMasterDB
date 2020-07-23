@@ -1,15 +1,13 @@
 package com.cargohub.entities.transports;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.cargohub.entities.enums.TransporterType;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = "id")
 @Table(name = "transport_details")
 public class TransportDetailsEntity {
 
